@@ -1,0 +1,80 @@
+{
+  "lowestYear": 1934,
+  "tags": [
+    {
+      "key": "kick",
+      "count": 20
+    },
+    {
+      "key": "knee",
+      "count": 17
+    },
+    {
+      "key": "object",
+      "count": 11
+    },
+    {
+      "key": "verbal",
+      "count": 10
+    },
+    {
+      "key": "squeeze",
+      "count": 10
+    },
+    {
+      "key": "hit",
+      "count": 6
+    },
+    {
+      "key": "nsfw",
+      "count": 3
+    },
+    {
+      "key": "Hit",
+      "count": 3
+    },
+    {
+      "key": "castration",
+      "count": 2
+    },
+    {
+      "key": "taser",
+      "count": 1
+    },
+    {
+      "key": "stomp",
+      "count": 1
+    },
+    {
+      "key": "relative",
+      "count": 1
+    },
+    {
+      "key": "gunshot",
+      "count": 1
+    }
+  ],
+  "decades": [
+    {
+      "1930": 1
+    },
+    {
+      "1970": 4
+    },
+    {
+      "1980": 3
+    },
+    {
+      "1990": 8
+    },
+    {
+      "2000": 20
+    },
+    {
+      "2010": 24
+    },
+    {
+      "2020": 9
+    }
+  ]
+}
