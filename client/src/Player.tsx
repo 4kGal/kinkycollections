@@ -13,9 +13,7 @@ const Player = () => {
     const getVideo = async () => {
       try {
         const res = await fetch(
-          `${
-            process.env.REACT_APP_BACKEND_URL ?? ''
-          }/api/videos/${collection}/${videoId ?? ''}/data`
+          `/api/videos/${collection}/${videoId ?? ''}/data`
         )
         const data = await res.json()
         setVideoData(data)
@@ -33,9 +31,7 @@ const Player = () => {
 {/* <iframe src="https://iframe.mediadelivery.net/embed/146332/b1693623-2d7a-48cf-9b48-9888557481a7?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" style={{border:"none",position:"absolute",top:0,height:"100%",width:"100%"}} allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowFullScreen></iframe>     </div> */}
  <video controls muted autoPlay crossOrigin="anonymous">
         <source
-          src={`${
-            process.env.REACT_APP_BACKEND_URL ?? ''
-          }/api/videos/${collection}/${videoId ?? ''}`}
+          src={`/api/videos/${collection}/${videoId ?? ''}`}
           type="video/mp4"
         ></source>
       </video>

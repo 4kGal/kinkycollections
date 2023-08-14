@@ -42,9 +42,7 @@ const Gallery = ({ collection }: { collection: string }) => {
   const getInitialSettings = async () => {
     try {
       const response = await fetch(
-        `${
-          process.env.REACT_APP_BACKEND_URL ?? ''
-        }/api/videos/${collection}/settings`
+        `/api/videos/${collection}/settings`
       )
       const data: InitialSettings = await response.json()
 

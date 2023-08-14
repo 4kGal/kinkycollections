@@ -30,9 +30,7 @@ export const useSearchWithin = () => {
     queryStr += `&sort=${sort}`
 
     const response = await fetch(
-      `${
-        process.env.REACT_APP_BACKEND_URL ?? ''
-      }/api/search/filter/${collection}?${queryStr}`
+      `/api/search/filter/${collection}?${queryStr}`
     )
     const json = await response.json()
     if (!response.ok) {
@@ -86,7 +84,7 @@ export const useSearchWithin = () => {
     }
 
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL ?? ''}/api/search${queryString}`
+      `/api/search${queryString}`
     )
     const json = await response.json()
     if (!response.ok) {

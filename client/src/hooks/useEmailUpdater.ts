@@ -15,7 +15,7 @@ export const useEmailUpdater = () => {
     setError(null)
 
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL ?? ''}/api/user/updateEmail/`,
+      `/api/user/updateEmail/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

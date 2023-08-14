@@ -53,14 +53,14 @@ app.use("/api/search", searchRoutes)
 // }
 
 app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "index.html"))
+  res.sendFile(path.join(__dirname, "static/index.html"))
 })
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../client/build/index.html"))
 // })
 
-const PORT = 4000
+const PORT = 1337
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`)
 })

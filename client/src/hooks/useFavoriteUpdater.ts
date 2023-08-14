@@ -12,7 +12,7 @@ export const useFavoriteUpdater = () => {
     setError(null)
 
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL ?? ''}/api/user/favorites/`,
+      `/api/user/favorites/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

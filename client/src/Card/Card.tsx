@@ -107,9 +107,7 @@ const Card = ({
                 >
                   <Grid>
                     <StyledCardImg
-                      src={`${
-                        process.env.REACT_APP_BACKEND_URL ?? ''
-                      }/api/videos/${apiCollection ?? ''}/${_id}/poster`}
+                      src={`/api/videos/${apiCollection ?? ''}/${_id}/poster`}
                     />
                   </Grid>
                 </Link>

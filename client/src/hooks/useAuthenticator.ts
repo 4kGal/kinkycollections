@@ -20,7 +20,7 @@ export const useAuthenticator = () => {
     setError(null)
 
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL ?? ''}/api/user/${
+      `/api/user/${
         isLogin ? 'login' : 'signup'
       }/`,
       {
@@ -49,7 +49,7 @@ export const useAuthenticator = () => {
 
   const updateUserSettings = async (username: string, underage: boolean) => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL ?? ''}/api/user/update`,
+      `/api/user/update`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
