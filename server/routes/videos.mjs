@@ -8,84 +8,8 @@ import { ObjectId } from "mongodb"
 import Thumbler from 'thumbler'
 import path from "path"
 const __dirname = path.resolve()
-//const { sortBy, groupBy, assign, spread } = pkg
 
 const router = express.Router()
-
-// router.get("/:collection", async (req, res) => {
-//   let collection = await db.collection(req.params.collection)
-//   let movies = await collection
-//     .find({})
-//     .sort({
-//       _id: -1,
-//     })
-//     .toArray()
-
-//   const tags = await collection
-//     .aggregate([
-//       { $unwind: "$tags" },
-//       { $group: { _id: "$_id", data: { $addToSet: "$tags" } } },
-//     ])
-//     .toArray()
-
-//   const allTags = tags
-//     .map((tag) => tag.data)
-//     .flat()
-//     .filter(
-//       (tag) =>
-//         tag !== "mainstream" && tag !== "amateur" && tag !== "ballbusting"
-//     )
-
-//   const tagOccurences = allTags.reduce(function (acc, curr) {
-//     return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc
-//   }, {})
-
-//   const tagObjArray = Object.keys(tagOccurences).map((key) => ({
-//     key,
-//     count: tagOccurences[key],
-//   }))
-
-//   const sortedTags = sortBy(tagObjArray, ["count", "key"]).reverse()
-
-//   const ranking = await db
-//     .collection("users")
-//     .find({}, { _id: 0, favorites: 1 })
-//     .toArray()
-
-//   const counts = {}
-//   const rankArray = ranking.map((rank) => rank.favorites).flat()
-//   rankArray.forEach(function (x) {
-//     counts[x] = (counts[x] || 0) + 1
-//   })
-
-//   const keys = Object.keys(counts)
-
-//   const moviesWithCreationAndLikes = movies.map((movie) => {
-//     if (keys.includes(movie._id.toString())) {
-//       return {
-//         ...movie,
-//         addedDate: movie._id.getTimestamp(),
-//         likes: counts[movie._id],
-//       }
-//     } else {
-//       return { ...movie, addedDate: movie._id.getTimestamp(), likes: 0 }
-//     }
-//   })
-
-//   moviesWithCreationAndLikes.sort(function (a, b) {
-//     const x = b.addedDate
-//     const y = a.addedDate
-//     return x < y ? -1 : x < y ? 1 : 0
-//   })
-
-//   // console.log(videos)
-//   // console.log(sortedTags)
-//   res.status(200).json({
-//     movies: moviesWithCreationAndLikes,
-//     tags: sortedTags,
-//   })
-//   // res.send(results).status(200)
-// })
 
 router.get("/:collection/settings", async (req, res) => {
   const collection = await db.collection(req.params.collection)

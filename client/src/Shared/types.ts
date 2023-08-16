@@ -9,4 +9,5 @@ export interface MetaData {
   collection?: string
   actresses?: string[]
   addedDate: string
+  thumbnailURL?: string
 }

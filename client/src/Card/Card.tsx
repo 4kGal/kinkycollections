@@ -71,7 +71,7 @@ const Card = ({
   return (
     <Grid container alignItems="center" justifyContent="center">
       {videos?.map((video, index) => {
-        const { name, _id, addedDate, likes, customName, actresses } = video
+        const { name, _id, addedDate, likes, customName, actresses, thumbnailURL } = video
         const tags = (video.tags ?? []).filter(
           (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
         )
@@ -107,7 +107,7 @@ const Card = ({
                 >
                   <Grid>
                     <StyledCardImg
-                      src={`/api/videos/${apiCollection ?? ''}/${_id}/poster`}
+                      src={`${thumbnailURL}`}
                     />
                   </Grid>
                 </Link>

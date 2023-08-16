@@ -1,3 +1,4 @@
+import { Grid } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 
@@ -26,17 +27,18 @@ const Player = () => {
   }, [])
 
   return (
-    <div className="App-header">
-      {/* <div style={{position:"relative", paddingTop:"56.25%"}}> */}
-{/* <iframe src="https://iframe.mediadelivery.net/embed/146332/b1693623-2d7a-48cf-9b48-9888557481a7?autoplay=true&loop=false&muted=false&preload=true" loading="lazy" style={{border:"none",position:"absolute",top:0,height:"100%",width:"100%"}} allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowFullScreen></iframe>     </div> */}
- <video controls muted autoPlay crossOrigin="anonymous">
-        <source
-          src={`/api/videos/${collection}/${videoId ?? ''}`}
-          type="video/mp4"
-        ></source>
-      </video>
+    <Grid container style={{ width:"100%", height:"100%"}} justifyContent="center">
+      <Grid item xs={12} style={{position:"relative", paddingTop:"56.25%"}}>
+        <iframe 
+          src="https://iframe.mediadelivery.net/play/146332/c320a30d-b9c8-4741-8dd6-87b320107df2?autoplay=true&loop=false&muted=false&preload=true" 
+          loading="lazy" 
+          style={{border:"none",position:"absolute",top:0, paddingLeft: "10%"}}
+          allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" 
+          allowFullScreen
+          height="75%" width="75%"></iframe>
+        </Grid>
       <h5>{videoData.name}</h5>
-    </div>
+    </Grid>
   )
 }
 

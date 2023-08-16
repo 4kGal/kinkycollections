@@ -75,6 +75,7 @@ const Gallery = ({ collection }: { collection: string }) => {
         sortBy
       )
 
+      console.log(filtered.movies)
       setDisplayedVideos(filtered.movies)
     }
     getFilteredVideos()

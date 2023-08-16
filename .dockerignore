@@ -27,3 +27,4 @@ Dockerfile.dev
 Dockerfile.prod
 Makefile
 README.md
+scripts
