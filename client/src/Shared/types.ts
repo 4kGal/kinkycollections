@@ -1,13 +1,16 @@
 export interface MetaData {
   _id: string
-  folder: string
-  tags?: string[]
+  tags: string[]
   name: string
   year?: number
   customName?: string
   likes?: number
-  collection?: string
+  collection: string
   actresses?: string[]
   addedDate: string
-  thumbnailURL?: string
+  dateUploaded: string
+  title: string
+  underage: boolean
+  videoId: string
+  views: number
 }

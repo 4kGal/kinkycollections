@@ -1,21 +1,34 @@
-import { Grid } from '@mui/material'
+import { Typography } from '@mui/material'
+import { styled } from '@mui/system'
 import React, { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 
+const StyledDivContainer = styled('div')({
+  position: 'relative',
+  paddingTop: '56.25%',
+  width: '100%',
+  height: '100%'
+})
+const StyledIframe = styled('iframe')({
+  border: 'none',
+  position: 'absolute',
+  paddingLeft: '10%',
+  top: 0,
+  height: '75%',
+  width: '75%'
+})
 const Player = () => {
   const params = useParams()
-  const videoId = params.id
+  const _id = params.id
   const { collection = '' } = params
-  if (videoId?.length === 0) return <Navigate to="/" />
+  if (_id?.length === 0) return <Navigate to="/" />
 
-  const [videoData, setVideoData] = useState({ name: '' })
+  const [videoData, setVideoData] = useState({ name: '', videoId: '' })
 
   useEffect(() => {
     const getVideo = async () => {
       try {
-        const res = await fetch(
-          `/api/videos/${collection}/${videoId ?? ''}/data`
-        )
+        const res = await fetch(`/api/videos/${collection}/${_id}/data`)
         const data = await res.json()
         setVideoData(data)
       } catch (error) {
@@ -27,18 +40,18 @@ const Player = () => {
   }, [])
 
   return (
-    <Grid container style={{ width:"100%", height:"100%"}} justifyContent="center">
-      <Grid item xs={12} style={{position:"relative", paddingTop:"56.25%"}}>
-        <iframe 
-          src="https://iframe.mediadelivery.net/play/146332/c320a30d-b9c8-4741-8dd6-87b320107df2?autoplay=true&loop=false&muted=false&preload=true" 
-          loading="lazy" 
-          style={{border:"none",position:"absolute",top:0, paddingLeft: "10%"}}
-          allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" 
-          allowFullScreen
-          height="75%" width="75%"></iframe>
-        </Grid>
-      <h5>{videoData.name}</h5>
-    </Grid>
+    <StyledDivContainer>
+      <Typography mt={'-12%'} variant="h5" align="center" color="white">
+        {videoData.name}
+      </Typography>
+      <StyledIframe
+        src={`https://iframe.mediadelivery.net/embed/147442/${videoData.videoId}?autoplay=true&loop=false&muted=false&preload=true`}
+        loading="lazy"
+        title={videoData.name}
+        allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;"
+        allowFullScreen
+      />
+    </StyledDivContainer>
   )
 }
 

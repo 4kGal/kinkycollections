@@ -41,9 +41,7 @@ const Gallery = ({ collection }: { collection: string }) => {
 
   const getInitialSettings = async () => {
     try {
-      const response = await fetch(
-        `/api/videos/${collection}/settings`
-      )
+      const response = await fetch(`/api/videos/${collection}/settings`)
       const data: InitialSettings = await response.json()
 
       dispatch({ type: AVAILABLE_DECADES, payload: data?.decades })
@@ -75,7 +73,6 @@ const Gallery = ({ collection }: { collection: string }) => {
         sortBy
       )
 
-      console.log(filtered.movies)
       setDisplayedVideos(filtered.movies)
     }
     getFilteredVideos()

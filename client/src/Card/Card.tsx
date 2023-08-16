@@ -56,12 +56,7 @@ const StyledCardContent = styled(Grid)({
   }
 })
 
-const Card = ({
-  videos,
-  collection,
-  setSelectedTags,
-  setCustomTags
-}: Video) => {
+const Card = ({ videos, setSelectedTags, setCustomTags }: Video) => {
   const { user } = useAuthContext()
   const { updateFavorite } = useFavoriteUpdater()
 
@@ -71,7 +66,8 @@ const Card = ({
   return (
     <Grid container alignItems="center" justifyContent="center">
       {videos?.map((video, index) => {
-        const { name, _id, addedDate, likes, customName, actresses, thumbnailURL } = video
+        const { name, _id, addedDate, likes, customName, actresses, videoId } =
+          video
         const tags = (video.tags ?? []).filter(
           (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
         )
@@ -83,8 +79,7 @@ const Card = ({
           user?.favorites?.find((id: string) => id === video._id)
         )
 
-        const apiCollection =
-          video?.collection != null ? video.collection : collection
+        const apiCollection = video.collection
 
         const isNew = new Date(addedDate) >= tenDaysAgo
         return (
@@ -100,30 +95,32 @@ const Card = ({
             >
               <StyledGrid container>
                 <Link
-                  to={`/player/${apiCollection ?? ''}/${_id}`}
+                  to={`/player/${apiCollection}/${_id}`}
                   style={{
                     width: '100%'
                   }}
                 >
                   <Grid>
                     <StyledCardImg
-                      src={`${thumbnailURL}`}
+                      src={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/thumbnail.jpg?v=1692248025$`}
                     />
                   </Grid>
                 </Link>
                 <StyledCardContent key={video?._id}>
                   <Typography>
-                    {(customName ?? '').length > 0 ? customName : name}
+                    {(customName ?? '').length > 0
+                      ? customName
+                      : name.replace('.mp4', '')}
                   </Typography>
                 </StyledCardContent>
                 <Grid
                   container
                   alignContent="end"
                   alignItems="center"
-                  justifyContent="space-between"
+                  justifyContent="space-evenly"
                   flexWrap="nowrap"
                 >
-                  <Grid item xs={11}>
+                  <Grid item xs={8}>
                     {typeof setSelectedTags !== 'undefined' &&
                       tags?.map((tag, i) => (
                         <Button
@@ -149,7 +146,6 @@ const Card = ({
                         </Button>
                       ))}
                   </Grid>
-
                   <Grid item xs pr={1}>
                     <IconButton
                       onClick={handleFavorite}
