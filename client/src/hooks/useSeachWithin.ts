@@ -29,9 +29,7 @@ export const useSearchWithin = () => {
     })
     queryStr += `&sort=${sort}`
 
-    const response = await fetch(
-      `/api/search/filter/${collection}?${queryStr}`
-    )
+    const response = await fetch(`/api/search/filter/${collection}?${queryStr}`)
     const json = await response.json()
     if (!response.ok) {
       setIsLoading(false)
@@ -77,15 +75,14 @@ export const useSearchWithin = () => {
   const search = async (searchTerm: string, collection: string) => {
     setIsLoading(true)
     setError(null)
+    console.log(collection)
 
     let queryString = `?text=${searchTerm}`
     if (collection.length > 0) {
       queryString += `&collection=${collection}`
     }
 
-    const response = await fetch(
-      `/api/search${queryString}`
-    )
+    const response = await fetch(`/api/search${queryString}`)
     const json = await response.json()
     if (!response.ok) {
       setIsLoading(false)

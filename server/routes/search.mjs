@@ -1,73 +1,73 @@
-import express from "express"
-import db from "../db/conn.mjs"
-import { ObjectId } from "mongodb"
-import pkg from "lodash"
-import querystring from "querystring"
-const { sortBy, get, split } = pkg
+import express from "express";
+import db from "../db/conn.mjs";
+import { ObjectId } from "mongodb";
+import pkg from "lodash";
+import querystring from "querystring";
+const { sortBy, get, split } = pkg;
 
-const router = express.Router()
+const router = express.Router();
 
 router.get("/", async (req, res, next) => {
-  const { text, collection } = req.query
+  const { text, collection } = req.query;
 
-  let movies = []
+  let movies = [];
   try {
     if (collection) {
       movies = await db
         .collection(collection)
         .find({ $text: { $search: text } })
-        .toArray()
+        .toArray();
     } else {
-      const listOfCollInfos = await db.listCollections().toArray()
+      const listOfCollInfos = await db.listCollections().toArray();
 
       const allCollections = listOfCollInfos
         .map((coll) => coll.name)
-        .filter((coll) => coll !== "users")
+        .filter((coll) => coll !== "users");
 
-      const tempArary = []
+      const tempArary = [];
       for (var i in allCollections) {
         const result = await db
           .collection(allCollections[i])
           .find({ $text: { $search: text } })
-          .toArray()
+          .toArray();
 
         tempArary.push(
           result?.map((movie) => ({ ...movie, collection: allCollections[i] }))
-        )
+        );
       }
-      movies = tempArary.flat()
+      movies = tempArary.flat();
     }
-    res.status(200).json(movies)
+    res.status(200).json(movies);
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-})
+});
 
 router.get("/filter/:collection", async (req, res) => {
-  const collection = await db.collection(req.params.collection)
+  const collection = await db.collection(req.params.collection);
 
-  const sort = get(req.query, "sort", "recent")
-  const typeOfBusts = get(req.query, "tags", [])
-  const decadesParam = get(req.query, "decades", [])
-  const eitherOr = get(req.query, "eitherOr", "or")
-  const underage = Boolean(req.query.underage)
-  const actresses = get(req.query, "actresses", [])
-  const multipleActresses = get(req.query, "multipleActresses", false)
+  const sort = get(req.query, "sort", "recent");
+  const typeOfBusts = get(req.query, "tags", []);
+  const decadesParam = get(req.query, "decades", []);
+  const eitherOr = get(req.query, "eitherOr", "or");
+  const underage = Boolean(req.query.underage);
+  const actresses = get(req.query, "actresses", []);
+  const multipleActresses = get(req.query, "multipleActresses", false);
 
-  let movies = []
-  let tags = []
+  let movies = [];
+  let tags = [];
 
-  let sortParam = { _id: -1 }
+  let sortParam = { _id: -1 };
   if (sort === "oldest") {
-    sortParam = { _id: 1 }
+    sortParam = { _id: 1 };
     // } else if (sort === "ascending") {
     //   sortParam = {}
     // } else if (sort === "descending") {
     //   sortParam = {}
   } else if (sort === "yearAsc") {
-    sortParam = { year: -1 }
+    sortParam = { year: -1 };
   } else if (sort === "yearDesc") {
-    sortParam = { year: 1 }
+    sortParam = { year: 1 };
   }
 
   // No Filtering, Return all movies
@@ -81,19 +81,19 @@ router.get("/filter/:collection", async (req, res) => {
       // .find(underage ? {} : { underage })
       .find({})
       .sort(sortParam)
-      .toArray()
+      .toArray();
 
-      tags = movies.map(({ tags }) => tags)
+    tags = movies.map(({ tags }) => tags);
   } else {
-    const decadesArray = split(decadesParam, ",")
+    const decadesArray = split(decadesParam, ",");
 
     const decades = decadesArray.map((yr) => ({
       year: { $gte: parseInt(yr), $lt: parseInt(yr) + 9 },
-    }))
+    }));
 
     const tagsFilter = split(typeOfBusts, ",").map((tag) => {
-      return { tags: tag }
-    })
+      return { tags: tag };
+    });
 
     const tagQuery =
       eitherOr === "and"
@@ -102,12 +102,12 @@ router.get("/filter/:collection", async (req, res) => {
               $setIsSubset: [tagsFilter.map(({ tags }) => tags), "$tags"],
             },
           }
-        : { $or: tagsFilter }
+        : { $or: tagsFilter };
 
-    const actressesArray = split(actresses, ",")
+    const actressesArray = split(actresses, ",");
     const actressesFilter = actressesArray.map((actress) => {
-      return { actresses: actress }
-    })
+      return { actresses: actress };
+    });
 
     const actressQuery =
       eitherOr === "and"
@@ -119,9 +119,9 @@ router.get("/filter/:collection", async (req, res) => {
               ],
             },
           }
-        : { $or: actressesFilter }
+        : { $or: actressesFilter };
 
-    const multiple = { "actresses.1": { $exists: true } }
+    const multiple = { "actresses.1": { $exists: true } };
 
     // db.mainstreambb.find({
     //   $and: [
@@ -157,9 +157,9 @@ router.get("/filter/:collection", async (req, res) => {
         ...(multipleActresses ? [multiple] : []),
         ...(!underage ? [{ underage }] : []),
       ],
-    }
+    };
 
-    movies = await collection.find(query).sort(sortParam).toArray()
+    movies = await collection.find(query).sort(sortParam).toArray();
 
     const q = [
       { $unwind: "$tags" },
@@ -191,12 +191,12 @@ router.get("/filter/:collection", async (req, res) => {
           data: { $addToSet: "$tags" },
         },
       },
-    ]
+    ];
 
-    const allTags = await collection.aggregate(q).toArray()
+    const allTags = await collection.aggregate(q).toArray();
     tags = allTags.map((movie) => {
-      return movie.data
-    })
+      return movie.data;
+    });
   }
 
   const tagOccurences = tags
@@ -206,28 +206,28 @@ router.get("/filter/:collection", async (req, res) => {
         tag !== "amateur" && tag !== "mainstream" && tag !== "ballbusting"
     )
     .reduce(function (acc, curr) {
-      return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc
-    }, {})
+      return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
+    }, {});
 
   const tagObjArray = Object.keys(tagOccurences).map((key) => ({
     key,
     count: tagOccurences[key],
-  }))
+  }));
 
-  const sortedTags = sortBy(tagObjArray, ["count", "key"]).reverse()
+  const sortedTags = sortBy(tagObjArray, ["count", "key"]).reverse();
 
   const ranking = await db
     .collection("users")
     .find({}, { _id: 0, favorites: 1 })
-    .toArray()
+    .toArray();
 
-  const counts = {}
-  const rankArray = ranking.map((rank) => rank.favorites).flat()
+  const counts = {};
+  const rankArray = ranking.map((rank) => rank.favorites).flat();
   rankArray.forEach(function (x) {
-    counts[x] = (counts[x] || 0) + 1
-  })
+    counts[x] = (counts[x] || 0) + 1;
+  });
 
-  const keys = Object.keys(counts)
+  const keys = Object.keys(counts);
 
   const moviesWithCreationAndLikes = movies.map((movie) => {
     if (keys.includes(movie._id.toString())) {
@@ -235,11 +235,11 @@ router.get("/filter/:collection", async (req, res) => {
         ...movie,
         addedDate: movie._id.getTimestamp(),
         likes: counts[movie._id],
-      }
+      };
     } else {
-      return { ...movie, addedDate: movie._id.getTimestamp(), likes: 0 }
+      return { ...movie, addedDate: movie._id.getTimestamp(), likes: 0 };
     }
-  })
+  });
 
   // moviesWithCreationAndLikes.sort(function (a, b) {
   //   const x = b.addedDate
@@ -249,15 +249,15 @@ router.get("/filter/:collection", async (req, res) => {
 
   if (sort === "likes") {
     moviesWithCreationAndLikes.sort(function (a, b) {
-      const x = b.likes
-      const y = a.likes
-      return x < y ? -1 : x < y ? 1 : 0
-    })
+      const x = b.likes;
+      const y = a.likes;
+      return x < y ? -1 : x < y ? 1 : 0;
+    });
   }
 
   return res.status(200).json({
     movies: moviesWithCreationAndLikes,
     tags: sortedTags,
-  })
-})
-export default router
+  });
+});
+export default router;
