@@ -12,7 +12,6 @@ const __dirname = path.resolve();
 const router = express.Router();
 
 router.get("/:collection/settings", async (req, res) => {
-  console.log("in");
   const collection = await db.collection(req.params.collection);
 
   const minYear = await collection
