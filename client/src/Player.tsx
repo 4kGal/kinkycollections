@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import React, { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
+import { config } from './utils/constants'
 
 const StyledDivContainer = styled('div')({
   position: 'relative',
@@ -28,7 +29,9 @@ const Player = () => {
   useEffect(() => {
     const getVideo = async () => {
       try {
-        const res = await fetch(`/api/videos/${collection}/${_id}/data`)
+        const res = await fetch(
+          `${config.url.API_URL}/api/videos/${collection}/${_id}/data`
+        )
         const data = await res.json()
         setVideoData(data)
       } catch (error) {

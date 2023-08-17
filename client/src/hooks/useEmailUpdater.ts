@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from 'react-router-dom'
-import { LOGIN } from '../utils/constants'
+import { LOGIN, config } from '../utils/constants'
 
 export const useEmailUpdater = () => {
   const navigate = useNavigate()
@@ -15,7 +15,7 @@ export const useEmailUpdater = () => {
     setError(null)
 
     const response = await fetch(
-      `/api/user/updateEmail/`,
+      `${config.url.API_URL}/api/user/updateEmail/`,
       {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

@@ -15,3 +15,15 @@ export const HIDE_UNDERAGE = 'HIDE_UNDERAGE'
 export const SORT_BY = 'SORT_BY'
 export const SELECTED_ACTRESSES = 'SELECTED_ACTRESSES'
 export const LOGIN = 'LOGIN'
+
+const prod = {
+  url: {
+    API_URL: 'https://kinkycollections.net:443'
+  }
+}
+const dev = {
+  url: {
+    API_URL: 'http://localhost:1337'
+  }
+}
+export const config = process.env.NODE_ENV === 'development' ? dev : prod

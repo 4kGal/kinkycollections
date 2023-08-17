@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from 'react-router-dom'
-import { LOGIN } from '../utils/constants'
+import { LOGIN, config } from '../utils/constants'
 
 export const useAuthenticator = () => {
   const navigate = useNavigate()
@@ -20,9 +20,7 @@ export const useAuthenticator = () => {
     setError(null)
 
     const response = await fetch(
-      `/api/user/${
-        isLogin ? 'login' : 'signup'
-      }/`,
+      `${config.url.API_URL}/api/user/${isLogin ? 'login' : 'signup'}/`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -48,17 +46,14 @@ export const useAuthenticator = () => {
   }
 
   const updateUserSettings = async (username: string, underage: boolean) => {
-    const response = await fetch(
-      `/api/user/update`,
-      {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username,
-          underage
-        })
-      }
-    )
+    const response = await fetch(`${config.url.API_URL}/api/user/update`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username,
+        underage
+      })
+    })
     const json = await response.json()
     if (!response.ok) {
       setError(json.error)

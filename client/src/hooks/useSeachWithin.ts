@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from 'react-router-dom'
-import { AVAILABLE_TAGS, SEARCH_RESULTS } from '../utils/constants'
+import { AVAILABLE_TAGS, SEARCH_RESULTS, config } from '../utils/constants'
 
 type SearchParams = Record<string, string | Array<string | undefined>>
 
@@ -29,7 +29,9 @@ export const useSearchWithin = () => {
     })
     queryStr += `&sort=${sort}`
 
-    const response = await fetch(`/api/search/filter/${collection}?${queryStr}`)
+    const response = await fetch(
+      `${config.url.API_URL}/api/search/filter/${collection}?${queryStr}`
+    )
     const json = await response.json()
     if (!response.ok) {
       setIsLoading(false)
@@ -82,7 +84,9 @@ export const useSearchWithin = () => {
       queryString += `&collection=${collection}`
     }
 
-    const response = await fetch(`/api/search${queryString}`)
+    const response = await fetch(
+      `${config.url.API_URL}/api/search${queryString}`
+    )
     const json = await response.json()
     if (!response.ok) {
       setIsLoading(false)
