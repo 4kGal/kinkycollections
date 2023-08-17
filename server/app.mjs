@@ -13,6 +13,8 @@ app.use(express.static(__dirname)); //here is important thing - no static direct
 
 app.use(express.static("./assets/collection"));
 
+app.use(express.static("static"));
+
 app.use(
   cors({
     origin: [
