@@ -452,7 +452,7 @@ const Header = () => {
                 <Divider />
               </>
             )}
-            <ListItem>
+            {onSearchablePage && <ListItem>
               <ListItemText>
                 <Typography variant="body1" display="inline">
                   Display Underage
@@ -464,7 +464,7 @@ const Header = () => {
                   checked={hideUnderage}
                 />
               </ListItemText>
-            </ListItem>
+            </ListItem>}
             {!isEmpty(user) && (
               <>
                 {(user.email === undefined || user.email === null) && (

@@ -8,7 +8,7 @@ deploy:
 	cd client && npm install && npm run build
 	ssh ${SSH_STRING} -f 'cd kinkycollections/client && rm -r build && cd ../server && rm -r static' 
 	cd client && scp -r build/ ${SSH_STRING}:/root/kinkycollections/client/build && scp -r build/ ${SSH_STRING}:/root/kinkycollections/server/static
-
+	ssh ${SSH_STRING} -f 'cd kinkycollections/server && pm2 kill && pm2 start app.mjs'
 send-build:
 	 cd client && npm run build
 	 scp -r build/ root@167.71.162.23:/root/kinkycollections/server/static
