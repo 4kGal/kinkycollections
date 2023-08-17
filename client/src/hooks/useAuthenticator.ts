@@ -12,11 +12,11 @@ export const useAuthenticator = () => {
   const { dispatch, user } = useAuthContext()
 
   const isAdmin = () => {
-    if (user?.roles?.length > 0) {
-      const { Role }: { Role: string } = jwtDecode(user.roles)
+    if (user?.userRoles?.length > 0) {
+      const { Role }: { Role: string } = jwtDecode(user.userRoles)
 
       return (
-        Role === 'Admin' && user.roles === process.env.REACT_APP_ADMIN_TOKEN
+        Role === 'Admin' && user.userRoles === process.env.REACT_APP_ADMIN_TOKEN
       )
     }
     return false

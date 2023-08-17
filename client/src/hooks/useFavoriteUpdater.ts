@@ -25,6 +25,7 @@ export const useFavoriteUpdater = () => {
       setError(json.error)
     }
     if (response.ok) {
+      console.log(json)
       localStorage.setItem('user', JSON.stringify(json))
 
       dispatch({ type: UPDATE_FAVORITE, payload: json })
