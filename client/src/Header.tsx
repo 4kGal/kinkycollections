@@ -34,7 +34,7 @@ import { debounce, isEmpty } from 'lodash'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
-import ClickAwayListener from '@mui/base/ClickAwayListener'
+import { ClickAwayListener } from '@mui/base/ClickAwayListener'
 import {
   FILTER_DECADES,
   SELECTED_ACTRESSES,
