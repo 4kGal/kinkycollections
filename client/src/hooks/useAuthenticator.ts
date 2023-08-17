@@ -2,14 +2,25 @@ import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from 'react-router-dom'
 import { LOGIN } from '../utils/constants'
+import jwtDecode from 'jwt-decode'
 
 export const useAuthenticator = () => {
   const navigate = useNavigate()
 
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { dispatch } = useAuthContext()
+  const { dispatch, user } = useAuthContext()
 
+  const isAdmin = () => {
+    if (user?.roles?.length > 0) {
+      const { Role }: { Role: string } = jwtDecode(user.roles)
+
+      return (
+        Role === 'Admin' && user.roles === process.env.REACT_APP_ADMIN_TOKEN
+      )
+    }
+    return false
+  }
   const authenticate = async (
     isLogin: boolean,
     email: string,
@@ -29,6 +40,7 @@ export const useAuthenticator = () => {
       })
     })
     const json = await response.json()
+
     if (!response.ok) {
       setIsLoading(false)
       setError(json.error)
@@ -60,5 +72,5 @@ export const useAuthenticator = () => {
     }
   }
 
-  return { authenticate, updateUserSettings, isLoading, error }
+  return { authenticate, updateUserSettings, isAdmin, isLoading, error }
 }

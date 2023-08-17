@@ -40,6 +40,7 @@ router.post("/login", async (req, res) => {
       email: user.email,
       token,
       favorites: user?.favorites,
+      roles: user?.userRoles,
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -73,7 +74,12 @@ router.post("/signup", async (req, res) => {
     });
 
     const token = createToken(user._id);
-    res.status(200).json({ username: user.username, token, email: user.email });
+    res.status(200).json({
+      username: user.username,
+      token,
+      email: user.email,
+      roles: user?.userRoles.Role,
+    });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ error: error.message });
@@ -98,7 +104,12 @@ router.put("/updateEmail", async (req, res) => {
 
     const token = createToken(user._id);
 
-    res.status(200).json({ username: user.username, email: user.email, token });
+    res.status(200).json({
+      username: user.username,
+      email: user.email,
+      token,
+      roles: user?.userRoles.Role,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -213,6 +224,7 @@ router.put("/favorites", async (req, res) => {
   //   param
   // ).sort({ createdAd: -1 })
 
+  console.log(value);
   res.status(200).json(value);
 });
 

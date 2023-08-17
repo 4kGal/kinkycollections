@@ -152,7 +152,7 @@ const Header = () => {
   const { search } = useSearchWithin()
   const { logout } = useLogout()
   const authContext = useAuthContext()
-  const { updateUserSettings } = useAuthenticator()
+  const { updateUserSettings, isAdmin } = useAuthenticator()
 
   const {
     user,
@@ -178,7 +178,9 @@ const Header = () => {
   const [hideUnderage, setHideUnderage] = useState(init != null && !init)
   // ascending = smallest or first or earliest
   const [ascending, setAscending] = useState(true)
+  const isAdminUser = isAdmin()
 
+  console.log(isAdminUser)
   const menuOpen = Boolean(anchorEl)
 
   const navigate = useNavigate()
@@ -452,21 +454,19 @@ const Header = () => {
                 <Divider />
               </>
             )}
-            {onSearchablePage && (
-              <ListItem>
-                <ListItemText>
-                  <Typography variant="body1" display="inline">
-                    Display Underage
-                  </Typography>
-                  <SwitchComponent
-                    left="Yes"
-                    right="18+ Only"
-                    call={setHideUnderage}
-                    checked={hideUnderage}
-                  />
-                </ListItemText>
-              </ListItem>
-            )}
+            <ListItem>
+              <ListItemText>
+                <Typography variant="body1" display="inline">
+                  Display Underage
+                </Typography>
+                <SwitchComponent
+                  left="Yes"
+                  right="18+ Only"
+                  call={setHideUnderage}
+                  checked={hideUnderage}
+                />
+              </ListItemText>
+            </ListItem>
             {!isEmpty(user) && (
               <>
                 {(user.email === undefined || user.email === null) && (

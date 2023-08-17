@@ -117,10 +117,10 @@ const Card = ({ videos, setSelectedTags, setCustomTags }: Video) => {
                   container
                   alignContent="end"
                   alignItems="center"
-                  justifyContent="space-evenly"
+                  justifyContent="space-between"
                   flexWrap="nowrap"
                 >
-                  <Grid item xs={8}>
+                  <Grid item xs={11}>
                     {typeof setSelectedTags !== 'undefined' &&
                       tags?.map((tag, i) => (
                         <Button
