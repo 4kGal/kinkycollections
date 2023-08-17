@@ -469,7 +469,7 @@ const Header = () => {
             )}
             {!isEmpty(user) && (
               <>
-                {user.email === undefined && (
+                {(user.email === undefined || user.email === null) && (
                   <ListItem>
                     <ListItemButton
                       onClick={updateEmail}
