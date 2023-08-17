@@ -72,5 +72,40 @@ export const useAuthenticator = () => {
     }
   }
 
-  return { authenticate, updateUserSettings, isAdmin, isLoading, error }
+  const updateVideoAdmin = async (
+    collection: string,
+    key: string,
+    value: unknown,
+    _id: string
+  ) => {
+    if (!isAdmin()) {
+      return
+    }
+    const response = await fetch(`/api/videos/${collection}/${_id}/update`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        key,
+        value,
+        userRole: user.userRoles
+      })
+    })
+    const json = await response.json()
+
+    if (!response.ok) {
+      setError(json.error)
+    }
+    if (response.ok) {
+      window.location.reload()
+    }
+  }
+
+  return {
+    authenticate,
+    updateUserSettings,
+    isAdmin,
+    updateVideoAdmin,
+    isLoading,
+    error
+  }
 }

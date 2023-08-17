@@ -124,7 +124,7 @@ const Gallery = ({ collection }: { collection: string }) => {
   }
 
   return (
-    <Grid container>
+    <Grid container alignItems="center" justifyContent="center">
       <FilterVideoButtons
         availableTags={availableTags}
         setSelectedTags={setSelectedTags}
@@ -134,15 +134,17 @@ const Gallery = ({ collection }: { collection: string }) => {
         selectedCustomTags={selectedActresses}
         handleSelectedCustomTags={handleActressSelection}
       />
-      <Card
-        collection={collection}
-        videos={displayedVideos?.slice(
-          page * moviesPerPage,
-          page * moviesPerPage + moviesPerPage
-        )}
-        setSelectedTags={handleTagSelection}
-        setCustomTags={handleActressSelection}
-      />
+      {displayedVideos
+        ?.slice(page * moviesPerPage, page * moviesPerPage + moviesPerPage)
+        .map((video, index) => (
+          <Card
+            key={index}
+            collection={collection}
+            video={video}
+            setSelectedTags={handleTagSelection}
+            setCustomTags={handleActressSelection}
+          />
+        ))}
       <PageNavigation
         page={page}
         setPage={setPage}

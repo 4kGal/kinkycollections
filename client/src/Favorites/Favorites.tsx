@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 import Card from '../Card/Card'
 import { type MetaData } from '../Shared/types'
+import { Grid } from '@mui/material'
 
 const Favorites = () => {
   const { user }: { user: { username: string } } = useAuthContext()
@@ -21,6 +22,12 @@ const Favorites = () => {
     getInitialVideos()
   }, [user])
 
-  return <Card videos={favorites} />
+  return (
+    <Grid container alignItems="center" justifyContent="center">
+      {favorites?.map((video, i) => (
+        <Card key={i} video={video} />
+      ))}
+    </Grid>
+  )
 }
 export default Favorites

@@ -152,7 +152,7 @@ const Header = () => {
   const { search } = useSearchWithin()
   const { logout } = useLogout()
   const authContext = useAuthContext()
-  const { updateUserSettings, isAdmin } = useAuthenticator()
+  const { updateUserSettings } = useAuthenticator()
 
   const {
     user,
@@ -178,9 +178,7 @@ const Header = () => {
   const [hideUnderage, setHideUnderage] = useState(init != null && !init)
   // ascending = smallest or first or earliest
   const [ascending, setAscending] = useState(true)
-  const isAdminUser = isAdmin()
 
-  console.log(isAdminUser)
   const menuOpen = Boolean(anchorEl)
 
   const navigate = useNavigate()

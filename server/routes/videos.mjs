@@ -193,5 +193,26 @@ router.get("/:collection/:id/data", async (req, res) => {
   res.status(200).json({ name, videoId });
 });
 
+router.put("/:collection/:id/update", async (req, res) => {
+  const { id } = req.params;
+  const { key, value: newValue } = req.body;
+  const collection = await db.collection(req.params.collection);
+
+  console.log(
+    `from collection ${req.params.collection}: updating ${key} to ${newValue}`
+  );
+  let update = { $set: {} };
+  update.$set[key] = newValue;
+  const { value } = await collection.findOneAndUpdate(
+    {
+      _id: new ObjectId(id),
+    },
+    update,
+    { returnOriginal: false, returnDocument: "after" }
+  );
+  console.log("updated:", value);
+  res.status(200).json(value);
+});
+
 // module.exports = router
 export default router;

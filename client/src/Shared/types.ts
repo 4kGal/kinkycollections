@@ -1,4 +1,9 @@
-export interface MetaData {
+type MetaDataKeys = Record<
+  string,
+  string | number | string[] | boolean | undefined
+>
+
+export interface MetaData extends MetaDataKeys {
   _id: string
   tags: string[]
   name: string

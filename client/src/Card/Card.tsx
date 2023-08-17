@@ -1,5 +1,17 @@
-import React from 'react'
-import { Grid, Typography, Button, IconButton, Badge } from '@mui/material'
+import React, { useState } from 'react'
+import {
+  Grid,
+  Typography,
+  Button,
+  IconButton,
+  Badge,
+  Popover,
+  TextField,
+  Stack,
+  Select,
+  MenuItem,
+  type SelectChangeEvent
+} from '@mui/material'
 import { styled } from '@mui/system'
 import { Link } from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
@@ -7,10 +19,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useFavoriteUpdater } from '../hooks/useFavoriteUpdater'
 import { type MetaData } from '../Shared/types'
+import { useAuthenticator } from '../hooks/useAuthenticator'
 
 interface Video {
   collection?: string
-  videos: MetaData[]
+  video: MetaData
   setCustomTags?: (tag: string) => void
   setSelectedTags?: (tag: string) => void
 }
@@ -56,112 +69,186 @@ const StyledCardContent = styled(Grid)({
   }
 })
 
-const Card = ({ videos, setSelectedTags, setCustomTags }: Video) => {
+const KEYS = [
+  'tags',
+  'name',
+  'actresses',
+  'year',
+  'title',
+  'collection',
+  'videoId',
+  'dateUploaded',
+  'underage',
+  'customName'
+]
+
+const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const { user } = useAuthContext()
+  const { isAdmin, updateVideoAdmin } = useAuthenticator()
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+  const [key, setKey] = useState('')
+  const [value, setValue] = useState<
+    string | number | string[] | boolean | undefined
+  >('')
+  const { name, _id, addedDate, likes, customName, actresses, videoId } = video
+  const tags = (video.tags ?? []).filter(
+    (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
+  )
+  const handleFavorite = () => {
+    updateFavorite(user?.username, video._id)
+  }
+
+  const isFavorited = Boolean(
+    user?.favorites?.find((id: string) => id === video._id)
+  )
+
+  const apiCollection = video.collection
+
+  const handleAdminControls = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleAdminKeyChange = (video: MetaData, event: SelectChangeEvent) => {
+    setKey(event.target.value)
+    setValue(video[event.target.value])
+  }
+
+  const adminSubmit = (movie: MetaData) => {
+    console.log(value, key, movie._id)
+    updateVideoAdmin(movie.collection, key, value, movie._id)
+    setAnchorEl(null)
+  }
+
+  const popoverOpen = Boolean(anchorEl)
+
+  const isAdminUser = isAdmin()
   const { updateFavorite } = useFavoriteUpdater()
 
   const tenDaysAgo = new Date()
   tenDaysAgo.setDate(tenDaysAgo.getDate() - 10)
+  const isNew = new Date(addedDate) >= tenDaysAgo
 
   return (
-    <Grid container alignItems="center" justifyContent="center">
-      {videos?.map((video, index) => {
-        const { name, _id, addedDate, likes, customName, actresses, videoId } =
-          video
-        const tags = (video.tags ?? []).filter(
-          (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
-        )
-        const handleFavorite = () => {
-          updateFavorite(user?.username, video._id)
-        }
-
-        const isFavorited = Boolean(
-          user?.favorites?.find((id: string) => id === video._id)
-        )
-
-        const apiCollection = video.collection
-
-        const isNew = new Date(addedDate) >= tenDaysAgo
-        return (
-          <StyledCardGrid item xs={2} data-cy={`movie-${_id}`} key={index}>
-            <Badge
-              badgeContent={'New'}
-              color="primary"
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-              }}
-              invisible={!isNew}
-            >
-              <StyledGrid container>
-                <Link
-                  to={`/player/${apiCollection}/${_id}`}
-                  style={{
-                    width: '100%'
+    <StyledCardGrid item xs={2} data-cy={`movie-${_id}`}>
+      <Badge
+        badgeContent={'New'}
+        color="primary"
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        invisible={!isNew}
+      >
+        <StyledGrid container>
+          <Link
+            to={`/player/${apiCollection}/${_id}`}
+            style={{
+              width: '100%'
+            }}
+          >
+            <Grid>
+              <StyledCardImg
+                src={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/thumbnail.jpg?v=1692248025$`}
+              />
+            </Grid>
+          </Link>
+          <StyledCardContent key={video?._id}>
+            <Typography>
+              {(customName ?? '').length > 0
+                ? customName
+                : name.replace('.mp4', '')}
+            </Typography>
+          </StyledCardContent>
+          <Grid
+            container
+            alignContent="end"
+            alignItems="center"
+            justifyContent="space-between"
+            flexWrap="nowrap"
+          >
+            <Grid item xs={11}>
+              {typeof setSelectedTags !== 'undefined' &&
+                tags?.map((tag, i) => (
+                  <Button
+                    sx={{ fontSize: 10 }}
+                    size="small"
+                    variant="text"
+                    key={i}
+                    onClick={() => setSelectedTags(tag)}
+                  >
+                    #{tag}{' '}
+                  </Button>
+                ))}
+              {typeof setCustomTags !== 'undefined' &&
+                actresses?.map((actress, i) => (
+                  <Button
+                    sx={{ fontSize: 10 }}
+                    size="small"
+                    variant="text"
+                    key={i}
+                    onClick={() => setCustomTags(actress)}
+                  >
+                    #{actress}{' '}
+                  </Button>
+                ))}
+            </Grid>
+            {isAdminUser && (
+              <Grid item xs>
+                <Button size="small" onClick={(e) => handleAdminControls(e)}>
+                  ADM
+                </Button>
+                <Popover
+                  open={popoverOpen}
+                  anchorEl={anchorEl}
+                  onClose={() => setAnchorEl(null)}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left'
                   }}
                 >
-                  <Grid>
-                    <StyledCardImg
-                      src={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/thumbnail.jpg?v=1692248025$`}
-                    />
-                  </Grid>
-                </Link>
-                <StyledCardContent key={video?._id}>
-                  <Typography>
-                    {(customName ?? '').length > 0
-                      ? customName
-                      : name.replace('.mp4', '')}
-                  </Typography>
-                </StyledCardContent>
-                <Grid
-                  container
-                  alignContent="end"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  flexWrap="nowrap"
-                >
-                  <Grid item xs={11}>
-                    {typeof setSelectedTags !== 'undefined' &&
-                      tags?.map((tag, i) => (
-                        <Button
-                          sx={{ fontSize: 10 }}
-                          size="small"
-                          variant="text"
-                          key={i}
-                          onClick={() => setSelectedTags(tag)}
-                        >
-                          #{tag}{' '}
-                        </Button>
-                      ))}
-                    {typeof setCustomTags !== 'undefined' &&
-                      actresses?.map((actress, i) => (
-                        <Button
-                          sx={{ fontSize: 10 }}
-                          size="small"
-                          variant="text"
-                          key={i}
-                          onClick={() => setCustomTags(actress)}
-                        >
-                          #{actress}{' '}
-                        </Button>
-                      ))}
-                  </Grid>
-                  <Grid item xs pr={1}>
-                    <IconButton
-                      onClick={handleFavorite}
-                      disabled={user === null}
+                  <Stack
+                    component="form"
+                    spacing={2}
+                    noValidate
+                    sx={{ width: '400px' }}
+                    autoComplete="off"
+                  >
+                    <Select
+                      value={key}
+                      onChange={(e) => handleAdminKeyChange(video, e)}
                     >
-                      <Typography variant="h6">{likes} </Typography>
-                      {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              </StyledGrid>
-            </Badge>
-          </StyledCardGrid>
-        )
-      })}
-    </Grid>
+                      {KEYS.map((key, index) => (
+                        <MenuItem key={index} value={key}>
+                          {key}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <TextField
+                      size="small"
+                      fullWidth
+                      label="value"
+                      value={value}
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
+                        setValue(event.target.value)
+                      }}
+                    />
+                    <Button onClick={() => adminSubmit(video)}>Submit</Button>
+                  </Stack>
+                </Popover>
+              </Grid>
+            )}
+            <Grid item xs pr={1}>
+              <IconButton onClick={handleFavorite} disabled={user === null}>
+                <Typography variant="h6">{likes} </Typography>
+                {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+              </IconButton>
+            </Grid>
+          </Grid>
+        </StyledGrid>
+      </Badge>
+    </StyledCardGrid>
   )
 }
 

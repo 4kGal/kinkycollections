@@ -169,61 +169,48 @@ router.put("/update", async (req, res) => {
 });
 
 router.put("/favorites", async (req, res) => {
-  const { username, favorite } = req.body;
+  const { username, favorite, userRoles } = req.body;
 
-  const { value } = await db.collection("users").findOneAndUpdate(
-    {
-      username: username.toLowerCase(),
-    },
-    [
+  const usr = jwt.decode(userRoles);
+  try {
+    if (usr.Role !== "Admin") {
+      throw Error("Only admins can edit");
+    }
+    const { value } = await db.collection("users").findOneAndUpdate(
       {
-        $set: {
-          favorites: {
-            $cond: [
-              {
-                $in: [favorite, "$favorites"],
-              },
-              {
-                $filter: {
-                  input: "$favorites",
-                  cond: {
-                    $ne: ["$$this", favorite],
+        username: username.toLowerCase(),
+      },
+      [
+        {
+          $set: {
+            favorites: {
+              $cond: [
+                {
+                  $in: [favorite, "$favorites"],
+                },
+                {
+                  $filter: {
+                    input: "$favorites",
+                    cond: {
+                      $ne: ["$$this", favorite],
+                    },
                   },
                 },
-              },
-              {
-                $concatArrays: ["$favorites", [favorite]],
-              },
-            ],
+                {
+                  $concatArrays: ["$favorites", [favorite]],
+                },
+              ],
+            },
           },
         },
-      },
-    ],
-    { returnOriginal: false, returnDocument: "after" }
-  );
-  // const exists = await User.find({
-  //   username: username.toLowerCase(),
-  //   favorites: { $in: favorite },
-  // }).count()
+      ],
+      { returnOriginal: false, returnDocument: "after" }
+    );
 
-  // const param = exists
-  //   ? {
-  //       $pull: {
-  //         favorites: favorite,
-  //       },
-  //     }
-  //   : {
-  //       $addToSet: {
-  //         favorites: favorite,
-  //       },
-  //     }
-
-  // const response = await User.updateOne(
-  //   { username: username.toLowerCase() },
-  //   param
-  // ).sort({ createdAd: -1 })
-
-  res.status(200).json(value);
+    res.status(200).json(value);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 export default router;
