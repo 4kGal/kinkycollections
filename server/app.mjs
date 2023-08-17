@@ -20,8 +20,8 @@ app.use(
       "http://localhost:3000",
       "http://localhost:80",
       "https://kinky-collection.onrender.com",
-      "https://www.kinkycollection.com",
-      "https://kinkycollection.com",
+      "https://www.kinkycollection.net",
+      "https://kinkycollection.net",
     ],
   })
 );
@@ -35,7 +35,7 @@ app.use("/api/search", searchRoutes);
 //   app.use(express.static(path.join(__dirname, "../client/build")))
 // }
 
-app.get("/*", function (req, res) {
+app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "static/index.html"));
 });
 

@@ -185,7 +185,6 @@ router.get("/:collection/:id/poster", async (req, res) => {
   }
 });
 router.get("/:collection/:id/data", async (req, res) => {
-  console.log("in");
   const collection = await db.collection(req.params.collection);
   const movieObject = await collection.findOne({
     _id: new ObjectId(req.params.id),
