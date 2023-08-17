@@ -214,5 +214,20 @@ router.put("/:collection/:id/update", async (req, res) => {
   res.status(200).json(value);
 });
 
+router.delete("/:collection/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const collection = await db.collection(req.params.collection);
+
+    const { value } = await collection.findOneAndDelete({
+      _id: new ObjectId(_id),
+    });
+
+    res.status(200).json(value);
+  } catch (e) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // module.exports = router
 export default router;

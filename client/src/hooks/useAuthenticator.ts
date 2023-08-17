@@ -100,11 +100,29 @@ export const useAuthenticator = () => {
     }
   }
 
+  const deleteVideoAdmin = async (collection: string, _id: string) => {
+    fetch(`/api/videos/${collection}/${_id}`, { method: 'DELETE' })
+      .then(async (response) => {
+        const json = await response.json()
+
+        if (!response.ok) {
+          setError(json.error)
+        }
+        if (response.ok) {
+          window.location.reload()
+          console.log('delete successful')
+        }
+      })
+      .catch((error) => {
+        console.error('There was an error deleting!', error)
+      })
+  }
   return {
     authenticate,
     updateUserSettings,
     isAdmin,
     updateVideoAdmin,
+    deleteVideoAdmin,
     isLoading,
     error
   }

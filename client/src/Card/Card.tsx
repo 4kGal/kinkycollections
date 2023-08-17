@@ -84,7 +84,7 @@ const KEYS = [
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const { user } = useAuthContext()
-  const { isAdmin, updateVideoAdmin } = useAuthenticator()
+  const { isAdmin, updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
   const [value, setValue] = useState<
@@ -114,9 +114,12 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   }
 
   const adminSubmit = (movie: MetaData) => {
-    console.log(value, key, movie._id)
     updateVideoAdmin(movie.collection, key, value, movie._id)
     setAnchorEl(null)
+  }
+
+  const adminDelete = (movie: MetaData) => {
+    deleteVideoAdmin(movie.collection, movie._id)
   }
 
   const popoverOpen = Boolean(anchorEl)
@@ -234,6 +237,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                         setValue(event.target.value)
                       }}
                     />
+                    <Button onClick={() => adminDelete(video)}>DELETE</Button>
                     <Button onClick={() => adminSubmit(video)}>Submit</Button>
                   </Stack>
                 </Popover>
