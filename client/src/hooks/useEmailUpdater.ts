@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from 'react-router-dom'
-import { LOGIN, config } from '../utils/constants'
+import { LOGIN } from '../utils/constants'
 
 export const useEmailUpdater = () => {
   const navigate = useNavigate()
@@ -14,17 +14,14 @@ export const useEmailUpdater = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch(
-      `${config.url.API_URL}/api/user/updateEmail/`,
-      {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email.toLowerCase(),
-          username: username.toLowerCase()
-        })
-      }
-    )
+    const response = await fetch(`/api/user/updateEmail/`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.toLowerCase(),
+        username: username.toLowerCase()
+      })
+    })
     const json = await response.json()
     if (!response.ok) {
       setIsLoading(false)

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
-import { UPDATE_FAVORITE, config } from '../utils/constants'
+import { UPDATE_FAVORITE } from '../utils/constants'
 
 export const useFavoriteUpdater = () => {
   const [error, setError] = useState(null)
@@ -11,7 +11,7 @@ export const useFavoriteUpdater = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch(`${config.url.API_URL}/api/user/favorites/`, {
+    const response = await fetch(`/api/user/favorites/`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

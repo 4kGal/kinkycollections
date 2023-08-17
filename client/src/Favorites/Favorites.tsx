@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 import Card from '../Card/Card'
 import { type MetaData } from '../Shared/types'
-import { config } from '../utils/constants'
 
 const Favorites = () => {
   const { user }: { user: { username: string } } = useAuthContext()
@@ -11,9 +10,7 @@ const Favorites = () => {
   useEffect(() => {
     const getInitialVideos = async () => {
       try {
-        const response = await fetch(
-          `${config.url.API_URL}/api/user/favorites/${user?.username}`
-        )
+        const response = await fetch(`/api/user/favorites/${user?.username}`)
         const data = await response.json()
 
         setFavorites(data.map((movie: MetaData[]) => ({ ...movie })))

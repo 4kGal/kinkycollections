@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from 'react-router-dom'
-import { LOGIN, config } from '../utils/constants'
+import { LOGIN } from '../utils/constants'
 
 export const useAuthenticator = () => {
   const navigate = useNavigate()
@@ -19,18 +19,15 @@ export const useAuthenticator = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch(
-      `${config.url.API_URL}/api/user/${isLogin ? 'login' : 'signup'}/`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...(email.length > 0 && { email: email.toLowerCase() }),
-          password,
-          username: username.toLowerCase()
-        })
-      }
-    )
+    const response = await fetch(`/api/user/${isLogin ? 'login' : 'signup'}/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...(email.length > 0 && { email: email.toLowerCase() }),
+        password,
+        username: username.toLowerCase()
+      })
+    })
     const json = await response.json()
     if (!response.ok) {
       setIsLoading(false)
@@ -46,7 +43,7 @@ export const useAuthenticator = () => {
   }
 
   const updateUserSettings = async (username: string, underage: boolean) => {
-    const response = await fetch(`${config.url.API_URL}/api/user/update`, {
+    const response = await fetch(`/api/user/update`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
