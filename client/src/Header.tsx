@@ -41,7 +41,8 @@ import {
   SORT_BY,
   HIDE_UNDERAGE,
   AMATEUR_BB_URL,
-  MAINSTREAM_BB_URL
+  MAINSTREAM_BB_URL,
+  SHOW_ADMIN_CONTROLS
 } from './utils/constants'
 import { useAuthenticator } from './hooks/useAuthenticator'
 
@@ -152,7 +153,7 @@ const Header = () => {
   const { search } = useSearchWithin()
   const { logout } = useLogout()
   const authContext = useAuthContext()
-  const { updateUserSettings } = useAuthenticator()
+  const { updateUserSettings, isAdmin } = useAuthenticator()
 
   const {
     user,
@@ -161,7 +162,7 @@ const Header = () => {
     availableDecades,
     dispatch,
     availableActresses,
-    selectedActresses
+    selectedActresses,
   } = authContext
   const [open, setOpen] = useState(false)
   const [isYearOpen, setYearOpen] = useState(false)
@@ -176,6 +177,7 @@ const Header = () => {
   const init: boolean =
     typeof user?.username !== 'undefined' ? user?.underage : false
   const [hideUnderage, setHideUnderage] = useState(init != null && !init)
+  const [adminSwitch, setAdminSwitch] = useState(false)
   // ascending = smallest or first or earliest
   const [ascending, setAscending] = useState(true)
 
@@ -212,6 +214,8 @@ const Header = () => {
       sortParam = `year${ascending ? 'Asc' : 'Desc'}`
     } else if (sortBy === 'likes') {
       sortParam = 'likes'
+    } else if (sortBy === 'views') {
+      console.log('views')
     }
     dispatch({ type: SORT_BY, payload: sortParam })
   }, [sortBy, ascending])
@@ -223,6 +227,10 @@ const Header = () => {
       updateUserSettings(user.username, !hideUnderage)
     }
   }, [hideUnderage])
+
+  useEffect(() => {
+    dispatch({ type: SHOW_ADMIN_CONTROLS, payload: adminSwitch})
+  }, [adminSwitch])
 
   const debounceSearch = useCallback(debounce(handleSearch, 300), [])
 
@@ -429,6 +437,21 @@ const Header = () => {
         <Divider />
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <List sx={{ minWidth: 272 }}>
+            {isAdmin() && (
+              <ListItem>
+                <ListItemText>
+                  <Typography variant="body1" display="inline">
+                    Display Admin Controls
+                  </Typography>
+                  <SwitchComponent
+                    left="No"
+                    right="Yes"
+                    call={setAdminSwitch}
+                    checked={adminSwitch}
+                  />
+                </ListItemText>
+              </ListItem>
+            )}
             {isEmpty(user) && (
               <ListItem>
                 <ListItemButton
@@ -455,7 +478,7 @@ const Header = () => {
             {onSearchablePage && <ListItem>
               <ListItemText>
                 <Typography variant="body1" display="inline">
-                  Display Underage
+                    Display Underage
                 </Typography>
                 <SwitchComponent
                   left="Yes"
@@ -500,7 +523,19 @@ const Header = () => {
                           >
                             <ListItemText>
                               <Typography variant="body1" display="inline">
-                                Most Popular
+                                Most Liked
+                              </Typography>
+                            </ListItemText>
+                          </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                          <ListItemButton
+                            onClick={() => setSortBy('views')}
+                            selected={sortBy === 'views'}
+                          >
+                            <ListItemText>
+                              <Typography variant="body1" display="inline">
+                                Most Viewed
                               </Typography>
                             </ListItemText>
                           </ListItemButton>

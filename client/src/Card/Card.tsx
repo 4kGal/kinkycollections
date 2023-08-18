@@ -83,7 +83,7 @@ const KEYS = [
 ]
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
-  const { user } = useAuthContext()
+  const { user, showAdminControls } = useAuthContext()
   const { isAdmin, updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
@@ -195,7 +195,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                   </Button>
                 ))}
             </Grid>
-            {isAdminUser && (
+            {isAdminUser && showAdminControls === true && (
               <Grid item xs>
                 <Button size="small" onClick={(e) => handleAdminControls(e)}>
                   ADM

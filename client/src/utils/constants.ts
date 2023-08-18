@@ -15,6 +15,7 @@ export const HIDE_UNDERAGE = 'HIDE_UNDERAGE'
 export const SORT_BY = 'SORT_BY'
 export const SELECTED_ACTRESSES = 'SELECTED_ACTRESSES'
 export const LOGIN = 'LOGIN'
+export const SHOW_ADMIN_CONTROLS = 'SHOW_ADMIN_CONTROLS'
 
 const prod = {
   url: {
