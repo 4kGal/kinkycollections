@@ -20,6 +20,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { useFavoriteUpdater } from '../hooks/useFavoriteUpdater'
 import { type MetaData } from '../Shared/types'
 import { useAuthenticator } from '../hooks/useAuthenticator'
+import Image from 'react-image-webp'
 
 interface Video {
   collection?: string
@@ -90,6 +91,8 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const [value, setValue] = useState<
     string | number | string[] | boolean | undefined
   >('')
+  const [hover, setHover] = useState(false)
+
   const { name, _id, addedDate, likes, customName, actresses, videoId, views } =
     video
   const tags = (video.tags ?? []).filter(
@@ -150,10 +153,23 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
               width: '100%'
             }}
           >
-            <Grid item xs={12} sx={{ textAlign: 'center' }}>
-              <StyledCardImg
-                src={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/thumbnail.jpg?v=1692248025$`}
-              />
+            <Grid
+              item
+              xs={12}
+              sx={{ textAlign: 'center' }}
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              {hover ? (
+                <Image
+                  src={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/thumbnail.jpg?v=1692248025`}
+                  webp={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/preview.webp?v=1692467633`}
+                />
+              ) : (
+                <StyledCardImg
+                  src={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/thumbnail.jpg?v=1692248025$`}
+                />
+              )}
               <Typography variant="caption" fontSize=".65rem">
                 {views} Overall Plays
               </Typography>
