@@ -50,7 +50,7 @@ router.get("/filter/:collection", async (req, res) => {
   const typeOfBusts = get(req.query, "tags", []);
   const decadesParam = get(req.query, "decades", []);
   const eitherOr = get(req.query, "eitherOr", "or");
-  const underage = Boolean(req.query.underage);
+  const underage = !Boolean(req.query.underage);
   const actresses = get(req.query, "actresses", []);
   const multipleActresses = get(req.query, "multipleActresses", false);
 
@@ -81,8 +81,8 @@ router.get("/filter/:collection", async (req, res) => {
     !multipleActresses
   ) {
     movies = await collection
-      // .find(underage ? {} : { underage })
-      .find({})
+      .find(!underage ? { underage } : {})
+      //.find({})
       .sort(sortParam)
       .toArray();
 
@@ -158,7 +158,7 @@ router.get("/filter/:collection", async (req, res) => {
         ...(typeOfBusts.length > 0 ? [tagQuery] : []),
         ...(actresses.length > 0 ? [actressQuery] : []),
         ...(multipleActresses ? [multiple] : []),
-        ...(!underage ? [{ underage }] : []),
+        ...(!underage ? [] : [{ underage }]),
       ],
     };
 

@@ -67,7 +67,7 @@ const Gallery = ({ collection }: { collection: string }) => {
             actresses: selectedActresses
           }),
           ...(selectedTags?.length > 0 && { tags: selectedTags }),
-          ...(hideUnderage === false && { underage: 'true' }),
+          ...(hideUnderage === true && { underage: 'false' }),
           eitherOr: combineFilters ? 'and' : 'or'
         },
         sortBy

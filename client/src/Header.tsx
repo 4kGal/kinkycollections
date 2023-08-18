@@ -162,7 +162,7 @@ const Header = () => {
     availableDecades,
     dispatch,
     availableActresses,
-    selectedActresses,
+    selectedActresses
   } = authContext
   const [open, setOpen] = useState(false)
   const [isYearOpen, setYearOpen] = useState(false)
@@ -200,7 +200,7 @@ const Header = () => {
   useEffect(() => {
     if (
       onSearchPage &&
-      (searchResults.length === 0 || searchTerm.length === 0)
+      (searchResults?.length === 0 || searchTerm.length === 0)
     ) {
       navigate(previousPage)
     }
@@ -216,7 +216,6 @@ const Header = () => {
       sortParam = 'likes'
     } else if (sortBy === 'views') {
       sortParam = 'views'
-
     }
     dispatch({ type: SORT_BY, payload: sortParam })
   }, [sortBy, ascending])
@@ -230,7 +229,7 @@ const Header = () => {
   }, [hideUnderage])
 
   useEffect(() => {
-    dispatch({ type: SHOW_ADMIN_CONTROLS, payload: adminSwitch})
+    dispatch({ type: SHOW_ADMIN_CONTROLS, payload: adminSwitch })
   }, [adminSwitch])
 
   const debounceSearch = useCallback(debounce(handleSearch, 300), [])
@@ -476,112 +475,111 @@ const Header = () => {
                 <Divider />
               </>
             )}
-            {onSearchablePage && <ListItem>
-              <ListItemText>
-                <Typography variant="body1" display="inline">
+            {onSearchablePage && (
+              <ListItem>
+                <ListItemText>
+                  <Typography variant="body1" display="inline">
                     Display Underage
-                </Typography>
-                <SwitchComponent
-                  left="Yes"
-                  right="18+ Only"
-                  call={setHideUnderage}
-                  checked={hideUnderage}
-                />
-              </ListItemText>
-            </ListItem>}
-            {!isEmpty(user) && (
+                  </Typography>
+                  <SwitchComponent
+                    left="Yes"
+                    right="18+ Only"
+                    call={setHideUnderage}
+                    checked={hideUnderage}
+                  />
+                </ListItemText>
+              </ListItem>
+            )}
+            {!isEmpty(user) &&
+              (user.email === undefined || user.email === null) && (
+                <ListItem>
+                  <ListItemButton
+                    onClick={updateEmail}
+                    data-cy="add-email-menu-item"
+                  >
+                    <ListItemText>Add email address</ListItemText>
+                  </ListItemButton>
+                </ListItem>
+              )}
+            {onSearchablePage && (
               <>
-                {(user.email === undefined || user.email === null) && (
-                  <ListItem>
-                    <ListItemButton
-                      onClick={updateEmail}
-                      data-cy="add-email-menu-item"
-                    >
-                      <ListItemText>Add email address</ListItemText>
-                    </ListItemButton>
-                  </ListItem>
-                )}
-                {onSearchablePage && (
-                  <>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => setIsSortOpen(!isSortOpen)}>
+                    <ListItemText primary={`Sort`} />
+                    {isSortOpen ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={isSortOpen} timeout="auto" unmountOnExit>
+                  <Divider />
+                  <List
+                    style={{ marginLeft: '5px', padding: 0 }}
+                    component="div"
+                  >
                     <ListItem disablePadding>
                       <ListItemButton
-                        onClick={() => setIsSortOpen(!isSortOpen)}
+                        onClick={() => setSortBy('likes')}
+                        selected={sortBy === 'likes'}
                       >
-                        <ListItemText primary={`Sort`} />
-                        {isSortOpen ? <ExpandLess /> : <ExpandMore />}
+                        <ListItemText>
+                          <Typography variant="body1" display="inline">
+                            Most Liked
+                          </Typography>
+                        </ListItemText>
                       </ListItemButton>
                     </ListItem>
-                    <Collapse in={isSortOpen} timeout="auto" unmountOnExit>
-                      <Divider />
-                      <List
-                        style={{ marginLeft: '5px', padding: 0 }}
-                        component="div"
+                    <ListItem disablePadding>
+                      <ListItemButton
+                        onClick={() => setSortBy('views')}
+                        selected={sortBy === 'views'}
                       >
-                        <ListItem disablePadding>
-                          <ListItemButton
-                            onClick={() => setSortBy('likes')}
-                            selected={sortBy === 'likes'}
-                          >
-                            <ListItemText>
-                              <Typography variant="body1" display="inline">
-                                Most Liked
-                              </Typography>
-                            </ListItemText>
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                          <ListItemButton
-                            onClick={() => setSortBy('views')}
-                            selected={sortBy === 'views'}
-                          >
-                            <ListItemText>
-                              <Typography variant="body1" display="inline">
-                                Most Viewed
-                              </Typography>
-                            </ListItemText>
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                          <ListItemButton
-                            onClick={() => setSortBy('recent')}
-                            selected={sortBy === 'recent'}
-                          >
-                            <ListItemText>
-                              <Typography variant="body1" display="inline">
-                                Added
-                              </Typography>
-                            </ListItemText>
-                            {sortBy === 'recent' && (
-                              <SwitchComponent
-                                left="Desc"
-                                right="Asc"
-                                call={setAscending}
-                                checked={ascending}
-                              />
-                            )}
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                          <ListItemButton
-                            onClick={() => setSortBy('year')}
-                            selected={sortBy === 'year'}
-                          >
-                            <ListItemText>
-                              <Typography variant="body1" display="inline">
-                                Year Released
-                              </Typography>
-                            </ListItemText>
-                            {sortBy === 'year' && (
-                              <SwitchComponent
-                                left="Desc"
-                                right="Asc"
-                                call={setAscending}
-                                checked={ascending}
-                              />
-                            )}
-                          </ListItemButton>
-                        </ListItem>
-                        {/* <ListItem disablePadding>
+                        <ListItemText>
+                          <Typography variant="body1" display="inline">
+                            Most Viewed
+                          </Typography>
+                        </ListItemText>
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton
+                        onClick={() => setSortBy('recent')}
+                        selected={sortBy === 'recent'}
+                      >
+                        <ListItemText>
+                          <Typography variant="body1" display="inline">
+                            Added
+                          </Typography>
+                        </ListItemText>
+                        {sortBy === 'recent' && (
+                          <SwitchComponent
+                            left="Desc"
+                            right="Asc"
+                            call={setAscending}
+                            checked={ascending}
+                          />
+                        )}
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton
+                        onClick={() => setSortBy('year')}
+                        selected={sortBy === 'year'}
+                      >
+                        <ListItemText>
+                          <Typography variant="body1" display="inline">
+                            Year Released
+                          </Typography>
+                        </ListItemText>
+                        {sortBy === 'year' && (
+                          <SwitchComponent
+                            left="Desc"
+                            right="Asc"
+                            call={setAscending}
+                            checked={ascending}
+                          />
+                        )}
+                      </ListItemButton>
+                    </ListItem>
+                    {/* <ListItem disablePadding>
                           <ListItemButton
                             onClick={() => setSortBy('oldest')}
                             selected={sortBy === 'oldest'}
@@ -593,7 +591,7 @@ const Header = () => {
                             </ListItemText>
                           </ListItemButton>
                         </ListItem> */}
-                        {/* <ListItem disablePadding>
+                    {/* <ListItem disablePadding>
                           <ListItemButton
                             onClick={() => setSortBy('alphabetical')}
                             selected={sortBy === 'alphabetical'}
@@ -605,70 +603,66 @@ const Header = () => {
                             </ListItemText>
                           </ListItemButton>
                         </ListItem> */}
-                      </List>
-                    </Collapse>
-                  </>
-                )}
-                <Divider />
-                {onSearchablePage && availableActresses?.length > 0 && (
-                  <ListItemButton
-                    onClick={() => setIsActressOpen(!isActressOpen)}
-                  >
-                    <ListItemText primary="Filter By Actress" />
-                    {isYearOpen ? <ExpandLess /> : <ExpandMore />}
-                  </ListItemButton>
-                )}
-                <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
-                  <FixedSizeList
-                    height={500}
-                    width={262}
-                    itemData={{
-                      availableActresses,
-                      handleActressSelection,
-                      selectedActresses
-                    }}
-                    itemSize={55}
-                    itemCount={availableActresses?.length}
-                    overscanCount={5}
-                    style={{ border: '1px solid lightgrey' }}
-                  >
-                    {renderActressRow}
-                  </FixedSizeList>
+                  </List>
                 </Collapse>
-                {onSearchablePage && availableDecades?.length > 0 && (
-                  <ListItemButton onClick={() => setYearOpen(!isYearOpen)}>
-                    <ListItemText primary="Filter By Decade" />
-                    {isYearOpen ? <ExpandLess /> : <ExpandMore />}
-                  </ListItemButton>
-                )}
-                <Collapse in={isYearOpen} timeout="auto" unmountOnExit>
-                  <FixedSizeList
-                    height={300}
-                    width={262}
-                    itemData={{
-                      availableDecades,
-                      handleDecadeSelection,
-                      filterDecades
-                    }}
-                    itemSize={46}
-                    itemCount={availableDecades?.length}
-                    overscanCount={5}
-                    style={{ border: '1px solid lightgrey' }}
-                  >
-                    {renderRow}
-                  </FixedSizeList>
-                </Collapse>
-                <Divider />
-                <ListItem>
-                  <ListItemButton
-                    onClick={handleSignout}
-                    data-cy="signout-menu-item"
-                  >
-                    <ListItemText primary="Log Out" />
-                  </ListItemButton>
-                </ListItem>
               </>
             )}
+            <Divider />
+            {onSearchablePage && availableActresses?.length > 0 && (
+              <ListItemButton onClick={() => setIsActressOpen(!isActressOpen)}>
+                <ListItemText primary="Filter By Actress" />
+                {isYearOpen ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+            )}
+            <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
+              <FixedSizeList
+                height={500}
+                width={262}
+                itemData={{
+                  availableActresses,
+                  handleActressSelection,
+                  selectedActresses
+                }}
+                itemSize={55}
+                itemCount={availableActresses?.length}
+                overscanCount={5}
+                style={{ border: '1px solid lightgrey' }}
+              >
+                {renderActressRow}
+              </FixedSizeList>
+            </Collapse>
+            {onSearchablePage && availableDecades?.length > 0 && (
+              <ListItemButton onClick={() => setYearOpen(!isYearOpen)}>
+                <ListItemText primary="Filter By Decade" />
+                {isYearOpen ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+            )}
+            <Collapse in={isYearOpen} timeout="auto" unmountOnExit>
+              <FixedSizeList
+                height={300}
+                width={262}
+                itemData={{
+                  availableDecades,
+                  handleDecadeSelection,
+                  filterDecades
+                }}
+                itemSize={46}
+                itemCount={availableDecades?.length}
+                overscanCount={5}
+                style={{ border: '1px solid lightgrey' }}
+              >
+                {renderRow}
+              </FixedSizeList>
+            </Collapse>
+            <Divider />
+            <ListItem>
+              <ListItemButton
+                onClick={handleSignout}
+                data-cy="signout-menu-item"
+              >
+                <ListItemText primary="Log Out" />
+              </ListItemButton>
+            </ListItem>
           </List>
         </ClickAwayListener>
       </Drawer>
