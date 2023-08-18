@@ -57,6 +57,7 @@ router.get("/filter/:collection", async (req, res) => {
   let movies = [];
   let tags = [];
 
+  // recent
   let sortParam = { _id: -1 };
   if (sort === "oldest") {
     sortParam = { _id: 1 };
@@ -68,6 +69,8 @@ router.get("/filter/:collection", async (req, res) => {
     sortParam = { year: -1 };
   } else if (sort === "yearDesc") {
     sortParam = { year: 1 };
+  } else if (sort === "views") {
+    sortParam = { views: -1 };
   }
 
   // No Filtering, Return all movies

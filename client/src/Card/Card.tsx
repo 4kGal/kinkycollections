@@ -90,7 +90,8 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const [value, setValue] = useState<
     string | number | string[] | boolean | undefined
   >('')
-  const { name, _id, addedDate, likes, customName, actresses, videoId } = video
+  const { name, _id, addedDate, likes, customName, actresses, videoId, views } =
+    video
   const tags = (video.tags ?? []).filter(
     (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
   )
@@ -149,10 +150,13 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
               width: '100%'
             }}
           >
-            <Grid>
+            <Grid item xs={12} sx={{ textAlign: 'center' }}>
               <StyledCardImg
                 src={`https://vz-8c62cae6-fd0.b-cdn.net/${videoId}/thumbnail.jpg?v=1692248025$`}
               />
+              <Typography variant="caption" fontSize=".65rem">
+                {views} Overall Plays
+              </Typography>
             </Grid>
           </Link>
           <StyledCardContent key={video?._id}>

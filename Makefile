@@ -2,6 +2,8 @@
 
 SSH_STRING:=root@167.71.162.23
 
+BUNNY_AMATEUR_COLLECTION_ID=f78d6a02-0840-4dbf-a316-05481ca9196d
+
 update-remote:
 	ssh ${SSH_STRING} -f 'cd kinkycollections && git pull origin main'
 
@@ -67,10 +69,10 @@ insert-prod-mainstreambb-documents:
 	cd scripts && MONGO_DATABASE=serverdata_prod node importToMongo.js
 
 insert-dev-amateurbb-documents:
-	cd scripts && MONGO_COLLECTION=amateurbb node importToMongo.js
+	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb node importToMongo.js
 
 insert-prod-amateurbbdocuments:
-	cd scripts && MONGO_COLLECTION=amateurbb MONGO_DATABASE=serverdata_prod node importToMongo.js
+	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb MONGO_DATABASE=serverdata_prod node importToMongo.js
 
 insert-all-dev-documents:
 	${MAKE} insert-dev-mainstreambb-documents
@@ -79,3 +81,13 @@ insert-all-dev-documents:
 insert-all-prod-documents:
 	${MAKE} insert-prod-mainstreambb-documents
 	${MAKE} insert-prod-amateurbb-documents
+
+delete-mainstreambb-files:
+	cd scripts && node deletefiles.js
+
+delete-amateurbb-files:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb node deletefiles.js
+
+delete-all-files:
+	${MAKE} delete-mainstreambb-files
+	${MAKE} delete-amateurbb-files

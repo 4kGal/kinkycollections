@@ -215,7 +215,8 @@ const Header = () => {
     } else if (sortBy === 'likes') {
       sortParam = 'likes'
     } else if (sortBy === 'views') {
-      console.log('views')
+      sortParam = 'views'
+
     }
     dispatch({ type: SORT_BY, payload: sortParam })
   }, [sortBy, ascending])
