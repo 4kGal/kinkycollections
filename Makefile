@@ -41,10 +41,10 @@ update-prod-views-mainstreambb:
 	cd scripts && MONGO_DATABASE=serverdata_prod node updateViews.js
 
 update-dev-views-amateurbb:
-	cd scripts && MONGO_COLLECTION=amateurbb node updateViews.js
+	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb node updateViews.js
 
 update-prod-views-amateurbb:
-	cd scripts && MONGO_COLLECTION=amateurbb MONGO_DATABASE=serverdata_prod node updateViews.js
+	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb MONGO_DATABASE=serverdata_prod node updateViews.js
 
 update-dev-views-all:
 	${MAKE} update-dev-views-mainstreambb
@@ -56,7 +56,7 @@ create-mongo-import-mainstreambb:
 	cd scripts && node index.js && code mongoimport-mainstreambb.json
 
 create-mongo-import-amateurbb:
-	cd scripts && MONGO_COLLECTION=amateurbb node index.js && code mongoimport-amateurbb.json
+	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb node index.js && code mongoimport-amateurbb.json
 
 create-mongo-import-all:
 	${MAKE} create-mongo-import-mainstreambb
@@ -71,7 +71,7 @@ insert-prod-mainstreambb-documents:
 insert-dev-amateurbb-documents:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb node importToMongo.js
 
-insert-prod-amateurbbdocuments:
+insert-prod-amateurbb-documents:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb MONGO_DATABASE=serverdata_prod node importToMongo.js
 
 insert-all-dev-documents:
@@ -81,6 +81,18 @@ insert-all-dev-documents:
 insert-all-prod-documents:
 	${MAKE} insert-prod-mainstreambb-documents
 	${MAKE} insert-prod-amateurbb-documents
+
+insert-dev-prod-mainstreambb-documents:
+	${MAKE} insert-dev-mainstreambb-documents
+	${MAKE} insert-prod-mainstreambb-documents
+
+insert-dev-prod-amateurbb-documents:
+	${MAKE} insert-dev-amateurbb-documents
+	${MAKE} insert-prod-amateurbb-documents
+
+insert-all-documents:
+	${MAKE} insert-dev-prod-mainstreambb-documents
+	${MAKE} insert-dev-prod-amateurbb-documents
 
 delete-mainstreambb-files:
 	cd scripts && node deletefiles.js
