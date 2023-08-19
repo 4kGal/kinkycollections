@@ -10,13 +10,21 @@ describe('Search Results', () => {
     )
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&eitherOr=or*',
+      '/api/search/filter/mainstreambb?&eitherOr=or&sort=recent',
       getMainstreambb
     )
     cy.intercept('GET', '/api/search?text=Fari&collection=*', [
-      getMainstreambb.movies[0]
+      getMainstreambb.movies.filter(
+        (movie) =>
+          movie.actresses.length === 1 && movie.actresses[0] === 'Anna Faris'
+      )[0]
     ])
     cy.intercept('GET', '/api/search?text=Far&collection=*', [])
+    cy.intercept(
+      'GET',
+      '/api/search/filter/mainstreambb?&underage=false&eitherOr=or&sort=recent',
+      getMainstreambb
+    )
     cy.visit('/mainstreamBB')
   })
   it('Navigates between pages and displays correctly', () => {
