@@ -1,8 +1,6 @@
 import express from "express";
 import db from "../db/conn.mjs";
-import { ObjectId } from "mongodb";
 import pkg from "lodash";
-import querystring from "querystring";
 const { sortBy, get, split } = pkg;
 
 const router = express.Router();
@@ -72,7 +70,6 @@ router.get("/filter/:collection", async (req, res) => {
   } else if (sort === "views") {
     sortParam = { views: -1 };
   }
-
   // No Filtering, Return all movies
   if (
     typeOfBusts.length === 0 &&
