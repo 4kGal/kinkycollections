@@ -84,7 +84,7 @@ const KEYS = [
 ]
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
-  const { user, showAdminControls } = useAuthContext()
+  const { user, showAdminControls, decadesFilter } = useAuthContext()
   const { isAdmin, updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
@@ -93,8 +93,17 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   >('')
   const [hover, setHover] = useState(false)
 
-  const { name, _id, addedDate, likes, customName, actresses, videoId, views } =
-    video
+  const {
+    name,
+    year,
+    _id,
+    addedDate,
+    likes,
+    customName = '',
+    actresses,
+    videoId,
+    views
+  } = video
   const tags = (video.tags ?? []).filter(
     (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
   )
@@ -134,6 +143,11 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const tenDaysAgo = new Date()
   tenDaysAgo.setDate(tenDaysAgo.getDate() - 10)
   const isNew = new Date(addedDate) >= tenDaysAgo
+
+  const displayName =
+    customName.length > 0 ? customName : name.replace('.mp4', '')
+
+  const nameContainsYear = displayName?.search(/[1-2][0-9][0-9][0-9]/) > -1
 
   return (
     <StyledCardGrid item xs={2} data-cy={`movie-${_id}`}>
@@ -177,9 +191,8 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
           </Link>
           <StyledCardContent key={video?._id}>
             <Typography>
-              {(customName ?? '').length > 0
-                ? customName
-                : name.replace('.mp4', '')}
+              {displayName}
+              {decadesFilter.length > 0 && !nameContainsYear && ` (${year})`}
             </Typography>
           </StyledCardContent>
           <Grid

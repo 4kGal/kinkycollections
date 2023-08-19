@@ -13,7 +13,7 @@ describe('Nav Bar', () => {
     ])
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&eitherOr=or&sort=recent',
+      '/api/search/filter/mainstreambb?&underage=false&eitherOr=or&sort=recent',
       getMainstreambb
     )
   })

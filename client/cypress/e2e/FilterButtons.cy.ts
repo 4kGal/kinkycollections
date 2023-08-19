@@ -12,40 +12,46 @@ describe('Filter Buttons', () => {
       '/api/videos/mainstreambb/settings',
       initialMainstreamBBSettings
     )
+    cy.intercept('GET', '/api/search/filter/mainstreambb?&eitherOr=*', [])
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&eitherOr=*',
+      '/api/search/filter/mainstreambb?&underage=false&eitherOr=or&sort=recent',
       getMainstreambb
     )
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&tags=squeeze&eitherOr=or&sort=recent',
+      '/api/search/filter/mainstreambb?&tags=squeeze&underage=false&eitherOr=or&sort=recent',
       getMainstreambbSqueeze
     )
+    // cy.intercept(
+    //   'GET',
+    //   '/api/search/filter/mainstreambb?&tags=squeeze&eitherOr=or&sort=recent',
+    //   getMainstreambbSqueeze
+    // )
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&tags=squeeze&eitherOr=and&sort=recent',
-      getMainstreambbSqueezeAnd
-    )
-    cy.intercept(
-      'GET',
-      '/api/search/filter/mainstreambb?&tags=squeeze,verbal&eitherOr=or&sort=recent',
+      '/api/search/filter/mainstreambb?&tags=squeeze,verbal&underage=false&eitherOr=or&sort=recent',
       getMainstreambbVerbalSqueeze
     )
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&tags=squeeze,verbal&eitherOr=and&sort=recent',
+      '/api/search/filter/mainstreambb?&tags=squeeze,verbal&underage=false&eitherOr=and&sort=recent',
       getMainstreambbVerbalAndSqueeze
     )
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&actresses=Anna%20Faris&eitherOr=*',
-      {
-        movies: getMainstreambb.movies.filter((movie) =>
-          movie.actresses.includes('Anna Faris')
-        )
-      }
+      '/api/search/filter/mainstreambb?&tags=squeeze&underage=false&eitherOr=and&sort=recent',
+      getMainstreambbSqueezeAnd
     )
+    // cy.intercept(
+    //   'GET',
+    //   '/api/search/filter/mainstreambb?&actresses=Anna%20Faris&eitherOr=*',
+    //   {
+    //     movies: getMainstreambb.movies.filter((movie) =>
+    //       movie.actresses.includes('Anna Faris')
+    //     )
+    //   }
+    // )
     cy.visit('/mainstreamBB')
   })
   it('displays the correct filters', () => {
@@ -101,7 +107,7 @@ describe('Filter Buttons', () => {
     cy.get('.MuiSwitch-input').click()
     cy.dataCy('switch').get('input').should('not.be.checked')
 
-    cy.get('button').contains('#Anna Faris').click()
+    cy.get('button').contains('#Zoe Saldana').click()
 
     // cy.contains('nsfw').click()
     // cy.dataCy(`movie-${getMainstreambb.movies[1]._id}`).should('exist')

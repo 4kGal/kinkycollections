@@ -92,16 +92,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }))
 
+interface ClearComponent {
+  display: boolean
+  handleClick: () => void
+  displayClear: boolean
+  handleClear: () => void
+  text: string
+}
 function renderActressRow(props: ListChildComponentProps) {
   const { index, data, style } = props
-  const { availableActresses, handleActressSelection, selectedActresses } = data
+  const {
+    availableActresses,
+    handleActressSelection,
+    selectedActresses = []
+  } = data
 
   const current = availableActresses[index]
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
       <ListItemButton
         onClick={() => handleActressSelection(current.actress)}
-        selected={selectedActresses.includes(current.actress)}
+        selected={selectedActresses?.includes(current.actress)}
       >
         <ListItemText>
           <Typography variant="body1" display="inline">
@@ -163,7 +174,7 @@ const Header = () => {
     availableDecades,
     dispatch,
     availableActresses,
-    selectedActresses
+    selectedActresses = []
   } = authContext
   const [open, setOpen] = useState(false)
   const [isYearOpen, setYearOpen] = useState(false)
@@ -343,6 +354,51 @@ const Header = () => {
       <Typography variant="caption">{right}</Typography>
     </span>
   )
+
+  const FilterWithClearComponent = ({
+    display,
+    handleClick,
+    displayClear,
+    handleClear,
+    text
+  }: ClearComponent) => (
+    <>
+      <ListItem
+        disablePadding
+        sx={{
+          backgroundColor: display ? '#81acd6' : 'initial',
+          border: display ? '1px solid black' : 'initial'
+        }}
+      >
+        <ListItemButton onClick={handleClick}>
+          <ListItemText primary={text} />
+          {displayClear && (
+            <Button
+              variant="outlined"
+              size="small"
+              sx={{
+                backgroundColor: 'white'
+              }}
+              onClick={handleClear}
+            >
+              Clear
+            </Button>
+          )}
+          {isActressOpen ? (
+            <IconButton size="small">
+              <ExpandLess />
+            </IconButton>
+          ) : (
+            <IconButton size="small">
+              <ExpandMore />
+            </IconButton>
+          )}
+        </ListItemButton>
+      </ListItem>
+      <Divider />
+    </>
+  )
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -439,22 +495,25 @@ const Header = () => {
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <List sx={{ minWidth: 272 }}>
             {isAdmin() && (
-              <ListItem>
-                <ListItemText>
-                  <Typography variant="body1" display="inline">
-                    Display Admin Controls
-                  </Typography>
-                  <SwitchComponent
-                    left="No"
-                    right="Yes"
-                    call={setAdminSwitch}
-                    checked={adminSwitch}
-                  />
-                </ListItemText>
-              </ListItem>
+              <>
+                <ListItem>
+                  <ListItemText>
+                    <Typography variant="body1" display="inline">
+                      Display Admin Controls
+                    </Typography>
+                    <SwitchComponent
+                      left="No"
+                      right="Yes"
+                      call={setAdminSwitch}
+                      checked={adminSwitch}
+                    />
+                  </ListItemText>
+                </ListItem>
+                <Divider />
+              </>
             )}
             {isEmpty(user) && (
-              <ListItem>
+              <ListItem disablePadding>
                 <ListItemButton
                   onClick={navigateToSignInPage}
                   data-cy="login-signup-menu-item"
@@ -465,7 +524,7 @@ const Header = () => {
             )}
             {!isEmpty(user) && (
               <>
-                <ListItem>
+                <ListItem disablePadding>
                   <ListItemButton
                     onClick={navigateToFavoritesPage}
                     data-cy="favorites-menu-item"
@@ -477,23 +536,26 @@ const Header = () => {
               </>
             )}
             {onSearchablePage && (
-              <ListItem>
-                <ListItemText>
-                  <Typography variant="body1" display="inline">
-                    Display Underage
-                  </Typography>
-                  <SwitchComponent
-                    left="Yes"
-                    right="18+ Only"
-                    call={setHideUnderage}
-                    checked={hideUnderage}
-                  />
-                </ListItemText>
-              </ListItem>
+              <>
+                <ListItem>
+                  <ListItemText>
+                    <Typography variant="body1" display="inline">
+                      Display Underage
+                    </Typography>
+                    <SwitchComponent
+                      left="Yes"
+                      right="18+ Only"
+                      call={setHideUnderage}
+                      checked={hideUnderage}
+                    />
+                  </ListItemText>
+                </ListItem>
+                <Divider />
+              </>
             )}
             {!isEmpty(user) &&
               (user.email === undefined || user.email === null) && (
-                <ListItem>
+                <ListItem disablePadding>
                   <ListItemButton
                     onClick={updateEmail}
                     data-cy="add-email-menu-item"
@@ -504,10 +566,23 @@ const Header = () => {
               )}
             {onSearchablePage && (
               <>
-                <ListItem disablePadding>
+                <ListItem
+                  disablePadding
+                  sx={{
+                    backgroundColor: isSortOpen ? '#81acd6' : 'initial'
+                  }}
+                >
                   <ListItemButton onClick={() => setIsSortOpen(!isSortOpen)}>
                     <ListItemText primary={`Sort`} />
-                    {isSortOpen ? <ExpandLess /> : <ExpandMore />}
+                    {isSortOpen ? (
+                      <IconButton size="small">
+                        <ExpandLess />
+                      </IconButton>
+                    ) : (
+                      <IconButton size="small">
+                        <ExpandMore />
+                      </IconButton>
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={isSortOpen} timeout="auto" unmountOnExit>
@@ -591,6 +666,7 @@ const Header = () => {
                         </ListItemText>
                         <Button
                           variant="outlined"
+                          size="small"
                           onClick={() =>
                             dispatch({ type: RANDOMIZE, payload: true })
                           }
@@ -629,15 +705,23 @@ const Header = () => {
             )}
             <Divider />
             {onSearchablePage && availableActresses?.length > 0 && (
-              <ListItemButton onClick={() => setIsActressOpen(!isActressOpen)}>
-                <ListItemText primary="Filter By Actress" />
-                {isYearOpen ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
+              <FilterWithClearComponent
+                display={isActressOpen || selectedActresses?.length > 0}
+                text="Filter By Actress"
+                handleClick={() => setIsActressOpen(!isActressOpen)}
+                displayClear={selectedActresses.length > 0}
+                handleClear={() =>
+                  dispatch({
+                    type: SELECTED_ACTRESSES,
+                    payload: []
+                  })
+                }
+              />
             )}
             <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
               <FixedSizeList
                 height={500}
-                width={262}
+                width={'96%'}
                 itemData={{
                   availableActresses,
                   handleActressSelection,
@@ -652,15 +736,18 @@ const Header = () => {
               </FixedSizeList>
             </Collapse>
             {onSearchablePage && availableDecades?.length > 0 && (
-              <ListItemButton onClick={() => setYearOpen(!isYearOpen)}>
-                <ListItemText primary="Filter By Decade" />
-                {isYearOpen ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
+              <FilterWithClearComponent
+                display={isYearOpen || filterDecades?.length > 0}
+                text="Filter By Decade"
+                handleClick={() => setYearOpen(!isYearOpen)}
+                displayClear={filterDecades?.length > 0}
+                handleClear={() => setFilterDecades([])}
+              />
             )}
             <Collapse in={isYearOpen} timeout="auto" unmountOnExit>
               <FixedSizeList
                 height={300}
-                width={262}
+                width={'96%'}
                 itemData={{
                   availableDecades,
                   handleDecadeSelection,
@@ -674,15 +761,22 @@ const Header = () => {
                 {renderRow}
               </FixedSizeList>
             </Collapse>
-            <Divider />
-            <ListItem>
-              <ListItemButton
-                onClick={handleSignout}
-                data-cy="signout-menu-item"
-              >
-                <ListItemText primary="Log Out" />
-              </ListItemButton>
-            </ListItem>
+            {!isEmpty(user) && (
+              <>
+                <Divider />
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={handleSignout}
+                    data-cy="signout-menu-item"
+                  >
+                    <ListItemText
+                      primary="Log Out"
+                      primaryTypographyProps={{ fontWeight: 700 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            )}
           </List>
         </ClickAwayListener>
       </Drawer>
