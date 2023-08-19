@@ -72,7 +72,7 @@ const Gallery = ({ collection }: { collection: string }) => {
         },
         sortBy
       )
-
+      setPage(0)
       setDisplayedVideos(filtered.movies)
     }
     getFilteredVideos()
