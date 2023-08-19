@@ -22,8 +22,8 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
-  Switch
-  //  Button
+  Switch,
+  Button
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -42,7 +42,8 @@ import {
   HIDE_UNDERAGE,
   AMATEUR_BB_URL,
   MAINSTREAM_BB_URL,
-  SHOW_ADMIN_CONTROLS
+  SHOW_ADMIN_CONTROLS,
+  RANDOMIZE
 } from './utils/constants'
 import { useAuthenticator } from './hooks/useAuthenticator'
 
@@ -559,24 +560,43 @@ const Header = () => {
                         )}
                       </ListItemButton>
                     </ListItem>
+                    {location.pathname === MAINSTREAM_BB_URL && (
+                      <ListItem disablePadding>
+                        <ListItemButton
+                          onClick={() => setSortBy('year')}
+                          selected={sortBy === 'year'}
+                        >
+                          <ListItemText>
+                            <Typography variant="body1" display="inline">
+                              Year Released
+                            </Typography>
+                          </ListItemText>
+                          {sortBy === 'year' && (
+                            <SwitchComponent
+                              left="Desc"
+                              right="Asc"
+                              call={setAscending}
+                              checked={ascending}
+                            />
+                          )}
+                        </ListItemButton>
+                      </ListItem>
+                    )}
                     <ListItem disablePadding>
-                      <ListItemButton
-                        onClick={() => setSortBy('year')}
-                        selected={sortBy === 'year'}
-                      >
+                      <ListItemButton>
                         <ListItemText>
                           <Typography variant="body1" display="inline">
-                            Year Released
+                            Random Order
                           </Typography>
                         </ListItemText>
-                        {sortBy === 'year' && (
-                          <SwitchComponent
-                            left="Desc"
-                            right="Asc"
-                            call={setAscending}
-                            checked={ascending}
-                          />
-                        )}
+                        <Button
+                          variant="outlined"
+                          onClick={() =>
+                            dispatch({ type: RANDOMIZE, payload: true })
+                          }
+                        >
+                          Randomize
+                        </Button>
                       </ListItemButton>
                     </ListItem>
                     {/* <ListItem disablePadding>

@@ -7,6 +7,7 @@ import {
   AVAILABLE_DECADES,
   AVAILABLE_TAGS,
   MIN_DECADE,
+  RANDOMIZE,
   SELECTED_ACTRESSES,
   moviesPerPage
 } from '../utils/constants'
@@ -30,7 +31,8 @@ const Gallery = ({ collection }: { collection: string }) => {
     availableTags,
     sortBy,
     selectedActresses,
-    hideUnderage
+    hideUnderage,
+    randomize
   } = useAuthContext()
   const { filter } = useSearchWithin()
 
@@ -56,6 +58,13 @@ const Gallery = ({ collection }: { collection: string }) => {
   useEffect(() => {
     getInitialSettings()
   }, [])
+
+  useEffect(() => {
+    if (randomize === true) {
+      setDisplayedVideos(displayedVideos.sort(() => Math.random() - 0.5))
+      dispatch({ type: RANDOMIZE, payload: false })
+    }
+  }, [randomize])
 
   useEffect(() => {
     const getFilteredVideos = async () => {

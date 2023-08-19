@@ -12,7 +12,8 @@ import {
   SORT_BY,
   SELECTED_ACTRESSES,
   SHOW_ADMIN_CONTROLS,
-  LOGIN
+  LOGIN,
+  RANDOMIZE
 } from '../utils/constants'
 export const AuthContext = createContext()
 
@@ -28,7 +29,8 @@ const initialState = {
   availableActresses: [],
   selectedActresses: [],
   hideUnderage: true,
-  showAdminControls: false
+  showAdminControls: false,
+  randomize: false
 }
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -56,7 +58,9 @@ export const authReducer = (state = initialState, action) => {
     case HIDE_UNDERAGE:
       return { ...state, hideUnderage: action.payload }
     case SHOW_ADMIN_CONTROLS:
-      return {...state, showAdminControls: action.payload}
+      return { ...state, showAdminControls: action.payload }
+    case RANDOMIZE:
+      return { ...state, randomize: action.payload }
     default:
       return state
   }
