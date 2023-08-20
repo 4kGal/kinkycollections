@@ -3,7 +3,8 @@
   color: white;
 }
 
-header, footer {
+header,
+footer {
   background-color: #374153;
   text-align: center;
   color: white;
@@ -11,7 +12,7 @@ header, footer {
 }
 
 header {
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   font-size: 28px;
 }
 
@@ -24,7 +25,8 @@ footer {
   margin: 10px 0;
 }
 
-a, a:hover {
+a,
+a:hover {
   color: #282c34;
   text-decoration: none;
 }
