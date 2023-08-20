@@ -2,11 +2,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { Grid, Typography } from '@mui/material'
+import { Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { CommentList } from './Comments/CommentList'
+import { orderBy } from 'lodash'
 
 const StyledDivContainer = styled('div')({
   position: 'relative',
@@ -28,6 +29,7 @@ const StyledIframe = styled('iframe')({
 })
 const Player = () => {
   const params = useParams()
+  const [sort, setSort] = useState(false)
   const _id = params.id
   const { collection = '' } = params
   if (_id?.length === 0) return <Navigate to="/" />
@@ -57,20 +59,32 @@ const Player = () => {
   })
 
   const commentsByParentId = useMemo(() => {
+    console.log(sort)
+    if (videoData?.comments == null) return []
     // TODO: TS
     const group: any = {}
-    if (videoData?.comments == null) return []
-    videoData?.comments.forEach((comment) => {
+
+    // if sort is false, then newest, if true then liked
+    const comments = orderBy(
+      Object.assign({}, videoData.comments),
+      [(o) => (!sort ? new Date(o.createdAt) : o.likes)],
+      ['desc']
+    )
+
+    console.log(comments)
+
+    comments.forEach((comment) => {
       if (comment?.parentId?.length > 0) {
-        group[comment?.parentId] = [comment]
+        group[comment?.parentId] = [{ ...comment, root: false }]
       } else {
+        const rootComment = Object.assign({}, comment, { root: true })
         group?.null?.length > 0
-          ? group?.null?.push(comment)
-          : (group.null = [comment])
+          ? group?.null?.push(rootComment)
+          : (group.null = [rootComment])
       }
     })
     return group
-  }, [videoData?.comments])
+  }, [videoData?.comments, sort])
 
   // const getReplies = (parentId: string) => commentsByParentId[parentId]
 
@@ -80,6 +94,7 @@ const Player = () => {
         const res = await fetch(`/api/videos/${collection}/${_id}/data`)
         const data = await res.json()
         setVideoData(data)
+        console.log(data)
       } catch (error) {
         console.log(error)
       }
@@ -115,6 +130,15 @@ const Player = () => {
             {videoData.name}
           </Typography>
           <Typography variant="h3">Comment Section</Typography>
+
+          <span style={{ paddingLeft: 20 }}>
+            <Typography variant="caption">Newest</Typography>
+            <Switch
+              checked={sort}
+              onChange={({ target }) => setSort(target.checked)}
+            />
+            <Typography variant="caption">Most Liked</Typography>
+          </span>
           <CommentList comments={commentsByParentId.null} />
         </Grid>
       </StyledDivContainer>

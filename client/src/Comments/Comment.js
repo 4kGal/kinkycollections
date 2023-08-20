@@ -13,7 +13,15 @@ import ReplyIcon from '@mui/icons-material/Reply'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useAuthContext } from '../hooks/useAuthContext'
 
-export function Comment({ id, message, user, createdAt, likes }) {
+export function Comment({
+  id,
+  message,
+  user,
+  createdAt,
+  likes,
+  isRoot,
+  index
+}) {
   const { user: loggedInUser } = useAuthContext()
 
   console.log(user.username, loggedInUser.username)
@@ -25,8 +33,9 @@ export function Comment({ id, message, user, createdAt, likes }) {
   })
 
   return (
-    <Card>
+    <Card data-cy={`${isRoot}-comment-${index}`}>
       <CardHeader
+        data-cy={`comment-header-${index}`}
         title={user.username}
         subheader={dateFormatter.format(Date.parse(createdAt))}
       />
@@ -34,22 +43,22 @@ export function Comment({ id, message, user, createdAt, likes }) {
         <Typography>{message}</Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton>
+        <IconButton data-cy={`favorite-icon-${index}`}>
           <Typography variant="subtitle2">
             <FavoriteIcon />
             {likes}
           </Typography>
         </IconButton>
         {isUserComment && (
-          <IconButton>
+          <IconButton data-cy={`edit-icon-${index}`}>
             <EditIcon />
           </IconButton>
         )}
-        <IconButton>
+        <IconButton data-cy={`reply-icon-${index}`}>
           <ReplyIcon />
         </IconButton>
         {isUserComment && (
-          <IconButton>
+          <IconButton data-cy={`delete-icon-${index}`}>
             <DeleteIcon />
           </IconButton>
         )}

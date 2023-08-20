@@ -6,9 +6,13 @@ export function CommentList({ comments }) {
   console.log(comments)
   return (
     comments &&
-    comments?.map((comment) => (
+    comments?.map((comment, index) => (
       <Grid item key={comment.id} margin={2}>
-        <Comment {...comment} />
+        <Comment
+          index={index}
+          {...comment}
+          isRoot={comment.root === true ? 'root' : 'child'}
+        />
       </Grid>
     ))
   )
