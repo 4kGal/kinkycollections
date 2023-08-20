@@ -13,7 +13,9 @@ import {
   SELECTED_ACTRESSES,
   SHOW_ADMIN_CONTROLS,
   LOGIN,
-  RANDOMIZE
+  RANDOMIZE,
+  NUM_OF_VIDEOS_PER_PAGE,
+  GALLERY_LENGTH
 } from '../utils/constants'
 export const AuthContext = createContext()
 
@@ -30,7 +32,9 @@ const initialState = {
   selectedActresses: [],
   hideUnderage: true,
   showAdminControls: false,
-  randomize: false
+  randomize: false,
+  numOfVidsPerPage: 9,
+  videoLength: 0
 }
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -62,6 +66,10 @@ export const authReducer = (state = initialState, action) => {
       return { ...state, showAdminControls: action.payload }
     case RANDOMIZE:
       return { ...state, randomize: action.payload }
+    case NUM_OF_VIDEOS_PER_PAGE:
+      return { ...state, numOfVidsPerPage: action.payload }
+    case GALLERY_LENGTH:
+      return { ...state, galleryLength: action.payload }
     default:
       return state
   }

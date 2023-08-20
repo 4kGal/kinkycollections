@@ -6,10 +6,10 @@ import {
   AVAILABLE_ACTRESSES,
   AVAILABLE_DECADES,
   AVAILABLE_TAGS,
+  GALLERY_LENGTH,
   MIN_DECADE,
   RANDOMIZE,
-  SELECTED_ACTRESSES,
-  moviesPerPage
+  SELECTED_ACTRESSES
 } from '../utils/constants'
 import PageNavigation from '../Shared/PageNavigation/PageNavigation'
 import { useSearchWithin } from '../hooks/useSeachWithin'
@@ -32,7 +32,8 @@ const Gallery = ({ collection }: { collection: string }) => {
     sortBy,
     selectedActresses,
     hideUnderage,
-    randomize
+    randomize,
+    numOfVidsPerPage = 9
   } = useAuthContext()
   const { filter } = useSearchWithin()
 
@@ -97,6 +98,18 @@ const Gallery = ({ collection }: { collection: string }) => {
   ])
 
   useEffect(() => {
+    setPage(0)
+  }, [numOfVidsPerPage])
+
+  useEffect(() => {
+    dispatch({
+      type: GALLERY_LENGTH,
+      payload: displayedVideos.length
+    })
+    setPage(0)
+  }, [displayedVideos])
+
+  useEffect(() => {
     if (selectedActresses?.length > 0 && !combineFilters) {
       setCombineFilters(true)
     }
@@ -145,7 +158,10 @@ const Gallery = ({ collection }: { collection: string }) => {
         handleSelectedCustomTags={handleActressSelection}
       />
       {displayedVideos
-        ?.slice(page * moviesPerPage, page * moviesPerPage + moviesPerPage)
+        ?.slice(
+          page * parseInt(numOfVidsPerPage),
+          page * parseInt(numOfVidsPerPage) + parseInt(numOfVidsPerPage)
+        )
         .map((video, index) => (
           <Card
             key={index}
@@ -159,7 +175,7 @@ const Gallery = ({ collection }: { collection: string }) => {
         page={page}
         setPage={setPage}
         length={displayedVideos?.length - 1}
-        perPage={moviesPerPage}
+        perPage={numOfVidsPerPage}
       />
     </Grid>
   )

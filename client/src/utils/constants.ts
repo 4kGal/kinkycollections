@@ -1,5 +1,3 @@
-export const moviesPerPage = 10
-
 export const MAINSTREAM_BB_URL = '/mainstreamBB'
 export const AMATEUR_BB_URL = '/amateurBB'
 
@@ -17,6 +15,8 @@ export const SELECTED_ACTRESSES = 'SELECTED_ACTRESSES'
 export const LOGIN = 'LOGIN'
 export const SHOW_ADMIN_CONTROLS = 'SHOW_ADMIN_CONTROLS'
 export const RANDOMIZE = 'RANDOMIZE'
+export const NUM_OF_VIDEOS_PER_PAGE = 'NUM_OF_VIDEOS_PER_PAGE'
+export const GALLERY_LENGTH = 'GALLERY_LENGTH'
 
 const prod = {
   url: {

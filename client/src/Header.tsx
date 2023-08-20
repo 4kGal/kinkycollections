@@ -23,7 +23,9 @@ import {
   Radio,
   FormControlLabel,
   Switch,
-  Button
+  Button,
+  Select,
+  type SelectChangeEvent
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -34,7 +36,6 @@ import { debounce, isEmpty } from 'lodash'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
-import { ClickAwayListener } from '@mui/base/ClickAwayListener'
 import {
   FILTER_DECADES,
   SELECTED_ACTRESSES,
@@ -43,18 +44,19 @@ import {
   AMATEUR_BB_URL,
   MAINSTREAM_BB_URL,
   SHOW_ADMIN_CONTROLS,
-  RANDOMIZE
+  RANDOMIZE,
+  NUM_OF_VIDEOS_PER_PAGE
 } from './utils/constants'
 import { useAuthenticator } from './hooks/useAuthenticator'
 
-const DrawerHeader = styled('div')(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  // padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  // ...theme.mixins.toolbar,
-  justifyContent: 'flex-end'
-}))
+// const DrawerHeader = styled('div')(() => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   // padding: theme.spacing(0, 1),
+//   // necessary for content to be below app bar
+//   // ...theme.mixins.toolbar,
+//   justifyContent: 'flex-end'
+// }))
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -174,7 +176,9 @@ const Header = () => {
     availableDecades,
     dispatch,
     availableActresses,
-    selectedActresses = []
+    selectedActresses = [],
+    numOfVidsPerPage = 9,
+    videoLength
   } = authContext
   const [open, setOpen] = useState(false)
   const [isYearOpen, setYearOpen] = useState(false)
@@ -330,6 +334,13 @@ const Header = () => {
       })
     }
   }
+
+  const handleVidsPerPageChange = (event: SelectChangeEvent) => {
+    dispatch({
+      type: NUM_OF_VIDEOS_PER_PAGE,
+      payload: event.target.value
+    })
+  }
   const onSearchablePage =
     location.pathname === MAINSTREAM_BB_URL ||
     location.pathname === AMATEUR_BB_URL
@@ -399,8 +410,12 @@ const Header = () => {
     </>
   )
 
+  const pageArray = []
+  for (let i = 1; i * 9 < 50 || i * 9 < videoLength; i++) {
+    pageArray.push(i * 9)
+  }
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} key={'left'}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -485,147 +500,162 @@ const Header = () => {
           )}
         </Toolbar>
       </AppBar>
-      <Drawer anchor="left" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={() => setOpen(false)}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </DrawerHeader>
+      <IconButton onClick={() => setOpen(true)}>
+        <ChevronLeftIcon />
+      </IconButton>
+      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
         <Divider />
-        <ClickAwayListener onClickAway={() => setOpen(false)}>
-          <List sx={{ minWidth: 272 }}>
-            {isAdmin() && (
-              <>
-                <ListItem>
-                  <ListItemText>
-                    <Typography variant="body1" display="inline">
-                      Display Admin Controls
-                    </Typography>
-                    <SwitchComponent
-                      left="No"
-                      right="Yes"
-                      call={setAdminSwitch}
-                      checked={adminSwitch}
-                    />
-                  </ListItemText>
-                </ListItem>
-                <Divider />
-              </>
-            )}
-            {isEmpty(user) && (
+        <List sx={{ minWidth: 272 }} role="presentation">
+          {isAdmin() && (
+            <>
+              <ListItem>
+                <ListItemText>
+                  <Typography variant="body1" display="inline">
+                    Display Admin Controls
+                  </Typography>
+                  <SwitchComponent
+                    left="No"
+                    right="Yes"
+                    call={setAdminSwitch}
+                    checked={adminSwitch}
+                  />
+                </ListItemText>
+              </ListItem>
+              <Divider />
+            </>
+          )}
+          {isEmpty(user) && (
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={navigateToSignInPage}
+                data-cy="login-signup-menu-item"
+              >
+                <ListItemText>Log In/Sign Up</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          )}
+          {!isEmpty(user) && (
+            <>
               <ListItem disablePadding>
                 <ListItemButton
-                  onClick={navigateToSignInPage}
-                  data-cy="login-signup-menu-item"
+                  onClick={navigateToFavoritesPage}
+                  data-cy="favorites-menu-item"
                 >
-                  <ListItemText>Log In/Sign Up</ListItemText>
+                  <ListItemText>Favorites</ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <Divider />
+            </>
+          )}
+          {onSearchablePage && (
+            <>
+              <ListItem>
+                <ListItemText>
+                  <Typography variant="body1" display="inline">
+                    Display Underage
+                  </Typography>
+                  <SwitchComponent
+                    left="Yes"
+                    right="18+ Only"
+                    call={setHideUnderage}
+                    checked={hideUnderage}
+                  />
+                </ListItemText>
+              </ListItem>
+              <Divider />
+            </>
+          )}
+          {!isEmpty(user) &&
+            (user.email === undefined || user.email === null) && (
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={updateEmail}
+                  data-cy="add-email-menu-item"
+                >
+                  <ListItemText>Add email address</ListItemText>
                 </ListItemButton>
               </ListItem>
             )}
-            {!isEmpty(user) && (
-              <>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={navigateToFavoritesPage}
-                    data-cy="favorites-menu-item"
-                  >
-                    <ListItemText>Favorites</ListItemText>
-                  </ListItemButton>
-                </ListItem>
+          {onSearchablePage && (
+            <>
+              <ListItem
+                disablePadding
+                sx={{
+                  backgroundColor: isSortOpen ? '#81acd6' : 'initial'
+                }}
+              >
+                <ListItemButton onClick={() => setIsSortOpen(!isSortOpen)}>
+                  <ListItemText primary={`Sort`} />
+                  {isSortOpen ? (
+                    <IconButton size="small">
+                      <ExpandLess />
+                    </IconButton>
+                  ) : (
+                    <IconButton size="small">
+                      <ExpandMore />
+                    </IconButton>
+                  )}
+                </ListItemButton>
+              </ListItem>
+              <Collapse in={isSortOpen} timeout="auto" unmountOnExit>
                 <Divider />
-              </>
-            )}
-            {onSearchablePage && (
-              <>
-                <ListItem>
-                  <ListItemText>
-                    <Typography variant="body1" display="inline">
-                      Display Underage
-                    </Typography>
-                    <SwitchComponent
-                      left="Yes"
-                      right="18+ Only"
-                      call={setHideUnderage}
-                      checked={hideUnderage}
-                    />
-                  </ListItemText>
-                </ListItem>
-                <Divider />
-              </>
-            )}
-            {!isEmpty(user) &&
-              (user.email === undefined || user.email === null) && (
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={updateEmail}
-                    data-cy="add-email-menu-item"
-                  >
-                    <ListItemText>Add email address</ListItemText>
-                  </ListItemButton>
-                </ListItem>
-              )}
-            {onSearchablePage && (
-              <>
-                <ListItem
-                  disablePadding
-                  sx={{
-                    backgroundColor: isSortOpen ? '#81acd6' : 'initial'
-                  }}
-                >
-                  <ListItemButton onClick={() => setIsSortOpen(!isSortOpen)}>
-                    <ListItemText primary={`Sort`} />
-                    {isSortOpen ? (
-                      <IconButton size="small">
-                        <ExpandLess />
-                      </IconButton>
-                    ) : (
-                      <IconButton size="small">
-                        <ExpandMore />
-                      </IconButton>
-                    )}
-                  </ListItemButton>
-                </ListItem>
-                <Collapse in={isSortOpen} timeout="auto" unmountOnExit>
-                  <Divider />
-                  <List
-                    style={{ marginLeft: '5px', padding: 0 }}
-                    component="div"
-                  >
+                <List style={{ marginLeft: '5px', padding: 0 }} component="div">
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => setSortBy('likes')}
+                      selected={sortBy === 'likes'}
+                    >
+                      <ListItemText>
+                        <Typography variant="body1" display="inline">
+                          Most Liked
+                        </Typography>
+                      </ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => setSortBy('views')}
+                      selected={sortBy === 'views'}
+                    >
+                      <ListItemText>
+                        <Typography variant="body1" display="inline">
+                          Most Viewed
+                        </Typography>
+                      </ListItemText>
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => setSortBy('recent')}
+                      selected={sortBy === 'recent'}
+                    >
+                      <ListItemText>
+                        <Typography variant="body1" display="inline">
+                          Added
+                        </Typography>
+                      </ListItemText>
+                      {sortBy === 'recent' && (
+                        <SwitchComponent
+                          left="Desc"
+                          right="Asc"
+                          call={setAscending}
+                          checked={ascending}
+                        />
+                      )}
+                    </ListItemButton>
+                  </ListItem>
+                  {location.pathname === MAINSTREAM_BB_URL && (
                     <ListItem disablePadding>
                       <ListItemButton
-                        onClick={() => setSortBy('likes')}
-                        selected={sortBy === 'likes'}
+                        onClick={() => setSortBy('year')}
+                        selected={sortBy === 'year'}
                       >
                         <ListItemText>
                           <Typography variant="body1" display="inline">
-                            Most Liked
+                            Year Released
                           </Typography>
                         </ListItemText>
-                      </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemButton
-                        onClick={() => setSortBy('views')}
-                        selected={sortBy === 'views'}
-                      >
-                        <ListItemText>
-                          <Typography variant="body1" display="inline">
-                            Most Viewed
-                          </Typography>
-                        </ListItemText>
-                      </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemButton
-                        onClick={() => setSortBy('recent')}
-                        selected={sortBy === 'recent'}
-                      >
-                        <ListItemText>
-                          <Typography variant="body1" display="inline">
-                            Added
-                          </Typography>
-                        </ListItemText>
-                        {sortBy === 'recent' && (
+                        {sortBy === 'year' && (
                           <SwitchComponent
                             left="Desc"
                             right="Asc"
@@ -635,47 +665,26 @@ const Header = () => {
                         )}
                       </ListItemButton>
                     </ListItem>
-                    {location.pathname === MAINSTREAM_BB_URL && (
-                      <ListItem disablePadding>
-                        <ListItemButton
-                          onClick={() => setSortBy('year')}
-                          selected={sortBy === 'year'}
-                        >
-                          <ListItemText>
-                            <Typography variant="body1" display="inline">
-                              Year Released
-                            </Typography>
-                          </ListItemText>
-                          {sortBy === 'year' && (
-                            <SwitchComponent
-                              left="Desc"
-                              right="Asc"
-                              call={setAscending}
-                              checked={ascending}
-                            />
-                          )}
-                        </ListItemButton>
-                      </ListItem>
-                    )}
-                    <ListItem disablePadding>
-                      <ListItemButton>
-                        <ListItemText>
-                          <Typography variant="body1" display="inline">
-                            Random Order
-                          </Typography>
-                        </ListItemText>
-                        <Button
-                          variant="outlined"
-                          size="small"
-                          onClick={() =>
-                            dispatch({ type: RANDOMIZE, payload: true })
-                          }
-                        >
-                          Randomize
-                        </Button>
-                      </ListItemButton>
-                    </ListItem>
-                    {/* <ListItem disablePadding>
+                  )}
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemText>
+                        <Typography variant="body1" display="inline">
+                          Random Order
+                        </Typography>
+                      </ListItemText>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() =>
+                          dispatch({ type: RANDOMIZE, payload: true })
+                        }
+                      >
+                        Randomize
+                      </Button>
+                    </ListItemButton>
+                  </ListItem>
+                  {/* <ListItem disablePadding>
                           <ListItemButton
                             onClick={() => setSortBy('oldest')}
                             selected={sortBy === 'oldest'}
@@ -687,7 +696,7 @@ const Header = () => {
                             </ListItemText>
                           </ListItemButton>
                         </ListItem> */}
-                    {/* <ListItem disablePadding>
+                  {/* <ListItem disablePadding>
                           <ListItemButton
                             onClick={() => setSortBy('alphabetical')}
                             selected={sortBy === 'alphabetical'}
@@ -699,86 +708,101 @@ const Header = () => {
                             </ListItemText>
                           </ListItemButton>
                         </ListItem> */}
-                  </List>
-                </Collapse>
-              </>
-            )}
-            <Divider />
-            {onSearchablePage && availableActresses?.length > 0 && (
-              <FilterWithClearComponent
-                display={isActressOpen || selectedActresses?.length > 0}
-                text="Filter By Actress"
-                handleClick={() => setIsActressOpen(!isActressOpen)}
-                displayClear={selectedActresses.length > 0}
-                handleClear={() =>
-                  dispatch({
-                    type: SELECTED_ACTRESSES,
-                    payload: []
-                  })
-                }
-              />
-            )}
-            <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
-              <FixedSizeList
-                height={500}
-                width={'96%'}
-                itemData={{
-                  availableActresses,
-                  handleActressSelection,
-                  selectedActresses
-                }}
-                itemSize={55}
-                itemCount={availableActresses?.length}
-                overscanCount={5}
-                style={{ border: '1px solid lightgrey' }}
+                </List>
+              </Collapse>
+            </>
+          )}
+          <Divider />
+          {onSearchablePage && availableActresses?.length > 0 && (
+            <FilterWithClearComponent
+              display={isActressOpen || selectedActresses?.length > 0}
+              text="Filter By Actress"
+              handleClick={() => setIsActressOpen(!isActressOpen)}
+              displayClear={selectedActresses.length > 0}
+              handleClear={() =>
+                dispatch({
+                  type: SELECTED_ACTRESSES,
+                  payload: []
+                })
+              }
+            />
+          )}
+          <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
+            <FixedSizeList
+              height={500}
+              width={'96%'}
+              itemData={{
+                availableActresses,
+                handleActressSelection,
+                selectedActresses
+              }}
+              itemSize={55}
+              itemCount={availableActresses?.length}
+              overscanCount={5}
+              style={{ border: '1px solid lightgrey' }}
+            >
+              {renderActressRow}
+            </FixedSizeList>
+          </Collapse>
+          {onSearchablePage && availableDecades?.length > 0 && (
+            <FilterWithClearComponent
+              display={isYearOpen || filterDecades?.length > 0}
+              text="Filter By Decade"
+              handleClick={() => setYearOpen(!isYearOpen)}
+              displayClear={filterDecades?.length > 0}
+              handleClear={() => setFilterDecades([])}
+            />
+          )}
+          <Collapse in={isYearOpen} timeout="auto" unmountOnExit>
+            <FixedSizeList
+              height={300}
+              width={'96%'}
+              itemData={{
+                availableDecades,
+                handleDecadeSelection,
+                filterDecades
+              }}
+              itemSize={46}
+              itemCount={availableDecades?.length}
+              overscanCount={5}
+              style={{ border: '1px solid lightgrey' }}
+            >
+              {renderRow}
+            </FixedSizeList>
+          </Collapse>
+          {onSearchablePage && (
+            <ListItem data-cy="num-videos-per-page">
+              <ListItemText primary="# Videos Per Page" />
+              <Select
+                value={numOfVidsPerPage}
+                onChange={handleVidsPerPageChange}
+                defaultValue="9"
               >
-                {renderActressRow}
-              </FixedSizeList>
-            </Collapse>
-            {onSearchablePage && availableDecades?.length > 0 && (
-              <FilterWithClearComponent
-                display={isYearOpen || filterDecades?.length > 0}
-                text="Filter By Decade"
-                handleClick={() => setYearOpen(!isYearOpen)}
-                displayClear={filterDecades?.length > 0}
-                handleClear={() => setFilterDecades([])}
-              />
-            )}
-            <Collapse in={isYearOpen} timeout="auto" unmountOnExit>
-              <FixedSizeList
-                height={300}
-                width={'96%'}
-                itemData={{
-                  availableDecades,
-                  handleDecadeSelection,
-                  filterDecades
-                }}
-                itemSize={46}
-                itemCount={availableDecades?.length}
-                overscanCount={5}
-                style={{ border: '1px solid lightgrey' }}
-              >
-                {renderRow}
-              </FixedSizeList>
-            </Collapse>
-            {!isEmpty(user) && (
-              <>
-                <Divider />
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={handleSignout}
-                    data-cy="signout-menu-item"
-                  >
-                    <ListItemText
-                      primary="Log Out"
-                      primaryTypographyProps={{ fontWeight: 700 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </>
-            )}
-          </List>
-        </ClickAwayListener>
+                {pageArray.map((page) => (
+                  <MenuItem key={page} value={page}>
+                    {page}
+                  </MenuItem>
+                ))}
+              </Select>
+            </ListItem>
+          )}
+          {!isEmpty(user) && (
+            <>
+              <Divider />
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={handleSignout}
+                  data-cy="signout-menu-item"
+                >
+                  <ListItemText
+                    primary="Log Out"
+                    primaryTypographyProps={{ fontWeight: 700 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </>
+          )}
+        </List>
       </Drawer>
     </Box>
   )
