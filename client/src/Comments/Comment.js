@@ -4,7 +4,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  IconButton,
   Typography
 } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -12,6 +11,7 @@ import EditIcon from '@mui/icons-material/EditOutlined'
 import ReplyIcon from '@mui/icons-material/Reply'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { ActionButton } from './ActionButton'
 
 export function Comment({
   id,
@@ -43,24 +43,19 @@ export function Comment({
         <Typography>{message}</Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton data-cy={`favorite-icon-${index}`}>
-          <Typography variant="subtitle2">
-            <FavoriteIcon />
-            {likes}
-          </Typography>
-        </IconButton>
+        <ActionButton data-cy={`favorite-icon-${index}`} Icon={FavoriteIcon}>
+          {likes}
+        </ActionButton>
         {isUserComment && (
-          <IconButton data-cy={`edit-icon-${index}`}>
-            <EditIcon />
-          </IconButton>
+          <ActionButton data-cy={`edit-icon-${index}`} Icon={EditIcon} />
         )}
-        <IconButton data-cy={`reply-icon-${index}`}>
-          <ReplyIcon />
-        </IconButton>
+        <ActionButton data-cy={`reply-icon-${index}`} Icon={ReplyIcon} />
         {isUserComment && (
-          <IconButton data-cy={`delete-icon-${index}`}>
-            <DeleteIcon />
-          </IconButton>
+          <ActionButton
+            color="error"
+            data-cy={`delete-icon-${index}`}
+            Icon={DeleteIcon}
+          />
         )}
       </CardActions>
     </Card>

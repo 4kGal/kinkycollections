@@ -101,6 +101,9 @@ describe('Comments', () => {
       cy.contains('loggedInUser')
       cy.contains('Aug 12, 2023, 11:10 AM')
       cy.contains('Good googily moogily')
+
+      // logged in user so favorite should only be filled in if likes > 0
+
       cy.dataCy('favorite-icon-0').should('have.text', 1)
       cy.dataCy('edit-icon-0')
       cy.dataCy('reply-icon-0')
@@ -119,7 +122,7 @@ describe('Comments', () => {
 
     // Changes sort
     cy.get('.MuiSwitch-root').within(() => {
-      cy.get('input').click()
+      cy.get('input').click({ force: true })
     })
     cy.dataCy(rootCmnt0).contains('JimBobUser')
     cy.dataCy(rootCmnt1).contains('loggedInUser')
