@@ -1,7 +1,24 @@
 import React from 'react'
-import { Card, CardContent, CardHeader, Typography } from '@mui/material'
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Typography
+} from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import EditIcon from '@mui/icons-material/EditOutlined'
+import ReplyIcon from '@mui/icons-material/Reply'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { useAuthContext } from '../hooks/useAuthContext'
 
-export function Comment({ id, message, user, createdAt }) {
+export function Comment({ id, message, user, createdAt, likes }) {
+  const { user: loggedInUser } = useAuthContext()
+
+  console.log(user.username, loggedInUser.username)
+  const isUserComment =
+    user.username.toLowerCase() === loggedInUser?.username.toLowerCase()
   const dateFormatter = new Intl.DateTimeFormat(undefined, {
     dateStyle: 'medium',
     timeStyle: 'short'
@@ -16,6 +33,27 @@ export function Comment({ id, message, user, createdAt }) {
       <CardContent sx={{ paddingTop: 0 }}>
         <Typography>{message}</Typography>
       </CardContent>
+      <CardActions disableSpacing>
+        <IconButton>
+          <Typography variant="subtitle2">
+            <FavoriteIcon />
+            {likes}
+          </Typography>
+        </IconButton>
+        {isUserComment && (
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        )}
+        <IconButton>
+          <ReplyIcon />
+        </IconButton>
+        {isUserComment && (
+          <IconButton>
+            <DeleteIcon />
+          </IconButton>
+        )}
+      </CardActions>
     </Card>
   )
 }
