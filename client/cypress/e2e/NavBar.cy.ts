@@ -11,11 +11,7 @@ describe('Nav Bar', () => {
       getMainstreambb[0],
       getMainstreambb[1]
     ])
-    cy.intercept(
-      'GET',
-      '/api/search/filter/mainstreambb?&underage=false&eitherOr=or&sort=recent',
-      getMainstreambb
-    )
+    cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
   it('update email if no email present', () => {
     cy.visit('/mainstreamBB', {
@@ -92,7 +88,7 @@ describe('Nav Bar', () => {
     cy.dataCy('open-nav-drawer').click()
     cy.dataCy('add-email-menu-item').should('not.exist')
   })
-  it.only('shows login if user is not logged in', () => {
+  it('shows login if user is not logged in', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', 'null')
@@ -104,5 +100,46 @@ describe('Nav Bar', () => {
     cy.dataCy('favorites-menu-item').should('not.exist')
     cy.dataCy('signout-menu-item').should('not.exist')
     cy.dataCy('add-email-menu-item').should('not.exist')
+  })
+  it('updates page on selection change', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', 'null')
+      }
+    })
+    cy.contains('1 of 27')
+    cy.dataCy('open-nav-drawer').click()
+
+    cy.dataCy('videos-per-page-select').parent().click()
+    cy.get("[data-value='27']").click()
+    cy.contains('1 of 9')
+  })
+  it.only('updates page on selection change', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', 'null')
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+    cy.dataCy('filter-by-actress-clear-btn').should('not.exist')
+
+    cy.contains('Filter By Actress').click()
+    cy.dataCy('actress-name-0').click()
+    cy.dataCy('item-actress-0').should('have.class', 'Mui-selected')
+
+    cy.dataCy('filter-by-actress-clear-btn').should('exist')
+    cy.dataCy('actress-name-2').click({ force: true })
+    cy.dataCy('item-actress-2').should('have.class', 'Mui-selected')
+
+    cy.dataCy('actress-name-3').click({ force: true })
+    cy.dataCy('item-actress-3').should('have.class', 'Mui-selected')
+
+    cy.dataCy('actress-name-3').click({ force: true })
+    cy.dataCy('item-actress-3').should('not.have.class', 'Mui-selected')
+
+    cy.dataCy('filter-by-actress-clear-btn').click()
+
+    cy.dataCy('item-actress-0').should('not.have.class', 'Mui-selected')
+    cy.dataCy('item-actress-2').should('not.have.class', 'Mui-selected')
   })
 })

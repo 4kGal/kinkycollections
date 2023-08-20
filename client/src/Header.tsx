@@ -115,9 +115,14 @@ function renderActressRow(props: ListChildComponentProps) {
       <ListItemButton
         onClick={() => handleActressSelection(current.actress)}
         selected={selectedActresses?.includes(current.actress)}
+        data-cy={`item-actress-${index}`}
       >
         <ListItemText>
-          <Typography variant="body1" display="inline">
+          <Typography
+            variant="body1"
+            display="inline"
+            data-cy={`actress-name-${index}`}
+          >
             {current.actress}
           </Typography>
           <br />
@@ -390,6 +395,7 @@ const Header = () => {
               sx={{
                 backgroundColor: 'white'
               }}
+              data-cy={`${text.toLowerCase().replace(/[ ]/g, '-')}-clear-btn`}
               onClick={handleClear}
             >
               Clear
@@ -777,6 +783,9 @@ const Header = () => {
                 value={numOfVidsPerPage}
                 onChange={handleVidsPerPageChange}
                 defaultValue="9"
+                inputProps={{
+                  'data-cy': 'videos-per-page-select'
+                }}
               >
                 {pageArray.map((page) => (
                   <MenuItem key={page} value={page}>
