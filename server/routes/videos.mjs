@@ -7,6 +7,9 @@ import { ObjectId } from "mongodb";
 //import pkg from "lodash"
 import Thumbler from "thumbler";
 import path from "path";
+import pkg from "lodash";
+const { isEmpty } = pkg;
+
 const __dirname = path.resolve();
 
 const router = express.Router();
@@ -190,12 +193,64 @@ router.get("/:collection/:id/data", async (req, res) => {
   });
   const name = movieObject.name;
   const videoId = movieObject.videoId;
-  res.status(200).json({ name, videoId });
+  const comments = movieObject.comments;
+  res.status(200).json({ name, videoId, comments });
+});
+
+router.post("/:collection/:id/comment", async (req, res) => {
+  const { id } = req.params;
+  const { message, user } = req.body;
+  const { username } = user;
+
+  const { _id: userId } = await db
+    .collection("users")
+    .findOne({ username: username.toLowerCase() });
+
+  if (message === "" || message === null || isEmpty(user)) {
+    return res.send({ error: "Bad Request" }).status(400);
+  }
+  const collection = await db.collection(req.params.collection);
+
+  console.log({
+    id: new ObjectId(),
+    parentId: null,
+    message,
+    createdAt: new Date(),
+    likes: 0,
+    user: {
+      id: userId,
+      username,
+    },
+  });
+  const { value } = await collection.findOneAndUpdate(
+    {
+      _id: new ObjectId(id),
+    },
+    {
+      $push: {
+        comments: {
+          id: new ObjectId(),
+          parentId: null,
+          message,
+          createdAt: new Date(),
+          likes: 0,
+          user: {
+            id: userId,
+            username,
+          },
+        },
+      },
+    },
+    { returnOriginal: false, returnDocument: "after" }
+  );
+  console.log(value);
+  return res.status(200).json(value.comments);
 });
 
 router.put("/:collection/:id/update", async (req, res) => {
   const { id } = req.params;
   const { key, value: newValue } = req.body;
+
   const collection = await db.collection(req.params.collection);
 
   console.log(

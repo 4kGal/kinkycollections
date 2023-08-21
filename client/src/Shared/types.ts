@@ -19,3 +19,19 @@ export interface MetaData extends MetaDataKeys {
   videoId: string
   views: number
 }
+
+export type Comments =
+  | [
+      {
+        id: string
+        message: string
+        parentId: string
+        createdAt: string
+        likes: number
+        user: {
+          id: string
+          username: string
+        }
+      }
+    ]
+  | []

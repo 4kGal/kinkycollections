@@ -4,10 +4,15 @@
 
 import { Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
-import React, { useState, useEffect, useMemo } from 'react'
-import { useParams, Navigate } from 'react-router-dom'
+import React from 'react'
+import { Navigate } from 'react-router-dom'
 import { CommentList } from './Comments/CommentList'
-import { orderBy } from 'lodash'
+import { useVideoPageContext } from './hooks/useVideoPageContext'
+import { CommentForm } from './Comments/CommentForm'
+import { useAsyncFn } from './hooks/useAsync'
+import { createComment } from './services/comments'
+import { useAuthContext } from './hooks/useAuthContext'
+import { isEmpty } from 'lodash'
 
 const StyledDivContainer = styled('div')({
   position: 'relative',
@@ -28,80 +33,21 @@ const StyledIframe = styled('iframe')({
   width: '100%'
 })
 const Player = () => {
-  const params = useParams()
-  const [sort, setSort] = useState(false)
-  const _id = params.id
-  const { collection = '' } = params
-  if (_id?.length === 0) return <Navigate to="/" />
+  const { user } = useAuthContext()
+  const { video, rootComments, sort, setSort, createLocalComment } =
+    useVideoPageContext()
+  const { loading, error, execute: createCommentFn } = useAsyncFn(createComment)
 
-  const [videoData, setVideoData] = useState<{
-    name: string
-    videoId: string
-    comments:
-      | [
-          {
-            id: string
-            message: string
-            parentId: string
-            createdAt: string
-            likes: number
-            user: {
-              id: string
-              username: string
-            }
-          }
-        ]
-      | []
-  }>({
-    name: '',
-    videoId: '',
-    comments: []
-  })
-
-  const commentsByParentId = useMemo(() => {
-    console.log(sort)
-    if (videoData?.comments == null) return []
-    // TODO: TS
-    const group: any = {}
-
-    // if sort is false, then newest, if true then liked
-    const comments = orderBy(
-      Object.assign({}, videoData.comments),
-      [(o) => (!sort ? new Date(o.createdAt) : o.likes)],
-      ['desc']
-    )
-
-    console.log(comments)
-
-    comments.forEach((comment) => {
-      if (comment?.parentId?.length > 0) {
-        group[comment?.parentId] = [{ ...comment, root: false }]
-      } else {
-        const rootComment = Object.assign({}, comment, { root: true })
-        group?.null?.length > 0
-          ? group?.null?.push(rootComment)
-          : (group.null = [rootComment])
+  const onCommentCreate = (message) => {
+    return createCommentFn({
+      collection: video.collection,
+      _id: video._id,
+      message,
+      user: {
+        username: user.username
       }
-    })
-    return group
-  }, [videoData?.comments, sort])
-
-  // const getReplies = (parentId: string) => commentsByParentId[parentId]
-
-  useEffect(() => {
-    const getVideo = async () => {
-      try {
-        const res = await fetch(`/api/videos/${collection}/${_id}/data`)
-        const data = await res.json()
-        setVideoData(data)
-        console.log(data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    getVideo()
-  }, [])
+    }).then(createLocalComment)
+  }
 
   return (
     <Grid
@@ -112,9 +58,9 @@ const Player = () => {
     >
       <StyledDivContainer>
         <StyledIframe
-          src={`https://iframe.mediadelivery.net/embed/147442/${videoData.videoId}?autoplay=true&loop=false&muted=false&preload=true`}
+          src={`https://iframe.mediadelivery.net/embed/147442/${video.videoId}?autoplay=true&loop=false&muted=false&preload=true`}
           loading="lazy"
-          title={videoData.name}
+          title={video.name}
           allow="accelerometer;gyroscope;encrypted-media;picture-in-picture;"
           allowFullScreen
         />
@@ -127,10 +73,9 @@ const Player = () => {
           }}
         >
           <Typography mt={'-60%'} variant="h5" align="center" color="white">
-            {videoData.name}
+            {video.name}
           </Typography>
           <Typography variant="h3">Comment Section</Typography>
-
           <span style={{ paddingLeft: 20 }}>
             <Typography variant="caption">Newest</Typography>
             <Switch
@@ -139,7 +84,15 @@ const Player = () => {
             />
             <Typography variant="caption">Most Liked</Typography>
           </span>
-          <CommentList comments={commentsByParentId.null} />
+          <CommentForm
+            loading={loading}
+            error={error}
+            onSubmit={onCommentCreate}
+            isDisabled={isEmpty(user)}
+          />
+          {rootComments !== null && rootComments?.length > 0 && (
+            <CommentList comments={rootComments} />
+          )}
         </Grid>
       </StyledDivContainer>
     </Grid>

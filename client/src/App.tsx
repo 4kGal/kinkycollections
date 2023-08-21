@@ -9,6 +9,7 @@ import Home from './Home/Home'
 import AuthenticationPage from './AuthenticatePages/AuthenticationPage'
 import Favorites from './Favorites/Favorites'
 import SearchResults from './SearchResults/SearchResults'
+import { VideoPageProvider } from './context/VideoPageContext'
 
 const App = () => {
   return (
@@ -25,7 +26,14 @@ const App = () => {
             path="/amateurbb"
             element={<Gallery collection="amateurbb" />}
           />
-          <Route path="/player/:collection/:id" element={<Player />} />
+          <Route
+            path="/player/:collection/:id"
+            element={
+              <VideoPageProvider>
+                <Player />
+              </VideoPageProvider>
+            }
+          />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/searchResults" element={<SearchResults />} />
         </Routes>

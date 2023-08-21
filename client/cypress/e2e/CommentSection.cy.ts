@@ -77,7 +77,7 @@ describe('Comments', () => {
     // ])
     // cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
-  it('comments displayed when a user is logged in and has comments', () => {
+  it.only('comments displayed when a user is logged in and has comments', () => {
     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
       onBeforeLoad(win) {
         win.localStorage.setItem(
@@ -126,8 +126,23 @@ describe('Comments', () => {
     })
     cy.dataCy(rootCmnt0).contains('JimBobUser')
     cy.dataCy(rootCmnt1).contains('loggedInUser')
+
+    // New comment is not disabled
+    cy.dataCy('new-comment-text-area').should('not.have.class', 'Mui-disabled')
+    cy.dataCy('new-comment-submit-btn').should('not.have.class', 'Mui-disabled')
   })
   //   it('no comments and user can add and save comment', () => {
   //     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d')
   //   })
+  it('user is not logged in and cannot add new comment', () => {
+    cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', 'null')
+      }
+    })
+
+    // New comment is disabled
+    cy.dataCy('new-comment-text-area').should('have.class', 'Mui-disabled')
+    cy.dataCy('new-comment-submit-btn').should('have.class', 'Mui-disabled')
+  })
 })

@@ -48,7 +48,6 @@ export const authReducer = (state = initialState, action) => {
     case MIN_DECADE:
       return { ...state, minDecade: action.payload }
     case FILTER_DECADES:
-      console.log(action?.payload)
       return { ...state, decadesFilter: action.payload }
     case AVAILABLE_DECADES:
       return { ...state, availableDecades: action.payload }
