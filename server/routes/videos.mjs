@@ -223,7 +223,7 @@ router.post("/:collection/:id/comment", async (req, res) => {
           parentId: new ObjectId(parentId),
           message,
           createdAt: new Date(),
-          likes: 0,
+          likes: [],
           user: {
             id: userId,
             username,

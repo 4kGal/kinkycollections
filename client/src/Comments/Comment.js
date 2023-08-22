@@ -66,7 +66,7 @@ export function Comment({
   message,
   user,
   createdAt,
-  likes,
+  likes = [],
   isRoot,
   index
 }) {
@@ -146,7 +146,7 @@ export function Comment({
       })
       .then(refreshLocalComments)
   }
-  const isLikedByLoggedInUser = likes.includes(loggedInUser?.username)
+  const isLikedByLoggedInUser = likes?.includes(loggedInUser?.username)
   const userNotLoggedIn = isEmpty(loggedInUser)
 
   const TooltipText = ({ text }) => {

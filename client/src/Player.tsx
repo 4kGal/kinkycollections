@@ -71,7 +71,7 @@ const Player = () => {
           sx={{
             position: 'absolute',
             width: '100%',
-            height: '100%'
+            height: '34%'
           }}
         >
           <Typography mt={'-60%'} variant="h5" align="center" color="white">
@@ -100,7 +100,7 @@ const Player = () => {
                 isDisabled={isEmpty(user)}
               />
             </Grid>
-            <Grid item={2}>
+            <Grid item xs={2}>
               <Typography variant="caption" color="white">
                 Newest
               </Typography>
