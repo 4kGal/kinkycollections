@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useMemo,
-  useEffect
-} from 'react'
+import React, { createContext, useState, useMemo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getVideo } from '../services/videos'
 import { useAsync } from '../hooks/useAsync'
@@ -63,16 +57,15 @@ export function VideoPageProvider({ children }) {
   }
 
   useEffect(() => {
-    console.log('inside')
     if (video?.comments === null) return
-    console.log('in use', video)
     setState({
       ...state,
       comments: video?.comments
     })
-  }, [video?.comments])
+  }, [video?.comments, state.sort])
 
   const createLocalComment = (comments) => {
+    console.log(comments)
     setState({
       ...state,
       comments
@@ -94,6 +87,8 @@ export function VideoPageProvider({ children }) {
     })
   }
 
+  const getCollection = () => collection
+
   return (
     <VideoPageContext.Provider
       value={{
@@ -102,6 +97,7 @@ export function VideoPageProvider({ children }) {
         rootComments: commentsByParentId.null,
         createLocalComment,
         updateLocalComment,
+        getCollection,
         ...state
       }}
     >

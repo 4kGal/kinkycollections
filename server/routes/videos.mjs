@@ -199,7 +199,7 @@ router.get("/:collection/:id/data", async (req, res) => {
 
 router.post("/:collection/:id/comment", async (req, res) => {
   const { id } = req.params;
-  const { message, user } = req.body;
+  const { message, parentId, user } = req.body;
   const { username } = user;
 
   const { _id: userId } = await db
@@ -211,17 +211,6 @@ router.post("/:collection/:id/comment", async (req, res) => {
   }
   const collection = await db.collection(req.params.collection);
 
-  console.log({
-    id: new ObjectId(),
-    parentId: null,
-    message,
-    createdAt: new Date(),
-    likes: 0,
-    user: {
-      id: userId,
-      username,
-    },
-  });
   const { value } = await collection.findOneAndUpdate(
     {
       _id: new ObjectId(id),
@@ -230,7 +219,7 @@ router.post("/:collection/:id/comment", async (req, res) => {
       $push: {
         comments: {
           id: new ObjectId(),
-          parentId: null,
+          parentId,
           message,
           createdAt: new Date(),
           likes: 0,
@@ -243,7 +232,7 @@ router.post("/:collection/:id/comment", async (req, res) => {
     },
     { returnOriginal: false, returnDocument: "after" }
   );
-  console.log(value);
+
   return res.status(200).json(value.comments);
 });
 

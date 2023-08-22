@@ -17,6 +17,10 @@ import { useVideoPageContext } from '../hooks/useVideoPageContext'
 import { ActionButton } from './ActionButton'
 import { CommentList } from './CommentList'
 import { styled } from '@mui/system'
+import { isEmpty } from 'lodash'
+import { CommentForm } from './CommentForm'
+import { useAsyncFn } from '../hooks/useAsync'
+import { createComment } from '../services/comments'
 
 const VerticalLine = styled('button')({
   border: 'none',
@@ -60,12 +64,33 @@ export function Comment({
   index
 }) {
   const { user: loggedInUser } = useAuthContext()
-  const { getReplies } = useVideoPageContext()
+  const { video, getReplies, createLocalComment } = useVideoPageContext()
+  const [isReplying, setIsReplying] = useState(false)
   const [areChildrenHidden, setAreChildrenHidden] = useState(false)
+  const createCommentFn = useAsyncFn(createComment)
+
   const isUserComment =
     user?.username.toLowerCase() === loggedInUser?.username.toLowerCase()
 
   const childComments = getReplies(id)
+
+  const onCommentReply = (message) => {
+    return createCommentFn
+      .execute({
+        collection: video.collection,
+        _id: video._id,
+        parentId: id,
+        message,
+        user: {
+          username: loggedInUser.username
+        }
+      })
+      .then((comment) => {
+        setIsReplying(false)
+        createLocalComment(comment)
+      })
+  }
+  console.log(loggedInUser)
   return (
     <>
       <Card data-cy={`${isRoot}-comment-${index}`}>
@@ -84,7 +109,13 @@ export function Comment({
           {isUserComment && (
             <ActionButton data-cy={`edit-icon-${index}`} Icon={EditIcon} />
           )}
-          <ActionButton data-cy={`reply-icon-${index}`} Icon={ReplyIcon} />
+          <ActionButton
+            onClick={() => setIsReplying((prev) => !prev)}
+            isActive={isReplying}
+            data-cy={`reply-icon-${index}`}
+            Icon={ReplyIcon}
+            disabled={isEmpty(loggedInUser)}
+          />
           {isUserComment && (
             <ActionButton
               color="error"
@@ -94,6 +125,16 @@ export function Comment({
           )}
         </CardActions>
       </Card>
+      {isReplying && (
+        <Grid mt={1} ml={3}>
+          <CommentForm
+            autoFocus
+            onSubmit={onCommentReply}
+            loading={createCommentFn.loading}
+            error={createCommentFn.error}
+          />
+        </Grid>
+      )}
       <>
         {childComments?.length > 0 && (
           <Grid container>

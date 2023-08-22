@@ -77,7 +77,7 @@ describe('Comments', () => {
     // ])
     // cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
-  it.only('comments displayed when a user is logged in and has comments', () => {
+  it('comments displayed when a user is logged in and has comments', () => {
     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
       onBeforeLoad(win) {
         win.localStorage.setItem(
@@ -127,6 +127,9 @@ describe('Comments', () => {
     cy.dataCy(rootCmnt0).contains('JimBobUser')
     cy.dataCy(rootCmnt1).contains('loggedInUser')
 
+    // Replying is not disabled
+    cy.dataCy('reply-icon-0').should('not.be.disabled')
+
     // New comment is not disabled
     cy.dataCy('new-comment-text-area').should('not.have.class', 'Mui-disabled')
     cy.dataCy('new-comment-submit-btn').should('not.have.class', 'Mui-disabled')
@@ -140,6 +143,9 @@ describe('Comments', () => {
         win.localStorage.setItem('user', 'null')
       }
     })
+
+    // Replying is not disabled
+    cy.dataCy('reply-icon-0').should('be.disabled')
 
     // New comment is disabled
     cy.dataCy('new-comment-text-area').should('have.class', 'Mui-disabled')
