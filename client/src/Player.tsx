@@ -42,6 +42,7 @@ const Player = () => {
     return createCommentFn({
       collection: video.collection,
       _id: video._id,
+      parentId: null,
       message,
       user: {
         username: user.username

@@ -206,6 +206,8 @@ router.post("/:collection/:id/comment", async (req, res) => {
     return res.send({ error: "Bad Request" }).status(400);
   }
 
+  console.log(id, message, parentId);
+
   const { _id: userId } = await db
     .collection("users")
     .findOne({ username: username.toLowerCase() });
@@ -220,7 +222,7 @@ router.post("/:collection/:id/comment", async (req, res) => {
       $push: {
         comments: {
           id: new ObjectId(),
-          parentId: new ObjectId(parentId),
+          parentId: parentId,
           message,
           createdAt: new Date(),
           likes: [],
@@ -233,6 +235,8 @@ router.post("/:collection/:id/comment", async (req, res) => {
     },
     { returnOriginal: false, returnDocument: "after" }
   );
+
+  console.log(value);
 
   return res.status(200).json(value.comments);
 });
@@ -317,7 +321,7 @@ router.delete("/:collection/:id/comment/:commentId", async (req, res) => {
   );
 
   if (commentToDeleteIndex > -1) {
-    comments.splice(commentToDeleteIndex, 1);
+    comments[commentToDeleteIndex].message = "USER DELETED";
   } else {
     return res.send({ error: "Comment not found" }).status(404);
   }
