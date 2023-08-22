@@ -14,7 +14,7 @@ import EditIcon from '@mui/icons-material/EditOutlined'
 import ReplyIcon from '@mui/icons-material/Reply'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useAuthContext } from '../hooks/useAuthContext'
-import { useVideoPageContext } from '../hooks/useVideoPageContext'
+import { useCommentsContext } from '../hooks/useCommentsContext'
 import { ActionButton } from './ActionButton'
 import { CommentList } from './CommentList'
 import { styled } from '@mui/system'
@@ -73,7 +73,7 @@ export function Comment({
   const navigate = useNavigate()
 
   const { user: loggedInUser } = useAuthContext()
-  const { video, getReplies, refreshLocalComments } = useVideoPageContext()
+  const { video, getReplies, refreshLocalComments } = useCommentsContext()
   const [isReplying, setIsReplying] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [areChildrenHidden, setAreChildrenHidden] = useState(false)

@@ -9,7 +9,7 @@ import Home from './Home/Home'
 import AuthenticationPage from './AuthenticatePages/AuthenticationPage'
 import Favorites from './Favorites/Favorites'
 import SearchResults from './SearchResults/SearchResults'
-import { VideoPageProvider } from './context/VideoPageContext'
+import { CommentProvider } from './context/CommentContext'
 
 const App = () => {
   return (
@@ -29,9 +29,9 @@ const App = () => {
           <Route
             path="/player/:collection/:id"
             element={
-              <VideoPageProvider>
+              <CommentProvider>
                 <Player />
-              </VideoPageProvider>
+              </CommentProvider>
             }
           />
           <Route path="/favorites" element={<Favorites />} />
