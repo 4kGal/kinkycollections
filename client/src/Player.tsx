@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { Grid, Switch, Typography } from '@mui/material'
+import { Divider, Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import React from 'react'
 import { Navigate } from 'react-router-dom'
@@ -27,10 +27,10 @@ const StyledDivContainer = styled('div')({
 const StyledIframe = styled('iframe')({
   border: 'none',
   position: 'absolute',
-  // paddingLeft: '10%',
+  paddingLeft: '5%',
   top: 0,
-  height: '100%',
-  width: '100%'
+  height: '90%',
+  width: '90%'
 })
 const Player = () => {
   const { user } = useAuthContext()
@@ -66,7 +66,8 @@ const Player = () => {
         />
         <Grid
           item
-          mt="62%"
+          mt="56%"
+          ml={5}
           sx={{
             position: 'absolute',
             width: '100%',
@@ -76,21 +77,42 @@ const Player = () => {
           <Typography mt={'-60%'} variant="h5" align="center" color="white">
             {video.name}
           </Typography>
-          <Typography variant="h3">Comment Section</Typography>
-          <span style={{ paddingLeft: 20 }}>
-            <Typography variant="caption">Newest</Typography>
-            <Switch
-              checked={sort}
-              onChange={({ target }) => setSort(target.checked)}
-            />
-            <Typography variant="caption">Most Liked</Typography>
-          </span>
-          <CommentForm
-            loading={loading}
-            error={error}
-            onSubmit={onCommentCreate}
-            isDisabled={isEmpty(user)}
+          <Divider
+            light
+            flexItem
+            sx={{
+              marginLeft: '-50px',
+              borderColor: 'white',
+              paddingTop: 3,
+              marginBottom: 3,
+              borderBottomWidth: 10
+            }}
           />
+          <Typography variant="h3" color="white">
+            Comment Section
+          </Typography>
+          <Grid container flexWrap="nowrap">
+            <Grid item xs={10} flexDirection={'row'} flexWrap="nowrap">
+              <CommentForm
+                loading={loading}
+                error={error}
+                onSubmit={onCommentCreate}
+                isDisabled={isEmpty(user)}
+              />
+            </Grid>
+            <Grid item={2}>
+              <Typography variant="caption" color="white">
+                Newest
+              </Typography>
+              <Switch
+                checked={sort}
+                onChange={({ target }) => setSort(target.checked)}
+              />
+              <Typography variant="caption" color="white">
+                Most Liked
+              </Typography>
+            </Grid>
+          </Grid>
           {rootComments !== null && rootComments?.length > 0 && (
             <CommentList comments={rootComments} />
           )}

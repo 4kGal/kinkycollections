@@ -6,7 +6,7 @@ export function CommentList({ comments }) {
   return (
     comments?.length > 0 &&
     comments?.map((comment, index) => (
-      <Grid item key={comment.id} margin={2}>
+      <Grid item key={comment.id} mt={2} ml={1} mr={15}>
         <Comment
           index={index}
           {...comment}

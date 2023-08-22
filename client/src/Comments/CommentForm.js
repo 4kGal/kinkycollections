@@ -18,7 +18,7 @@ export function CommentForm({
   return (
     <>
       <Grid container>
-        <Grid item xs={6} pl={1} ml={1}>
+        <Grid item xs={6} pl={1}>
           <TextField
             fullWidth
             autoFocus={autoFocus}
