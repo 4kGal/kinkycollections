@@ -8,12 +8,12 @@ describe('Nav Bar', () => {
       initialMainstreamBBSettings
     )
     cy.intercept('GET', '/api/user/favorites/4kgal', [
-      getMainstreambb[0],
-      getMainstreambb[1]
+      getMainstreambb.movies[0],
+      getMainstreambb.movies[1]
     ])
     cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
-  it.skip('update email if no email present', () => {
+  it('update email if no email present', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem(
@@ -21,7 +21,10 @@ describe('Nav Bar', () => {
           JSON.stringify({
             username: '4kgal',
             token: 'test',
-            favorites: [getMainstreambb[0]._id, getMainstreambb[1]._id]
+            favorites: [
+              getMainstreambb.movies[0]._id,
+              getMainstreambb.movies[1]._id
+            ]
           })
         )
       }
@@ -43,7 +46,7 @@ describe('Nav Bar', () => {
     cy.dataCy('email-field').type('4kgal@gmail.com')
     cy.get('button').contains('Update').should('not.have.class', 'Mui-disabled')
   })
-  it.skip('navigates and loads favorites', () => {
+  it('navigates and loads favorites', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem(
@@ -51,7 +54,10 @@ describe('Nav Bar', () => {
           JSON.stringify({
             username: '4kgal',
             token: 'test',
-            favorites: [getMainstreambb[0]._id, getMainstreambb[1]._id]
+            favorites: [
+              getMainstreambb.movies[0]._id,
+              getMainstreambb.movies[1]._id
+            ]
           })
         )
       }
@@ -59,8 +65,8 @@ describe('Nav Bar', () => {
     cy.dataCy('open-nav-drawer').click()
     cy.dataCy('favorites-menu-item').click()
 
-    cy.contains(getMainstreambb[0].name)
-    cy.contains(getMainstreambb[1].name)
+    cy.contains(getMainstreambb.movies[0].name)
+    cy.contains(getMainstreambb.movies[1].name)
 
     cy.get('[data-testid="FavoriteIcon"]').should('have.length', 2)
     cy.get('[data-testid="FavoriteBorderIcon"]').should('not.exist')
@@ -70,7 +76,7 @@ describe('Nav Bar', () => {
 
   //     expect(window.localStorage.getItem('user')).to.equal({ user: null })
   //   })
-  it.skip('does not show add email address if user already has email', () => {
+  it('does not show add email address if user already has email', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem(
@@ -80,7 +86,10 @@ describe('Nav Bar', () => {
             token: 'test',
             email: '4kgal@gmail.com',
 
-            favorites: [getMainstreambb[0]._id, getMainstreambb[1]._id]
+            favorites: [
+              getMainstreambb.movies[0]._id,
+              getMainstreambb.movies[1]._id
+            ]
           })
         )
       }

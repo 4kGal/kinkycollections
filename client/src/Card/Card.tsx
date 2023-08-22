@@ -145,7 +145,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const isNew = new Date(addedDate) >= tenDaysAgo
 
   const displayName =
-    customName.length > 0 ? customName : name.replace('.mp4', '')
+    customName.length > 0 ? customName : name?.replace('.mp4', '')
 
   const nameContainsYear = displayName?.search(/[1-2][0-9][0-9][0-9]/) > -1
 

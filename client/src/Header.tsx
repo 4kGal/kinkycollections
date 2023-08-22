@@ -420,6 +420,7 @@ const Header = () => {
   for (let i = 1; i * 9 < 50 || i * 9 < videoLength; i++) {
     pageArray.push(i * 9)
   }
+  console.log(user)
   return (
     <Box sx={{ flexGrow: 1 }} key={'left'}>
       <AppBar position="static">
