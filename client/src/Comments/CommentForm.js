@@ -17,7 +17,7 @@ export function CommentForm({
 
   return (
     <>
-      <Grid container alignItems="end">
+      <Grid container>
         <Grid item xs={6} pl={1} ml={1}>
           <TextField
             fullWidth
@@ -42,7 +42,13 @@ export function CommentForm({
             }}
           />
         </Grid>
-        <Grid item ml={1} xs={1}>
+        <Grid
+          item
+          ml={1}
+          xs={1}
+          alignItems="stretch"
+          style={{ display: 'flex' }}
+        >
           <Button
             variant="contained"
             disabled={isDisabled || loading}

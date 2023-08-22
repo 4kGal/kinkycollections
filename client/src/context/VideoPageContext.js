@@ -32,7 +32,7 @@ export function VideoPageProvider({ children }) {
 
     const comments = orderBy(
       Object.assign({}, state?.comments),
-      [(o) => (!state.sort ? new Date(o.createdAt) : o.likes)],
+      [(o) => (!state.sort ? new Date(o.createdAt) : o.likes.length)],
       ['desc']
     )
 
@@ -64,26 +64,10 @@ export function VideoPageProvider({ children }) {
     })
   }, [video?.comments, state.sort])
 
-  const createLocalComment = (comments) => {
-    console.log(comments)
+  const refreshLocalComments = (comments) => {
     setState({
       ...state,
       comments
-    })
-  }
-
-  function updateLocalComment(id, message) {
-    setState((prevState) => {
-      return {
-        ...state,
-        comments: prevState.comments.map((comment) => {
-          if (comment.id === id) {
-            return { ...comment, message }
-          } else {
-            return comment
-          }
-        })
-      }
     })
   }
 
@@ -95,8 +79,7 @@ export function VideoPageProvider({ children }) {
         video: { _id, collection, ...video }, // do i need to return all this?
         getReplies,
         rootComments: commentsByParentId.null,
-        createLocalComment,
-        updateLocalComment,
+        refreshLocalComments,
         getCollection,
         ...state
       }}

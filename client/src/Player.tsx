@@ -34,7 +34,7 @@ const StyledIframe = styled('iframe')({
 })
 const Player = () => {
   const { user } = useAuthContext()
-  const { video, rootComments, sort, setSort, createLocalComment } =
+  const { video, rootComments, sort, setSort, refreshLocalComments } =
     useVideoPageContext()
   const { loading, error, execute: createCommentFn } = useAsyncFn(createComment)
 
@@ -46,7 +46,7 @@ const Player = () => {
       user: {
         username: user.username
       }
-    }).then(createLocalComment)
+    }).then(refreshLocalComments)
   }
 
   return (
@@ -69,7 +69,8 @@ const Player = () => {
           mt="62%"
           sx={{
             position: 'absolute',
-            width: '100%'
+            width: '100%',
+            height: '100%'
           }}
         >
           <Typography mt={'-60%'} variant="h5" align="center" color="white">

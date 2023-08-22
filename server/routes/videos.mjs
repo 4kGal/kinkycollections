@@ -202,13 +202,14 @@ router.post("/:collection/:id/comment", async (req, res) => {
   const { message, parentId, user } = req.body;
   const { username } = user;
 
+  if (message === "" || message === null || isEmpty(user)) {
+    return res.send({ error: "Bad Request" }).status(400);
+  }
+
   const { _id: userId } = await db
     .collection("users")
     .findOne({ username: username.toLowerCase() });
 
-  if (message === "" || message === null || isEmpty(user)) {
-    return res.send({ error: "Bad Request" }).status(400);
-  }
   const collection = await db.collection(req.params.collection);
 
   const { value } = await collection.findOneAndUpdate(
@@ -219,7 +220,7 @@ router.post("/:collection/:id/comment", async (req, res) => {
       $push: {
         comments: {
           id: new ObjectId(),
-          parentId,
+          parentId: new ObjectId(parentId),
           message,
           createdAt: new Date(),
           likes: 0,
@@ -236,15 +237,169 @@ router.post("/:collection/:id/comment", async (req, res) => {
   return res.status(200).json(value.comments);
 });
 
+router.put("/:collection/:id/comment/:commentId", async (req, res) => {
+  const { id, commentId } = req.params;
+  const { message, user } = req.body;
+  const { username } = user;
+
+  if (message === "" || message === null || isEmpty(user)) {
+    return res.send({ error: "Message is required" }).status(401);
+  }
+
+  const userResp = await db
+    .collection("users")
+    .findOne({ username: username.toLowerCase() });
+
+  if (user.username !== userResp.username) {
+    res
+      .send({ error: "You do not have permission to edit this message" })
+      .status(401);
+  }
+
+  const collection = await db.collection(req.params.collection);
+
+  let { comments } = await collection.findOne({
+    _id: new ObjectId(req.params.id),
+  });
+
+  const commentToEditIndex = comments.findIndex((comment) =>
+    new ObjectId(comment.id).equals(new ObjectId(commentId))
+  );
+
+  if (commentToEditIndex > -1) {
+    comments[commentToEditIndex].message = message;
+  } else {
+    return res.send({ error: "Comment not found" }).status(404);
+  }
+
+  const { value } = await collection.findOneAndUpdate(
+    {
+      _id: new ObjectId(id),
+    },
+    {
+      $set: {
+        comments,
+      },
+    },
+    { returnOriginal: false, returnDocument: "after" }
+  );
+
+  return res.status(200).json(value.comments);
+});
+
+router.delete("/:collection/:id/comment/:commentId", async (req, res) => {
+  const { id, commentId } = req.params;
+  const { user } = req.body;
+  const { username } = user;
+
+  if (isEmpty(user)) {
+    return res.send({ error: "Not Authorized" }).status(401);
+  }
+
+  const userResp = await db
+    .collection("users")
+    .findOne({ username: username.toLowerCase() });
+
+  if (user.username !== userResp.username) {
+    res
+      .send({ error: "You do not have permission to delete this comment" })
+      .status(401);
+  }
+
+  const collection = await db.collection(req.params.collection);
+
+  let { comments } = await collection.findOne({
+    _id: new ObjectId(req.params.id),
+  });
+
+  const commentToDeleteIndex = comments.findIndex((comment) =>
+    new ObjectId(comment.id).equals(new ObjectId(commentId))
+  );
+
+  if (commentToDeleteIndex > -1) {
+    comments.splice(commentToDeleteIndex, 1);
+  } else {
+    return res.send({ error: "Comment not found" }).status(404);
+  }
+
+  const { value } = await collection.findOneAndUpdate(
+    {
+      _id: new ObjectId(id),
+    },
+    {
+      $set: {
+        comments,
+      },
+    },
+    { returnOriginal: false, returnDocument: "after" }
+  );
+
+  return res.status(200).json(value.comments);
+});
+
+router.put("/:collection/:id/comment/likes/:commentId", async (req, res) => {
+  const { id, commentId } = req.params;
+  const { user } = req.body;
+  const { username } = user;
+
+  if (isEmpty(user)) {
+    return res.send({ error: "Not Authorized" }).status(401);
+  }
+
+  const userResp = await db
+    .collection("users")
+    .findOne({ username: username.toLowerCase() });
+
+  if (user.username !== userResp.username) {
+    res
+      .send({ error: "You do not have permission to like this comment" })
+      .status(401);
+  }
+
+  const collection = await db.collection(req.params.collection);
+
+  let { comments } = await collection.findOne({
+    _id: new ObjectId(req.params.id),
+  });
+
+  const commentToLikeIndex = comments.findIndex((comment, i) =>
+    new ObjectId(comment.id).equals(new ObjectId(commentId))
+  );
+
+  if (commentToLikeIndex > -1) {
+    const userLikedIndex = comments[commentToLikeIndex].likes.findIndex(
+      (uName) => uName === username
+    );
+    if (comments[commentToLikeIndex].likes.includes(username)) {
+      comments[commentToLikeIndex].likes.splice(userLikedIndex, 1);
+    } else {
+      comments[commentToLikeIndex].likes.push(username);
+    }
+  } else {
+    return res.send({ error: "Comment not found" }).status(404);
+  }
+
+  const { value } = await collection.findOneAndUpdate(
+    {
+      _id: new ObjectId(id),
+    },
+    {
+      $set: {
+        comments,
+      },
+    },
+    { returnOriginal: false, returnDocument: "after" }
+  );
+
+  return res.status(200).json(value.comments);
+});
+
 router.put("/:collection/:id/update", async (req, res) => {
   const { id } = req.params;
   const { key, value: newValue } = req.body;
 
   const collection = await db.collection(req.params.collection);
 
-  console.log(
-    `from collection ${req.params.collection}: updating ${key} to ${newValue}`
-  );
   let update = { $set: {} };
   update.$set[key] = newValue;
   const { value } = await collection.findOneAndUpdate(
@@ -254,7 +409,7 @@ router.put("/:collection/:id/update", async (req, res) => {
     update,
     { returnOriginal: false, returnDocument: "after" }
   );
-  console.log("updated:", value);
+
   res.status(200).json(value);
 });
 

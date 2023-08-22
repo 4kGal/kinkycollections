@@ -9,6 +9,7 @@ import {
   Button
 } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import EditIcon from '@mui/icons-material/EditOutlined'
 import ReplyIcon from '@mui/icons-material/Reply'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -20,13 +21,18 @@ import { styled } from '@mui/system'
 import { isEmpty } from 'lodash'
 import { CommentForm } from './CommentForm'
 import { useAsyncFn } from '../hooks/useAsync'
-import { createComment } from '../services/comments'
+import {
+  createComment,
+  deleteComment,
+  updateComment,
+  updateCommentLike
+} from '../services/comments'
 
 const VerticalLine = styled('button')({
   border: 'none',
   background: 'none',
   padding: 0,
-  width: '15px',
+  width: '6px',
   marginTop: '.5rem',
   marginLeft: '8px',
   position: 'relative',
@@ -64,10 +70,14 @@ export function Comment({
   index
 }) {
   const { user: loggedInUser } = useAuthContext()
-  const { video, getReplies, createLocalComment } = useVideoPageContext()
+  const { video, getReplies, refreshLocalComments } = useVideoPageContext()
   const [isReplying, setIsReplying] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
   const [areChildrenHidden, setAreChildrenHidden] = useState(false)
   const createCommentFn = useAsyncFn(createComment)
+  const updateCommentFn = useAsyncFn(updateComment)
+  const deleteCommentFn = useAsyncFn(deleteComment)
+  const toggleCommentLikeFn = useAsyncFn(updateCommentLike)
 
   const isUserComment =
     user?.username.toLowerCase() === loggedInUser?.username.toLowerCase()
@@ -87,10 +97,54 @@ export function Comment({
       })
       .then((comment) => {
         setIsReplying(false)
-        createLocalComment(comment)
+        refreshLocalComments(comment)
       })
   }
-  console.log(loggedInUser)
+
+  const onCommentUpdate = (message) => {
+    return updateCommentFn
+      .execute({
+        collection: video.collection,
+        _id: video._id,
+        commentId: id,
+        message,
+        user: {
+          username: loggedInUser.username
+        }
+      })
+      .then((comment) => {
+        setIsEditing(false)
+        console.log(comment)
+        refreshLocalComments(comment)
+      })
+  }
+
+  const onCommentDelete = () => {
+    return deleteCommentFn
+      .execute({
+        collection: video.collection,
+        _id: video._id,
+        commentId: id,
+        user: {
+          username: loggedInUser.username
+        }
+      })
+      .then(refreshLocalComments)
+  }
+
+  const onToggleCommentLike = () => {
+    return toggleCommentLikeFn
+      .execute({
+        collection: video.collection,
+        _id: video._id,
+        commentId: id,
+        user: {
+          username: loggedInUser.username
+        }
+      })
+      .then(refreshLocalComments)
+  }
+  const isLikedByLoggedInUser = likes.includes(loggedInUser.username)
   return (
     <>
       <Card data-cy={`${isRoot}-comment-${index}`}>
@@ -100,14 +154,37 @@ export function Comment({
           subheader={dateFormatter.format(new Date(createdAt))}
         />
         <CardContent sx={{ paddingTop: 0 }}>
-          <Typography>{message}</Typography>
+          {isEditing ? (
+            <CommentForm
+              autoFocus
+              initialValue={message}
+              onSubmit={onCommentUpdate}
+              loading={updateCommentFn.loading}
+              error={updateCommentFn.error}
+            />
+          ) : (
+            <Typography>{message}</Typography>
+          )}
         </CardContent>
         <CardActions disableSpacing>
-          <ActionButton data-cy={`favorite-icon-${index}`} Icon={FavoriteIcon}>
-            {likes}
+          <ActionButton
+            onClick={onToggleCommentLike}
+            disabled={toggleCommentLikeFn.loading}
+            data-cy={`favorite-icon-${index}`}
+            Icon={
+              isLikedByLoggedInUser ? FavoriteIcon : FavoriteBorderOutlinedIcon
+            }
+            isActive={isLikedByLoggedInUser}
+          >
+            {likes.length}
           </ActionButton>
           {isUserComment && (
-            <ActionButton data-cy={`edit-icon-${index}`} Icon={EditIcon} />
+            <ActionButton
+              onClick={() => setIsEditing((prev) => !prev)}
+              isActive={isEditing}
+              data-cy={`edit-icon-${index}`}
+              Icon={EditIcon}
+            />
           )}
           <ActionButton
             onClick={() => setIsReplying((prev) => !prev)}
@@ -121,9 +198,16 @@ export function Comment({
               color="error"
               data-cy={`delete-icon-${index}`}
               Icon={DeleteIcon}
+              disabled={deleteCommentFn.loading}
+              onClick={onCommentDelete}
             />
           )}
         </CardActions>
+        {deleteCommentFn.error && (
+          <Typography variant="subtitle1" item xs ml={2} color="red">
+            {deleteCommentFn.error}
+          </Typography>
+        )}
       </Card>
       {isReplying && (
         <Grid mt={1} ml={3}>
