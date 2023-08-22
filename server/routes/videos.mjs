@@ -206,8 +206,6 @@ router.post("/:collection/:id/comment", async (req, res) => {
     return res.send({ error: "Bad Request" }).status(400);
   }
 
-  console.log(id, message, parentId);
-
   const { _id: userId } = await db
     .collection("users")
     .findOne({ username: username.toLowerCase() });
@@ -235,8 +233,6 @@ router.post("/:collection/:id/comment", async (req, res) => {
     },
     { returnOriginal: false, returnDocument: "after" }
   );
-
-  console.log(value);
 
   return res.status(200).json(value.comments);
 });

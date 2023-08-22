@@ -51,7 +51,7 @@ export function CommentForm({
         >
           <Button
             variant="contained"
-            disabled={isDisabled || loading}
+            disabled={isDisabled || loading || message.length === 0}
             onClick={(e) => handleSubmit(e)}
             data-cy="new-comment-submit-btn"
             sx={{

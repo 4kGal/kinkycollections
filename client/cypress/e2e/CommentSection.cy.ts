@@ -140,6 +140,8 @@ describe('Comments', () => {
 
     // New comment is not disabled
     cy.dataCy('new-comment-text-area').should('not.have.class', 'Mui-disabled')
+    cy.dataCy('new-comment-submit-btn').should('have.class', 'Mui-disabled')
+    cy.dataCy('new-comment-text-area').type('New comment')
     cy.dataCy('new-comment-submit-btn').should('not.have.class', 'Mui-disabled')
   })
 
