@@ -24,15 +24,24 @@ const StyledLink = styled(Link)({
 })
 
 const Login = () => {
-  const location = useLocation()
-  const [isLoginPage, setIsLoginPage] = useState(true)
+  const location: {
+    state: {
+      isLoginPage: boolean
+      updateEmail: boolean
+      username: string
+      from: string
+    }
+  } = useLocation()
+  const { state } = location
+
+  const [isLoginPage, setIsLoginPage] = useState(state?.isLoginPage ?? true)
   const [dynamicLoginText, setDynamicLoginText] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [isVisibilityOn, setIsVisibilityOn] = useState(false)
 
-  const updateEmailPage = location.state?.updateEmail === true
+  const updateEmailPage = state?.updateEmail
   const emailReg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
 
   const { authenticate, error, isLoading } = useAuthenticator()
@@ -66,7 +75,7 @@ const Login = () => {
     e.preventDefault()
 
     if (updateEmailPage) {
-      updateEmail(email, location.state?.username, location.state?.from)
+      updateEmail(email, state?.username, state?.from)
     } else {
       authenticate(isLoginPage, email, password, username)
     }

@@ -27,6 +27,7 @@ import {
   updateComment,
   updateCommentLike
 } from '../services/comments'
+import { useNavigate } from 'react-router-dom'
 
 const VerticalLine = styled('button')({
   border: 'none',
@@ -69,6 +70,8 @@ export function Comment({
   isRoot,
   index
 }) {
+  const navigate = useNavigate()
+
   const { user: loggedInUser } = useAuthContext()
   const { video, getReplies, refreshLocalComments } = useVideoPageContext()
   const [isReplying, setIsReplying] = useState(false)
@@ -114,7 +117,6 @@ export function Comment({
       })
       .then((comment) => {
         setIsEditing(false)
-        console.log(comment)
         refreshLocalComments(comment)
       })
   }
@@ -144,7 +146,47 @@ export function Comment({
       })
       .then(refreshLocalComments)
   }
-  const isLikedByLoggedInUser = likes.includes(loggedInUser.username)
+  const isLikedByLoggedInUser = likes.includes(loggedInUser?.username)
+  const userNotLoggedIn = isEmpty(loggedInUser)
+
+  const TooltipText = ({ text }) => {
+    return (
+      <>
+        <Typography>
+          <u
+            style={{
+              cursor: 'pointer'
+            }}
+            onClick={() =>
+              navigate('/login', {
+                state: {
+                  isLoginPage: false
+                }
+              })
+            }
+          >
+            Create an Account
+          </u>
+          /
+          <u
+            style={{
+              cursor: 'pointer'
+            }}
+            onClick={() =>
+              navigate('/login', {
+                state: {
+                  isLoginPage: true
+                }
+              })
+            }
+          >
+            Log In
+          </u>{' '}
+          {text}
+        </Typography>
+      </>
+    )
+  }
   return (
     <>
       <Card data-cy={`${isRoot}-comment-${index}`}>
@@ -169,8 +211,11 @@ export function Comment({
         <CardActions disableSpacing>
           <ActionButton
             onClick={onToggleCommentLike}
-            disabled={toggleCommentLikeFn.loading}
-            data-cy={`favorite-icon-${index}`}
+            tooltipTitle={userNotLoggedIn && <TooltipText text="to Like" />}
+            disabled={toggleCommentLikeFn.loading || userNotLoggedIn}
+            data-cy={`favorite-icon-${index}${
+              isLikedByLoggedInUser ? '-isActive' : ''
+            }`}
             Icon={
               isLikedByLoggedInUser ? FavoriteIcon : FavoriteBorderOutlinedIcon
             }
@@ -191,7 +236,8 @@ export function Comment({
             isActive={isReplying}
             data-cy={`reply-icon-${index}`}
             Icon={ReplyIcon}
-            disabled={isEmpty(loggedInUser)}
+            tooltipTitle={userNotLoggedIn && <TooltipText text="to Reply" />}
+            disabled={userNotLoggedIn}
           />
           {isUserComment && (
             <ActionButton

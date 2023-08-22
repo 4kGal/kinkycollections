@@ -104,7 +104,7 @@ const Gallery = ({ collection }: { collection: string }) => {
   useEffect(() => {
     dispatch({
       type: GALLERY_LENGTH,
-      payload: displayedVideos.length
+      payload: displayedVideos?.length
     })
     setPage(0)
   }, [displayedVideos])

@@ -3,7 +3,6 @@ import { Comment } from './Comment'
 import { Grid } from '@mui/material'
 
 export function CommentList({ comments }) {
-  console.log(comments)
   return (
     comments?.length > 0 &&
     comments?.map((comment, index) => (

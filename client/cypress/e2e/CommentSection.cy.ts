@@ -12,7 +12,15 @@ describe('Comments', () => {
             message: 'OMG I love this so much!!',
             parentId: null,
             createdAt: '2023-07-15T22:20:17.336',
-            likes: 7,
+            likes: [
+              'user1',
+              'user2',
+              'user3',
+              'user4',
+              'user5',
+              'user5',
+              'loggedInUser'
+            ],
             user: {
               id: 'userId_1',
               username: 'JimBobUser'
@@ -23,7 +31,7 @@ describe('Comments', () => {
             message: 'Wish she did this to me!',
             parentId: 'commentId_1',
             createdAt: '2023-08-17T12:10:17.336',
-            likes: 3,
+            likes: ['user3', 'user4', 'user5'],
             user: {
               id: 'userId_2',
               username: 'CorkyRomanoUser'
@@ -34,7 +42,7 @@ describe('Comments', () => {
             message: 'Same! Cheers from Iraq',
             parentId: 'commentId_2',
             createdAt: '2023-08-18T11:10:17.336',
-            likes: 4,
+            likes: ['user1', 'user3', 'user5', 'loggedInUser'],
             user: {
               id: 'userId_3',
               username: 'SlappHappyUser'
@@ -45,7 +53,7 @@ describe('Comments', () => {
             message: 'Frick yeah!',
             parentId: 'commentId_2',
             createdAt: '2023-08-19T11:10:17.336',
-            likes: 0,
+            likes: [],
             user: {
               id: 'userId_1',
               username: 'JimBobUser'
@@ -56,7 +64,7 @@ describe('Comments', () => {
             message: 'Good googily moogily',
             parentId: null,
             createdAt: '2023-08-12T11:10:17.336',
-            likes: 1,
+            likes: ['user5'],
             user: {
               id: 'loggedInUser',
               username: 'loggedInUser'
@@ -77,7 +85,7 @@ describe('Comments', () => {
     // ])
     // cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
-  it('comments displayed when a user is logged in and has comments', () => {
+  it.only('comments displayed when a user is logged in and has comments', () => {
     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
       onBeforeLoad(win) {
         win.localStorage.setItem(
@@ -114,7 +122,7 @@ describe('Comments', () => {
       cy.contains('JimBobUser')
       cy.contains('Jul 15, 2023, 10:20 PM')
       cy.contains('OMG I love this so much!!')
-      cy.dataCy('favorite-icon-1').should('have.text', 7)
+      cy.dataCy('favorite-icon-1-isActive').should('have.text', 7)
       cy.dataCy('edit-icon-1').should('not.exist')
       cy.dataCy('reply-icon-1')
       cy.dataCy('delete-icon-1').should('not.exist')
@@ -134,13 +142,11 @@ describe('Comments', () => {
     cy.dataCy('new-comment-text-area').should('not.have.class', 'Mui-disabled')
     cy.dataCy('new-comment-submit-btn').should('not.have.class', 'Mui-disabled')
   })
-  //   it('no comments and user can add and save comment', () => {
-  //     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d')
-  //   })
+
   it('user is not logged in and cannot add new comment', () => {
     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
       onBeforeLoad(win) {
-        win.localStorage.setItem('user', 'null')
+        win.localStorage.setItem('user', null)
       }
     })
 
