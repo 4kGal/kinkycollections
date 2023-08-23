@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
+import jwtDecode from 'jwt-decode'
 import {
   AVAILABLE_DECADES,
   MIN_DECADE,
@@ -74,19 +75,65 @@ export const authReducer = (state = initialState, action) => {
   }
 }
 export const AuthContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, {
+  const [test, dispatch] = useReducer(authReducer, {
     user: null
   })
+  const [state, setState] = useState({
+    user: null,
+    displayAdminControls: false,
+    hideUnderage: true
+  })
+
+  // handleHideUnderageSwitch, hideUnderage
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))
     if (user !== null) {
-      dispatch({ type: LOGIN, payload: user })
+      const { Role } = jwtDecode(user?.userRoles)
+      setState({
+        user,
+        isAdmin:
+          Role === 'Admin' &&
+          user?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
+      })
     }
   }, [])
 
+  const updateUser = (newUser) => {
+    const { Role } = jwtDecode(newUser?.userRoles)
+
+    setState({
+      user: newUser,
+      isAdmin:
+        Role === 'Admin' &&
+        newUser?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
+    })
+  }
+
+  const setDisplayAdminControls = () => {
+    setState({
+      ...state,
+      displayAdminControls: !state.displayAdminControls
+    })
+  }
+
+  const setHideUnderageSwitch = () => {
+    setState({
+      ...state,
+      hideUnderage: !state.hideUnderage
+    })
+  }
+
   return (
-    <AuthContext.Provider value={{ ...state, dispatch }}>
+    <AuthContext.Provider
+      value={{
+        dispatch,
+        ...state,
+        updateUser,
+        handleDisplayAdminSwitch: setDisplayAdminControls,
+        handleHideUnderageSwitch: setHideUnderageSwitch
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

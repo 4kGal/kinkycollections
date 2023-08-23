@@ -11,7 +11,7 @@ import { useCommentsContext } from './hooks/useCommentsContext'
 import { CommentForm } from './Comments/CommentForm'
 import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
-import { useAuthContext } from './hooks/useAuthContext'
+import { useAuthContext } from './hooks'
 import { isEmpty } from 'lodash'
 
 const StyledDivContainer = styled('div')({

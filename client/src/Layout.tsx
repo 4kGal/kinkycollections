@@ -1,12 +1,14 @@
 import React, { type ReactNode } from 'react'
-import Header from './Header'
+import Header from './Global/Header'
 import Footer from './Footer'
 import { Box } from '@mui/material'
-
+import { GallerySettingsProvider } from './context/GallerySettingsContext'
 const Layout = (props: { children: ReactNode }) => {
   return (
     <div>
-      <Header />
+      <GallerySettingsProvider>
+        <Header />
+      </GallerySettingsProvider>
       <Box
         sx={{
           display: 'flex',

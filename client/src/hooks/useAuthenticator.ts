@@ -1,26 +1,14 @@
 import { useState } from 'react'
-import { useAuthContext } from './useAuthContext'
+import { useAuthContext } from './'
 import { useNavigate } from 'react-router-dom'
-import { LOGIN } from '../utils/constants'
-import jwtDecode from 'jwt-decode'
 
 export const useAuthenticator = () => {
   const navigate = useNavigate()
 
-  const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { dispatch, user } = useAuthContext()
+  const [error, setError] = useState(null)
+  const { user, updateUser } = useAuthContext()
 
-  const isAdmin = () => {
-    if (user?.userRoles?.length > 0) {
-      const { Role }: { Role: string } = jwtDecode(user.userRoles)
-
-      return (
-        Role === 'Admin' && user.userRoles === process.env.REACT_APP_ADMIN_TOKEN
-      )
-    }
-    return false
-  }
   const authenticate = async (
     isLogin: boolean,
     email: string,
@@ -48,7 +36,8 @@ export const useAuthenticator = () => {
     if (response.ok) {
       localStorage.setItem('user', JSON.stringify(json))
 
-      dispatch({ type: LOGIN, payload: json })
+      updateUser(json)
+      // dispatch({ type: LOGIN, payload: json })
       setIsLoading(false)
       navigate('/')
     }
@@ -78,9 +67,9 @@ export const useAuthenticator = () => {
     value: unknown,
     _id: string
   ) => {
-    if (!isAdmin()) {
-      return
-    }
+    // if (!isAdmin()) {
+    //   return
+    // }
     const response = await fetch(`/api/videos/${collection}/${_id}/update`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -120,10 +109,9 @@ export const useAuthenticator = () => {
   return {
     authenticate,
     updateUserSettings,
-    isAdmin,
+    isLoading,
     updateVideoAdmin,
     deleteVideoAdmin,
-    isLoading,
     error
   }
 }

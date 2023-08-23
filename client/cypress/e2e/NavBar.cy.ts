@@ -1,5 +1,6 @@
 import getMainstreambb from '../fixtures/getMainstreambb.json'
 import initialMainstreamBBSettings from '../fixtures/initialMainstreamBBSettings.json'
+import { getUser } from '../support/constants'
 describe('Nav Bar', () => {
   beforeEach(() => {
     cy.intercept(
@@ -16,17 +17,7 @@ describe('Nav Bar', () => {
   it('update email if no email present', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
-        win.localStorage.setItem(
-          'user',
-          JSON.stringify({
-            username: '4kgal',
-            token: 'test',
-            favorites: [
-              getMainstreambb.movies[0]._id,
-              getMainstreambb.movies[1]._id
-            ]
-          })
-        )
+        win.localStorage.setItem('user', getUser({ email: '' }))
       }
     })
     cy.dataCy('open-nav-drawer').click()
@@ -46,20 +37,10 @@ describe('Nav Bar', () => {
     cy.dataCy('email-field').type('4kgal@gmail.com')
     cy.get('button').contains('Update').should('not.have.class', 'Mui-disabled')
   })
-  it('navigates and loads favorites', () => {
+  it.only('navigates and loads favorites', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
-        win.localStorage.setItem(
-          'user',
-          JSON.stringify({
-            username: '4kgal',
-            token: 'test',
-            favorites: [
-              getMainstreambb.movies[0]._id,
-              getMainstreambb.movies[1]._id
-            ]
-          })
-        )
+        win.localStorage.setItem('user', getUser())
       }
     })
     cy.dataCy('open-nav-drawer').click()
@@ -79,19 +60,7 @@ describe('Nav Bar', () => {
   it('does not show add email address if user already has email', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
-        win.localStorage.setItem(
-          'user',
-          JSON.stringify({
-            username: '4kgal',
-            token: 'test',
-            email: '4kgal@gmail.com',
-
-            favorites: [
-              getMainstreambb.movies[0]._id,
-              getMainstreambb.movies[1]._id
-            ]
-          })
-        )
+        win.localStorage.setItem('user', getUser())
       }
     })
     cy.dataCy('open-nav-drawer').click()

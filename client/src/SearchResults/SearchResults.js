@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../hooks'
 import Card from '../Card/Card'
 import { Grid } from '@mui/material'
 

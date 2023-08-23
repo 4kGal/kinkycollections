@@ -3,25 +3,25 @@ import { Grid } from '@mui/material'
 import Card from '../Card/Card'
 import FilterVideoButtons from '../Shared/FilterVideoButtons/FilterVideoButtons'
 import {
-  AVAILABLE_ACTRESSES,
-  AVAILABLE_DECADES,
-  AVAILABLE_TAGS,
+  // AVAILABLE_ACTRESSES,
+  // AVAILABLE_DECADES,
+  // AVAILABLE_TAGS,
   GALLERY_LENGTH,
-  MIN_DECADE,
+  // MIN_DECADE,
   RANDOMIZE,
   SELECTED_ACTRESSES
 } from '../utils/constants'
 import PageNavigation from '../Shared/PageNavigation/PageNavigation'
 import { useSearchWithin } from '../hooks/useSeachWithin'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../hooks'
 import { type MetaData } from '../Shared/types'
 
-interface InitialSettings {
-  lowestYear: number
-  tags: [{ key: string; count: number }] | undefined
-  decades: [{ key: string; count: number }]
-  listOfActresses: [{ key: string; tags: string[] }]
-}
+// interface InitialSettings {
+//   lowestYear: number
+//   tags: [{ key: string; count: number }] | undefined
+//   decades: [{ key: string; count: number }]
+//   listOfActresses: [{ key: string; tags: string[] }]
+// }
 
 const Gallery = ({ collection }: { collection: string }) => {
   const {
@@ -35,6 +35,7 @@ const Gallery = ({ collection }: { collection: string }) => {
     randomize,
     numOfVidsPerPage = 9
   } = useAuthContext()
+  // const { settings } = useGallerySettingsContext()
   const { filter } = useSearchWithin()
 
   const [combineFilters, setCombineFilters] = useState(false)
@@ -42,23 +43,23 @@ const Gallery = ({ collection }: { collection: string }) => {
   const [page, setPage] = useState(0)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
-  const getInitialSettings = async () => {
-    try {
-      const response = await fetch(`/api/videos/${collection}/settings`)
-      const data: InitialSettings = await response.json()
+  // const getInitialSettings = async () => {
+  //   try {
+  //     const response = await fetch(`/api/videos/${collection}/settings`)
+  //     const data: InitialSettings = await response.json()
 
-      dispatch({ type: AVAILABLE_DECADES, payload: data?.decades })
-      dispatch({ type: MIN_DECADE, payload: data?.lowestYear })
-      dispatch({ type: AVAILABLE_ACTRESSES, payload: data?.listOfActresses })
-      dispatch({ type: AVAILABLE_TAGS, payload: data?.tags })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //     dispatch({ type: AVAILABLE_DECADES, payload: data?.decades })
+  //     dispatch({ type: MIN_DECADE, payload: data?.lowestYear })
+  //     dispatch({ type: AVAILABLE_ACTRESSES, payload: data?.listOfActresses })
+  //     dispatch({ type: AVAILABLE_TAGS, payload: data?.tags })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  useEffect(() => {
-    getInitialSettings()
-  }, [])
+  // useEffect(() => {
+  //   getInitialSettings()
+  // }, [])
 
   useEffect(() => {
     if (randomize === true) {

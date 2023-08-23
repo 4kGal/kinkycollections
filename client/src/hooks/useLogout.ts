@@ -1,5 +1,5 @@
 import { LOGOUT } from '../utils/constants'
-import { useAuthContext } from './useAuthContext'
+import { useAuthContext } from './'
 
 export const useLogout = () => {
   const { dispatch } = useAuthContext()

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAuthContext } from './useAuthContext'
+import { useAuthContext } from './'
 import { UPDATE_FAVORITE } from '../utils/constants'
 
 export const useFavoriteUpdater = () => {

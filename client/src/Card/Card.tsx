@@ -16,7 +16,7 @@ import { styled } from '@mui/system'
 import { Link } from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../hooks'
 import { useFavoriteUpdater } from '../hooks/useFavoriteUpdater'
 import { type MetaData } from '../Shared/types'
 import { useAuthenticator } from '../hooks/useAuthenticator'
@@ -84,8 +84,8 @@ const KEYS = [
 ]
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
-  const { user, showAdminControls, decadesFilter } = useAuthContext()
-  const { isAdmin, updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
+  const { user, isAdmin, showAdminControls, decadesFilter } = useAuthContext()
+  const { updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
   const [value, setValue] = useState<
@@ -137,7 +137,6 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
 
   const popoverOpen = Boolean(anchorEl)
 
-  const isAdminUser = isAdmin()
   const { updateFavorite } = useFavoriteUpdater()
 
   const tenDaysAgo = new Date()
@@ -192,7 +191,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
           <StyledCardContent key={video?._id}>
             <Typography>
               {displayName}
-              {decadesFilter.length > 0 && !nameContainsYear && ` (${year})`}
+              {decadesFilter?.length > 0 && !nameContainsYear && ` (${year})`}
             </Typography>
           </StyledCardContent>
           <Grid
@@ -228,7 +227,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                   </Button>
                 ))}
             </Grid>
-            {isAdminUser && showAdminControls === true && (
+            {isAdmin && showAdminControls === true && (
               <Grid item xs>
                 <Button size="small" onClick={(e) => handleAdminControls(e)}>
                   ADM

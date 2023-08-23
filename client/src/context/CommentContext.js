@@ -13,7 +13,7 @@ export const CommentContext = createContext({
   video: { collection: '', _id: '' }
 })
 
-export function CommentProvider({ children }) {
+export const CommentProvider = ({ children }) => {
   const { id: _id, collection } = useParams()
 
   const setSort = (newSort) => {
@@ -62,8 +62,6 @@ export function CommentProvider({ children }) {
     })
   }
 
-  const getCollection = () => collection
-
   return (
     <CommentContext.Provider
       value={{
@@ -71,7 +69,6 @@ export function CommentProvider({ children }) {
         getReplies,
         rootComments: commentsByParentId.null,
         refreshLocalComments,
-        getCollection,
         ...state
       }}
     >
