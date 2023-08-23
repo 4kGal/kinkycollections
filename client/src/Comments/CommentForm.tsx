@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import { Button, Grid, TextField } from '@mui/material'
 
-export function CommentForm({
+interface CommentFormProp {
+  loading: boolean
+  error: string | undefined
+  onSubmit: (message: string) => Promise<string>
+  autoFocus: boolean
+  initialValue: string
+  isDisabled: boolean
+}
+export const CommentForm = ({
   loading,
   error,
   onSubmit,
   autoFocus = false,
   initialValue = '',
   isDisabled
-}) {
+}: CommentFormProp) => {
   const [message, setMessage] = useState(initialValue)
 
   const handleSubmit = () => {
@@ -52,7 +60,7 @@ export function CommentForm({
           <Button
             variant="contained"
             disabled={isDisabled || loading || message.length === 0}
-            onClick={(e) => handleSubmit(e)}
+            onClick={handleSubmit}
             data-cy="new-comment-submit-btn"
             sx={{
               '&.Mui-disabled': {

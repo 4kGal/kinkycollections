@@ -3,6 +3,16 @@ type MetaDataKeys = Record<
   string | number | string[] | boolean | undefined
 >
 
+export interface CommentsObj {
+  id: string
+  message: string
+  user: {
+    username: string
+  }
+  createdAt: Date
+  likes: string[]
+  parentId: string
+}
 export interface MetaData extends MetaDataKeys {
   _id: string
   tags: string[]
@@ -18,6 +28,7 @@ export interface MetaData extends MetaDataKeys {
   underage: boolean
   videoId: string
   views: number
+  // comments?: CommentsObj[] | undefined
 }
 
 export type Comments =

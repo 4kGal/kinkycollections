@@ -7,7 +7,10 @@ import { orderBy } from 'lodash'
 export const CommentContext = createContext({
   sort: false,
   comments: [],
-  setSort: () => null
+  setSort: () => null,
+  getReplies: () => [],
+  refreshLocalComments: () => [],
+  video: { collection: '', _id: '' }
 })
 
 export function CommentProvider({ children }) {

@@ -28,6 +28,7 @@ import {
   updateCommentLike
 } from '../services/comments'
 import { useNavigate } from 'react-router-dom'
+import { type CommentsObj } from '../Shared/types'
 
 const VerticalLine = styled('button')({
   border: 'none',
@@ -61,7 +62,17 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
   timeStyle: 'short'
 })
 
-export function Comment({
+interface Root extends CommentsObj {
+  isRoot: string
+  index: number
+}
+
+interface CommentCntxt {
+  video: { collection: string; _id: string }
+  getReplies: (id: string) => CommentsObj[]
+  refreshLocalComments: (comments: CommentsObj[]) => void
+}
+export const Comment = ({
   id,
   message,
   user,
@@ -69,11 +80,12 @@ export function Comment({
   likes = [],
   isRoot,
   index
-}) {
+}: Root) => {
   const navigate = useNavigate()
 
   const { user: loggedInUser } = useAuthContext()
-  const { video, getReplies, refreshLocalComments } = useCommentsContext()
+  const { video, getReplies, refreshLocalComments }: CommentCntxt =
+    useCommentsContext()
   const [isReplying, setIsReplying] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [areChildrenHidden, setAreChildrenHidden] = useState(false)
@@ -87,7 +99,7 @@ export function Comment({
 
   const childComments = getReplies(id)
 
-  const onCommentReply = (message) => {
+  const onCommentReply = (message: string) => {
     return createCommentFn
       .execute({
         collection: video.collection,
@@ -98,13 +110,13 @@ export function Comment({
           username: loggedInUser.username
         }
       })
-      .then((comment) => {
+      .then((comments: CommentsObj[]) => {
         setIsReplying(false)
-        refreshLocalComments(comment)
+        refreshLocalComments(comments)
       })
   }
 
-  const onCommentUpdate = (message) => {
+  const onCommentUpdate = (message: string) => {
     return updateCommentFn
       .execute({
         collection: video.collection,
@@ -115,7 +127,7 @@ export function Comment({
           username: loggedInUser.username
         }
       })
-      .then((comment) => {
+      .then((comment: CommentsObj[]) => {
         setIsEditing(false)
         refreshLocalComments(comment)
       })
@@ -149,7 +161,7 @@ export function Comment({
   const isLikedByLoggedInUser = likes?.includes(loggedInUser?.username)
   const userNotLoggedIn = isEmpty(loggedInUser)
 
-  const TooltipText = ({ text }) => {
+  const TooltipText = ({ text }: { text: string }) => {
     return (
       <>
         <Typography>
@@ -203,6 +215,7 @@ export function Comment({
               onSubmit={onCommentUpdate}
               loading={updateCommentFn.loading}
               error={updateCommentFn.error}
+              isDisabled={userNotLoggedIn}
             />
           ) : (
             <Typography>{message}</Typography>
@@ -250,7 +263,7 @@ export function Comment({
           )}
         </CardActions>
         {deleteCommentFn.error && (
-          <Typography variant="subtitle1" item xs ml={2} color="red">
+          <Typography variant="subtitle1" ml={2} color="red">
             {deleteCommentFn.error}
           </Typography>
         )}
@@ -262,6 +275,8 @@ export function Comment({
             onSubmit={onCommentReply}
             loading={createCommentFn.loading}
             error={createCommentFn.error}
+            initialValue=""
+            isDisabled={userNotLoggedIn}
           />
         </Grid>
       )}
