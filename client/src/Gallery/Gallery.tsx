@@ -8,7 +8,6 @@ import {
   // AVAILABLE_TAGS,
   GALLERY_LENGTH,
   // MIN_DECADE,
-  RANDOMIZE,
   SELECTED_ACTRESSES
 } from '../utils/constants'
 import PageNavigation from '../Shared/PageNavigation/PageNavigation'
@@ -32,7 +31,6 @@ const Gallery = ({ collection }: { collection: string }) => {
     sortBy,
     selectedActresses,
     hideUnderage,
-    randomize,
     numOfVidsPerPage = 9
   } = useAuthContext()
   // const { settings } = useGallerySettingsContext()
@@ -60,13 +58,6 @@ const Gallery = ({ collection }: { collection: string }) => {
   // useEffect(() => {
   //   getInitialSettings()
   // }, [])
-
-  useEffect(() => {
-    if (randomize === true) {
-      setDisplayedVideos(displayedVideos.sort(() => Math.random() - 0.5))
-      dispatch({ type: RANDOMIZE, payload: false })
-    }
-  }, [randomize])
 
   useEffect(() => {
     const getFilteredVideos = async () => {

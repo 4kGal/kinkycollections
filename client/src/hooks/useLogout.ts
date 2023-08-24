@@ -1,14 +1,13 @@
-import { LOGOUT } from '../utils/constants'
 import { useAuthContext } from './'
 
 export const useLogout = () => {
-  const { dispatch } = useAuthContext()
+  const { updateUser } = useAuthContext()
 
   const logout = () => {
     localStorage.removeItem('user')
-
-    dispatch({ type: LOGOUT })
+    updateUser(null)
   }
 
   return { logout }
 }
+export default useLogout

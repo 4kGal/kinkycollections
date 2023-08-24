@@ -14,7 +14,6 @@ import {
   SELECTED_ACTRESSES,
   SHOW_ADMIN_CONTROLS,
   LOGIN,
-  RANDOMIZE,
   NUM_OF_VIDEOS_PER_PAGE,
   GALLERY_LENGTH
 } from '../utils/constants'
@@ -33,7 +32,6 @@ const initialState = {
   selectedActresses: [],
   hideUnderage: true,
   showAdminControls: false,
-  randomize: false,
   numOfVidsPerPage: 9,
   videoLength: 0
 }
@@ -64,8 +62,6 @@ export const authReducer = (state = initialState, action) => {
       return { ...state, hideUnderage: action.payload }
     case SHOW_ADMIN_CONTROLS:
       return { ...state, showAdminControls: action.payload }
-    case RANDOMIZE:
-      return { ...state, randomize: action.payload }
     case NUM_OF_VIDEOS_PER_PAGE:
       return { ...state, numOfVidsPerPage: action.payload }
     case GALLERY_LENGTH:
@@ -83,8 +79,6 @@ export const AuthContextProvider = ({ children }) => {
     displayAdminControls: false,
     hideUnderage: true
   })
-
-  // handleHideUnderageSwitch, hideUnderage
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))

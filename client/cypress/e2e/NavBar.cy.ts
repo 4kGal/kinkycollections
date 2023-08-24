@@ -1,6 +1,7 @@
 import getMainstreambb from '../fixtures/getMainstreambb.json'
 import initialMainstreamBBSettings from '../fixtures/initialMainstreamBBSettings.json'
-import { getUser } from '../support/constants'
+import { getUser, NON_ADMIN_USER } from '../support/constants'
+
 describe('Nav Bar', () => {
   beforeEach(() => {
     cy.intercept(
@@ -13,6 +14,24 @@ describe('Nav Bar', () => {
       getMainstreambb.movies[1]
     ])
     cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
+  })
+  it('shows admin control switch if admin is logged in', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser())
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+    cy.contains('Display Admin Controls')
+  })
+  it('does not show admin control switch if user is not an admin', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser(NON_ADMIN_USER))
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+    cy.contains('Display Admin Controls').should('not.exist')
   })
   it('update email if no email present', () => {
     cy.visit('/mainstreamBB', {
@@ -37,7 +56,7 @@ describe('Nav Bar', () => {
     cy.dataCy('email-field').type('4kgal@gmail.com')
     cy.get('button').contains('Update').should('not.have.class', 'Mui-disabled')
   })
-  it.only('navigates and loads favorites', () => {
+  it('navigates and loads favorites', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser())
@@ -92,7 +111,7 @@ describe('Nav Bar', () => {
     cy.get("[data-value='27']").click()
     cy.contains('1 of 9')
   })
-  it('updates page on selection change', () => {
+  it.only('updates page on selection change', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
@@ -101,23 +120,57 @@ describe('Nav Bar', () => {
     cy.dataCy('open-nav-drawer').click()
     cy.dataCy('filter-by-actress-clear-btn').should('not.exist')
 
-    cy.contains('Filter By Actress').click()
+    cy.dataCy('filter-actress-menu-item').click()
     cy.dataCy('actress-name-0').click({ force: true })
-    cy.dataCy('item-actress-0').should('have.class', 'Mui-selected')
+    cy.dataCy('actress-name-0').should('have.class', 'Mui-selected')
 
     cy.dataCy('filter-by-actress-clear-btn').should('exist')
     cy.dataCy('actress-name-2').click({ force: true })
-    cy.dataCy('item-actress-2').should('have.class', 'Mui-selected')
+    cy.dataCy('actress-name-2').should('have.class', 'Mui-selected')
 
     cy.dataCy('actress-name-3').click({ force: true })
-    cy.dataCy('item-actress-3').should('have.class', 'Mui-selected')
+    cy.dataCy('actress-name-3').should('have.class', 'Mui-selected')
 
     cy.dataCy('actress-name-3').click({ force: true })
-    cy.dataCy('item-actress-3').should('not.have.class', 'Mui-selected')
+    cy.dataCy('actress-name-3').should('not.have.class', 'Mui-selected')
 
     cy.dataCy('filter-by-actress-clear-btn').click()
 
-    cy.dataCy('item-actress-0').should('not.have.class', 'Mui-selected')
-    cy.dataCy('item-actress-2').should('not.have.class', 'Mui-selected')
+    cy.dataCy('actress-name-0').should('not.have.class', 'Mui-selected')
+    cy.dataCy('actress-name-2').should('not.have.class', 'Mui-selected')
+  })
+  it('selectors', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser(NON_ADMIN_USER))
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+
+    cy.dataCy('display-underage-option').within(() => {
+      cy.get('input').should('be.checked')
+    })
+
+    cy.contains('Sort').click()
+    cy.contains('Most Liked')
+    cy.contains('Added').click()
+    cy.dataCy('sort-button-recent').should('have.class', 'Mui-selected')
+    cy.dataCy('sort-button-recent').within(() => {
+      cy.get('input').should('be.checked')
+      cy.get('input').click()
+      cy.get('input').should('not.be.checked')
+    })
+    cy.contains('Year Released').click()
+    cy.dataCy('sort-button-year').should('have.class', 'Mui-selected')
+    cy.dataCy('sort-button-year').within(() => {
+      cy.get('input').should('be.checked')
+      cy.get('input').click()
+      cy.get('input').should('not.be.checked')
+    })
+    cy.dataCy('sort-button-recent').should('not.have.class', 'Mui-selected')
+    cy.dataCy('sort-button-recent').within(() => {
+      cy.get('input').should('not.exist')
+    })
+    cy.contains('Randomize')
   })
 })
