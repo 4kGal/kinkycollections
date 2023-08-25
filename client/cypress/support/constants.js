@@ -3,6 +3,7 @@ import getMainstreambb from '../fixtures/getMainstreambb.json'
 export const ADMIN_USER = {
   username: '4kgal',
   token: Cypress.env('ADMIN_TOKEN'),
+  hideUnderage: false,
   userRoles: Cypress.env('ADMIN_TOKEN'),
   favorites: [getMainstreambb.movies[0]._id, getMainstreambb.movies[1]._id]
 }
@@ -10,6 +11,7 @@ export const ADMIN_USER = {
 export const NON_ADMIN_USER = {
   username: 'nonAdminUser',
   favorites: [],
+  hideUnderage: true,
   token:
     'eyJhbGciOiJIUzI1NiJ9.eyJVc2VybmFtZSI6Im5vbkFkbWluIn0.3mjMYvDXuly7Wq_gUCdBFm6rrjlBGPjyraVnLDAOjbM',
   userRoles:

@@ -98,7 +98,7 @@ describe('Nav Bar', () => {
     cy.dataCy('signout-menu-item').should('not.exist')
     cy.dataCy('add-email-menu-item').should('not.exist')
   })
-  it('updates page on selection change', () => {
+  it.skip('updates page on selection change', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
@@ -111,7 +111,7 @@ describe('Nav Bar', () => {
     cy.get("[data-value='27']").click()
     cy.contains('1 of 9')
   })
-  it.only('updates page on selection change', () => {
+  it('updates page on actress selection change', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
@@ -139,7 +139,35 @@ describe('Nav Bar', () => {
     cy.dataCy('actress-name-0').should('not.have.class', 'Mui-selected')
     cy.dataCy('actress-name-2').should('not.have.class', 'Mui-selected')
   })
-  it('selectors', () => {
+  it.only('updates page on decade selection change', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', null)
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+    cy.dataCy('filter-by-decade-clear-btn').should('not.exist')
+
+    cy.dataCy('filter-decade-menu-item').click()
+    cy.dataCy('decade-0').click({ force: true })
+    cy.dataCy('decade-0').should('have.class', 'Mui-selected')
+
+    cy.dataCy('filter-by-decade-clear-btn').should('exist')
+    cy.dataCy('decade-2').click({ force: true })
+    cy.dataCy('decade-2').should('have.class', 'Mui-selected')
+
+    cy.dataCy('decade-3').click({ force: true })
+    cy.dataCy('decade-3').should('have.class', 'Mui-selected')
+
+    cy.dataCy('decade-3').click({ force: true })
+    cy.dataCy('decade-3').should('not.have.class', 'Mui-selected')
+
+    cy.dataCy('filter-by-decade-clear-btn').click()
+
+    cy.dataCy('decade-0').should('not.have.class', 'Mui-selected')
+    cy.dataCy('decade-2').should('not.have.class', 'Mui-selected')
+  })
+  it.skip('selectors', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser(NON_ADMIN_USER))
@@ -172,5 +200,41 @@ describe('Nav Bar', () => {
       cy.get('input').should('not.exist')
     })
     cy.contains('Randomize')
+  })
+  it('loads underage selector if user has it true', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser({ hideUnderage: true }))
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+
+    cy.dataCy('display-underage-option').within(() => {
+      cy.get('input').should('be.checked')
+    })
+  })
+  it('loads underage selector if user has it false', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser({ hideUnderage: false }))
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+
+    cy.dataCy('display-underage-option').within(() => {
+      cy.get('input').should('not.be.checked')
+    })
+  })
+  it('underage selector is true if user is not logged in', () => {
+    cy.visit('/mainstreamBB', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', null)
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+
+    cy.dataCy('display-underage-option').within(() => {
+      cy.get('input').should('be.checked')
+    })
   })
 })

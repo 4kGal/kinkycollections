@@ -9,7 +9,6 @@ import {
   Typography,
   ListItemButton,
   Collapse,
-  Button,
   MenuItem,
   Select
 } from '@mui/material'
@@ -40,15 +39,18 @@ const ListItemWithDivider = styled(ListItem)({
   borderStyle: 'solid',
   borderColor: 'rgba(0, 0, 0, 0.12)'
 })
+
 function renderActressRow(props: ListChildComponentProps) {
   const { index, data, style } = props
-  const { availableActresses, handleActressSelection, selectedActresses } = data
+  const { availableActresses, handleFilterSelection, selectedActresses } = data
 
   const current = availableActresses[index]
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
       <ListItemButton
-        onClick={() => handleActressSelection(current.actress)}
+        onClick={() =>
+          handleFilterSelection('selectedActresses', current.actress)
+        }
         selected={selectedActresses.includes(current.actress)}
         data-cy={`actress-name-${index}`}
       >
@@ -61,15 +63,16 @@ function renderActressRow(props: ListChildComponentProps) {
 
 function renderYearRow(props: ListChildComponentProps) {
   const { index, data, style } = props
-  const { availableDecades, handleDecadeSelection, selectedDecades } = data
+  const { availableDecades, handleFilterSelection, selectedDecades } = data
   const keys: string[] = Object.keys(availableDecades[index])
   const values: string[] = Object.values(availableDecades[index])
 
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
       <ListItemButton
-        onClick={() => handleDecadeSelection(keys[0])}
+        onClick={() => handleFilterSelection('selectedDecades', keys[0])}
         selected={selectedDecades.includes(keys[0])}
+        data-cy={`decade-${index}`}
       >
         <ListItemText>
           <Typography variant="body1" display="inline">
@@ -101,8 +104,7 @@ const SideNav = ({
     handleRandomize,
     handleYearAscending,
     handleAddedAscending,
-    handleActressSelection,
-    handleDecadeSelection,
+    handleFilterSelection,
     handleVidsPerPageChange,
     sortBy,
     yearAsc,
@@ -129,6 +131,7 @@ const SideNav = ({
 
   const { hideUnderage } = user || { hideUnderage: true }
 
+  console.log(hideUnderage)
   const { logout } = useLogout()
 
   const [isSortOpen, setIsSortOpen] = useState(false)
@@ -170,12 +173,12 @@ const SideNav = ({
 
   const resetActressSelection = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation()
-    handleActressSelection(null)
+    handleFilterSelection('selectedActresses', null)
   }
 
   const resetSelectedDecades = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation()
-    handleDecadeSelection(null)
+    handleFilterSelection('selectedDecades', null)
   }
 
   const handleSignout = () => {
@@ -348,7 +351,7 @@ const SideNav = ({
             width="100%"
             itemData={{
               availableActresses,
-              handleActressSelection,
+              handleFilterSelection,
               selectedActresses
             }}
             itemSize={55}
@@ -370,7 +373,7 @@ const SideNav = ({
               resetSelectedDecades(e)
             }
             isOpen={isDecadeOpen}
-            dataCy="filter-year-menu-item"
+            dataCy="filter-decade-menu-item"
           />
         )}
         <Collapse in={isDecadeOpen} timeout="auto" unmountOnExit>
@@ -379,7 +382,7 @@ const SideNav = ({
             width="100%"
             itemData={{
               availableDecades,
-              handleDecadeSelection,
+              handleFilterSelection,
               selectedDecades
             }}
             itemSize={46}

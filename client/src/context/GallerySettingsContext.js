@@ -106,49 +106,49 @@ export const GallerySettingsProvider = ({ children }) => {
     console.log('random!')
   }
 
-  const handleActressSelection = (actress) => {
-    if (actress === null) {
-      setState({
-        ...state,
-        selectedActresses: []
-      })
-    } else {
-      const index = state.selectedActresses?.indexOf(actress)
-      if (index === -1) {
-        setState({
-          ...state,
-          selectedActresses: state.selectedActresses.concat(actress)
-        })
-      } else {
-        setState({
-          ...state,
-          selectedActresses: state.selectedActresses.filter(
-            (current) => current !== actress
-          )
-        })
-      }
-    }
-  }
+  // const handleActressSelection = (actress) => {
+  //   if (actress === null) {
+  //     setState({
+  //       ...state,
+  //       selectedActresses: []
+  //     })
+  //   } else {
+  //     const index = state.selectedActresses?.indexOf(actress)
+  //     if (index === -1) {
+  //       setState({
+  //         ...state,
+  //         selectedActresses: state.selectedActresses.concat(actress)
+  //       })
+  //     } else {
+  //       setState({
+  //         ...state,
+  //         selectedActresses: state.selectedActresses.filter(
+  //           (current) => current !== actress
+  //         )
+  //       })
+  //     }
+  //   }
+  // }
 
-  const handleDecadeSelection = (decade) => {
-    if (decade === null) {
+  const handleFilterSelection = (key, value) => {
+    if (value === null) {
       setState({
         ...state,
-        selectedDecades: []
+        [key]: []
       })
     } else {
-      const exists = state.selectedDecades.includes(decade)
+      const exists = state[key].includes(value)
       if (exists) {
         setState({
           ...state,
-          selectedDecades: state.selectedDecades.filter((c) => {
-            return c !== decade
+          [key]: state[key].filter((c) => {
+            return c !== value
           })
         })
       } else {
         setState({
           ...state,
-          selectedDecades: state.selectedDecades.concat(decade)
+          [key]: state[key].concat(value)
         })
       }
     }
@@ -168,8 +168,7 @@ export const GallerySettingsProvider = ({ children }) => {
         handleYearAscending,
         handleAddedAscending,
         handleRandomize,
-        handleActressSelection,
-        handleDecadeSelection,
+        handleFilterSelection,
         handleVidsPerPageChange,
         handleLoadSettings: loadSettings,
         ...state
