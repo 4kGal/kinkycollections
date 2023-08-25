@@ -9,7 +9,9 @@ import {
   Typography,
   ListItemButton,
   Collapse,
-  Button
+  Button,
+  MenuItem,
+  Select
 } from '@mui/material'
 import { styled } from '@mui/system'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -105,11 +107,13 @@ const SideNav = ({
     handleAddedAscending,
     handleActressSelection,
     handleDecadeSelection,
+    handleVidsPerPageChange,
     sortBy,
     yearAsc,
     addedAsc,
     selectedActresses,
-    selectedDecades
+    selectedDecades,
+    numOfVidsPerPage
   } = useGallerySettingsContext()
 
   const [isSortOpen, setIsSortOpen] = useState(false)
@@ -147,6 +151,11 @@ const SideNav = ({
     navigate('.', { replace: true })
     handleClose()
   }
+
+  const pageArray: string[] = []
+  //   for (let i = 1; i * 9 < 50 || i * 9 < videoLength; i++) {
+  //     pageArray.push(i * 9)
+  //   }
 
   return (
     <Drawer anchor="left" open={open}>
@@ -347,6 +356,25 @@ const SideNav = ({
             {renderYearRow}
           </FixedSizeList>
         </Collapse>
+        {onSearchablePage && (
+          <ListItem data-cy="num-videos-per-page">
+            <ListItemText primary="# Videos Per Page" />
+            <Select
+              value={numOfVidsPerPage}
+              onChange={(event) => handleVidsPerPageChange(event.target.value)}
+              defaultValue="9"
+              inputProps={{
+                'data-cy': 'videos-per-page-select'
+              }}
+            >
+              {pageArray.map((page) => (
+                <MenuItem key={page} value={page}>
+                  {page}
+                </MenuItem>
+              ))}
+            </Select>
+          </ListItem>
+        )}
         {user && (
           <ListItem disablePadding>
             <ListItemButton onClick={handleSignout} data-cy="signout-menu-item">

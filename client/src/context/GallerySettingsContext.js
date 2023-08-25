@@ -13,7 +13,8 @@ export const GallerySettingsProvider = ({ children }) => {
     yearAsc: true,
     addedAsc: true,
     selectedActresses: [],
-    selectedDecades: []
+    selectedDecades: [],
+    numOfVidsPerPage: 9
   })
 
   const collection = location.pathname.toLowerCase().replace('/', '')
@@ -99,6 +100,13 @@ export const GallerySettingsProvider = ({ children }) => {
     }
   }
 
+  const handleVidsPerPageChange = (perPage) => {
+    setState({
+      ...state,
+      numOfVidsPerPage: perPage
+    })
+  }
+
   return (
     <GallerySettingsContext.Provider
       value={{
@@ -111,6 +119,7 @@ export const GallerySettingsProvider = ({ children }) => {
         handleRandomize,
         handleActressSelection,
         handleDecadeSelection,
+        handleVidsPerPageChange,
         ...state
       }}
     >
