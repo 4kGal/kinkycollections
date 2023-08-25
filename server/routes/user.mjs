@@ -149,7 +149,7 @@ router.get("/favorites/:username", async (req, res) => {
 });
 
 router.put("/update", async (req, res) => {
-  const { username, underage } = req.body;
+  const { username, hideUnderage } = req.body;
 
   const { value } = await db.collection("users").findOneAndUpdate(
     {
@@ -158,7 +158,7 @@ router.put("/update", async (req, res) => {
     [
       {
         $set: {
-          underage,
+          hideUnderage,
         },
       },
     ],

@@ -5,6 +5,9 @@ export function getVideo(collection, _id) {
 }
 
 export const getGalleryInitialSettings = (collection) => {
-  console.log('getting initial settings', collection)
   return makeRequest(`/api/videos/${collection}/settings`)
+}
+
+export const getGallery = (collection, queryStr) => {
+  return makeRequest(`/api/search/filter/${collection}?${queryStr}`)
 }

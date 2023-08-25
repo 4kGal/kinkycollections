@@ -9,7 +9,6 @@ import {
   LOGOUT,
   SEARCH_RESULTS,
   FILTER_DECADES,
-  HIDE_UNDERAGE,
   SORT_BY,
   SELECTED_ACTRESSES,
   SHOW_ADMIN_CONTROLS,
@@ -17,6 +16,7 @@ import {
   NUM_OF_VIDEOS_PER_PAGE,
   GALLERY_LENGTH
 } from '../utils/constants'
+
 export const AuthContext = createContext()
 
 const initialState = {
@@ -30,7 +30,6 @@ const initialState = {
   sortBy: 'newest',
   availableActresses: [],
   selectedActresses: [],
-  hideUnderage: true,
   showAdminControls: false,
   numOfVidsPerPage: 9,
   videoLength: 0
@@ -58,8 +57,6 @@ export const authReducer = (state = initialState, action) => {
       return { ...state, availableActresses: action.payload }
     case SELECTED_ACTRESSES:
       return { ...state, selectedActresses: action.payload }
-    case HIDE_UNDERAGE:
-      return { ...state, hideUnderage: action.payload }
     case SHOW_ADMIN_CONTROLS:
       return { ...state, showAdminControls: action.payload }
     case NUM_OF_VIDEOS_PER_PAGE:
@@ -84,16 +81,23 @@ export const AuthContextProvider = ({ children }) => {
     const user = JSON.parse(localStorage.getItem('user'))
     if (user !== null) {
       const { Role } = jwtDecode(user?.userRoles)
+      const updatedUser = ({}, user)
+
+      if (Object.hasOwn(user, 'hideUnderage')) {
+        updatedUser.hideUnderage = user.hideUnderage
+      } else {
+        updatedUser.hideUnderage = false
+      }
       setState({
-        user,
+        user: updatedUser,
         isAdmin:
           Role === 'Admin' &&
-          user?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
+          updatedUser?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
       })
     }
   }, [])
 
-  const updateUser = (newUser) => {
+  const updateLocalUser = (newUser) => {
     const { Role } = jwtDecode(newUser?.userRoles)
 
     setState({
@@ -122,10 +126,9 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         dispatch,
-        ...state,
-        updateUser,
+        updateLocalUser,
         handleDisplayAdminSwitch: setDisplayAdminControls,
-        handleHideUnderageSwitch: setHideUnderageSwitch
+        ...state
       }}
     >
       {children}

@@ -21,7 +21,13 @@ import { useAuthContext, useLogout, useGallerySettingsContext } from '../hooks'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { AMATEUR_BB_URL, MAINSTREAM_BB_URL } from '../utils/constants'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
+import { updateUserSettings } from '../services/user'
+import { useAsyncFn } from '../hooks/useAsync'
+import { type User } from '../Shared/types'
 
+interface UserSetting {
+  hideUnderage: boolean
+}
 const DrawerHeader = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
@@ -87,20 +93,23 @@ const SideNav = ({
   const location = useLocation()
 
   const navigate = useNavigate()
-
   const {
     user,
     isAdmin,
     displayAdminControls,
     handleDisplayAdminSwitch,
-    handleHideUnderageSwitch,
-    hideUnderage
+    updateLocalUser
   } = useAuthContext()
+  const updateUserSettingsFn = useAsyncFn(updateUserSettings)
+
+  const { hideUnderage } = user || { hideUnderage: true }
+
   const { logout } = useLogout()
 
   const {
     availableActresses,
     availableDecades,
+    minDecade,
     handleSetSortBy,
     handleRandomize,
     handleYearAscending,
@@ -132,6 +141,18 @@ const SideNav = ({
   const navigateToFavoritesPage = () => {
     navigate('/favorites')
     handleClose()
+  }
+
+  const updateHideUnderage = () => {
+    onUserSettingsUpdate({ hideUnderage: !hideUnderage })
+  }
+
+  const onUserSettingsUpdate = (param: UserSetting) => {
+    return updateUserSettingsFn
+      .execute({ username: user.username, ...param })
+      .then((user: User) => {
+        updateLocalUser(user)
+      })
   }
 
   const updateEmail = () => {
@@ -167,7 +188,7 @@ const SideNav = ({
       <Divider />
       <List sx={{ minWidth: 272 }}>
         {isAdmin && (
-          <ListItem>
+          <ListItemWithDivider>
             <ListItemText>
               <Typography variant="body1" display="inline">
                 Display Admin Controls
@@ -179,7 +200,7 @@ const SideNav = ({
                 checked={displayAdminControls ?? false}
               />
             </ListItemText>
-          </ListItem>
+          </ListItemWithDivider>
         )}
         {!user && (
           <ListItem disablePadding>
@@ -210,8 +231,8 @@ const SideNav = ({
               <SwitchComponent
                 left="Yes"
                 right="18+ Only"
-                call={handleHideUnderageSwitch}
-                checked={hideUnderage ?? true}
+                call={updateHideUnderage}
+                checked={hideUnderage}
               />
             </ListItemText>
           </ListItemWithDivider>

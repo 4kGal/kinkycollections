@@ -10,34 +10,36 @@ import AuthenticationPage from './AuthenticatePages/AuthenticationPage'
 import Favorites from './Favorites/Favorites'
 import SearchResults from './SearchResults/SearchResults'
 import { CommentProvider } from './context/CommentContext'
-
+import { GallerySettingsProvider } from './context/GallerySettingsContext'
 const App = () => {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/login" element={<AuthenticationPage />} />
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/mainstreambb"
-            element={<Gallery collection="mainstreambb" />}
-          />
-          <Route
-            path="/amateurbb"
-            element={<Gallery collection="amateurbb" />}
-          />
-          <Route
-            path="/player/:collection/:id"
-            element={
-              <CommentProvider>
-                <Player />
-              </CommentProvider>
-            }
-          />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/searchResults" element={<SearchResults />} />
-        </Routes>
-      </Layout>
+      <GallerySettingsProvider>
+        <Layout>
+          <Routes>
+            <Route path="/login" element={<AuthenticationPage />} />
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/mainstreambb"
+              element={<Gallery collection="mainstreambb" />}
+            />
+            <Route
+              path="/amateurbb"
+              element={<Gallery collection="amateurbb" />}
+            />
+            <Route
+              path="/player/:collection/:id"
+              element={
+                <CommentProvider>
+                  <Player />
+                </CommentProvider>
+              }
+            />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/searchResults" element={<SearchResults />} />
+          </Routes>
+        </Layout>
+      </GallerySettingsProvider>
     </Router>
   )
 }

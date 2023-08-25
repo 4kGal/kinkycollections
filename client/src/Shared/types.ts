@@ -3,6 +3,17 @@ type MetaDataKeys = Record<
   string | number | string[] | boolean | undefined
 >
 
+export interface User {
+  _id: string
+  username: string
+  password: string
+  favorites: string[]
+  userRoles: string
+  comments: string[]
+  likes: string[]
+  hideUnderage: boolean
+}
+
 export interface CommentsObj {
   id: string
   message: string

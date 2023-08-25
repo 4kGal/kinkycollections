@@ -6,9 +6,9 @@ import { GallerySettingsProvider } from './context/GallerySettingsContext'
 const Layout = (props: { children: ReactNode }) => {
   return (
     <div>
-      <GallerySettingsProvider>
-        <Header />
-      </GallerySettingsProvider>
+      {/* <GallerySettingsProvider> */}
+      <Header />
+      {/* </GallerySettingsProvider> */}
       <Box
         sx={{
           display: 'flex',

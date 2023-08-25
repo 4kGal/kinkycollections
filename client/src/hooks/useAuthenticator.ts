@@ -43,13 +43,16 @@ export const useAuthenticator = () => {
     }
   }
 
-  const updateUserSettings = async (username: string, underage: boolean) => {
+  const updateUserSettings = async (
+    username: string,
+    hideUnderage: boolean
+  ) => {
     const response = await fetch(`/api/user/update`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username,
-        underage
+        hideUnderage
       })
     })
     const json = await response.json()

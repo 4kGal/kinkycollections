@@ -1,13 +1,29 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { useAsync } from '../hooks/useAsync'
-import { getGalleryInitialSettings } from '../services/videos'
+import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
 import { MAINSTREAM_BB_URL } from '../utils/constants'
+import { useSearchWithin } from '../hooks/useSeachWithin'
 
 export const GallerySettingsContext = createContext()
 
 export const GallerySettingsProvider = ({ children }) => {
   const location = useLocation()
+  const collection = location.pathname.toLowerCase().replace('/', '')
+
+  let settings = {}
+
+  if (collection === MAINSTREAM_BB_URL) {
+    const {
+      // loading,
+      // error,
+      value
+    } = useAsync(() => getGalleryInitialSettings(collection), [collection])
+    settings = value
+  }
+
+  // const { filter } = useSearchWithin()
+
   const [state, setState] = useState({
     sortBy: 'recent',
     yearAsc: true,
@@ -17,22 +33,53 @@ export const GallerySettingsProvider = ({ children }) => {
     numOfVidsPerPage: 9
   })
 
-  const collection = location.pathname.toLowerCase().replace('/', '')
+  // // useEffect(() => {
+  // //   console.log('inside', collection)
+  // //   if (collection === MAINSTREAM_BB_URL) {
+  // //     console.log('getting gallery')
+  // //     const { decadesFilter, selectedActresses, sortBy } = state
 
-  const {
-    // loading,
-    // error,
-    value: settings
-  } =
-    location.pathname === MAINSTREAM_BB_URL &&
-    useAsync(() => getGalleryInitialSettings(collection), [collection])
+  // //     const searchParamObj = {
+  // //       ...(decadesFilter?.length > 0 && { decades: decadesFilter }),
+  // //       ...(selectedActresses?.length > 0 && {
+  // //         actresses: selectedActresses
+  // //       })
+  // //       // ...(selectedTags?.length > 0 && { tags: selectedTags }),
+  // //       // ...(hideUnderage === true && { underage: 'false' }),
+  // //       // eitherOr: combineFilters ? 'and' : 'or'
+  // //     }
+  // //     const paramKeys = Object.keys(searchParamObj)
+  // //     let queryStr = ''
+  // //     paramKeys.forEach((param) => {
+  // //       queryStr += `&${param}=${searchParamObj[param]
+  // //         .toString()
+  // //         .replace(/,\s*$/, '')}`
+  // //     })
+  // //     queryStr += `&sort=${sortBy}`
 
-  useEffect(() => {
-    console.log('now sorting by', state.sortBy)
-  }, [state.sortBy, state])
+  // //     const { value: gallery } = useAsync(() =>
+  // //       getGallery(collection, queryStr)
+  // //     )
+  // //     setGallery(gallery)
+  // //     console.log(gallery)
+  // //   }
+
+  // //   // filter(
+  // //   //   collection,
+  // //   //   {
+  // //   //     ...(decadesFilter?.length > 0 && { decades: decadesFilter }),
+  // //   //     ...(selectedActresses?.length > 0 && {
+  // //   //       actresses: selectedActresses
+  // //   //     })
+  // //   //     // ...(selectedTags?.length > 0 && { tags: selectedTags }),
+  // //   //     // ...(hideUnderage === true && { underage: 'false' }),
+  // //   //     // eitherOr: combineFilters ? 'and' : 'or'
+  // //   //   },
+  // //   //   sortBy
+  // //   // )
+  // // }, [state])
 
   const handleSetSortBy = (newSortBy) => {
-    console.log(state.sortBy, newSortBy)
     setState({
       ...state,
       sortBy: newSortBy
@@ -65,7 +112,6 @@ export const GallerySettingsProvider = ({ children }) => {
       })
     } else {
       const index = state.selectedActresses?.indexOf(actress)
-
       if (index === -1) {
         setState({
           ...state,
@@ -84,7 +130,6 @@ export const GallerySettingsProvider = ({ children }) => {
 
   const handleDecadeSelection = (decade) => {
     const exists = state.selectedDecades.includes(decade)
-
     if (exists) {
       setState({
         ...state,
@@ -125,5 +170,18 @@ export const GallerySettingsProvider = ({ children }) => {
     >
       {children}
     </GallerySettingsContext.Provider>
+
+    // return (
+    //   <GallerySettingsContext.Provider
+    //     value={{
+    //       availableActresses: settings?.listOfActresses ?? [],
+    //       availableDecades: settings?.decades ?? [],
+    //       minDecade: settings?.lowestYear,
+
+    //       ...state
+    //     }}
+    //   >
+    //     {children}
+    //   </GallerySettingsContext.Provider>
   )
 }
