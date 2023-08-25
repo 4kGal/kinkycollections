@@ -111,13 +111,8 @@ const SideNav = ({
     addedAsc,
     selectedActresses,
     selectedDecades,
-    numOfVidsPerPage,
-    handleLoadSettings
+    numOfVidsPerPage
   } = useGallerySettingsContext()
-
-  useEffect(() => {
-    handleLoadSettings('mainstreambb')
-  }, [])
 
   const navigate = useNavigate()
   const {
@@ -131,7 +126,6 @@ const SideNav = ({
 
   const { hideUnderage } = user || { hideUnderage: true }
 
-  console.log(hideUnderage)
   const { logout } = useLogout()
 
   const [isSortOpen, setIsSortOpen] = useState(false)

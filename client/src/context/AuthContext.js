@@ -115,13 +115,6 @@ export const AuthContextProvider = ({ children }) => {
     })
   }
 
-  const setHideUnderageSwitch = () => {
-    setState({
-      ...state,
-      hideUnderage: !state.hideUnderage
-    })
-  }
-
   return (
     <AuthContext.Provider
       value={{

@@ -4,19 +4,21 @@ import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
 import { MAINSTREAM_BB_COLLECTION } from '../utils/constants'
 import { useSearchWithin } from '../hooks/useSeachWithin'
+import { useAuthContext } from '../hooks'
 
 export const GallerySettingsContext = createContext()
 
 export const GallerySettingsProvider = ({ children }) => {
   const location = useLocation()
-  // const collection = location.pathname.toLowerCase().replace('/', '')
+  const collection = location.pathname.toLowerCase().replace('/', '')
 
+  const { user } = useAuthContext()
   // const { filter } = useSearchWithin()
 
   const [state, setState] = useState({
-    availableActresses: [],
-    availableDecades: [],
-    minDecade: null,
+    // availableActresses: [],
+    // availableDecades: [],
+    // minDecade: null,
     sortBy: 'recent',
     yearAsc: true,
     addedAsc: true,
@@ -25,16 +27,56 @@ export const GallerySettingsProvider = ({ children }) => {
     numOfVidsPerPage: 9
   })
 
-  const loadSettings = async (url) => {
-    const { listOfActresses, decades, lowestYear } =
-      await getGalleryInitialSettings(url)
-    setState({
-      ...state,
-      availableActresses: listOfActresses || [],
-      availableDecades: decades || [],
-      minDecade: lowestYear
-    })
+  // const loadSettings = async (url) => {
+  //   console.log(url)
+  //   const { listOfActresses, decades, lowestYear } =
+  //     await getGalleryInitialSettings(url)
+  //   setState({
+  //     ...state,
+  //     availableActresses: listOfActresses || [],
+  //     availableDecades: decades || [],
+  //     minDecade: lowestYear
+  //   })
+  // }
+
+  const { value: settings } = useAsync(
+    () => getGalleryInitialSettings(collection),
+    [collection]
+  )
+
+  // get query string
+
+  const searchParamObj = {
+    ...(state.decadesFilter?.length > 0 && {
+      decades: state.decadesFilter
+    }),
+    ...(state.selectedActresses?.length > 0 && {
+      actresses: state.selectedActresses
+    }),
+    ...(state.selectedTags?.length > 0 && { tags: state.selectedTags }),
+    hideUnderage: user?.hideUnderage.toString() || 'true',
+    eitherOr: state.combineFilters ? 'and' : 'or'
   }
+  const paramKeys = Object.keys(searchParamObj)
+  let queryStr = ''
+  paramKeys.forEach((param) => {
+    queryStr += `&${param}=${searchParamObj[param]
+      .toString()
+      .replace(/,\s*$/, '')}`
+  })
+  queryStr += `&sort=${state.sortBy}`
+
+  const {
+    loading,
+    error,
+    value: gallery
+  } = useAsync(
+    () => getGallery(collection, queryStr),
+    [collection, state, user?.hideUnderage]
+  )
+
+  console.log(gallery)
+
   // // useEffect(() => {
   // //   console.log('inside', collection)
   // //   if (collection === MAINSTREAM_BB_URL) {
@@ -164,13 +206,15 @@ export const GallerySettingsProvider = ({ children }) => {
   return (
     <GallerySettingsContext.Provider
       value={{
+        availableActresses: settings?.listOfActresses || [],
+        availableDecades: settings?.decades || [],
+        minDecade: settings?.lowestYear,
         handleSetSortBy,
         handleYearAscending,
         handleAddedAscending,
         handleRandomize,
         handleFilterSelection,
         handleVidsPerPageChange,
-        handleLoadSettings: loadSettings,
         ...state
       }}
     >
