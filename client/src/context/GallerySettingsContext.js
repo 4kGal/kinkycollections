@@ -2,29 +2,21 @@ import React, { createContext, useState, useEffect } from 'react'
 import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
-import { MAINSTREAM_BB_URL } from '../utils/constants'
+import { MAINSTREAM_BB_COLLECTION } from '../utils/constants'
 import { useSearchWithin } from '../hooks/useSeachWithin'
 
 export const GallerySettingsContext = createContext()
 
 export const GallerySettingsProvider = ({ children }) => {
   const location = useLocation()
-  const collection = location.pathname.toLowerCase().replace('/', '')
-
-  let settings = {}
-
-  if (collection === MAINSTREAM_BB_URL) {
-    const {
-      // loading,
-      // error,
-      value
-    } = useAsync(() => getGalleryInitialSettings(collection), [collection])
-    settings = value
-  }
+  // const collection = location.pathname.toLowerCase().replace('/', '')
 
   // const { filter } = useSearchWithin()
 
   const [state, setState] = useState({
+    availableActresses: [],
+    availableDecades: [],
+    minDecade: null,
     sortBy: 'recent',
     yearAsc: true,
     addedAsc: true,
@@ -33,6 +25,16 @@ export const GallerySettingsProvider = ({ children }) => {
     numOfVidsPerPage: 9
   })
 
+  const loadSettings = async (url) => {
+    const { listOfActresses, decades, lowestYear } =
+      await getGalleryInitialSettings(url)
+    setState({
+      ...state,
+      availableActresses: listOfActresses || [],
+      availableDecades: decades || [],
+      minDecade: lowestYear
+    })
+  }
   // // useEffect(() => {
   // //   console.log('inside', collection)
   // //   if (collection === MAINSTREAM_BB_URL) {
@@ -129,19 +131,26 @@ export const GallerySettingsProvider = ({ children }) => {
   }
 
   const handleDecadeSelection = (decade) => {
-    const exists = state.selectedDecades.includes(decade)
-    if (exists) {
+    if (decade === null) {
       setState({
         ...state,
-        selectedDecades: state.selectedDecades.filter((c) => {
-          return c !== decade
-        })
+        selectedDecades: []
       })
     } else {
-      setState({
-        ...state,
-        selectedDecades: state.selectedDecades.concat(decade)
-      })
+      const exists = state.selectedDecades.includes(decade)
+      if (exists) {
+        setState({
+          ...state,
+          selectedDecades: state.selectedDecades.filter((c) => {
+            return c !== decade
+          })
+        })
+      } else {
+        setState({
+          ...state,
+          selectedDecades: state.selectedDecades.concat(decade)
+        })
+      }
     }
   }
 
@@ -155,9 +164,6 @@ export const GallerySettingsProvider = ({ children }) => {
   return (
     <GallerySettingsContext.Provider
       value={{
-        availableActresses: settings?.listOfActresses ?? [],
-        availableDecades: settings?.decades ?? [],
-        minDecade: settings?.lowestYear,
         handleSetSortBy,
         handleYearAscending,
         handleAddedAscending,
@@ -165,23 +171,11 @@ export const GallerySettingsProvider = ({ children }) => {
         handleActressSelection,
         handleDecadeSelection,
         handleVidsPerPageChange,
+        handleLoadSettings: loadSettings,
         ...state
       }}
     >
       {children}
     </GallerySettingsContext.Provider>
-
-    // return (
-    //   <GallerySettingsContext.Provider
-    //     value={{
-    //       availableActresses: settings?.listOfActresses ?? [],
-    //       availableDecades: settings?.decades ?? [],
-    //       minDecade: settings?.lowestYear,
-
-    //       ...state
-    //     }}
-    //   >
-    //     {children}
-    //   </GallerySettingsContext.Provider>
   )
 }

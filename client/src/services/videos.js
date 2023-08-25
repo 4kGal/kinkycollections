@@ -9,5 +9,6 @@ export const getGalleryInitialSettings = (collection) => {
 }
 
 export const getGallery = (collection, queryStr) => {
+  console.log('in getgallery')
   return makeRequest(`/api/search/filter/${collection}?${queryStr}`)
 }

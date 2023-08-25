@@ -1,4 +1,5 @@
 export const MAINSTREAM_BB_URL = '/mainstreamBB'
+export const MAINSTREAM_BB_COLLECTION = 'mainstreambb'
 export const AMATEUR_BB_URL = '/amateurBB'
 
 export const AVAILABLE_DECADES = 'AVAILABLE_DECADES'

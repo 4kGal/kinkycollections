@@ -1,4 +1,4 @@
-import React, { type MouseEvent, useState } from 'react'
+import React, { type MouseEvent, useState, useEffect } from 'react'
 import {
   Divider,
   Drawer,
@@ -24,6 +24,7 @@ import { FixedSizeList, type ListChildComponentProps } from 'react-window'
 import { updateUserSettings } from '../services/user'
 import { useAsyncFn } from '../hooks/useAsync'
 import { type User } from '../Shared/types'
+import FilterWithClearComponent from '../Shared/FilterWithClearButton/FilterWithClearButton'
 
 interface UserSetting {
   hideUnderage: boolean
@@ -92,20 +93,6 @@ const SideNav = ({
 }) => {
   const location = useLocation()
 
-  const navigate = useNavigate()
-  const {
-    user,
-    isAdmin,
-    displayAdminControls,
-    handleDisplayAdminSwitch,
-    updateLocalUser
-  } = useAuthContext()
-  const updateUserSettingsFn = useAsyncFn(updateUserSettings)
-
-  const { hideUnderage } = user || { hideUnderage: true }
-
-  const { logout } = useLogout()
-
   const {
     availableActresses,
     availableDecades,
@@ -122,11 +109,30 @@ const SideNav = ({
     addedAsc,
     selectedActresses,
     selectedDecades,
-    numOfVidsPerPage
+    numOfVidsPerPage,
+    handleLoadSettings
   } = useGallerySettingsContext()
 
+  useEffect(() => {
+    handleLoadSettings('mainstreambb')
+  }, [])
+
+  const navigate = useNavigate()
+  const {
+    user,
+    isAdmin,
+    displayAdminControls,
+    handleDisplayAdminSwitch,
+    updateLocalUser
+  } = useAuthContext()
+  const updateUserSettingsFn = useAsyncFn(updateUserSettings)
+
+  const { hideUnderage } = user || { hideUnderage: true }
+
+  const { logout } = useLogout()
+
   const [isSortOpen, setIsSortOpen] = useState(false)
-  const [isYearOpen, setIsYearOpen] = useState(false)
+  const [isDecadeOpen, setIsDecadeOpen] = useState(false)
   const [isActressOpen, setIsActressOpen] = useState(false)
 
   const onSearchablePage =
@@ -167,11 +173,23 @@ const SideNav = ({
     handleActressSelection(null)
   }
 
+  const resetSelectedDecades = (e: MouseEvent<HTMLElement>) => {
+    e.stopPropagation()
+    handleDecadeSelection(null)
+  }
+
   const handleSignout = () => {
     logout()
     navigate('.', { replace: true })
     handleClose()
   }
+
+  let startingYear = Math.floor(minDecade / 10) * 10
+  const decades = [startingYear]
+  do {
+    startingYear += 10
+    decades.push(startingYear)
+  } while (startingYear + 10 < new Date().getFullYear())
 
   const pageArray: string[] = []
   //   for (let i = 1; i * 9 < 50 || i * 9 < videoLength; i++) {
@@ -311,28 +329,18 @@ const SideNav = ({
             <Divider />
           </>
         )}
-        {onSearchablePage && availableActresses.length > 0 && (
-          <ListItemWithDivider disablePadding>
-            <ListItemButton
-              onClick={() => setIsActressOpen(!isActressOpen)}
-              data-cy="filter-actress-menu-item"
-            >
-              <ListItemText primary="Filter By Actress" />
-              {selectedActresses.length > 0 && (
-                <Button
-                  data-cy="filter-by-actress-clear-btn"
-                  onClick={(e) => resetActressSelection(e)}
-                  variant="outlined"
-                  sx={{
-                    marginRight: 1
-                  }}
-                >
-                  Reset
-                </Button>
-              )}
-              {isActressOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-          </ListItemWithDivider>
+        {onSearchablePage && availableActresses?.length > 0 && (
+          <FilterWithClearComponent
+            display={isActressOpen || selectedActresses?.length > 0}
+            text="Filter By Actress"
+            handleClick={() => setIsActressOpen(!isActressOpen)}
+            displayClear={selectedActresses.length > 0}
+            handleClear={(e: MouseEvent<HTMLElement>) =>
+              resetActressSelection(e)
+            }
+            isOpen={isActressOpen}
+            dataCy="filter-actress-menu-item"
+          />
         )}
         <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
           <FixedSizeList
@@ -352,15 +360,20 @@ const SideNav = ({
           </FixedSizeList>
           <Divider />
         </Collapse>
-        {onSearchablePage && availableDecades.length > 0 && (
-          <ListItemWithDivider disablePadding>
-            <ListItemButton onClick={() => setIsYearOpen(!isYearOpen)}>
-              <ListItemText primary="Filter By Decade" />
-              {isYearOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-          </ListItemWithDivider>
+        {onSearchablePage && availableDecades?.length > 0 && (
+          <FilterWithClearComponent
+            display={isDecadeOpen || selectedDecades?.length > 0}
+            text="Filter By Decade"
+            handleClick={() => setIsDecadeOpen(!isDecadeOpen)}
+            displayClear={selectedDecades.length > 0}
+            handleClear={(e: MouseEvent<HTMLElement>) =>
+              resetSelectedDecades(e)
+            }
+            isOpen={isDecadeOpen}
+            dataCy="filter-year-menu-item"
+          />
         )}
-        <Collapse in={isYearOpen} timeout="auto" unmountOnExit>
+        <Collapse in={isDecadeOpen} timeout="auto" unmountOnExit>
           <FixedSizeList
             height={300}
             width="100%"

@@ -78,7 +78,7 @@ router.get("/filter/:collection", async (req, res) => {
     !multipleActresses
   ) {
     movies = await collection
-      .find(!hideUnderage ? { underage } : {})
+      .find(!hideUnderage ? { underage: true } : {})
       //.find({})
       .sort(sortParam)
       .toArray();
@@ -155,7 +155,7 @@ router.get("/filter/:collection", async (req, res) => {
         ...(typeOfBusts.length > 0 ? [tagQuery] : []),
         ...(actresses.length > 0 ? [actressQuery] : []),
         ...(multipleActresses ? [multiple] : []),
-        ...(!hideUnderage ? [] : [{ underage }]),
+        ...(!hideUnderage ? [] : [{ underage: true }]),
       ],
     };
 
