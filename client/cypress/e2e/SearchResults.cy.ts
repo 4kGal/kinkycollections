@@ -25,7 +25,7 @@ describe('Search Results', () => {
       '/api/search/filter/mainstreambb?&underage=false&eitherOr=or&sort=recent',
       getMainstreambb
     )
-    cy.visit('/mainstreamBB')
+    cy.visit('/mainstreambb')
   })
   it('Navigates between pages and displays correctly', () => {
     cy.dataCy('search-bar').type('Fari')
@@ -35,7 +35,7 @@ describe('Search Results', () => {
     cy.dataCy(`movie-${getMainstreambb.movies[1]._id}`).should('not.exist')
     cy.dataCy('search-bar').type('{backspace}')
     cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/mainstreamBB')
+      expect(loc.pathname).to.eq('/mainstreambb')
     })
   })
 })

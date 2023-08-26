@@ -1,20 +1,10 @@
 import React, { createContext, useEffect, useReducer, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 import {
-  AVAILABLE_DECADES,
-  MIN_DECADE,
-  AVAILABLE_ACTRESSES,
-  AVAILABLE_TAGS,
   UPDATE_FAVORITE,
   LOGOUT,
   SEARCH_RESULTS,
-  FILTER_DECADES,
-  SORT_BY,
-  SELECTED_ACTRESSES,
-  SHOW_ADMIN_CONTROLS,
-  LOGIN,
-  NUM_OF_VIDEOS_PER_PAGE,
-  GALLERY_LENGTH
+  LOGIN
 } from '../utils/constants'
 
 export const AuthContext = createContext()
@@ -22,17 +12,7 @@ export const AuthContext = createContext()
 const initialState = {
   user: null,
   searchResults: [],
-  likes: [],
-  minDecade: null,
-  decadesFilter: [],
-  availableDecades: [],
-  availableTags: [],
-  sortBy: 'newest',
-  availableActresses: [],
-  selectedActresses: [],
-  showAdminControls: false,
-  numOfVidsPerPage: 9,
-  videoLength: 0
+  likes: []
 }
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -43,26 +23,6 @@ export const authReducer = (state = initialState, action) => {
       return { ...state, user: null }
     case SEARCH_RESULTS:
       return { ...state, searchResults: action.payload }
-    case MIN_DECADE:
-      return { ...state, minDecade: action.payload }
-    case FILTER_DECADES:
-      return { ...state, decadesFilter: action.payload }
-    case AVAILABLE_DECADES:
-      return { ...state, availableDecades: action.payload }
-    case AVAILABLE_TAGS:
-      return { ...state, availableTags: action.payload }
-    case SORT_BY:
-      return { ...state, sortBy: action.payload }
-    case AVAILABLE_ACTRESSES:
-      return { ...state, availableActresses: action.payload }
-    case SELECTED_ACTRESSES:
-      return { ...state, selectedActresses: action.payload }
-    case SHOW_ADMIN_CONTROLS:
-      return { ...state, showAdminControls: action.payload }
-    case NUM_OF_VIDEOS_PER_PAGE:
-      return { ...state, numOfVidsPerPage: action.payload }
-    case GALLERY_LENGTH:
-      return { ...state, galleryLength: action.payload }
     default:
       return state
   }

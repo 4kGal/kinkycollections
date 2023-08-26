@@ -8,17 +8,8 @@ describe('Page Navigation', () => {
       '/api/videos/mainstreambb/settings',
       initialMainstreamBBSettings
     )
-    cy.intercept(
-      'GET',
-      '/api/search/filter/mainstreambb?&eitherOr=or&sort=recent',
-      []
-    )
-    cy.intercept(
-      'GET',
-      '/api/search/filter/mainstreambb?&underage=false&eitherOr=or&sort=recent',
-      getMainstreambb
-    )
-    cy.visit('/mainstreamBB')
+    cy.intercept('GET', '/api/search/filter/mainstreambb*', getMainstreambb)
+    cy.visit('/mainstreambb')
   })
   it('navigates forward and back correctly', () => {
     cy.contains('1 of 27')

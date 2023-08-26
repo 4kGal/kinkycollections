@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-// import MainstreamBB from './Mainstream/MainstreamBB'
+// import mainstreambb from './Mainstream/mainstreambb'
 import Gallery from './Gallery/Gallery'
 import Player from './Player'
 import './App.css'

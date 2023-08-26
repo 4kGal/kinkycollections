@@ -52,7 +52,7 @@ describe('Filter Buttons', () => {
     //     )
     //   }
     // )
-    cy.visit('/mainstreamBB')
+    cy.visit('/mainstreambb')
   })
   it('displays the correct filters', () => {
     cy.contains('squeeze (10)')

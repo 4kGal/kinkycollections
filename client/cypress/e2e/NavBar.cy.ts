@@ -10,13 +10,13 @@ describe('Nav Bar', () => {
       initialMainstreamBBSettings
     )
     cy.intercept('GET', '/api/user/favorites/4kgal', [
-      getMainstreambb.movies[0],
-      getMainstreambb.movies[1]
+      getMainstreambb.gallery[0],
+      getMainstreambb.gallery[1]
     ])
     cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
   it('shows admin control switch if admin is logged in', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser())
       }
@@ -25,7 +25,7 @@ describe('Nav Bar', () => {
     cy.contains('Display Admin Controls')
   })
   it('does not show admin control switch if user is not an admin', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser(NON_ADMIN_USER))
       }
@@ -34,7 +34,7 @@ describe('Nav Bar', () => {
     cy.contains('Display Admin Controls').should('not.exist')
   })
   it('update email if no email present', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser({ email: '' }))
       }
@@ -57,7 +57,7 @@ describe('Nav Bar', () => {
     cy.get('button').contains('Update').should('not.have.class', 'Mui-disabled')
   })
   it('navigates and loads favorites', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser())
       }
@@ -65,8 +65,8 @@ describe('Nav Bar', () => {
     cy.dataCy('open-nav-drawer').click()
     cy.dataCy('favorites-menu-item').click()
 
-    cy.contains(getMainstreambb.movies[0].name)
-    cy.contains(getMainstreambb.movies[1].name)
+    cy.contains(getMainstreambb.gallery[0].name)
+    cy.contains(getMainstreambb.gallery[1].name)
 
     cy.get('[data-testid="FavoriteIcon"]').should('have.length', 2)
     cy.get('[data-testid="FavoriteBorderIcon"]').should('not.exist')
@@ -77,7 +77,7 @@ describe('Nav Bar', () => {
   //     expect(window.localStorage.getItem('user')).to.equal({ user: null })
   //   })
   it('does not show add email address if user already has email', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser())
       }
@@ -86,7 +86,7 @@ describe('Nav Bar', () => {
     cy.dataCy('add-email-menu-item').should('not.exist')
   })
   it('shows login if user is not logged in', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }
@@ -99,7 +99,7 @@ describe('Nav Bar', () => {
     cy.dataCy('add-email-menu-item').should('not.exist')
   })
   it.skip('updates page on selection change', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }
@@ -112,7 +112,7 @@ describe('Nav Bar', () => {
     cy.contains('1 of 9')
   })
   it('updates page on actress selection change', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }
@@ -140,7 +140,7 @@ describe('Nav Bar', () => {
     cy.dataCy('actress-name-2').should('not.have.class', 'Mui-selected')
   })
   it('updates page on decade selection change', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }
@@ -168,7 +168,7 @@ describe('Nav Bar', () => {
     cy.dataCy('decade-2').should('not.have.class', 'Mui-selected')
   })
   it.skip('selectors', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser(NON_ADMIN_USER))
       }
@@ -202,7 +202,7 @@ describe('Nav Bar', () => {
     cy.contains('Randomize')
   })
   it('loads underage selector if user has it true', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser({ hideUnderage: true }))
       }
@@ -214,7 +214,7 @@ describe('Nav Bar', () => {
     })
   })
   it('loads underage selector if user has it false', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser({ hideUnderage: false }))
       }
@@ -226,7 +226,7 @@ describe('Nav Bar', () => {
     })
   })
   it('underage selector is true if user is not logged in', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }

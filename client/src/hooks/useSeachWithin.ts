@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useAuthContext } from './'
 import { useNavigate } from 'react-router-dom'
-import { AVAILABLE_TAGS, SEARCH_RESULTS } from '../utils/constants'
+import { SEARCH_RESULTS } from '../utils/constants'
 
-type SearchParams = Record<string, string | Array<string | undefined>>
+// type SearchParams = Record<string, string | Array<string | undefined>>
 
 export const useSearchWithin = () => {
   const navigate = useNavigate()
@@ -12,66 +12,6 @@ export const useSearchWithin = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const filter = async (
-    collection: string,
-    searchParamObj: SearchParams,
-    sort = 'recent'
-  ) => {
-    setIsLoading(true)
-    setError(null)
-
-    const paramKeys = Object.keys(searchParamObj)
-    let queryStr = ''
-    paramKeys.forEach((param) => {
-      queryStr += `&${param}=${searchParamObj[param]
-        .toString()
-        .replace(/,\s*$/, '')}`
-    })
-    queryStr += `&sort=${sort}`
-
-    const response = await fetch(`/api/search/filter/${collection}?${queryStr}`)
-    const json = await response.json()
-    if (!response.ok) {
-      setIsLoading(false)
-      setError(json.error)
-    }
-    if (response.ok) {
-      setIsLoading(false)
-      dispatch({ type: AVAILABLE_TAGS, payload: json.tags })
-      return json
-      // dispatch({ type: 'SEARCH_RESULTS', payload: json })
-
-      // navigate('/searchResults')
-    }
-  }
-  // const filter = async (searchParamObj) => {
-  //   setIsLoading(true)
-  //   setError(null)
-
-  //   const paramKeys = Object.keys(searchParamObj)
-  //   let queryStr = ''
-  //   paramKeys.forEach((param) => {
-  //     queryStr += `&${param}=${searchParamObj[param]
-  //       .toString()
-  //       .replace(/,\s*$/, '')}`
-  //   })
-
-  //   const response = await fetch(`/api/search/filter?${queryStr}`)
-  //   const json = await response.json()
-  //   if (!response.ok) {
-  //     setIsLoading(false)
-  //     setError(json.error)
-  //   }
-  //   if (response.ok) {
-  //     setIsLoading(false)
-  //     console.log(json)
-  //     dispatch({ type: 'AVAILABLE_TAGS', payload: json.tags })
-  //     return json
-  //     // dispatch({ type: 'SEARCH_RESULTS', payload: json })
-
-  //     // navigate('/searchResults')
-  //   }
-  // }
   const search = async (searchTerm: string, collection: string) => {
     setIsLoading(true)
     setError(null)
@@ -116,5 +56,5 @@ export const useSearchWithin = () => {
   //     navigate('/searchResults')
   //   }
   // }
-  return { search, filter, isLoading, error }
+  return { search, isLoading, error }
 }

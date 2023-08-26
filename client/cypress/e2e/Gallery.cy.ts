@@ -17,7 +17,7 @@ describe('Gallery', () => {
     ).as('getGallery')
   })
   it('displays loading message on loading', () => {
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }
@@ -36,7 +36,7 @@ describe('Gallery', () => {
       { statusCode: 500 }
     ).as('getServerFailure')
 
-    cy.visit('/mainstreamBB', {
+    cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }

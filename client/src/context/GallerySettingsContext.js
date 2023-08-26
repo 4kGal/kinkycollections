@@ -8,7 +8,7 @@ export const GallerySettingsContext = createContext()
 
 export const GallerySettingsProvider = ({ children }) => {
   const location = useLocation()
-  const collection = location.pathname.toLowerCase().replace('/', '')
+  const collection = location.pathname.replace('/', '')
 
   const { user } = useAuthContext()
 
