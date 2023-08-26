@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useMemo } from 'react'
 import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
@@ -11,18 +11,21 @@ export const GallerySettingsProvider = ({ children }) => {
   const collection = location.pathname.toLowerCase().replace('/', '')
 
   const { user } = useAuthContext()
-  // const { filter } = useSearchWithin()
 
   const [gallery, setGallery] = useState([])
+  const [galleryIsLoading, setGalleryIsLoading] = useState(false)
+  const [galleryServiceError, setGalleryServiceError] = useState(null)
+  const [availableTags, setAvailableTags] = useState([])
+  const [selectedActresses, setSelectedActresses] = useState([])
+  const [selectedTags, setSelectedTags] = useState([])
+  const [selectedDecades, setSelectedDecades] = useState([])
 
-  const [state, setState] = useState({
+  const [params, setParams] = useState({
     sortBy: 'recent',
     yearAsc: true,
     addedAsc: true,
-    selectedActresses: [],
-    selectedDecades: [],
     numOfVidsPerPage: 9,
-    selectedTags: []
+    combineFilters: 'and'
   })
 
   // const loadSettings = async (url) => {
@@ -42,194 +45,128 @@ export const GallerySettingsProvider = ({ children }) => {
     [collection]
   )
 
-  // get query string
+  // const {
+  //   loading: galleryIsLoading,
+  //   error: galleryServiceError,
+  //   value: galleryObj
+  // } = useAsync(
+  //   () => getGallery(collection, queryStr),
+  //   [collection, params, user?.hideUnderage]
+  // )
 
-  const searchParamObj = {
-    ...(state.decadesFilter?.length > 0 && {
-      decades: state.decadesFilter
-    }),
-    ...(state.selectedActresses?.length > 0 && {
-      actresses: state.selectedActresses
-    }),
-    ...(state.selectedTags?.length > 0 && { tags: state.selectedTags }),
-    hideUnderage: user?.hideUnderage.toString() || 'true',
-    eitherOr: state.combineFilters ? 'and' : 'or'
-  }
-  const paramKeys = Object.keys(searchParamObj)
-  let queryStr = ''
-  paramKeys.forEach((param) => {
-    queryStr += `&${param}=${searchParamObj[param]
-      .toString()
-      .replace(/,\s*$/, '')}`
-  })
-  queryStr += `&sort=${state.sortBy}`
+  useMemo(() => {
+    if (collection === 'mainstreambb') {
+      setGalleryIsLoading(true)
+      setGalleryServiceError(null)
+      const searchParamObj = {
+        ...(params.decadesFilter?.length > 0 && {
+          decades: params.decadesFilter
+        }),
+        ...(selectedActresses?.length > 0 && {
+          actresses: selectedActresses
+        }),
+        ...(selectedTags?.length > 0 && { tags: selectedTags }),
+        hideUnderage: user?.hideUnderage.toString() || 'true',
+        eitherOr: params.combineFilters ? 'and' : 'or'
+      }
+      const paramKeys = Object.keys(searchParamObj)
+      let queryStr = ''
+      paramKeys.forEach((param) => {
+        queryStr += `&${param}=${searchParamObj[param]
+          .toString()
+          .replace(/,\s*$/, '')}`
+      })
+      queryStr += `&sort=${params.sortBy}`
 
-  const {
-    loading: galleryIsLoading,
-    error,
-    value: galleryObj
-  } = useAsync(
-    () => getGallery(collection, queryStr),
-    [collection, state, user?.hideUnderage]
-  )
-
-  useEffect(() => {
-    setGallery(galleryObj?.gallery)
-  }, [galleryObj])
-
-  // // useEffect(() => {
-  // //   console.log('inside', collection)
-  // //   if (collection === MAINSTREAM_BB_URL) {
-  // //     console.log('getting gallery')
-  // //     const { decadesFilter, selectedActresses, sortBy } = state
-
-  // //     const searchParamObj = {
-  // //       ...(decadesFilter?.length > 0 && { decades: decadesFilter }),
-  // //       ...(selectedActresses?.length > 0 && {
-  // //         actresses: selectedActresses
-  // //       })
-  // //       // ...(selectedTags?.length > 0 && { tags: selectedTags }),
-  // //       // ...(hideUnderage === true && { underage: 'false' }),
-  // //       // eitherOr: combineFilters ? 'and' : 'or'
-  // //     }
-  // //     const paramKeys = Object.keys(searchParamObj)
-  // //     let queryStr = ''
-  // //     paramKeys.forEach((param) => {
-  // //       queryStr += `&${param}=${searchParamObj[param]
-  // //         .toString()
-  // //         .replace(/,\s*$/, '')}`
-  // //     })
-  // //     queryStr += `&sort=${sortBy}`
-
-  // //     const { value: gallery } = useAsync(() =>
-  // //       getGallery(collection, queryStr)
-  // //     )
-  // //     setGallery(gallery)
-  // //     console.log(gallery)
-  // //   }
-
-  // //   // filter(
-  // //   //   collection,
-  // //   //   {
-  // //   //     ...(decadesFilter?.length > 0 && { decades: decadesFilter }),
-  // //   //     ...(selectedActresses?.length > 0 && {
-  // //   //       actresses: selectedActresses
-  // //   //     })
-  // //   //     // ...(selectedTags?.length > 0 && { tags: selectedTags }),
-  // //   //     // ...(hideUnderage === true && { underage: 'false' }),
-  // //   //     // eitherOr: combineFilters ? 'and' : 'or'
-  // //   //   },
-  // //   //   sortBy
-  // //   // )
-  // // }, [state])
+      getGallery(collection, queryStr)
+        .then((res, err) => {
+          console.log('getting in memo,', err)
+          setGallery(res?.gallery)
+          setAvailableTags(res?.tags)
+        })
+        .catch((e) => setGalleryServiceError(e))
+        .finally(() => setGalleryIsLoading(false))
+    }
+  }, [
+    collection,
+    params,
+    selectedActresses,
+    selectedDecades,
+    selectedTags,
+    user?.hideUnderage
+  ])
 
   const handleSetSortBy = (newSortBy) => {
-    setState({
-      ...state,
+    setParams({
+      ...params,
       sortBy: newSortBy
     })
   }
 
   const handleYearAscending = () => {
-    setState({
-      ...state,
-      yearAsc: !state.yearAsc
+    setParams({
+      ...params,
+      yearAsc: !params.yearAsc
     })
   }
   const handleAddedAscending = () => {
-    setState({
-      ...state,
-      addedAsc: !state.addedAsc
+    setParams({
+      ...params,
+      addedAsc: !params.addedAsc
     })
   }
 
   const handleRandomize = () => {
-    setGallery(gallery?.sort(() => Math.random() - 0.5))
-  }
-
-  // const handleActressSelection = (actress) => {
-  //   if (actress === null) {
-  //     setState({
-  //       ...state,
-  //       selectedActresses: []
-  //     })
-  //   } else {
-  //     const index = state.selectedActresses?.indexOf(actress)
-  //     if (index === -1) {
-  //       setState({
-  //         ...state,
-  //         selectedActresses: state.selectedActresses.concat(actress)
-  //       })
-  //     } else {
-  //       setState({
-  //         ...state,
-  //         selectedActresses: state.selectedActresses.filter(
-  //           (current) => current !== actress
-  //         )
-  //       })
-  //     }
-  //   }
-  // }
-
-  const handleFilterSelection = (key, value) => {
-    if (value === null) {
-      setState({
-        ...state,
-        [key]: []
-      })
-    } else {
-      const exists = state[key].includes(value)
-      if (exists) {
-        setState({
-          ...state,
-          [key]: state[key].filter((c) => {
-            return c !== value
-          })
-        })
-      } else {
-        setState({
-          ...state,
-          [key]: state[key].concat(value)
-        })
-      }
-    }
+    const dupGallery = [...gallery]
+    setGallery(dupGallery.sort(() => Math.random() - 0.5))
   }
 
   const handleVidsPerPageChange = (perPage) => {
-    setState({
-      ...state,
+    setParams({
+      ...params,
       numOfVidsPerPage: perPage
     })
   }
 
   const handleTagSelection = (tag) => {
-    const index = state.selectedTags?.indexOf(tag)
+    const index = selectedTags?.indexOf(tag)
 
     if (index === -1) {
-      setState({ ...state, selectedTags: state.selectedTags?.concat(tag) })
+      setSelectedTags(selectedTags?.concat(tag))
     } else {
-      setState({
-        ...state,
-        selectedTags: state.selectedTags?.filter((current) => current !== tag)
-      })
+      setSelectedTags(selectedTags?.filter((current) => current !== tag))
     }
   }
 
   const handleActressSelection = (actress) => {
-    const index = state.selectedActresses?.indexOf(actress)
-
-    if (index === -1) {
-      setState({
-        ...state,
-        selectedActresses: state.selectedActresses?.concat(actress)
-      })
+    const index = selectedActresses?.indexOf(actress)
+    if (actress === null) {
+      setSelectedActresses([])
     } else {
-      setState({
-        ...state,
-        selectedActresses: state.selectedActresses?.filter(
-          (current) => current !== actress
+      if (index === -1) {
+        setSelectedActresses(selectedActresses?.concat(actress))
+      } else {
+        setSelectedActresses(
+          selectedActresses?.filter((current) => current !== actress)
         )
-      })
+      }
+    }
+  }
+  const handleDecadeSelection = (decade) => {
+    const exists = selectedDecades.includes(decade)
+
+    if (decade === null) {
+      setSelectedDecades([])
+    } else {
+      if (exists) {
+        setSelectedDecades(
+          selectedDecades.filter((c) => {
+            return c !== decade
+          })
+        )
+      } else {
+        setSelectedDecades(selectedDecades.concat(decade))
+      }
     }
   }
   return (
@@ -242,15 +179,19 @@ export const GallerySettingsProvider = ({ children }) => {
         handleYearAscending,
         handleAddedAscending,
         handleRandomize,
-        handleFilterSelection,
         handleVidsPerPageChange,
         handleTagSelection,
         handleActressSelection,
+        handleDecadeSelection,
         gallery,
         galleryLength: gallery?.length || 0,
-        availableTags: galleryObj?.tags,
+        availableTags,
         galleryIsLoading,
-        ...state
+        selectedActresses,
+        selectedDecades,
+        selectedTags,
+        galleryServiceError,
+        ...params
       }}
     >
       {children}

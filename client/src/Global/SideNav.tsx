@@ -1,4 +1,4 @@
-import React, { type MouseEvent, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Divider,
   Drawer,
@@ -42,15 +42,13 @@ const ListItemWithDivider = styled(ListItem)({
 
 function renderActressRow(props: ListChildComponentProps) {
   const { index, data, style } = props
-  const { availableActresses, handleFilterSelection, selectedActresses } = data
+  const { availableActresses, handleActressSelection, selectedActresses } = data
 
   const current = availableActresses[index]
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
       <ListItemButton
-        onClick={() =>
-          handleFilterSelection('selectedActresses', current.actress)
-        }
+        onClick={() => handleActressSelection(current.actress)}
         selected={selectedActresses.includes(current.actress)}
         data-cy={`actress-name-${index}`}
       >
@@ -61,16 +59,16 @@ function renderActressRow(props: ListChildComponentProps) {
   )
 }
 
-function renderYearRow(props: ListChildComponentProps) {
+function renderDecadeRow(props: ListChildComponentProps) {
   const { index, data, style } = props
-  const { availableDecades, handleFilterSelection, selectedDecades } = data
+  const { availableDecades, handleDecadeSelection, selectedDecades } = data
   const keys: string[] = Object.keys(availableDecades[index])
   const values: string[] = Object.values(availableDecades[index])
 
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
       <ListItemButton
-        onClick={() => handleFilterSelection('selectedDecades', keys[0])}
+        onClick={() => handleDecadeSelection(keys[0])}
         selected={selectedDecades.includes(keys[0])}
         data-cy={`decade-${index}`}
       >
@@ -104,8 +102,9 @@ const SideNav = ({
     handleRandomize,
     handleYearAscending,
     handleAddedAscending,
-    handleFilterSelection,
     handleVidsPerPageChange,
+    handleActressSelection,
+    handleDecadeSelection,
     sortBy,
     yearAsc,
     addedAsc,
@@ -164,16 +163,6 @@ const SideNav = ({
       state: { updateEmail: true, username: user.username, from: location }
     })
     handleClose()
-  }
-
-  const resetActressSelection = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    handleFilterSelection('selectedActresses', null)
-  }
-
-  const resetSelectedDecades = (e: MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-    handleFilterSelection('selectedDecades', null)
   }
 
   const handleSignout = () => {
@@ -325,9 +314,7 @@ const SideNav = ({
             text="Filter By Actress"
             handleClick={() => setIsActressOpen(!isActressOpen)}
             displayClear={selectedActresses.length > 0}
-            handleClear={(e: MouseEvent<HTMLElement>) =>
-              resetActressSelection(e)
-            }
+            handleClear={() => handleActressSelection(null)}
             isOpen={isActressOpen}
             dataCy="filter-actress-menu-item"
           />
@@ -338,7 +325,7 @@ const SideNav = ({
             width="100%"
             itemData={{
               availableActresses,
-              handleFilterSelection,
+              handleActressSelection,
               selectedActresses
             }}
             itemSize={55}
@@ -356,9 +343,7 @@ const SideNav = ({
             text="Filter By Decade"
             handleClick={() => setIsDecadeOpen(!isDecadeOpen)}
             displayClear={selectedDecades.length > 0}
-            handleClear={(e: MouseEvent<HTMLElement>) =>
-              resetSelectedDecades(e)
-            }
+            handleClear={() => handleDecadeSelection(null)}
             isOpen={isDecadeOpen}
             dataCy="filter-decade-menu-item"
           />
@@ -369,7 +354,7 @@ const SideNav = ({
             width="100%"
             itemData={{
               availableDecades,
-              handleFilterSelection,
+              handleDecadeSelection,
               selectedDecades
             }}
             itemSize={46}
@@ -377,17 +362,17 @@ const SideNav = ({
             overscanCount={5}
             style={{ border: '1px solid lightgrey' }}
           >
-            {renderYearRow}
+            {renderDecadeRow}
           </FixedSizeList>
         </Collapse>
-        <ListItem disablePadding>
+        <ListItemWithDivider disablePadding>
           <ListItemButton
             onClick={handleRandomize}
             data-cy="sort-button-randomize"
           >
             <ListItemText primary="Randomize" />
           </ListItemButton>
-        </ListItem>
+        </ListItemWithDivider>
         {onSearchablePage && (
           <ListItem data-cy="num-videos-per-page">
             <ListItemText primary="# Videos Per Page" />

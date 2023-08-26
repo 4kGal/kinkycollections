@@ -11,6 +11,7 @@ const Gallery = ({ collection }: { collection: string }) => {
     gallery,
     galleryLength,
     galleryIsLoading,
+    galleryServiceError,
     numOfVidsPerPage,
     handleTagSelection,
     handleActressSelection
@@ -39,8 +40,21 @@ const Gallery = ({ collection }: { collection: string }) => {
     <Grid container alignItems="center" justifyContent="center">
       {galleryIsLoading ? (
         <Grid item xs={12} sx={{ textAlign: 'center' }} mt={10}>
-          <Typography variant="h2" color="primary">
+          <Typography variant="h2" color="primary" data-cy="gallery-loading">
             Loading...
+          </Typography>
+        </Grid>
+      ) : galleryServiceError ? (
+        <Grid item xs={12} sx={{ textAlign: 'center' }} mt={10}>
+          <Typography variant="h5" color="error" data-cy="error-message">
+            {galleryServiceError.toString()}
+          </Typography>
+          <Typography
+            variant="h6"
+            color="white"
+            data-cy="error-contact-me-message"
+          >
+            Try refreshing or contact me at 4kgal98@gmail.com
           </Typography>
         </Grid>
       ) : (

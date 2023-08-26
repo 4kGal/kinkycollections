@@ -139,7 +139,7 @@ describe('Nav Bar', () => {
     cy.dataCy('actress-name-0').should('not.have.class', 'Mui-selected')
     cy.dataCy('actress-name-2').should('not.have.class', 'Mui-selected')
   })
-  it.only('updates page on decade selection change', () => {
+  it('updates page on decade selection change', () => {
     cy.visit('/mainstreamBB', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
