@@ -42,7 +42,6 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/filter/:collection", async (req, res) => {
-  console.log("in", req.query.hideUnderage);
   const collection = await db.collection(req.params.collection);
 
   const sort = get(req.query, "sort", "recent");
@@ -79,7 +78,7 @@ router.get("/filter/:collection", async (req, res) => {
     !multipleActresses
   ) {
     movies = await collection
-      .find(!hideUnderage ? { underage } : {})
+      .find(!underage ? { underage } : {})
       //.find({})
       .sort(sortParam)
       .toArray();
@@ -156,7 +155,7 @@ router.get("/filter/:collection", async (req, res) => {
         ...(typeOfBusts.length > 0 ? [tagQuery] : []),
         ...(actresses.length > 0 ? [actressQuery] : []),
         ...(multipleActresses ? [multiple] : []),
-        ...(!hideUnderage ? [] : [{ underage }]),
+        ...(!underage ? [] : [{ underage }]),
       ],
     };
 
@@ -257,7 +256,7 @@ router.get("/filter/:collection", async (req, res) => {
   }
 
   return res.status(200).json({
-    movies: moviesWithCreationAndLikes,
+    gallery: moviesWithCreationAndLikes,
     tags: sortedTags,
   });
 });

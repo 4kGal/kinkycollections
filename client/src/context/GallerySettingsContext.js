@@ -2,8 +2,6 @@ import React, { createContext, useState, useEffect } from 'react'
 import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
-import { MAINSTREAM_BB_COLLECTION } from '../utils/constants'
-import { useSearchWithin } from '../hooks/useSeachWithin'
 import { useAuthContext } from '../hooks'
 
 export const GallerySettingsContext = createContext()
@@ -15,16 +13,16 @@ export const GallerySettingsProvider = ({ children }) => {
   const { user } = useAuthContext()
   // const { filter } = useSearchWithin()
 
+  const [gallery, setGallery] = useState([])
+
   const [state, setState] = useState({
-    // availableActresses: [],
-    // availableDecades: [],
-    // minDecade: null,
     sortBy: 'recent',
     yearAsc: true,
     addedAsc: true,
     selectedActresses: [],
     selectedDecades: [],
-    numOfVidsPerPage: 9
+    numOfVidsPerPage: 9,
+    selectedTags: []
   })
 
   // const loadSettings = async (url) => {
@@ -67,15 +65,17 @@ export const GallerySettingsProvider = ({ children }) => {
   queryStr += `&sort=${state.sortBy}`
 
   const {
-    loading,
+    loading: galleryIsLoading,
     error,
-    value: gallery
+    value: galleryObj
   } = useAsync(
     () => getGallery(collection, queryStr),
     [collection, state, user?.hideUnderage]
   )
 
-  console.log(gallery)
+  useEffect(() => {
+    setGallery(galleryObj?.gallery)
+  }, [galleryObj])
 
   // // useEffect(() => {
   // //   console.log('inside', collection)
@@ -144,8 +144,7 @@ export const GallerySettingsProvider = ({ children }) => {
   }
 
   const handleRandomize = () => {
-    // displayedVideos.sort(() => Math.random() - 0.5)
-    console.log('random!')
+    setGallery(gallery?.sort(() => Math.random() - 0.5))
   }
 
   // const handleActressSelection = (actress) => {
@@ -203,6 +202,36 @@ export const GallerySettingsProvider = ({ children }) => {
     })
   }
 
+  const handleTagSelection = (tag) => {
+    const index = state.selectedTags?.indexOf(tag)
+
+    if (index === -1) {
+      setState({ ...state, selectedTags: state.selectedTags?.concat(tag) })
+    } else {
+      setState({
+        ...state,
+        selectedTags: state.selectedTags?.filter((current) => current !== tag)
+      })
+    }
+  }
+
+  const handleActressSelection = (actress) => {
+    const index = state.selectedActresses?.indexOf(actress)
+
+    if (index === -1) {
+      setState({
+        ...state,
+        selectedActresses: state.selectedActresses?.concat(actress)
+      })
+    } else {
+      setState({
+        ...state,
+        selectedActresses: state.selectedActresses?.filter(
+          (current) => current !== actress
+        )
+      })
+    }
+  }
   return (
     <GallerySettingsContext.Provider
       value={{
@@ -215,6 +244,12 @@ export const GallerySettingsProvider = ({ children }) => {
         handleRandomize,
         handleFilterSelection,
         handleVidsPerPageChange,
+        handleTagSelection,
+        handleActressSelection,
+        gallery,
+        galleryLength: gallery?.length || 0,
+        availableTags: galleryObj?.tags,
+        galleryIsLoading,
         ...state
       }}
     >

@@ -111,7 +111,8 @@ const SideNav = ({
     addedAsc,
     selectedActresses,
     selectedDecades,
-    numOfVidsPerPage
+    numOfVidsPerPage,
+    galleryLength
   } = useGallerySettingsContext()
 
   const navigate = useNavigate()
@@ -188,10 +189,10 @@ const SideNav = ({
     decades.push(startingYear)
   } while (startingYear + 10 < new Date().getFullYear())
 
-  const pageArray: string[] = []
-  //   for (let i = 1; i * 9 < 50 || i * 9 < videoLength; i++) {
-  //     pageArray.push(i * 9)
-  //   }
+  const pageArray: number[] = []
+  for (let i = 1; i * 9 < 50 || i * 9 < galleryLength; i++) {
+    pageArray.push(i * 9)
+  }
 
   return (
     <Drawer anchor="left" open={open}>
@@ -313,14 +314,6 @@ const SideNav = ({
                     )}
                   </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={handleRandomize}
-                    data-cy="sort-button-randomize"
-                  >
-                    <ListItemText primary="Randomize" />
-                  </ListItemButton>
-                </ListItem>
               </List>
             </Collapse>
             <Divider />
@@ -387,6 +380,14 @@ const SideNav = ({
             {renderYearRow}
           </FixedSizeList>
         </Collapse>
+        <ListItem disablePadding>
+          <ListItemButton
+            onClick={handleRandomize}
+            data-cy="sort-button-randomize"
+          >
+            <ListItemText primary="Randomize" />
+          </ListItemButton>
+        </ListItem>
         {onSearchablePage && (
           <ListItem data-cy="num-videos-per-page">
             <ListItemText primary="# Videos Per Page" />
