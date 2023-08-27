@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo } from 'react'
+import React, { createContext, useState, useMemo, useEffect } from 'react'
 import { useAsync, useAsyncFn } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
@@ -11,12 +11,8 @@ export const GallerySettingsProvider = ({ children }) => {
   const collection = location.pathname.replace('/', '')
 
   const { user } = useAuthContext()
-  const getGalleryFn = useAsyncFn(getGallery)
 
   const [gallery, setGallery] = useState([])
-  const [galleryIsLoading, setGalleryIsLoading] = useState(false)
-  const [galleryServiceError, setGalleryServiceError] = useState(null)
-  const [availableTags, setAvailableTags] = useState([])
   const [selectedActresses, setSelectedActresses] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
   const [selectedDecades, setSelectedDecades] = useState([])
@@ -28,18 +24,6 @@ export const GallerySettingsProvider = ({ children }) => {
     numOfVidsPerPage: 9,
     combineFilters: 'and'
   })
-
-  // const loadSettings = async (url) => {
-  //   console.log(url)
-  //   const { listOfActresses, decades, lowestYear } =
-  //     await getGalleryInitialSettings(url)
-  //   setState({
-  //     ...state,
-  //     availableActresses: listOfActresses || [],
-  //     availableDecades: decades || [],
-  //     minDecade: lowestYear
-  //   })
-  // }
 
   const { value: settings } = useAsync(
     () => getGalleryInitialSettings(collection),
@@ -66,68 +50,90 @@ export const GallerySettingsProvider = ({ children }) => {
   })
   queryStr += `&sort=${params.sortBy}`
 
-  // const {
-  //   loading: galleryIsLoading,
-  //   error: galleryServiceError,
-  //   value: galleryObj
-  // } = useAsyncFn(
-  //   () => getGallery(collection, queryStr),
-  //   [collection, params, user?.hideUnderage, user?.favorites]
-  // )
+  const { error: galleryServiceError, value: galleryObj } = useAsync(
+    () => getGallery(collection, queryStr),
+    [
+      collection,
+      params,
+      selectedActresses,
+      selectedDecades,
+      selectedTags,
+      user?.hideUnderage,
+      user?.favorites
+    ]
+  )
 
-  const onGetGallery = () => {
-    return getGalleryFn
-      .execute(collection, queryStr)
-      .then((galleryRes) => {
-        setGallery(galleryRes.gallery)
-        setAvailableTags(galleryRes.tags)
-      })
-      .catch((e) => setGalleryServiceError(e))
-  }
+  // const onGetGallery = () => {
+  //   const searchParamObj = {
+  //     ...(params.decadesFilter?.length > 0 && {
+  //       decades: params.decadesFilter
+  //     }),
+  //     ...(selectedActresses?.length > 0 && {
+  //       actresses: selectedActresses
+  //     }),
+  //     ...(selectedTags?.length > 0 && { tags: selectedTags }),
+  //     hideUnderage: user?.hideUnderage?.toString() || 'true',
+  //     eitherOr: params.combineFilters ? 'and' : 'or'
+  //   }
+  //   const paramKeys = Object.keys(searchParamObj)
+  //   let queryStr = ''
+  //   paramKeys.forEach((param) => {
+  //     queryStr += `&${param}=${searchParamObj[param]
+  //       .toString()
+  //       .replace(/,\s*$/, '')}`
+  //   })
+  //   queryStr += `&sort=${params.sortBy}`
 
-  useMemo(() => {
-    if (collection === 'mainstreambb') {
-      onGetGallery()
-      //     setGalleryIsLoading(true)
-      //     setGalleryServiceError(null)
-      //     const searchParamObj = {
-      //       ...(params.decadesFilter?.length > 0 && {
-      //         decades: params.decadesFilter
-      //       }),
-      //       ...(selectedActresses?.length > 0 && {
-      //         actresses: selectedActresses
-      //       }),
-      //       ...(selectedTags?.length > 0 && { tags: selectedTags }),
-      //       hideUnderage: user?.hideUnderage?.toString() || 'true',
-      //       eitherOr: params.combineFilters ? 'and' : 'or'
-      //     }
-      //     const paramKeys = Object.keys(searchParamObj)
-      //     let queryStr = ''
-      //     paramKeys.forEach((param) => {
-      //       queryStr += `&${param}=${searchParamObj[param]
-      //         .toString()
-      //         .replace(/,\s*$/, '')}`
-      //     })
-      //     queryStr += `&sort=${params.sortBy}`
+  //   return getGalleryFn.execute(collection, queryStr).then((galleryRes) => {
+  //     setGallery(galleryRes.gallery)
+  //     setAvailableTags(galleryRes.tags)
+  //   })
+  //   //   .catch((e) => setGalleryServiceError(e))
+  // }
 
-      //     getGallery(collection, queryStr)
-      //       .then((res) => {
-      //         console.log('getting in memo,')
-      //         setGallery(res?.gallery)
-      //         setAvailableTags(res?.tags)
-      //       })
-      //       .catch((e) => setGalleryServiceError(e))
-      //       .finally(() => setGalleryIsLoading(false))
-    }
-  }, [
-    collection,
-    params,
-    selectedActresses,
-    selectedDecades,
-    selectedTags,
-    user?.hideUnderage,
-    user?.favorites
-  ])
+  // useMemo(() => {
+  //   if (collection === 'mainstreambb') {
+  //     onGetGallery()
+  //     //     setGalleryIsLoading(true)
+  //     //     setGalleryServiceError(null)
+  //     //     const searchParamObj = {
+  //     //       ...(params.decadesFilter?.length > 0 && {
+  //     //         decades: params.decadesFilter
+  //     //       }),
+  //     //       ...(selectedActresses?.length > 0 && {
+  //     //         actresses: selectedActresses
+  //     //       }),
+  //     //       ...(selectedTags?.length > 0 && { tags: selectedTags }),
+  //     //       hideUnderage: user?.hideUnderage?.toString() || 'true',
+  //     //       eitherOr: params.combineFilters ? 'and' : 'or'
+  //     //     }
+  //     //     const paramKeys = Object.keys(searchParamObj)
+  //     //     let queryStr = ''
+  //     //     paramKeys.forEach((param) => {
+  //     //       queryStr += `&${param}=${searchParamObj[param]
+  //     //         .toString()
+  //     //         .replace(/,\s*$/, '')}`
+  //     //     })
+  //     //     queryStr += `&sort=${params.sortBy}`
+
+  //     //     getGallery(collection, queryStr)
+  //     //       .then((res) => {
+  //     //         console.log('getting in memo,')
+  //     //         setGallery(res?.gallery)
+  //     //         setAvailableTags(res?.tags)
+  //     //       })
+  //     //       .catch((e) => setGalleryServiceError(e))
+  //     //       .finally(() => setGalleryIsLoading(false))
+  //   }
+  // }, [
+  //   collection,
+  //   params,
+  //   selectedActresses,
+  //   selectedDecades,
+  //   selectedTags,
+  //   user?.hideUnderage,
+  //   user?.favorites
+  // ])
 
   const handleSetSortBy = (newSortBy) => {
     setParams({
@@ -216,10 +222,9 @@ export const GallerySettingsProvider = ({ children }) => {
         handleTagSelection,
         handleActressSelection,
         handleDecadeSelection,
-        gallery,
-        galleryLength: gallery?.length || 0,
-        availableTags,
-        galleryIsLoading,
+        gallery: galleryObj?.gallery,
+        galleryLength: galleryObj?.gallery?.length || 0,
+        availableTags: galleryObj?.tags,
         selectedActresses,
         selectedDecades,
         selectedTags,

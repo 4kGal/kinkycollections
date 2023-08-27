@@ -6,9 +6,7 @@ import { Box } from '@mui/material'
 const Layout = (props: { children: ReactNode }) => {
   return (
     <div>
-      {/* <GallerySettingsProvider> */}
       <Header />
-      {/* </GallerySettingsProvider> */}
       <Box
         sx={{
           display: 'flex',

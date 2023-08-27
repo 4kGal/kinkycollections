@@ -16,7 +16,7 @@ import { styled } from '@mui/system'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import SwitchComponent from '../Shared/SwitchComponent/SwitchComponent'
-import { useAuthContext, useLogout, useGallerySettingsContext } from '../hooks'
+import { useAuthContext, useGallerySettingsContext } from '../hooks'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { AMATEUR_BB_URL, MAINSTREAM_BB_URL } from '../utils/constants'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
@@ -117,16 +117,16 @@ const SideNav = ({
   const navigate = useNavigate()
   const {
     user,
-    isAdmin,
+    handleLogout,
     displayAdminControls,
     handleDisplayAdminSwitch,
     updateLocalUser
   } = useAuthContext()
+
+  const { isAdmin } = user || { isAdmin: false }
   const updateUserSettingsFn = useAsyncFn(updateUserSettings)
 
   const { hideUnderage } = user || { hideUnderage: true }
-
-  const { logout } = useLogout()
 
   const [isSortOpen, setIsSortOpen] = useState(false)
   const [isDecadeOpen, setIsDecadeOpen] = useState(false)
@@ -166,7 +166,7 @@ const SideNav = ({
   }
 
   const handleSignout = () => {
-    logout()
+    handleLogout()
     navigate('.', { replace: true })
     handleClose()
   }
@@ -191,7 +191,7 @@ const SideNav = ({
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List sx={{ minWidth: 272 }}>
+      <List sx={{ minWidth: 272, paddingTop: 0 }}>
         {isAdmin && (
           <ListItemWithDivider>
             <ListItemText>
@@ -208,14 +208,14 @@ const SideNav = ({
           </ListItemWithDivider>
         )}
         {!user && (
-          <ListItem disablePadding>
+          <ListItemWithDivider disablePadding>
             <ListItemButton
               onClick={navigateToSignInPage}
               data-cy="login-signup-menu-item"
             >
               <ListItemText>Log In/Sign Up</ListItemText>
             </ListItemButton>
-          </ListItem>
+          </ListItemWithDivider>
         )}
         {user && (
           <ListItemWithDivider disablePadding>
