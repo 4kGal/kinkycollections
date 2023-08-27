@@ -16,7 +16,7 @@ import { styled } from '@mui/system'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import SwitchComponent from '../Shared/SwitchComponent/SwitchComponent'
-import { useAuthContext, useGallerySettingsContext } from '../hooks'
+import { useAuthContext, useGalleryContext } from '../hooks'
 import { useNavigate, useLocation } from 'react-router-dom'
 import {
   AMATEUR_BB_URL,
@@ -116,7 +116,7 @@ const SideNav = ({
     selectedDecades,
     numOfVidsPerPage,
     galleryLength
-  } = useGallerySettingsContext()
+  } = useGalleryContext()
 
   const navigate = useNavigate()
   const {

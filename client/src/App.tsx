@@ -10,11 +10,11 @@ import AuthenticationPage from './AuthenticatePages/AuthenticationPage'
 import Favorites from './Favorites/Favorites'
 import SearchResults from './SearchResults/SearchResults'
 import { CommentProvider } from './context/CommentContext'
-import { GallerySettingsProvider } from './context/GallerySettingsContext'
+import { GalleryProvider } from './context/GalleryContext'
 const App = () => {
   return (
     <Router>
-      <GallerySettingsProvider>
+      <GalleryProvider>
         <Layout>
           <Routes>
             <Route path="/login" element={<AuthenticationPage />} />
@@ -39,7 +39,7 @@ const App = () => {
             <Route path="/searchResults" element={<SearchResults />} />
           </Routes>
         </Layout>
-      </GallerySettingsProvider>
+      </GalleryProvider>
     </Router>
   )
 }

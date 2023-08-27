@@ -16,7 +16,7 @@ import { styled } from '@mui/system'
 import { Link } from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { useAuthContext, useGallerySettingsContext } from '../hooks'
+import { useAuthContext, useGalleryContext } from '../hooks'
 import { type User, type MetaData } from '../Shared/types'
 import Image from 'react-image-webp'
 import { useAsyncFn } from '../hooks/useAsync'
@@ -86,7 +86,7 @@ const KEYS = [
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const updateFavoritesFn = useAsyncFn(updateFavorites)
-  const { selectedDecades } = useGallerySettingsContext()
+  const { selectedDecades } = useGalleryContext()
   const {
     user,
     displayAdminControls,

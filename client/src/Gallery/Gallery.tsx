@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Typography } from '@mui/material'
-import { useGallerySettingsContext } from '../hooks'
+import { useGalleryContext } from '../hooks'
 import { type MetaData } from '../Shared/types'
 import Card from '../Card/Card'
 import PageNavigation from '../Shared/PageNavigation/PageNavigation'
@@ -15,7 +15,7 @@ const Gallery = ({ collection }: { collection: string }) => {
     numOfVidsPerPage,
     handleTagSelection,
     handleActressSelection
-  } = useGallerySettingsContext()
+  } = useGalleryContext()
 
   useEffect(() => {
     setPage(0)

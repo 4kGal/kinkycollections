@@ -33,7 +33,7 @@ const Gallery = ({ collection }: { collection: string }) => {
     hideUnderage,
     numOfVidsPerPage = 9
   } = useAuthContext()
-  // const { settings } = useGallerySettingsContext()
+  // const { settings } = useGalleryContext()
   const { filter } = useSearchWithin()
 
   const [combineFilters, setCombineFilters] = useState(false)

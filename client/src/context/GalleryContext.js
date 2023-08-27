@@ -4,9 +4,9 @@ import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
 import { useAuthContext } from '../hooks'
 
-export const GallerySettingsContext = createContext()
+export const GalleryContext = createContext()
 
-export const GallerySettingsProvider = ({ children }) => {
+export const GalleryProvider = ({ children }) => {
   const location = useLocation()
   const collection = location.pathname.replace('/', '')
 
@@ -209,7 +209,7 @@ export const GallerySettingsProvider = ({ children }) => {
     }
   }
   return (
-    <GallerySettingsContext.Provider
+    <GalleryContext.Provider
       value={{
         availableActresses: settings?.listOfActresses || [],
         availableDecades: settings?.decades || [],
@@ -233,6 +233,6 @@ export const GallerySettingsProvider = ({ children }) => {
       }}
     >
       {children}
-    </GallerySettingsContext.Provider>
+    </GalleryContext.Provider>
   )
 }
