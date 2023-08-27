@@ -1,5 +1,5 @@
 import React, { createContext, useState, useMemo, useEffect } from 'react'
-import { useAsync, useAsyncFn } from '../hooks/useAsync'
+import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
 import { useAuthContext } from '../hooks'
@@ -48,7 +48,13 @@ export const GalleryProvider = ({ children }) => {
       .toString()
       .replace(/,\s*$/, '')}`
   })
-  queryStr += `&sort=${params.sortBy}`
+  if (params.sortBy === 'year') {
+    queryStr += `&sort=${params.sortBy}${params.yearAsc ? 'Asc' : 'Desc'}`
+  } else if (params.sortBy === 'recent' && params.addedAsc) {
+    queryStr += `&sort=oldest`
+  } else {
+    queryStr += `&sort=${params.sortBy}`
+  }
 
   const { error: galleryServiceError, value: galleryObj } = useAsync(
     () => getGallery(collection, queryStr),
