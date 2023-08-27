@@ -108,7 +108,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
   )
   const handleFavorite = () => {
-    updateFavorite(user?.username, video._id)
+    updateFavorite(user?.username, user?.userRoles, video._id)
   }
 
   const isFavorited = Boolean(

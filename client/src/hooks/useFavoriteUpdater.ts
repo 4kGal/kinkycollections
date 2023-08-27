@@ -7,7 +7,11 @@ export const useFavoriteUpdater = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { dispatch } = useAuthContext()
 
-  const updateFavorite = async (username: string, favorite: string) => {
+  const updateFavorite = async (
+    username: string,
+    userRoles: unknown,
+    favorite: string
+  ) => {
     setIsLoading(true)
     setError(null)
 
@@ -16,6 +20,7 @@ export const useFavoriteUpdater = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: username.toLowerCase(),
+        userRoles,
         favorite
       })
     })
