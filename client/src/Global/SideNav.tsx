@@ -365,32 +365,36 @@ const SideNav = ({
             {renderDecadeRow}
           </FixedSizeList>
         </Collapse>
-        <ListItemWithDivider disablePadding>
-          <ListItemButton
-            onClick={handleRandomize}
-            data-cy="sort-button-randomize"
-          >
-            <ListItemText primary="Randomize" />
-          </ListItemButton>
-        </ListItemWithDivider>
         {onSearchablePage && (
-          <ListItem data-cy="num-videos-per-page">
-            <ListItemText primary="# Videos Per Page" />
-            <Select
-              value={numOfVidsPerPage}
-              onChange={(event) => handleVidsPerPageChange(event.target.value)}
-              defaultValue="9"
-              inputProps={{
-                'data-cy': 'videos-per-page-select'
-              }}
-            >
-              {pageArray.map((page) => (
-                <MenuItem key={page} value={page}>
-                  {page}
-                </MenuItem>
-              ))}
-            </Select>
-          </ListItem>
+          <>
+            <ListItemWithDivider disablePadding>
+              <ListItemButton
+                onClick={handleRandomize}
+                data-cy="sort-button-randomize"
+              >
+                <ListItemText primary="Randomize" />
+              </ListItemButton>
+            </ListItemWithDivider>
+            <ListItem data-cy="num-videos-per-page">
+              <ListItemText primary="# Videos Per Page" />
+              <Select
+                value={numOfVidsPerPage}
+                onChange={(event) =>
+                  handleVidsPerPageChange(event.target.value)
+                }
+                defaultValue="9"
+                inputProps={{
+                  'data-cy': 'videos-per-page-select'
+                }}
+              >
+                {pageArray.map((page) => (
+                  <MenuItem key={page} value={page}>
+                    {page}
+                  </MenuItem>
+                ))}
+              </Select>
+            </ListItem>
+          </>
         )}
         {user && (
           <ListItem disablePadding>

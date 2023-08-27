@@ -7,7 +7,7 @@ export const useAuthenticator = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
-  const { user, updateUser } = useAuthContext()
+  const { user, updateLocalUser } = useAuthContext()
 
   const authenticate = async (
     isLogin: boolean,
@@ -36,7 +36,7 @@ export const useAuthenticator = () => {
     if (response.ok) {
       localStorage.setItem('user', JSON.stringify(json))
 
-      updateUser(json)
+      updateLocalUser(json)
       // dispatch({ type: LOGIN, payload: json })
       setIsLoading(false)
       navigate('/')

@@ -12,6 +12,5 @@ export const getGalleryInitialSettings = (collection) => {
 
 export const getGallery = (collection, queryStr) => {
   if (collection !== MAINSTREAM_BB_COLLECTION) return Promise.resolve({})
-  console.log('getting')
   return makeRequest(`/api/search/filter/${collection}?${queryStr}`)
 }

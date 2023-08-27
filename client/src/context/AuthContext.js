@@ -48,6 +48,7 @@ export const AuthContextProvider = ({ children }) => {
       } else {
         updatedUser.hideUnderage = false
       }
+      console.log('in useeffect', user)
       setState({
         user: updatedUser,
         isAdmin:
@@ -60,6 +61,7 @@ export const AuthContextProvider = ({ children }) => {
   const updateLocalUser = (newUser) => {
     const { Role } = jwtDecode(newUser?.userRoles)
 
+    console.log('newUser', newUser)
     setState({
       user: newUser,
       isAdmin:

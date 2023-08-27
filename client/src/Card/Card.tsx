@@ -16,11 +16,13 @@ import { styled } from '@mui/system'
 import { Link } from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { useAuthContext } from '../hooks'
+import { useAuthContext, useGallerySettingsContext } from '../hooks'
 import { useFavoriteUpdater } from '../hooks/useFavoriteUpdater'
-import { type MetaData } from '../Shared/types'
+import { type User, type MetaData } from '../Shared/types'
 import { useAuthenticator } from '../hooks/useAuthenticator'
 import Image from 'react-image-webp'
+import { useAsyncFn } from '../hooks/useAsync'
+import { updateFavorites } from '../services/user'
 
 interface Video {
   collection?: string
@@ -84,7 +86,10 @@ const KEYS = [
 ]
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
-  const { user, isAdmin, showAdminControls, decadesFilter } = useAuthContext()
+  const updateFavoritesFn = useAsyncFn(updateFavorites)
+
+  const { selectedDecades } = useGallerySettingsContext()
+  const { user, isAdmin, updateLocalUser, showAdminControls } = useAuthContext()
   const { updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
@@ -108,7 +113,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
   )
   const handleFavorite = () => {
-    updateFavorite(user?.username, video._id)
+    updateFavorite(user?.username, user?.userRoles, video._id)
   }
 
   const isFavorited = Boolean(
@@ -135,6 +140,17 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     deleteVideoAdmin(movie.collection, movie._id)
   }
 
+  const onUserFavoriteUpdate = () => {
+    return updateFavoritesFn
+      .execute(user?.username, user?.userRoles, video._id)
+      .then((userResp: User) => {
+        console.log('resp', userResp)
+        // updateLocalGallery(null, user?.favorites)
+        updateLocalUser(userResp)
+      })
+  }
+
+  console.log(user?.favorites)
   const popoverOpen = Boolean(anchorEl)
 
   const { updateFavorite } = useFavoriteUpdater()
@@ -191,7 +207,8 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
           <StyledCardContent key={video?._id}>
             <Typography>
               {displayName}
-              {decadesFilter?.length > 0 && !nameContainsYear && ` (${year})`}
+              {selectedDecades?.length > 0 && !nameContainsYear && ` (${year})`}
+              <br /> {video?._id}
             </Typography>
           </StyledCardContent>
           <Grid
@@ -276,7 +293,10 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
               </Grid>
             )}
             <Grid item xs pr={1}>
-              <IconButton onClick={handleFavorite} disabled={user === null}>
+              <IconButton
+                onClick={onUserFavoriteUpdate}
+                disabled={user === null}
+              >
                 <Typography variant="h6">{likes} </Typography>
                 {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
               </IconButton>

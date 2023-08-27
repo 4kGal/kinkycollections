@@ -1,11 +1,11 @@
 import { useAuthContext } from './'
 
 export const useLogout = () => {
-  const { updateUser } = useAuthContext()
+  const { updateLocalUser } = useAuthContext()
 
   const logout = () => {
     localStorage.removeItem('user')
-    updateUser(null)
+    updateLocalUser(null)
   }
 
   return { logout }

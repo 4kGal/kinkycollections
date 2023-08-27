@@ -66,7 +66,7 @@ export const GallerySettingsProvider = ({ children }) => {
           actresses: selectedActresses
         }),
         ...(selectedTags?.length > 0 && { tags: selectedTags }),
-        hideUnderage: user?.hideUnderage.toString() || 'true',
+        hideUnderage: user?.hideUnderage?.toString() || 'true',
         eitherOr: params.combineFilters ? 'and' : 'or'
       }
       const paramKeys = Object.keys(searchParamObj)
@@ -79,8 +79,8 @@ export const GallerySettingsProvider = ({ children }) => {
       queryStr += `&sort=${params.sortBy}`
 
       getGallery(collection, queryStr)
-        .then((res, err) => {
-          console.log('getting in memo,', err)
+        .then((res) => {
+          console.log('getting in memo,')
           setGallery(res?.gallery)
           setAvailableTags(res?.tags)
         })
@@ -94,6 +94,7 @@ export const GallerySettingsProvider = ({ children }) => {
     selectedDecades,
     selectedTags,
     user?.hideUnderage
+    // user?.favorites
   ])
 
   const handleSetSortBy = (newSortBy) => {
