@@ -14,7 +14,7 @@ describe('Search Results', () => {
       getMainstreambb
     )
     cy.intercept('GET', '/api/search?text=Fari&collection=*', [
-      getMainstreambb.movies.filter(
+      getMainstreambb.gallery.filter(
         (movie) =>
           movie.actresses.length === 1 && movie.actresses[0] === 'Anna Faris'
       )[0]
@@ -30,9 +30,9 @@ describe('Search Results', () => {
   it('Navigates between pages and displays correctly', () => {
     cy.dataCy('search-bar').type('Fari')
     cy.dataCy('category').should('have.class', 'Mui-checked')
-    cy.contains(getMainstreambb.movies[0].name)
-    cy.dataCy(`movie-${getMainstreambb.movies[0]._id}`)
-    cy.dataCy(`movie-${getMainstreambb.movies[1]._id}`).should('not.exist')
+    cy.contains(getMainstreambb.gallery[0].name)
+    cy.dataCy(`movie-${getMainstreambb.gallery[0]._id}`)
+    cy.dataCy(`movie-${getMainstreambb.gallery[1]._id}`).should('not.exist')
     cy.dataCy('search-bar').type('{backspace}')
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/mainstreambb')

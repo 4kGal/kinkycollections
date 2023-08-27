@@ -1,9 +1,7 @@
 import { makeRequest } from './makeRequest'
 import { isEmpty } from 'lodash'
-import { useAuthContext } from '../hooks'
 
 export function authenticateUser({ isLoginPage, email, password, username }) {
-  console.log('isLogin', isLoginPage)
   return makeRequest(`/api/user/${isLoginPage ? 'login' : 'signup'}/`, {
     method: 'POST',
     data: {

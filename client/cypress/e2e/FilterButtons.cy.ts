@@ -47,7 +47,7 @@ describe('Filter Buttons', () => {
     //   'GET',
     //   '/api/search/filter/mainstreambb?&actresses=Anna%20Faris&eitherOr=*',
     //   {
-    //     movies: getMainstreambb.movies.filter((movie) =>
+    //     gallery: getMainstreambb.gallery.filter((movie) =>
     //       movie.actresses.includes('Anna Faris')
     //     )
     //   }
@@ -79,7 +79,7 @@ describe('Filter Buttons', () => {
 
     cy.get('[data-cy^="movie-"]').each(($button, i) => {
       expect($button.attr('data-cy')).to.eq(
-        `movie-${getMainstreambbSqueeze.movies[i]._id}`
+        `movie-${getMainstreambbSqueeze.gallery[i]._id}`
       )
     })
 
@@ -91,7 +91,7 @@ describe('Filter Buttons', () => {
     cy.get('[data-cy^="movie-"]').should('have.length', 8)
     cy.get('[data-cy^="movie-"]').each(($button, i) => {
       expect($button.attr('data-cy')).to.eq(
-        `movie-${getMainstreambbVerbalSqueeze.movies[i]._id}`
+        `movie-${getMainstreambbVerbalSqueeze.gallery[i]._id}`
       )
     })
     cy.contains('squeeze (6)')
@@ -110,8 +110,8 @@ describe('Filter Buttons', () => {
     cy.get('button').contains('#Zoe Saldana').click()
 
     // cy.contains('nsfw').click()
-    // cy.dataCy(`movie-${getMainstreambb.movies[1]._id}`).should('exist')
-    // cy.dataCy(`movie-${getMainstreambb.movies[0]._id}`).should('not.exist')
+    // cy.dataCy(`movie-${getMainstreambb.gallery[1]._id}`).should('exist')
+    // cy.dataCy(`movie-${getMainstreambb.gallery[0]._id}`).should('not.exist')
     // cy.get('[data-cy^="movie-"]').should('have.length', 1)
 
     // cy.contains('all').parent().click()

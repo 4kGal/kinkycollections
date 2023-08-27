@@ -71,11 +71,11 @@ describe('Nav Bar', () => {
     cy.get('[data-testid="FavoriteIcon"]').should('have.length', 2)
     cy.get('[data-testid="FavoriteBorderIcon"]').should('not.exist')
   })
-  //   it('sign out logs user out', () => {
-  //     cy.dataCy('signout-menu-item').click({ force: true })
+  it('sign out logs user out', () => {
+    cy.dataCy('signout-menu-item').click({ force: true })
 
-  //     expect(window.localStorage.getItem('user')).to.equal({ user: null })
-  //   })
+    expect(window.localStorage.getItem('user')).to.equal({ user: null })
+  })
   it('does not show add email address if user already has email', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {

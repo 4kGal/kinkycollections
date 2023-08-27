@@ -86,7 +86,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('user')
-    dispatch({ type: LOGOUT })
+    dispatch({ type: LOGOUT, payload: null })
   }
 
   const updateUserSettings = async (username, hideUnderage) => {

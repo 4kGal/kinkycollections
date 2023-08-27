@@ -5,7 +5,7 @@ export const ADMIN_USER = {
   token: Cypress.env('ADMIN_TOKEN'),
   hideUnderage: false,
   userRoles: Cypress.env('ADMIN_TOKEN'),
-  favorites: [getMainstreambb.movies[0]._id, getMainstreambb.movies[1]._id]
+  favorites: [getMainstreambb.gallery[0]._id, getMainstreambb.gallery[1]._id]
 }
 
 export const NON_ADMIN_USER = {
@@ -23,7 +23,7 @@ const adminUser = {
   email: '4kgal98@gmail.com',
   token: Cypress.env('ADMIN_TOKEN'),
   userRoles: Cypress.env('ADMIN_TOKEN'),
-  favorites: [getMainstreambb.movies[0]._id, getMainstreambb.movies[1]._id]
+  favorites: [getMainstreambb.gallery[0]._id, getMainstreambb.gallery[1]._id]
 }
 export const getUser = (props = adminUser) => {
   console.log(props)

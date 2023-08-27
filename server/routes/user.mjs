@@ -204,7 +204,7 @@ router.put("/favorites", async (req, res) => {
       { returnOriginal: false, returnDocument: "after" }
     );
 
-    console.log(value);
+    console.log("favorite update return: ", value);
     res.status(200).json(value);
   } catch (error) {
     res.status(400).json({ error: error.message });

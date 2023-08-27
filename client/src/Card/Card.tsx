@@ -21,6 +21,8 @@ import { type User, type MetaData } from '../Shared/types'
 import Image from 'react-image-webp'
 import { useAsyncFn } from '../hooks/useAsync'
 import { updateFavorites } from '../services/user'
+import { LOGIN, UPDATE_FAVORITE } from '../utils/constants'
+import { RssFeedOutlined } from '@mui/icons-material'
 
 interface Video {
   collection?: string
@@ -90,7 +92,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     user,
     isAdmin,
     showAdminControls,
-    updateLocalUser,
+    dispatch,
     updateVideoAdmin,
     deleteVideoAdmin
   } = useAuthContext()
@@ -116,9 +118,6 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const tags = (video.tags ?? []).filter(
     (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
   )
-  // const handleFavorite = () => {
-  //   updateFavorite(user?.username, user?.userRoles, video._id)
-  // }
 
   const isFavorited = Boolean(
     user?.favorites?.find((id: string) => id === video._id)
@@ -158,8 +157,12 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const handleFavorite = () => {
     return updateFavoritesFn
       .execute(user?.username, user?.userRoles, video._id)
-      .then((res: User) => updateLocalUser(res))
+      .then((res: User) => {
+        console.log('handleFavorite', res)
+        dispatch({ type: UPDATE_FAVORITE, payload: res })
+      })
   }
+
   return (
     <StyledCardGrid item xs={2} data-cy={`movie-${_id}`}>
       <Badge
@@ -291,7 +294,11 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
             <Grid item xs pr={1}>
               <IconButton onClick={handleFavorite} disabled={user === null}>
                 <Typography variant="h6">{likes} </Typography>
-                {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                {isFavorited ? (
+                  <FavoriteIcon data-cy={`${video._id}-favorited`} />
+                ) : (
+                  <FavoriteBorderIcon data-cy={`${video._id}-not-favorited`} />
+                )}
               </IconButton>
             </Grid>
           </Grid>

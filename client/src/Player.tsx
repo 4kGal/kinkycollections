@@ -5,13 +5,11 @@
 import { Divider, Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import React from 'react'
-import { Navigate } from 'react-router-dom'
 import { CommentList } from './Comments/CommentList'
-import { useCommentsContext } from './hooks/useCommentsContext'
 import { CommentForm } from './Comments/CommentForm'
 import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
-import { useAuthContext } from './hooks'
+import { useAuthContext, useCommentsContext } from './hooks'
 import { isEmpty } from 'lodash'
 
 const StyledDivContainer = styled('div')({
