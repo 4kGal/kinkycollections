@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Grid,
   Typography,
@@ -18,11 +18,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useAuthContext, useGallerySettingsContext } from '../hooks'
 import { useFavoriteUpdater } from '../hooks/useFavoriteUpdater'
-import { type User, type MetaData } from '../Shared/types'
+import { type MetaData } from '../Shared/types'
 import { useAuthenticator } from '../hooks/useAuthenticator'
 import Image from 'react-image-webp'
-import { useAsyncFn } from '../hooks/useAsync'
-import { updateFavorites } from '../services/user'
+// import { useAsyncFn } from '../hooks/useAsync'
+// import { updateFavorites } from '../services/user'
 
 interface Video {
   collection?: string
@@ -86,10 +86,11 @@ const KEYS = [
 ]
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
-  const updateFavoritesFn = useAsyncFn(updateFavorites)
+  // const updateFavoritesFn = useAsyncFn(updateFavorites)
 
   const { selectedDecades } = useGallerySettingsContext()
-  const { user, isAdmin, updateLocalUser, showAdminControls } = useAuthContext()
+  const { user, isAdmin, showAdminControls } = useAuthContext()
+  const { updateFavorite } = useFavoriteUpdater()
   const { updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
@@ -97,6 +98,10 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     string | number | string[] | boolean | undefined
   >('')
   const [hover, setHover] = useState(false)
+
+  useEffect(() => {
+    console.log(user)
+  }, [user?.favorites])
 
   const {
     name,
@@ -140,20 +145,20 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     deleteVideoAdmin(movie.collection, movie._id)
   }
 
-  const onUserFavoriteUpdate = () => {
-    return updateFavoritesFn
-      .execute(user?.username, user?.userRoles, video._id)
-      .then((userResp: User) => {
-        console.log('resp', userResp)
-        // updateLocalGallery(null, user?.favorites)
-        updateLocalUser(userResp)
-      })
-  }
+  // const onUserFavoriteUpdate = () => {
+  //   return updateFavoritesFn
+  //     .execute(user?.username, user?.userRoles, video._id)
+  //     .then((userResp: User) => {
+  //       console.log('resp', userResp)
+  //       // updateLocalGallery(null, user?.favorites)
+  //       updateLocalUser(userResp)
+  //     })
+  // }
 
   console.log(user?.favorites)
   const popoverOpen = Boolean(anchorEl)
 
-  const { updateFavorite } = useFavoriteUpdater()
+  // const { updateFavorite } = useFavoriteUpdater()
 
   const tenDaysAgo = new Date()
   tenDaysAgo.setDate(tenDaysAgo.getDate() - 10)
@@ -293,10 +298,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
               </Grid>
             )}
             <Grid item xs pr={1}>
-              <IconButton
-                onClick={onUserFavoriteUpdate}
-                disabled={user === null}
-              >
+              <IconButton onClick={handleFavorite} disabled={user === null}>
                 <Typography variant="h6">{likes} </Typography>
                 {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
               </IconButton>

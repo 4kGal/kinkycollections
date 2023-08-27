@@ -20,7 +20,7 @@ export const useFavoriteUpdater = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: username.toLowerCase(),
-        userRoles: userRoles,
+        userRoles,
         favorite
       })
     })

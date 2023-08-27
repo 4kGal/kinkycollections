@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react'
 import Header from './Global/Header'
 import Footer from './Footer'
 import { Box } from '@mui/material'
-import { GallerySettingsProvider } from './context/GallerySettingsContext'
+
 const Layout = (props: { children: ReactNode }) => {
   return (
     <div>

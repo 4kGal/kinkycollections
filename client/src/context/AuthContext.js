@@ -28,11 +28,11 @@ export const authReducer = (state = initialState, action) => {
   }
 }
 export const AuthContextProvider = ({ children }) => {
-  const [test, dispatch] = useReducer(authReducer, {
+  const [state, dispatch] = useReducer(authReducer, {
     user: null
   })
-  const [state, setState] = useState({
-    user: null,
+  const [newState, setState] = useState({
+    //   user: null,
     displayAdminControls: false,
     hideUnderage: true
   })
@@ -49,12 +49,13 @@ export const AuthContextProvider = ({ children }) => {
         updatedUser.hideUnderage = false
       }
       console.log('in useeffect', user)
-      setState({
-        user: updatedUser,
-        isAdmin:
-          Role === 'Admin' &&
-          updatedUser?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
-      })
+      dispatch({ type: LOGIN, payload: user })
+      // setState({
+      //   user: updatedUser,
+      //   isAdmin:
+      //     Role === 'Admin' &&
+      //     updatedUser?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
+      // })
     }
   }, [])
 
@@ -83,6 +84,7 @@ export const AuthContextProvider = ({ children }) => {
         dispatch,
         updateLocalUser,
         handleDisplayAdminSwitch: setDisplayAdminControls,
+        // ...orgState,
         ...state
       }}
     >
