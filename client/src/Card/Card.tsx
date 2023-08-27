@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Grid,
   Typography,
@@ -21,8 +21,7 @@ import { type User, type MetaData } from '../Shared/types'
 import Image from 'react-image-webp'
 import { useAsyncFn } from '../hooks/useAsync'
 import { updateFavorites } from '../services/user'
-import { LOGIN, UPDATE_FAVORITE } from '../utils/constants'
-import { RssFeedOutlined } from '@mui/icons-material'
+import { UPDATE_FAVORITE } from '../utils/constants'
 
 interface Video {
   collection?: string
@@ -90,19 +89,20 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const { selectedDecades } = useGallerySettingsContext()
   const {
     user,
-    isAdmin,
-    showAdminControls,
+    displayAdminControls,
     dispatch,
     updateVideoAdmin,
     deleteVideoAdmin
   } = useAuthContext()
 
+  const { isAdmin } = user
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
   const [value, setValue] = useState<
     string | number | string[] | boolean | undefined
   >('')
   const [hover, setHover] = useState(false)
+  const [favoriteError, setFavoriteError] = useState('')
 
   const {
     name,
@@ -155,16 +155,17 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const nameContainsYear = displayName?.search(/[1-2][0-9][0-9][0-9]/) > -1
 
   const handleFavorite = () => {
+    setFavoriteError('')
     return updateFavoritesFn
       .execute(user?.username, user?.userRoles, video._id)
       .then((res: User) => {
-        console.log('handleFavorite', res)
         dispatch({ type: UPDATE_FAVORITE, payload: res })
       })
+      .catch(setFavoriteError)
   }
 
   return (
-    <StyledCardGrid item xs={2} data-cy={`movie-${_id}`}>
+    <StyledCardGrid item xs={2} data-cy={`card-${_id}`}>
       <Badge
         badgeContent={'New'}
         color="primary"
@@ -207,7 +208,6 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
             <Typography>
               {displayName}
               {selectedDecades?.length > 0 && !nameContainsYear && ` (${year})`}
-              <br /> {video?._id}
             </Typography>
           </StyledCardContent>
           <Grid
@@ -243,7 +243,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                   </Button>
                 ))}
             </Grid>
-            {isAdmin && showAdminControls === true && (
+            {isAdmin && displayAdminControls === true && (
               <Grid item xs>
                 <Button size="small" onClick={(e) => handleAdminControls(e)}>
                   ADM
@@ -291,6 +291,12 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                 </Popover>
               </Grid>
             )}
+            {favoriteError && (
+              <Typography color="error" data-cy={`${video._id}-error-message`}>
+                {favoriteError.toString()}
+              </Typography>
+            )}
+
             <Grid item xs pr={1}>
               <IconButton onClick={handleFavorite} disabled={user === null}>
                 <Typography variant="h6">{likes} </Typography>

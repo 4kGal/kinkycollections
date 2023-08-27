@@ -49,7 +49,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))
-    if (user !== null) {
+    if (user) {
       const updatedUser = ({}, user)
 
       if (Object.hasOwn(user, 'hideUnderage')) {
@@ -62,50 +62,28 @@ export const AuthContextProvider = ({ children }) => {
     }
   }, [])
 
-  // const authenticate = async (isLogin, email, password, username) => {
-  //   // authenticateUser(isLogin, email, password, username)
-  //   const response = await fetch(`/api/user/${isLogin ? 'login' : 'signup'}/`, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       ...(email.length > 0 && { email: email.toLowerCase() }),
-  //       password,
-  //       username: username.toLowerCase()
-  //     })
-  //   })
-  //   const json = await response.json()
-
-  //   if (response.ok) {
-  //     localStorage.setItem('user', JSON.stringify(json))
-
-  //     // updateLocalUser(json)
-  //     dispatch({ type: LOGIN, payload: json })
-  //     //  navigate('/')
-  //   }
-  // }
-
   const handleLogout = () => {
     localStorage.removeItem('user')
     dispatch({ type: LOGOUT, payload: null })
   }
 
-  const updateUserSettings = async (username, hideUnderage) => {
-    const response = await fetch(`/api/user/update`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username,
-        hideUnderage
-      })
-    })
-    const json = await response.json()
-    // if (!response.ok) {
-    //   setError(json.error)
-    // }
-    if (response.ok) {
-      localStorage.setItem('user', JSON.stringify(json))
-    }
-  }
+  // const updateUserSettings = async (username, params) => {
+  //   const response = await fetch(`/api/user/update`, {
+  //     method: 'PUT',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({
+  //       username,
+  //       ...params
+  //     })
+  //   })
+  //   const json = await response.json()
+  //   // if (!response.ok) {
+  //   //   setError(json.error)
+  //   // }
+  //   if (response.ok) {
+  //     localStorage.setItem('user', JSON.stringify(json))
+  //   }
+  // }
 
   const updateVideoAdmin = async (collection, key, value, _id) => {
     // if (!isAdmin()) {
@@ -148,34 +126,6 @@ export const AuthContextProvider = ({ children }) => {
       })
   }
 
-  const updateLocalUser = (newUser) => {
-    const { Role } = jwtDecode(newUser?.userRoles)
-
-    console.log('setting user in updateLocalUser', {
-      ...newUser,
-      isAdmin:
-        Role === 'Admin' &&
-        newUser?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
-    })
-
-    dispatch({
-      type: UPDATE_USER,
-      payload: {
-        ...newUser,
-        isAdmin:
-          Role === 'Admin' &&
-          newUser?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
-      }
-    })
-
-    // setState({
-    //   user: newUser,
-    //   isAdmin:
-    //     Role === 'Admin' &&
-    //     newUser?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
-    // })
-  }
-
   // const updateFavorite = async (favorite) => {
   //   const { user } = state
   //   const { userRoles, username } = user
@@ -205,14 +155,11 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         dispatch,
-        updateLocalUser,
         updateVideoAdmin,
         deleteVideoAdmin,
-        updateUserSettings,
         displayAdminControls,
         handleDisplayAdminSwitch,
         handleLogout,
-        // ...orgState,
         ...state
       }}
     >

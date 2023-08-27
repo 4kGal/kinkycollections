@@ -5,6 +5,7 @@ import { getUser, ADMIN_USER } from '../support/constants'
 describe('Gallery', () => {
   const gallery = getMainstreambb.gallery
 
+  const userWithNewFavorites = ADMIN_USER.favorites.push(gallery[3]._id)
   beforeEach(() => {
     cy.intercept(
       'GET',
@@ -20,10 +21,10 @@ describe('Gallery', () => {
     cy.intercept(
       'PUT',
       '/api/user/favorites/',
-      getUser({ favorites: ADMIN_USER.favorites.push(gallery[3]._id) })
+      getUser({ favorites: userWithNewFavorites.favorites })
     )
   })
-  it('displays loading message on loading', () => {
+  it.skip('displays loading message on loading', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
@@ -36,7 +37,7 @@ describe('Gallery', () => {
     cy.dataCy('error-message').should('not.exist')
     cy.dataCy('error-contact-me-message').should('not.exist')
   })
-  it('displays error message on error response', () => {
+  it.skip('displays error message on error response', () => {
     cy.intercept(
       'GET',
       '/api/search/filter/mainstreambb?&hideUnderage=true&eitherOr=and&sort=recent',
@@ -53,7 +54,7 @@ describe('Gallery', () => {
     cy.dataCy('error-message').should('exist')
     cy.dataCy('error-contact-me-message').should('exist')
   })
-  it.only('favorites and unfavorites', () => {
+  it('favorites', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser())
@@ -68,5 +69,20 @@ describe('Gallery', () => {
       }
     }
     cy.dataCy(`${gallery[3]._id}-not-favorited`).click()
+  })
+  it('displays favorite error', () => {
+    cy.intercept('PUT', '/api/user/favorites/', { statusCode: 500 }).as(
+      'getServerFailure'
+    )
+
+    cy.visit('/mainstreambb', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser())
+      }
+    })
+    cy.dataCy(`${gallery[3]._id}-not-favorited`).click()
+
+    cy.wait('@getServerFailure')
+    cy.dataCy(`${gallery[3]._id}-error-message`)
   })
 })

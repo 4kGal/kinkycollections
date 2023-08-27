@@ -74,7 +74,7 @@ describe('Nav Bar', () => {
   it('sign out logs user out', () => {
     cy.dataCy('signout-menu-item').click({ force: true })
 
-    expect(window.localStorage.getItem('user')).to.equal({ user: null })
+    expect(window.localStorage.getItem('user')).to.equal(null)
   })
   it('does not show add email address if user already has email', () => {
     cy.visit('/mainstreambb', {

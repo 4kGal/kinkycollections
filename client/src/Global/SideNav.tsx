@@ -18,7 +18,11 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import SwitchComponent from '../Shared/SwitchComponent/SwitchComponent'
 import { useAuthContext, useGallerySettingsContext } from '../hooks'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { AMATEUR_BB_URL, MAINSTREAM_BB_URL } from '../utils/constants'
+import {
+  AMATEUR_BB_URL,
+  MAINSTREAM_BB_URL,
+  UPDATE_USER
+} from '../utils/constants'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
 import { updateUserSettings } from '../services/user'
 import { useAsyncFn } from '../hooks/useAsync'
@@ -120,7 +124,7 @@ const SideNav = ({
     handleLogout,
     displayAdminControls,
     handleDisplayAdminSwitch,
-    updateLocalUser
+    dispatch
   } = useAuthContext()
 
   const { isAdmin } = user || { isAdmin: false }
@@ -154,7 +158,8 @@ const SideNav = ({
     return updateUserSettingsFn
       .execute({ username: user.username, ...param })
       .then((user: User) => {
-        updateLocalUser(user)
+        // updateLocalUser(user)
+        dispatch({ type: UPDATE_USER, payload: user })
       })
   }
 
