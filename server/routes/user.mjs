@@ -89,23 +89,22 @@ router.put("/updateEmail", async (req, res) => {
     if (!username || !email) {
       throw Error("Please enter required fields");
     }
-    const user = await db.collection("users").updateOne(
-      { username: username.toLowerCase() },
+
+    const { value } = await db.collection("users").findOneAndUpdate(
       {
-        $set: {
-          email,
+        username: username.toLowerCase(),
+      },
+      [
+        {
+          $set: {
+            email,
+          },
         },
-      }
+      ],
+      { returnOriginal: false, returnDocument: "after" }
     );
 
-    const token = createToken(user._id);
-
-    res.status(200).json({
-      username: user.username,
-      email: user.email,
-      token,
-      userRoles: user?.userRoles,
-    });
+    res.status(200).json(value);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

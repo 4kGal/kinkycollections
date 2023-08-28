@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo, useEffect } from 'react'
+import React, { createContext, useState } from 'react'
 import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
@@ -68,78 +68,6 @@ export const GalleryProvider = ({ children }) => {
       user?.favorites
     ]
   )
-
-  // const onGetGallery = () => {
-  //   const searchParamObj = {
-  //     ...(params.decadesFilter?.length > 0 && {
-  //       decades: params.decadesFilter
-  //     }),
-  //     ...(selectedActresses?.length > 0 && {
-  //       actresses: selectedActresses
-  //     }),
-  //     ...(selectedTags?.length > 0 && { tags: selectedTags }),
-  //     hideUnderage: user?.hideUnderage?.toString() || 'true',
-  //     eitherOr: params.combineFilters ? 'and' : 'or'
-  //   }
-  //   const paramKeys = Object.keys(searchParamObj)
-  //   let queryStr = ''
-  //   paramKeys.forEach((param) => {
-  //     queryStr += `&${param}=${searchParamObj[param]
-  //       .toString()
-  //       .replace(/,\s*$/, '')}`
-  //   })
-  //   queryStr += `&sort=${params.sortBy}`
-
-  //   return getGalleryFn.execute(collection, queryStr).then((galleryRes) => {
-  //     setGallery(galleryRes.gallery)
-  //     setAvailableTags(galleryRes.tags)
-  //   })
-  //   //   .catch((e) => setGalleryServiceError(e))
-  // }
-
-  // useMemo(() => {
-  //   if (collection === 'mainstreambb') {
-  //     onGetGallery()
-  //     //     setGalleryIsLoading(true)
-  //     //     setGalleryServiceError(null)
-  //     //     const searchParamObj = {
-  //     //       ...(params.decadesFilter?.length > 0 && {
-  //     //         decades: params.decadesFilter
-  //     //       }),
-  //     //       ...(selectedActresses?.length > 0 && {
-  //     //         actresses: selectedActresses
-  //     //       }),
-  //     //       ...(selectedTags?.length > 0 && { tags: selectedTags }),
-  //     //       hideUnderage: user?.hideUnderage?.toString() || 'true',
-  //     //       eitherOr: params.combineFilters ? 'and' : 'or'
-  //     //     }
-  //     //     const paramKeys = Object.keys(searchParamObj)
-  //     //     let queryStr = ''
-  //     //     paramKeys.forEach((param) => {
-  //     //       queryStr += `&${param}=${searchParamObj[param]
-  //     //         .toString()
-  //     //         .replace(/,\s*$/, '')}`
-  //     //     })
-  //     //     queryStr += `&sort=${params.sortBy}`
-
-  //     //     getGallery(collection, queryStr)
-  //     //       .then((res) => {
-  //     //         console.log('getting in memo,')
-  //     //         setGallery(res?.gallery)
-  //     //         setAvailableTags(res?.tags)
-  //     //       })
-  //     //       .catch((e) => setGalleryServiceError(e))
-  //     //       .finally(() => setGalleryIsLoading(false))
-  //   }
-  // }, [
-  //   collection,
-  //   params,
-  //   selectedActresses,
-  //   selectedDecades,
-  //   selectedTags,
-  //   user?.hideUnderage,
-  //   user?.favorites
-  // ])
 
   const handleSetSortBy = (newSortBy) => {
     setParams({

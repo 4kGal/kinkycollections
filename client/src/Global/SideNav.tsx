@@ -184,7 +184,7 @@ const SideNav = ({
   } while (startingYear + 10 < new Date().getFullYear())
 
   const pageArray: number[] = []
-  for (let i = 1; i * 9 < 50 || i * 9 < galleryLength; i++) {
+  for (let i = 1; i * 9 < 50 || i * 9 < galleryLength / 9; i++) {
     pageArray.push(i * 9)
   }
 
@@ -248,11 +248,11 @@ const SideNav = ({
           </ListItemWithDivider>
         )}
         {user && !user?.email && (
-          <ListItem disablePadding sx={{ borderBottom: '2px solid black' }}>
+          <ListItemWithDivider disablePadding>
             <ListItemButton onClick={updateEmail} data-cy="add-email-menu-item">
               <ListItemText>Add email address</ListItemText>
             </ListItemButton>
-          </ListItem>
+          </ListItemWithDivider>
         )}
         {onSearchablePage && (
           <>
@@ -380,7 +380,7 @@ const SideNav = ({
                 <ListItemText primary="Randomize" />
               </ListItemButton>
             </ListItemWithDivider>
-            <ListItem data-cy="num-videos-per-page">
+            <ListItemWithDivider data-cy="num-videos-per-page">
               <ListItemText primary="# Videos Per Page" />
               <Select
                 value={numOfVidsPerPage}
@@ -388,6 +388,7 @@ const SideNav = ({
                   handleVidsPerPageChange(event.target.value)
                 }
                 defaultValue="9"
+                size="small"
                 inputProps={{
                   'data-cy': 'videos-per-page-select'
                 }}
@@ -398,7 +399,7 @@ const SideNav = ({
                   </MenuItem>
                 ))}
               </Select>
-            </ListItem>
+            </ListItemWithDivider>
           </>
         )}
         {user && (

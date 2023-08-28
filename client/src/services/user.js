@@ -19,6 +19,15 @@ export function updateUserSettings(params) {
   })
 }
 
+export function updateUserEmail({ username, email }) {
+  if (isEmpty(username) || isEmpty(email)) return
+  console.log({ username: username.toLowerCase(), email: email.toLowerCase() })
+  return makeRequest(`/api/user/updateEmail`, {
+    method: 'PUT',
+    data: { username: username.toLowerCase(), email: email.toLowerCase() }
+  })
+}
+
 export function updateFavorites(username, userRoles, favorite) {
   console.log(username, userRoles, favorite)
   if (isEmpty(username)) return

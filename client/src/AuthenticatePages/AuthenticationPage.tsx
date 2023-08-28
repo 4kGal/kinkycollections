@@ -16,10 +16,14 @@ import { styled } from '@mui/system'
 import InfoBox from './InfoBox'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks'
-import { authenticateUser } from '../services/user'
+import {
+  authenticateUser,
+  updateUserEmail,
+  updateUserSettings
+} from '../services/user'
 import { useAsyncFn } from '../hooks/useAsync'
 import { type User } from '../Shared/types'
-import { LOGIN } from '../utils/constants'
+import { LOGIN, UPDATE_USER } from '../utils/constants'
 
 const StyledLink = styled(Link)({
   '&:hover': {
@@ -38,8 +42,9 @@ const Login = () => {
   } = useLocation()
   const navigate = useNavigate()
   const { state } = location
+  const updateUserSettingsFn = useAsyncFn(updateUserEmail)
   const authenticateUserFn = useAsyncFn(authenticateUser)
-  const { dispatch, authError, authLoading } = useAuthContext()
+  const { user, dispatch, authError, authLoading } = useAuthContext()
 
   const [isLoginPage, setIsLoginPage] = useState(state?.isLoginPage ?? true)
   const [dynamicLoginText, setDynamicLoginText] = useState('')
@@ -50,8 +55,6 @@ const Login = () => {
 
   const updateEmailPage = state?.updateEmail
   const emailReg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
-
-  const { updateEmail } = useEmailUpdater()
 
   const switchPage = () => {
     setEmail('')
@@ -81,7 +84,14 @@ const Login = () => {
     e.preventDefault()
 
     if (updateEmailPage) {
-      updateEmail(email, state?.username, state?.from)
+      // updateEmail(email, state?.username, state?.from)
+      updateUserSettingsFn
+        .execute({ email, username: user?.username })
+        .then((res: User) => {
+          console.log('in', res)
+          dispatch({ type: UPDATE_USER, payload: res })
+          navigate(state?.from)
+        })
     } else {
       authenticateUserFn
         .execute({ isLoginPage, email, password, username })
