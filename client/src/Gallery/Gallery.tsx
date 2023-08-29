@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Typography, LinearProgress } from '@mui/material'
+import { Grid, LinearProgress } from '@mui/material'
 import { useGalleryContext } from '../hooks'
 import { type MetaData } from '../Shared/types'
 import Card from '../Card/Card'
@@ -12,7 +12,7 @@ const Gallery = ({ collection }: { collection: string }) => {
     gallery,
     galleryLength,
     galleryIsLoading,
-    galleryServiceError,
+    // galleryServiceError,
     availableTags,
     selectedActresses,
     selectedTags,
