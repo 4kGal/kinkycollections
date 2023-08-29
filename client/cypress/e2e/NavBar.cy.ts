@@ -72,6 +72,13 @@ describe('Nav Bar', () => {
     cy.get('[data-testid="FavoriteBorderIcon"]').should('not.exist')
   })
   it('sign out logs user out', () => {
+    cy.visit('/mainstreambb', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser())
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+
     cy.dataCy('signout-menu-item').click({ force: true })
 
     expect(window.localStorage.getItem('user')).to.equal(null)
@@ -88,7 +95,7 @@ describe('Nav Bar', () => {
   it('shows login if user is not logged in', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
-        win.localStorage.setItem('user', null)
+        win.localStorage.removeItem('user')
       }
     })
     cy.dataCy('open-nav-drawer').click()
@@ -98,7 +105,7 @@ describe('Nav Bar', () => {
     cy.dataCy('signout-menu-item').should('not.exist')
     cy.dataCy('add-email-menu-item').should('not.exist')
   })
-  it.skip('updates page on selection change', () => {
+  it('updates page on selection change', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)

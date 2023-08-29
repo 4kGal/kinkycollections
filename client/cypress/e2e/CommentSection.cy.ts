@@ -1,3 +1,5 @@
+import { getUser, ADMIN_USER } from '../support/constants'
+
 describe('Comments', () => {
   beforeEach(() => {
     cy.intercept(
@@ -73,30 +75,11 @@ describe('Comments', () => {
         ]
       }
     )
-
-    // cy.intercept(
-    //   'GET',
-    //   '/api/videos/mainstreambb/settings',
-    //   initialMainstreamBBSettings
-    // )
-    // cy.intercept('GET', '/api/user/favorites/4kgal', [
-    //   getMainstreambb[0],
-    //   getMainstreambb[1]
-    // ])
-    // cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
-  it.only('comments displayed when a user is logged in and has comments', () => {
+  it('comments displayed when a user is logged in and has comments', () => {
     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
       onBeforeLoad(win) {
-        win.localStorage.setItem(
-          'user',
-          JSON.stringify({
-            username: 'loggedInUser',
-            token: 'test',
-            email: 'loggedInUser@gmail.com',
-            favorites: []
-          })
-        )
+        win.localStorage.setItem('user', getUser({ username: 'loggedInUser' }))
       }
     })
     const rootCmnt0 = 'root-comment-0'

@@ -12,6 +12,7 @@ export const AuthContext = createContext()
 
 const initialState = {
   user: null,
+  isAdmin: false,
   searchResults: [],
   authError: null,
   authLoading: false,
@@ -22,15 +23,19 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN:
     case UPDATE_USER:
     case UPDATE_FAVORITE:
-      localStorage.setItem('user', JSON.stringify(action.payload))
+      action.payload &&
+        localStorage.setItem('user', JSON.stringify(action.payload))
       return {
         ...state,
         user: {
-          ...action.payload,
-          isAdmin:
-            jwtDecode(action.payload?.userRoles)?.Role === 'Admin' &&
-            action.payload?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
-        }
+          ...action.payload
+        },
+        isAdmin:
+          localStorage.getItem('user') &&
+          localStorage.getItem('user') !== 'null'
+            ? jwtDecode(action.payload?.userRoles)?.Role === 'Admin' &&
+              action.payload?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
+            : false
       }
     case LOGOUT:
       return { ...state, user: null }
@@ -57,9 +62,8 @@ export const AuthContextProvider = ({ children }) => {
       } else {
         updatedUser.hideUnderage = false
       }
-
-      dispatch({ type: LOGIN, payload: user })
     }
+    dispatch({ type: LOGIN, payload: user })
   }, [])
 
   const handleLogout = () => {

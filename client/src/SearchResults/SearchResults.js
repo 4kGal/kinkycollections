@@ -1,10 +1,13 @@
 import React from 'react'
-import { useAuthContext } from '../hooks'
 import Card from '../Card/Card'
 import { Grid } from '@mui/material'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const SearchResults = () => {
-  const { searchResults } = useAuthContext()
+  const location = useLocation()
+  // const navigate = useNavigate()
+  const { state } = location
+  const { searchResults } = state
 
   return (
     <Grid container alignItems="center" justifyContent="center">

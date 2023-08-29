@@ -26,6 +26,5 @@ const adminUser = {
   favorites: [getMainstreambb.gallery[0]._id, getMainstreambb.gallery[1]._id]
 }
 export const getUser = (props) => {
-  console.log({ ...adminUser, ...props })
   return JSON.stringify({ ...adminUser, ...props })
 }

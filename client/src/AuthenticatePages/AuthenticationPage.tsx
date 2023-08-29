@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useEmailUpdater } from '../hooks/useEmailUpdater'
 import {
   // Box,
   Grid,
@@ -16,11 +15,7 @@ import { styled } from '@mui/system'
 import InfoBox from './InfoBox'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks'
-import {
-  authenticateUser,
-  updateUserEmail,
-  updateUserSettings
-} from '../services/user'
+import { authenticateUser, updateUserEmail } from '../services/user'
 import { useAsyncFn } from '../hooks/useAsync'
 import { type User } from '../Shared/types'
 import { LOGIN, UPDATE_USER } from '../utils/constants'
@@ -36,7 +31,6 @@ const Login = () => {
     state: {
       isLoginPage: boolean
       updateEmail: boolean
-      username: string
       from: string
     }
   } = useLocation()
@@ -84,11 +78,9 @@ const Login = () => {
     e.preventDefault()
 
     if (updateEmailPage) {
-      // updateEmail(email, state?.username, state?.from)
       updateUserSettingsFn
         .execute({ email, username: user?.username })
         .then((res: User) => {
-          console.log('in', res)
           dispatch({ type: UPDATE_USER, payload: res })
           navigate(state?.from)
         })

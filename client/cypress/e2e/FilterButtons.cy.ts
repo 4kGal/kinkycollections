@@ -75,11 +75,11 @@ describe('Filter Buttons', () => {
   it.only('filter filters correctly', () => {
     cy.contains('squeeze').click()
     cy.contains('all').parent().should('not.have.class', 'Mui-disabled')
-    cy.get('[data-cy^="movie-"]').should('have.length', 6)
+    cy.get('[data-cy^="card-"]').should('have.length', 6)
 
-    cy.get('[data-cy^="movie-"]').each(($button, i) => {
+    cy.get('[data-cy^="card-"]').each(($button, i) => {
       expect($button.attr('data-cy')).to.eq(
-        `movie-${getMainstreambbSqueeze.gallery[i]._id}`
+        `card-${getMainstreambbSqueeze.gallery[i]._id}`
       )
     })
 
@@ -88,10 +88,10 @@ describe('Filter Buttons', () => {
     cy.contains('nsfw (1)')
 
     cy.contains('verbal').click()
-    cy.get('[data-cy^="movie-"]').should('have.length', 8)
-    cy.get('[data-cy^="movie-"]').each(($button, i) => {
+    cy.get('[data-cy^="card-"]').should('have.length', 8)
+    cy.get('[data-cy^="card-"]').each(($button, i) => {
       expect($button.attr('data-cy')).to.eq(
-        `movie-${getMainstreambbVerbalSqueeze.gallery[i]._id}`
+        `card-${getMainstreambbVerbalSqueeze.gallery[i]._id}`
       )
     })
     cy.contains('squeeze (6)')
@@ -99,7 +99,7 @@ describe('Filter Buttons', () => {
     cy.contains('nsfw (1)')
 
     cy.get('.MuiSwitch-input').click()
-    cy.get('[data-cy^="movie-"]').should('have.length', 1)
+    cy.get('[data-cy^="card-"]').should('have.length', 1)
 
     cy.contains('verbal (1)').click()
     cy.contains('squeeze (2)').click()
@@ -110,9 +110,9 @@ describe('Filter Buttons', () => {
     cy.get('button').contains('#Zoe Saldana').click()
 
     // cy.contains('nsfw').click()
-    // cy.dataCy(`movie-${getMainstreambb.gallery[1]._id}`).should('exist')
-    // cy.dataCy(`movie-${getMainstreambb.gallery[0]._id}`).should('not.exist')
-    // cy.get('[data-cy^="movie-"]').should('have.length', 1)
+    // cy.dataCy(`card-${getMainstreambb.gallery[1]._id}`).should('exist')
+    // cy.dataCy(`card-${getMainstreambb.gallery[0]._id}`).should('not.exist')
+    // cy.get('[data-cy^="card-"]').should('have.length', 1)
 
     // cy.contains('all').parent().click()
     // cy.dataCy('switch').get('input').should('not.be.checked')
@@ -126,7 +126,7 @@ describe('Filter Buttons', () => {
     // cy.get('button').contains('#Gina Gershon').click()
     // cy.get('.MuiChip-label').contains('Gina Gershon')
     // cy.contains('all').parent().click()
-    // cy.get('[data-cy^="movie-"]').should('have.length', 10)
+    // cy.get('[data-cy^="card-"]').should('have.length', 10)
 
     // cy.get('.MuiChip-label').contains('Gina Gershon').should('not.exist')
   })

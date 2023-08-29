@@ -94,7 +94,7 @@ export const Comment = ({
   const toggleCommentLikeFn = useAsyncFn(updateCommentLike)
 
   const isUserComment =
-    user?.username.toLowerCase() === loggedInUser?.username.toLowerCase()
+    user?.username?.toLowerCase() === loggedInUser?.username?.toLowerCase()
 
   const childComments = getReplies(id)
 

@@ -89,13 +89,13 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const { selectedDecades } = useGalleryContext()
   const {
     user,
+    isAdmin,
     displayAdminControls,
     dispatch,
     updateVideoAdmin,
     deleteVideoAdmin
   } = useAuthContext()
 
-  const { isAdmin } = user
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
   const [value, setValue] = useState<

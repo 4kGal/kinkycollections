@@ -14,3 +14,12 @@ export const getGallery = (collection, queryStr) => {
   if (collection !== MAINSTREAM_BB_COLLECTION) return Promise.resolve({})
   return makeRequest(`/api/search/filter/${collection}?${queryStr}`)
 }
+
+export const getSearchResults = ({ collection, searchTerm }) => {
+  let queryString = `?searchTerm=${searchTerm}`
+  if (collection.length > 1) {
+    queryString += `&collection=${collection}`
+  }
+
+  return makeRequest(`/api/search${queryString}`)
+}

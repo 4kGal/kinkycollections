@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import db from "../db/conn.mjs";
 import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
+import pkg from "lodash";
+const { isEmpty } = pkg;
 
 const router = express.Router();
 
@@ -23,7 +25,7 @@ router.post("/login", async (req, res) => {
           .findOne({ username: username.toLowerCase() })
       : await db.collection("users").findOne({ email: email?.toLowerCase() });
 
-    if (!user) {
+    if (isEmpty(user)) {
       throw Error(`Incorrect ${username ? "username" : "email"}`);
     }
 

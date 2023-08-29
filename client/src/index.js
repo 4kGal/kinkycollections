@@ -11,9 +11,11 @@ if (process.env.NODE_ENV === 'production') disableReactDevTools()
 const domNode = document.getElementById('root')
 const root = createRoot(domNode)
 root.render(
-  <AuthContextProvider>
-    <App />
-  </AuthContextProvider>
+  <React.StrictMode>
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
+  </React.StrictMode>
 )
 
 // If you want your app to work offline and load faster, you can change

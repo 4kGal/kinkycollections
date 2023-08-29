@@ -28,6 +28,7 @@ import { updateUserSettings } from '../services/user'
 import { useAsyncFn } from '../hooks/useAsync'
 import { type User } from '../Shared/types'
 import FilterWithClearComponent from '../Shared/FilterWithClearButton/FilterWithClearButton'
+import { isEmpty } from 'lodash'
 
 interface UserSetting {
   hideUnderage: boolean
@@ -121,17 +122,19 @@ const SideNav = ({
   const navigate = useNavigate()
   const {
     user,
+    isAdmin,
     handleLogout,
     displayAdminControls,
     handleDisplayAdminSwitch,
     dispatch
   } = useAuthContext()
 
-  const { isAdmin } = user || { isAdmin: false }
   const updateUserSettingsFn = useAsyncFn(updateUserSettings)
 
-  const { hideUnderage } = user || { hideUnderage: true }
-
+  const hideUnderage =
+    !isEmpty(user) && Object.hasOwn(user, 'hideUnderage')
+      ? user?.hideUnderage
+      : true
   const [isSortOpen, setIsSortOpen] = useState(false)
   const [isDecadeOpen, setIsDecadeOpen] = useState(false)
   const [isActressOpen, setIsActressOpen] = useState(false)
@@ -158,14 +161,13 @@ const SideNav = ({
     return updateUserSettingsFn
       .execute({ username: user.username, ...param })
       .then((user: User) => {
-        // updateLocalUser(user)
         dispatch({ type: UPDATE_USER, payload: user })
       })
   }
 
   const updateEmail = () => {
     navigate('/login', {
-      state: { updateEmail: true, username: user.username, from: location }
+      state: { updateEmail: true, from: location }
     })
     handleClose()
   }
@@ -212,7 +214,7 @@ const SideNav = ({
             </ListItemText>
           </ListItemWithDivider>
         )}
-        {!user && (
+        {isEmpty(user) && (
           <ListItemWithDivider disablePadding>
             <ListItemButton
               onClick={navigateToSignInPage}
@@ -222,7 +224,7 @@ const SideNav = ({
             </ListItemButton>
           </ListItemWithDivider>
         )}
-        {user && (
+        {!isEmpty(user) && (
           <ListItemWithDivider disablePadding>
             <ListItemButton
               data-cy="favorites-menu-item"
@@ -247,7 +249,7 @@ const SideNav = ({
             </ListItemText>
           </ListItemWithDivider>
         )}
-        {user && !user?.email && (
+        {!isEmpty(user) && !user?.email && (
           <ListItemWithDivider disablePadding>
             <ListItemButton onClick={updateEmail} data-cy="add-email-menu-item">
               <ListItemText>Add email address</ListItemText>
@@ -402,7 +404,7 @@ const SideNav = ({
             </ListItemWithDivider>
           </>
         )}
-        {user && (
+        {!isEmpty(user) && (
           <ListItem disablePadding>
             <ListItemButton onClick={handleSignout} data-cy="signout-menu-item">
               <ListItemText primary="Log Out" />

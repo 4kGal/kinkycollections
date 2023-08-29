@@ -1,19 +1,8 @@
-import React, { type ReactNode, useEffect } from 'react'
+import React, { type ReactNode } from 'react'
 import Header from './Global/Header'
 import Footer from './Footer'
 import { Box } from '@mui/material'
-import { useLocation, useNavigate } from 'react-router-dom'
-
 const Layout = (props: { children: ReactNode }) => {
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (location?.pathname.includes('BB')) {
-      navigate(location.pathname.toLowerCase(), { replace: true })
-    }
-  }, [location?.pathname])
-
   return (
     <div>
       <Header />
