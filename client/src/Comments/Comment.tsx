@@ -13,7 +13,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import EditIcon from '@mui/icons-material/EditOutlined'
 import ReplyIcon from '@mui/icons-material/Reply'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { useAuthContext, useCommentsContext } from '../hooks'
+import { useAuthContext, usePlayerContext } from '../hooks'
 import { ActionButton, CommentList, CommentForm } from './'
 import { styled } from '@mui/system'
 import { isEmpty } from 'lodash'
@@ -64,7 +64,7 @@ interface Root extends CommentsObj {
   index: number
 }
 
-interface CommentCntxt {
+interface PlayerCntxt {
   video: { collection: string; _id: string }
   getReplies: (id: string) => CommentsObj[]
   refreshLocalComments: (comments: CommentsObj[]) => void
@@ -81,8 +81,8 @@ const Comment = ({
   const navigate = useNavigate()
 
   const { user: loggedInUser } = useAuthContext()
-  const { video, getReplies, refreshLocalComments }: CommentCntxt =
-    useCommentsContext()
+  const { video, getReplies, refreshLocalComments }: PlayerCntxt =
+    usePlayerContext()
   const [isReplying, setIsReplying] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [areChildrenHidden, setAreChildrenHidden] = useState(false)

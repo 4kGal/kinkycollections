@@ -8,7 +8,7 @@ import React from 'react'
 import { CommentList, CommentForm } from './Comments'
 import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
-import { useAuthContext, useCommentsContext } from './hooks'
+import { useAuthContext, usePlayerContext } from './hooks'
 import { isEmpty } from 'lodash'
 
 const StyledDivContainer = styled('div')({
@@ -32,7 +32,7 @@ const StyledIframe = styled('iframe')({
 const Player = () => {
   const { user } = useAuthContext()
   const { video, rootComments, sort, setSort, refreshLocalComments } =
-    useCommentsContext()
+    usePlayerContext()
   const { loading, error, execute: createCommentFn } = useAsyncFn(createComment)
 
   const onCommentCreate = (message) => {

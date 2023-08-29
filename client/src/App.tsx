@@ -9,7 +9,7 @@ import Home from './Home/Home'
 import AuthenticationPage from './AuthenticatePages/AuthenticationPage'
 import Favorites from './Favorites/Favorites'
 import SearchResults from './SearchResults/SearchResults'
-import { CommentProvider } from './context/CommentContext'
+import { PlayerProvider } from './context/PlayerContext'
 import { GalleryProvider } from './context/GalleryContext'
 const App = () => {
   return (
@@ -30,9 +30,9 @@ const App = () => {
             <Route
               path="/player/:collection/:id"
               element={
-                <CommentProvider>
+                <PlayerProvider>
                   <Player />
-                </CommentProvider>
+                </PlayerProvider>
               }
             />
             <Route path="/favorites" element={<Favorites />} />

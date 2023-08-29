@@ -4,7 +4,7 @@ import { getVideo } from '../services/videos'
 import { useAsync } from '../hooks/useAsync'
 import { orderBy } from 'lodash'
 
-export const CommentContext = createContext({
+export const PlayerContext = createContext({
   sort: false,
   comments: [],
   setSort: () => null,
@@ -13,7 +13,7 @@ export const CommentContext = createContext({
   video: { collection: '', _id: '' }
 })
 
-export const CommentProvider = ({ children }) => {
+export const PlayerProvider = ({ children }) => {
   const { id: _id, collection } = useParams()
 
   const setSort = (newSort) => {
@@ -63,7 +63,7 @@ export const CommentProvider = ({ children }) => {
   }
 
   return (
-    <CommentContext.Provider
+    <PlayerContext.Provider
       value={{
         video: { _id, collection, ...video }, // do i need to return all this?
         getReplies,
@@ -73,6 +73,6 @@ export const CommentProvider = ({ children }) => {
       }}
     >
       {loading ? <h1>Loading</h1> : error ? <h1>{error}</h1> : children}
-    </CommentContext.Provider>
+    </PlayerContext.Provider>
   )
 }

@@ -1,3 +1,3 @@
 export { default as useAuthContext } from './useAuthContext'
 export { default as useGalleryContext } from './useGalleryContext'
-export { default as useCommentsContext } from './useCommentsContext'
+export { default as usePlayerContext } from './usePlayerContext'
