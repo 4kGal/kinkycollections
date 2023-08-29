@@ -1,12 +1,12 @@
 import React from 'react'
-import { Comment } from './Comment'
+import { Comment } from './'
 import { Grid } from '@mui/material'
 import { type CommentsObj } from '../Shared/types'
 
 interface Comments {
   comments: CommentsObj[]
 }
-export const CommentList = ({ comments }: Comments) => {
+const CommentList = ({ comments }: Comments) => {
   return (
     comments?.length > 0 &&
     comments?.map((comment: CommentsObj, index: number) => (
@@ -20,3 +20,4 @@ export const CommentList = ({ comments }: Comments) => {
     ))
   )
 }
+export default CommentList

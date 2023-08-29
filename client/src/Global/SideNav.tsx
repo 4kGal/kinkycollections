@@ -54,7 +54,7 @@ function renderActressRow(props: ListChildComponentProps) {
     <ListItem style={style} key={index} component="div" disablePadding>
       <ListItemButton
         onClick={() => handleActressSelection(current.actress)}
-        selected={selectedActresses.includes(current.actress)}
+        selected={selectedActresses?.includes(current.actress)}
         data-cy={`actress-name-${index}`}
       >
         <ListItemText primary={current.actress} />
@@ -320,7 +320,7 @@ const SideNav = ({
             display={isActressOpen || selectedActresses?.length > 0}
             text="Filter By Actress"
             handleClick={() => setIsActressOpen(!isActressOpen)}
-            displayClear={selectedActresses.length > 0}
+            displayClear={selectedActresses?.length > 0}
             handleClear={() => handleActressSelection(null)}
             isOpen={isActressOpen}
             dataCy="filter-actress-menu-item"

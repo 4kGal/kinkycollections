@@ -110,7 +110,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     addedDate,
     likes,
     customName = '',
-    actresses,
+    actresses = [],
     videoId,
     views
   } = video
@@ -236,6 +236,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                   </Button>
                 ))}
               {typeof setCustomTags !== 'undefined' &&
+                actresses.length &&
                 actresses?.map((actress, i) => (
                   <Button
                     sx={{ fontSize: 10 }}

@@ -12,14 +12,14 @@ interface AButton {
   onClick: () => void
   disabled?: boolean
 }
-export function ActionButton({
+const ActionButton = ({
   Icon,
   isActive,
   color = 'initial',
   children,
   tooltipTitle = '',
   ...props
-}: AButton) {
+}: AButton) => {
   return (
     <Tooltip title={tooltipTitle} placement="top">
       <div>
@@ -34,3 +34,4 @@ export function ActionButton({
     </Tooltip>
   )
 }
+export default ActionButton

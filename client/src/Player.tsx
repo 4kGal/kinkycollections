@@ -5,8 +5,7 @@
 import { Divider, Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import React from 'react'
-import { CommentList } from './Comments/CommentList'
-import { CommentForm } from './Comments/CommentForm'
+import { CommentList, CommentForm } from './Comments'
 import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
 import { useAuthContext, useCommentsContext } from './hooks'
@@ -74,7 +73,7 @@ const Player = () => {
           }}
         >
           <Typography mt={'-60%'} variant="h5" align="center" color="white">
-            {video.name}
+            {video?.customName?.length > 0 ? video.customName : video.name}
           </Typography>
           <Divider
             light

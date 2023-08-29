@@ -191,10 +191,7 @@ router.get("/:collection/:id/data", async (req, res) => {
   const movieObject = await collection.findOne({
     _id: new ObjectId(req.params.id),
   });
-  const name = movieObject.name;
-  const videoId = movieObject.videoId;
-  const comments = movieObject.comments;
-  res.status(200).json({ name, videoId, comments });
+  res.status(200).json(movieObject);
 });
 
 router.post("/:collection/:id/comment", async (req, res) => {

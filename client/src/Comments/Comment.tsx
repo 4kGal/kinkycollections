@@ -14,11 +14,9 @@ import EditIcon from '@mui/icons-material/EditOutlined'
 import ReplyIcon from '@mui/icons-material/Reply'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useAuthContext, useCommentsContext } from '../hooks'
-import { ActionButton } from './ActionButton'
-import { CommentList } from './CommentList'
+import { ActionButton, CommentList, CommentForm } from './'
 import { styled } from '@mui/system'
 import { isEmpty } from 'lodash'
-import { CommentForm } from './CommentForm'
 import { useAsyncFn } from '../hooks/useAsync'
 import {
   createComment,
@@ -71,7 +69,7 @@ interface CommentCntxt {
   getReplies: (id: string) => CommentsObj[]
   refreshLocalComments: (comments: CommentsObj[]) => void
 }
-export const Comment = ({
+const Comment = ({
   id,
   message,
   user,
@@ -94,7 +92,8 @@ export const Comment = ({
   const toggleCommentLikeFn = useAsyncFn(updateCommentLike)
 
   const isUserComment =
-    user?.username?.toLowerCase() === loggedInUser?.username?.toLowerCase()
+    (!isEmpty(user) && user?.username?.toLowerCase()) ===
+    (!isEmpty(loggedInUser) && loggedInUser?.username?.toLowerCase())
 
   const childComments = getReplies(id)
 
@@ -303,3 +302,4 @@ export const Comment = ({
     </>
   )
 }
+export default Comment

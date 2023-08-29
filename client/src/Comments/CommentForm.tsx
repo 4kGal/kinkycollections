@@ -9,7 +9,7 @@ interface CommentFormProp {
   initialValue: string
   isDisabled: boolean
 }
-export const CommentForm = ({
+const CommentForm = ({
   loading,
   error,
   onSubmit,
@@ -76,3 +76,5 @@ export const CommentForm = ({
     </>
   )
 }
+
+export default CommentForm
