@@ -5,13 +5,11 @@
 import { Divider, Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import React from 'react'
-import { Navigate } from 'react-router-dom'
 import { CommentList } from './Comments/CommentList'
-import { useVideoPageContext } from './hooks/useVideoPageContext'
 import { CommentForm } from './Comments/CommentForm'
 import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
-import { useAuthContext } from './hooks/useAuthContext'
+import { useAuthContext, useCommentsContext } from './hooks'
 import { isEmpty } from 'lodash'
 
 const StyledDivContainer = styled('div')({
@@ -35,7 +33,7 @@ const StyledIframe = styled('iframe')({
 const Player = () => {
   const { user } = useAuthContext()
   const { video, rootComments, sort, setSort, refreshLocalComments } =
-    useVideoPageContext()
+    useCommentsContext()
   const { loading, error, execute: createCommentFn } = useAsyncFn(createComment)
 
   const onCommentCreate = (message) => {

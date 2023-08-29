@@ -1,182 +1,86 @@
 import React, { useState, useEffect } from 'react'
-import { Grid } from '@mui/material'
-import Card from '../Card/Card'
-import FilterVideoButtons from '../Shared/FilterVideoButtons/FilterVideoButtons'
-import {
-  AVAILABLE_ACTRESSES,
-  AVAILABLE_DECADES,
-  AVAILABLE_TAGS,
-  GALLERY_LENGTH,
-  MIN_DECADE,
-  RANDOMIZE,
-  SELECTED_ACTRESSES
-} from '../utils/constants'
-import PageNavigation from '../Shared/PageNavigation/PageNavigation'
-import { useSearchWithin } from '../hooks/useSeachWithin'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { Grid, LinearProgress } from '@mui/material'
+import { useGalleryContext } from '../hooks'
 import { type MetaData } from '../Shared/types'
-
-interface InitialSettings {
-  lowestYear: number
-  tags: [{ key: string; count: number }] | undefined
-  decades: [{ key: string; count: number }]
-  listOfActresses: [{ key: string; tags: string[] }]
-}
+import Card from '../Card/Card'
+import PageNavigation from '../Shared/PageNavigation/PageNavigation'
+import FilterVideoButtons from '../Shared/FilterVideoButtons/FilterVideoButtons'
 
 const Gallery = ({ collection }: { collection: string }) => {
-  const {
-    dispatch,
-    user,
-    decadesFilter,
-    availableTags,
-    sortBy,
-    selectedActresses,
-    hideUnderage,
-    randomize,
-    numOfVidsPerPage = 9
-  } = useAuthContext()
-  const { filter } = useSearchWithin()
-
-  const [combineFilters, setCombineFilters] = useState(false)
-  const [displayedVideos, setDisplayedVideos] = useState<MetaData[]>([])
   const [page, setPage] = useState(0)
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-
-  const getInitialSettings = async () => {
-    try {
-      const response = await fetch(`/api/videos/${collection}/settings`)
-      const data: InitialSettings = await response.json()
-
-      dispatch({ type: AVAILABLE_DECADES, payload: data?.decades })
-      dispatch({ type: MIN_DECADE, payload: data?.lowestYear })
-      dispatch({ type: AVAILABLE_ACTRESSES, payload: data?.listOfActresses })
-      dispatch({ type: AVAILABLE_TAGS, payload: data?.tags })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getInitialSettings()
-  }, [])
-
-  useEffect(() => {
-    if (randomize === true) {
-      setDisplayedVideos(displayedVideos.sort(() => Math.random() - 0.5))
-      dispatch({ type: RANDOMIZE, payload: false })
-    }
-  }, [randomize])
-
-  useEffect(() => {
-    const getFilteredVideos = async () => {
-      const filtered = await filter(
-        collection,
-        {
-          ...(decadesFilter?.length > 0 && { decades: decadesFilter }),
-          ...(selectedActresses?.length > 0 && {
-            actresses: selectedActresses
-          }),
-          ...(selectedTags?.length > 0 && { tags: selectedTags }),
-          ...(hideUnderage === true && { underage: 'false' }),
-          eitherOr: combineFilters ? 'and' : 'or'
-        },
-        sortBy
-      )
-
-      setPage(0)
-      setDisplayedVideos(filtered.movies)
-    }
-    getFilteredVideos()
-  }, [
+  const {
+    gallery,
+    galleryLength,
+    galleryIsLoading,
+    // galleryServiceError,
+    availableTags,
+    selectedActresses,
     selectedTags,
     combineFilters,
-    selectedActresses,
-    decadesFilter,
-    user?.favorites,
-    sortBy,
-    hideUnderage
-  ])
+    numOfVidsPerPage,
+    handleTagSelection,
+    handleCombineFilters,
+    handleActressSelection
+  } = useGalleryContext()
 
   useEffect(() => {
     setPage(0)
-  }, [numOfVidsPerPage])
+  }, [numOfVidsPerPage, gallery, collection])
 
-  useEffect(() => {
-    dispatch({
-      type: GALLERY_LENGTH,
-      payload: displayedVideos?.length
-    })
-    setPage(0)
-  }, [displayedVideos])
-
-  useEffect(() => {
-    if (selectedActresses?.length > 0 && !combineFilters) {
-      setCombineFilters(true)
-    }
-  }, [selectedActresses])
-
-  const handleActressSelection = (actress: string | undefined) => {
-    const index = selectedActresses?.indexOf(actress)
-
-    if (index === -1) {
-      dispatch({
-        type: SELECTED_ACTRESSES,
-        payload: (selectedActresses ?? [])?.concat(actress)
-      })
-      // setSelectedActresses((selectedActresses ?? [])?.concat(actress))
-    } else {
-      dispatch({
-        type: SELECTED_ACTRESSES,
-        payload: (selectedActresses ?? [])?.filter(
-          (current: string) => current !== actress
-        )
-      })
-    }
+  const Cards = () => {
+    const orderedGallery = gallery?.slice(
+      page * parseInt(numOfVidsPerPage),
+      page * parseInt(numOfVidsPerPage) + parseInt(numOfVidsPerPage)
+    )
+    return orderedGallery?.map((video: MetaData, index: number) => (
+      <Card
+        key={index}
+        collection={collection}
+        video={video}
+        setSelectedTags={handleTagSelection}
+        setCustomTags={handleActressSelection}
+      />
+    ))
   }
-
-  const handleTagSelection = (tag: string) => {
-    const index = selectedTags?.indexOf(tag)
-
-    if (index === -1) {
-      setSelectedTags((selectedTags ?? [])?.concat(tag))
-    } else {
-      setSelectedTags(
-        (selectedTags ?? [])?.filter((current) => current !== tag)
-      )
-    }
-  }
-
   return (
     <Grid container alignItems="center" justifyContent="center">
-      <FilterVideoButtons
-        availableTags={availableTags}
-        setSelectedTags={setSelectedTags}
-        selectedTags={selectedTags}
-        setCombineFilters={setCombineFilters}
-        combineFilters={combineFilters}
-        selectedCustomTags={selectedActresses}
-        handleSelectedCustomTags={handleActressSelection}
-      />
-      {displayedVideos
-        ?.slice(
-          page * parseInt(numOfVidsPerPage),
-          page * parseInt(numOfVidsPerPage) + parseInt(numOfVidsPerPage)
-        )
-        .map((video, index) => (
-          <Card
-            key={index}
-            collection={collection}
-            video={video}
-            setSelectedTags={handleTagSelection}
-            setCustomTags={handleActressSelection}
-          />
-        ))}
-      <PageNavigation
-        page={page}
-        setPage={setPage}
-        length={displayedVideos?.length - 1}
-        perPage={numOfVidsPerPage}
-      />
+      {/*  : galleryServiceError ? (
+         <Grid item xs={12} sx={{ textAlign: 'center' }} mt={10}>
+           <Typography variant="h5" color="error" data-cy="error-message">
+             {galleryServiceError.toString()}
+           </Typography>
+           <Typography
+             variant="h6"
+             color="white"
+             data-cy="error-contact-me-message"
+           >
+             Try refreshing or contact me at 4kgal98@gmail.com
+           </Typography>
+         </Grid>
+       ) : ( */}
+      <>
+        <FilterVideoButtons
+          availableTags={availableTags}
+          handleTagSelection={handleTagSelection}
+          selectedTags={selectedTags}
+          setCombineFilters={handleCombineFilters}
+          combineFilters={combineFilters}
+          selectedCustomTags={selectedActresses}
+          handleSelectedCustomTags={handleActressSelection}
+        />
+        {galleryIsLoading && (
+          <Grid item xs={12}>
+            <LinearProgress sx={{ marginTop: 0.5 }} data-cy="gallery-loading" />
+          </Grid>
+        )}
+        <Cards />
+        <PageNavigation
+          page={page}
+          setPage={setPage}
+          length={galleryLength - 1}
+          perPage={numOfVidsPerPage}
+        />
+      </>
     </Grid>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../hooks'
 import Card from '../Card/Card'
 import { type MetaData } from '../Shared/types'
 import { Grid } from '@mui/material'
@@ -24,9 +24,7 @@ const Favorites = () => {
 
   return (
     <Grid container alignItems="center" justifyContent="center">
-      {favorites?.map((video, i) => (
-        <Card key={i} video={video} />
-      ))}
+      {favorites?.map((video, i) => <Card key={i} video={video} />)}
     </Grid>
   )
 }

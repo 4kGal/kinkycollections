@@ -20,36 +20,22 @@ interface Filter {
       ]
     | undefined
   selectedTags?: string[]
-  setSelectedTags: (tag: string[]) => void
+  handleTagSelection: (tag: string) => void
   setCombineFilters: (combine: boolean) => void
-
   selectedCustomTags?: Array<string | undefined>
   handleSelectedCustomTags: (tag: string | undefined) => void
-  // updateSelectedTags: (tag: string) => void
-  // setAvailableTags: (tag: Array<string | undefined>) => void
   combineFilters: boolean
 }
+
 const FilterVideoButtons = ({
   availableTags,
-  setSelectedTags,
+  handleTagSelection,
   selectedTags,
   setCombineFilters,
   combineFilters,
   selectedCustomTags = [],
   handleSelectedCustomTags
 }: Filter) => {
-  const chipSelection = (tag: string) => {
-    const index = selectedTags?.indexOf(tag)
-
-    if (index === -1) {
-      setSelectedTags((selectedTags ?? [])?.concat(tag))
-    } else {
-      setSelectedTags(
-        (selectedTags ?? [])?.filter((currentTag) => currentTag !== tag)
-      )
-    }
-  }
-
   return (
     <Grid container alignItems="center" justifyContent="center" direction="row">
       {availableTags?.map((tagObj) => (
@@ -60,11 +46,14 @@ const FilterVideoButtons = ({
               <Avatar>X</Avatar>
             ) : undefined
           }
+          data-cy={`tag-chip-${tagObj.key}-${
+            selectedTags?.includes(tagObj.key ?? '') === true
+          }`}
           key={tagObj.key}
           label={`${tagObj.key} (${tagObj.count})`}
           color="info"
           variant="outlined"
-          onClick={() => chipSelection(tagObj.key)}
+          onClick={() => handleTagSelection(tagObj.key)}
         />
       ))}
       {selectedCustomTags?.map((tag) => (
@@ -75,6 +64,7 @@ const FilterVideoButtons = ({
               <Avatar>X</Avatar>
             ) : undefined
           }
+          data-cy={`custom-tag-chip-${tag}`}
           key={tag}
           label={tag}
           color="info"
@@ -100,9 +90,6 @@ const FilterVideoButtons = ({
         />
         <Typography color="primary">AND</Typography>
       </Stack>
-      {/* <Stack direction="row" alignItems="center" paddingLeft={3}>
-        <div>Sorting</div>
-      </Stack> */}
     </Grid>
   )
 }

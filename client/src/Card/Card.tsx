@@ -16,11 +16,16 @@ import { styled } from '@mui/system'
 import { Link } from 'react-router-dom'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { useAuthContext } from '../hooks/useAuthContext'
-import { useFavoriteUpdater } from '../hooks/useFavoriteUpdater'
-import { type MetaData } from '../Shared/types'
-import { useAuthenticator } from '../hooks/useAuthenticator'
+import { useAuthContext, useGalleryContext } from '../hooks'
+import { type User, type MetaData } from '../Shared/types'
 import Image from 'react-image-webp'
+import { useAsyncFn } from '../hooks/useAsync'
+import {
+  updateFavorites,
+  updateVideoAdmin,
+  deleteVideoAdmin
+} from '../services/user'
+import { UPDATE_FAVORITE } from '../utils/constants'
 
 interface Video {
   collection?: string
@@ -84,14 +89,19 @@ const KEYS = [
 ]
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
-  const { user, showAdminControls, decadesFilter } = useAuthContext()
-  const { isAdmin, updateVideoAdmin, deleteVideoAdmin } = useAuthenticator()
+  const updateFavoritesFn = useAsyncFn(updateFavorites)
+  const updateVideoAdminFn = useAsyncFn(updateVideoAdmin)
+  const deleteVideoAdminFn = useAsyncFn(deleteVideoAdmin)
+  const { selectedDecades } = useGalleryContext()
+  const { user, isAdmin, displayAdminControls, dispatch } = useAuthContext()
+
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
   const [value, setValue] = useState<
     string | number | string[] | boolean | undefined
   >('')
   const [hover, setHover] = useState(false)
+  const [favoriteError, setFavoriteError] = useState('')
 
   const {
     name,
@@ -107,9 +117,6 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const tags = (video.tags ?? []).filter(
     (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
   )
-  const handleFavorite = () => {
-    updateFavorite(user?.username, user?.userRoles, video._id)
-  }
 
   const isFavorited = Boolean(
     user?.favorites?.find((id: string) => id === video._id)
@@ -126,19 +133,22 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     setValue(video[event.target.value])
   }
 
-  const adminSubmit = (movie: MetaData) => {
-    updateVideoAdmin(movie.collection, key, value, movie._id)
+  const adminSubmit = (video: MetaData) => {
+    updateVideoAdminFn.execute({
+      collection: video.collection,
+      key,
+      value,
+      _id: video._id,
+      user
+    })
     setAnchorEl(null)
   }
 
-  const adminDelete = (movie: MetaData) => {
-    deleteVideoAdmin(movie.collection, movie._id)
+  const adminDelete = (video: MetaData) => {
+    deleteVideoAdminFn.execute(video.collection, video._id)
   }
 
   const popoverOpen = Boolean(anchorEl)
-
-  const isAdminUser = isAdmin()
-  const { updateFavorite } = useFavoriteUpdater()
 
   const tenDaysAgo = new Date()
   tenDaysAgo.setDate(tenDaysAgo.getDate() - 10)
@@ -149,8 +159,18 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
 
   const nameContainsYear = displayName?.search(/[1-2][0-9][0-9][0-9]/) > -1
 
+  const handleFavorite = () => {
+    setFavoriteError('')
+    return updateFavoritesFn
+      .execute(user?.username, user?.userRoles, video._id)
+      .then((res: User) => {
+        dispatch({ type: UPDATE_FAVORITE, payload: res })
+      })
+      .catch(setFavoriteError)
+  }
+
   return (
-    <StyledCardGrid item xs={2} data-cy={`movie-${_id}`}>
+    <StyledCardGrid item xs={2} data-cy={`card-${_id}`}>
       <Badge
         badgeContent={'New'}
         color="primary"
@@ -192,7 +212,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
           <StyledCardContent key={video?._id}>
             <Typography>
               {displayName}
-              {decadesFilter.length > 0 && !nameContainsYear && ` (${year})`}
+              {selectedDecades?.length > 0 && !nameContainsYear && ` (${year})`}
             </Typography>
           </StyledCardContent>
           <Grid
@@ -228,9 +248,13 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                   </Button>
                 ))}
             </Grid>
-            {isAdminUser && showAdminControls === true && (
+            {isAdmin && displayAdminControls === true && (
               <Grid item xs>
-                <Button size="small" onClick={(e) => handleAdminControls(e)}>
+                <Button
+                  size="small"
+                  onClick={(e) => handleAdminControls(e)}
+                  data-cy="admin-card-controls-btn"
+                >
                   ADM
                 </Button>
                 <Popover
@@ -276,10 +300,20 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                 </Popover>
               </Grid>
             )}
+            {favoriteError && (
+              <Typography color="error" data-cy={`${video._id}-error-message`}>
+                {favoriteError.toString()}
+              </Typography>
+            )}
+
             <Grid item xs pr={1}>
               <IconButton onClick={handleFavorite} disabled={user === null}>
                 <Typography variant="h6">{likes} </Typography>
-                {isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                {isFavorited ? (
+                  <FavoriteIcon data-cy={`${video._id}-favorited`} />
+                ) : (
+                  <FavoriteBorderIcon data-cy={`${video._id}-not-favorited`} />
+                )}
               </IconButton>
             </Grid>
           </Grid>

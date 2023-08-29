@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useAuthenticator } from '../hooks/useAuthenticator'
-import { useEmailUpdater } from '../hooks/useEmailUpdater'
 import {
   // Box,
   Grid,
@@ -15,7 +13,12 @@ import {
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { styled } from '@mui/system'
 import InfoBox from './InfoBox'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../hooks'
+import { authenticateUser, updateUserEmail } from '../services/user'
+import { useAsyncFn } from '../hooks/useAsync'
+import { type User } from '../Shared/types'
+import { LOGIN, UPDATE_USER } from '../utils/constants'
 
 const StyledLink = styled(Link)({
   '&:hover': {
@@ -28,11 +31,14 @@ const Login = () => {
     state: {
       isLoginPage: boolean
       updateEmail: boolean
-      username: string
       from: string
     }
   } = useLocation()
+  const navigate = useNavigate()
   const { state } = location
+  const updateUserSettingsFn = useAsyncFn(updateUserEmail)
+  const authenticateUserFn = useAsyncFn(authenticateUser)
+  const { user, dispatch, authError, authLoading } = useAuthContext()
 
   const [isLoginPage, setIsLoginPage] = useState(state?.isLoginPage ?? true)
   const [dynamicLoginText, setDynamicLoginText] = useState('')
@@ -43,9 +49,6 @@ const Login = () => {
 
   const updateEmailPage = state?.updateEmail
   const emailReg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
-
-  const { authenticate, error, isLoading } = useAuthenticator()
-  const { updateEmail } = useEmailUpdater()
 
   const switchPage = () => {
     setEmail('')
@@ -75,14 +78,24 @@ const Login = () => {
     e.preventDefault()
 
     if (updateEmailPage) {
-      updateEmail(email, state?.username, state?.from)
+      updateUserSettingsFn
+        .execute({ email, username: user?.username })
+        .then((res: User) => {
+          dispatch({ type: UPDATE_USER, payload: res })
+          navigate(state?.from)
+        })
     } else {
-      authenticate(isLoginPage, email, password, username)
+      authenticateUserFn
+        .execute({ isLoginPage, email, password, username })
+        .then((res: User) => {
+          navigate('/')
+          dispatch({ type: LOGIN, payload: res })
+        })
     }
   }
 
   const disableButton =
-    isLoading ||
+    authLoading ||
     (!updateEmailPage &&
       (isLoginPage
         ? password === '' || (username === '' && email === '')
@@ -293,7 +306,9 @@ const Login = () => {
                   </u>
                 </Typography>
               )}
-              {error !== null && <Typography color="red">{error}</Typography>}
+              {authError !== null && (
+                <Typography color="red">{authError}</Typography>
+              )}
             </Grid>
           </Grid>
         </Grid>

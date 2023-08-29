@@ -1,19 +1,22 @@
 import express from "express";
 import db from "../db/conn.mjs";
 import pkg from "lodash";
-const { sortBy, get, split } = pkg;
+const { sortBy, get, split, isArray } = pkg;
 
 const router = express.Router();
+router.get("/", async (req, res) => {
+  const { collection } = req.query;
+  let { searchTerm } = req.query;
+  const underage = req.query.hideUnderage === "false" ? true : false;
 
-router.get("/", async (req, res, next) => {
-  const { text, collection } = req.query;
+  searchTerm = searchTerm.toLowerCase();
 
-  let movies = [];
+  let gallery = [];
   try {
     if (collection) {
-      movies = await db
+      gallery = await db
         .collection(collection)
-        .find({ $text: { $search: text } })
+        .find(!underage ? { underage } : {})
         .toArray();
     } else {
       const listOfCollInfos = await db.listCollections().toArray();
@@ -26,20 +29,76 @@ router.get("/", async (req, res, next) => {
       for (var i in allCollections) {
         const result = await db
           .collection(allCollections[i])
-          .find({ $text: { $search: text } })
+          .find(!underage ? { underage } : {})
           .toArray();
 
         tempArary.push(
-          result?.map((movie) => ({ ...movie, collection: allCollections[i] }))
+          result?.map((video) => ({ ...video, collection: allCollections[i] }))
         );
       }
-      movies = tempArary.flat();
+      gallery = tempArary.flat();
     }
-    res.status(200).json(movies);
+
+    const results = gallery.filter((video) => {
+      const actresses = get(video, "actresses", []);
+      const customName = get(video, "customName", "");
+      const name = get(video, "name", "");
+      const title = get(video, "title", "");
+
+      if (
+        isArray(actresses) &&
+        actresses?.find((actress) => actress.includes(searchTerm))
+      ) {
+        return video;
+      }
+      if (customName?.toLowerCase().includes(searchTerm)) return video;
+      if (name?.toLowerCase().includes(searchTerm)) return video;
+      if (
+        typeof title === "string" &&
+        title?.toLowerCase().includes(searchTerm)
+      )
+        return video;
+    });
+    res.status(200).json(results);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
+// router.get("/", async (req, res, next) => {
+//   const { text, collection } = req.query;
+
+//   let movies = [];
+//   try {
+//     if (collection) {
+//       movies = await db
+//         .collection(collection)
+//         .find({ $text: new RegExp(text, "gi") })
+//         .toArray();
+//     } else {
+//       const listOfCollInfos = await db.listCollections().toArray();
+
+//       const allCollections = listOfCollInfos
+//         .map((coll) => coll.name)
+//         .filter((coll) => coll !== "users");
+
+//       const tempArary = [];
+//       for (var i in allCollections) {
+//         const result = await db
+//           .collection(allCollections[i])
+//           .find({ $text: { $search: new RegExp(text, "gi") } })
+//           .toArray();
+
+//         tempArary.push(
+//           result?.map((movie) => ({ ...movie, collection: allCollections[i] }))
+//         );
+//       }
+//       movies = tempArary.flat();
+//     }
+//     res.status(200).json(movies);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// });
 
 router.get("/filter/:collection", async (req, res) => {
   const collection = await db.collection(req.params.collection);
@@ -48,7 +107,7 @@ router.get("/filter/:collection", async (req, res) => {
   const typeOfBusts = get(req.query, "tags", []);
   const decadesParam = get(req.query, "decades", []);
   const eitherOr = get(req.query, "eitherOr", "or");
-  const underage = !Boolean(req.query.underage);
+  const underage = req.query.hideUnderage === "false" ? true : false;
   const actresses = get(req.query, "actresses", []);
   const multipleActresses = get(req.query, "multipleActresses", false);
 
@@ -256,7 +315,7 @@ router.get("/filter/:collection", async (req, res) => {
   }
 
   return res.status(200).json({
-    movies: moviesWithCreationAndLikes,
+    gallery: moviesWithCreationAndLikes,
     tags: sortedTags,
   });
 });

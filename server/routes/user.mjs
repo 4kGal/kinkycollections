@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import db from "../db/conn.mjs";
 import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
+import pkg from "lodash";
+const { isEmpty } = pkg;
 
 const router = express.Router();
 
@@ -23,7 +25,7 @@ router.post("/login", async (req, res) => {
           .findOne({ username: username.toLowerCase() })
       : await db.collection("users").findOne({ email: email?.toLowerCase() });
 
-    if (!user) {
+    if (isEmpty(user)) {
       throw Error(`Incorrect ${username ? "username" : "email"}`);
     }
 
@@ -36,11 +38,8 @@ router.post("/login", async (req, res) => {
     const token = createToken(user._id);
 
     res.status(200).json({
-      username: user.username,
-      email: user.email,
+      ...user,
       token,
-      favorites: user?.favorites,
-      userRoles: user?.userRoles,
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -92,23 +91,22 @@ router.put("/updateEmail", async (req, res) => {
     if (!username || !email) {
       throw Error("Please enter required fields");
     }
-    const user = await db.collection("users").updateOne(
-      { username: username.toLowerCase() },
+
+    const { value } = await db.collection("users").findOneAndUpdate(
       {
-        $set: {
-          email,
+        username: username.toLowerCase(),
+      },
+      [
+        {
+          $set: {
+            email,
+          },
         },
-      }
+      ],
+      { returnOriginal: false, returnDocument: "after" }
     );
 
-    const token = createToken(user._id);
-
-    res.status(200).json({
-      username: user.username,
-      email: user.email,
-      token,
-      userRoles: user?.userRoles,
-    });
+    res.status(200).json(value);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -149,7 +147,7 @@ router.get("/favorites/:username", async (req, res) => {
 });
 
 router.put("/update", async (req, res) => {
-  const { username, underage } = req.body;
+  const { username, hideUnderage } = req.body;
 
   const { value } = await db.collection("users").findOneAndUpdate(
     {
@@ -158,7 +156,7 @@ router.put("/update", async (req, res) => {
     [
       {
         $set: {
-          underage,
+          hideUnderage,
         },
       },
     ],

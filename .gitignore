@@ -13,3 +13,4 @@ client/.DS_Store
 server/.DS_Store
 server/assets/.DS_Store
 scripts
+cypress/cypress.config.ts

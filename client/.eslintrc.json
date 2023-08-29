@@ -32,6 +32,16 @@
     "@typescript-eslint/restrict-template-expressions": "off",
     "prettier/prettier": 1, // Means error
     "react-hooks/rules-of-hooks": 0,
-    "react-hooks/exhaustive-deps": 0
+    "react-hooks/exhaustive-deps": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "@typescript-eslint/array-type": "error",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "typeParameter",
+        "format": ["PascalCase"],
+        "prefix": ["T"]
+      }
+    ]
   }
 }
