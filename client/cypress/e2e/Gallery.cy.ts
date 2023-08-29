@@ -1,6 +1,6 @@
 import getMainstreambb from '../fixtures/getMainstreambb.json'
 import initialMainstreamBBSettings from '../fixtures/initialMainstreamBBSettings.json'
-import { getUser, ADMIN_USER } from '../support/constants'
+import { getUser, ADMIN_USER, NON_ADMIN_USER } from '../support/constants'
 
 describe('Gallery', () => {
   const gallery = getMainstreambb.gallery
@@ -24,7 +24,7 @@ describe('Gallery', () => {
       getUser({ favorites: userWithNewFavorites.favorites })
     )
   })
-  it.skip('displays loading message on loading', () => {
+  it('displays loading on loading', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
@@ -84,5 +84,26 @@ describe('Gallery', () => {
 
     cy.wait('@getServerFailure')
     cy.dataCy(`${gallery[3]._id}-error-message`)
+  })
+  it('does not display admin controls if user is not an admin', () => {
+    cy.visit('/mainstreambb', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser(NON_ADMIN_USER))
+      }
+    })
+    cy.dataCy('admin-card-controls').should('not.exist')
+  })
+  it('displays admin controls if user is an admin', () => {
+    cy.visit('/mainstreambb', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser())
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+    cy.dataCy('display-admin-control-menu-item').within(() => {
+      cy.get('input').click()
+    })
+    cy.dataCy('close-side-nav-btn').click()
+    cy.dataCy('admin-card-controls-btn').should('exist')
   })
 })

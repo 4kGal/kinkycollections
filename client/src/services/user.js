@@ -34,3 +34,19 @@ export function updateFavorites(username, userRoles, favorite) {
     data: { username: username.toLowerCase(), userRoles, favorite }
   })
 }
+
+export function updateVideoAdmin({ collection, _id, key, value, user }) {
+  return makeRequest(`/api/videos/${collection}/${_id}/update`, {
+    method: 'PUT',
+    data: {
+      key,
+      value,
+      userRole: user.userRoles
+    }
+  })
+}
+export function deleteVideoAdmin(collection, _id) {
+  return makeRequest(`/api/videos/${collection}/${_id}`, {
+    method: 'DELETE'
+  })
+}

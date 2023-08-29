@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
@@ -22,7 +22,7 @@ export const GalleryProvider = ({ children }) => {
     yearAsc: true,
     addedAsc: true,
     numOfVidsPerPage: 9,
-    combineFilters: 'and'
+    combineFilters: false
   })
 
   const { value: settings } = useAsync(
@@ -30,9 +30,15 @@ export const GalleryProvider = ({ children }) => {
     [collection]
   )
 
+  useEffect(() => {
+    if (selectedActresses?.length > 0 && !params.combineFilters) {
+      setParams({ ...params, combineFilters: true })
+    }
+  }, [selectedActresses])
+
   const searchParamObj = {
-    ...(params.decadesFilter?.length > 0 && {
-      decades: params.decadesFilter
+    ...(selectedDecades?.length > 0 && {
+      decades: selectedDecades
     }),
     ...(selectedActresses?.length > 0 && {
       actresses: selectedActresses
@@ -41,6 +47,7 @@ export const GalleryProvider = ({ children }) => {
     hideUnderage: user?.hideUnderage?.toString() || 'true',
     eitherOr: params.combineFilters ? 'and' : 'or'
   }
+
   const paramKeys = Object.keys(searchParamObj)
   let queryStr = ''
   paramKeys.forEach((param) => {
@@ -50,13 +57,17 @@ export const GalleryProvider = ({ children }) => {
   })
   if (params.sortBy === 'year') {
     queryStr += `&sort=${params.sortBy}${params.yearAsc ? 'Asc' : 'Desc'}`
-  } else if (params.sortBy === 'recent' && params.addedAsc) {
+  } else if (params.sortBy === 'recent' && !params.addedAsc) {
     queryStr += `&sort=oldest`
   } else {
     queryStr += `&sort=${params.sortBy}`
   }
 
-  const { error: galleryServiceError, value: galleryObj } = useAsync(
+  const {
+    loading: galleryIsLoading,
+    error: galleryServiceError,
+    value: galleryObj
+  } = useAsync(
     () => getGallery(collection, queryStr),
     [
       collection,
@@ -89,6 +100,13 @@ export const GalleryProvider = ({ children }) => {
     })
   }
 
+  const handleCombineFilters = () => {
+    setParams({
+      ...params,
+      combineFilters: !params.combineFilters
+    })
+  }
+
   const handleRandomize = () => {
     const dupGallery = [...gallery]
     setGallery(dupGallery.sort(() => Math.random() - 0.5))
@@ -105,9 +123,11 @@ export const GalleryProvider = ({ children }) => {
     const index = selectedTags?.indexOf(tag)
 
     if (index === -1) {
-      setSelectedTags(selectedTags?.concat(tag))
+      setSelectedTags((selectedTags ?? [])?.concat(tag))
     } else {
-      setSelectedTags(selectedTags?.filter((current) => current !== tag))
+      setSelectedTags(
+        (selectedTags ?? [])?.filter((currentTag) => currentTag !== tag)
+      )
     }
   }
 
@@ -126,6 +146,7 @@ export const GalleryProvider = ({ children }) => {
     }
   }
   const handleDecadeSelection = (decade) => {
+    console.log(decade, settings?.decades, selectedDecades)
     const exists = selectedDecades.includes(decade)
 
     if (decade === null) {
@@ -156,6 +177,7 @@ export const GalleryProvider = ({ children }) => {
         handleTagSelection,
         handleActressSelection,
         handleDecadeSelection,
+        handleCombineFilters,
         gallery: galleryObj?.gallery,
         galleryLength: galleryObj?.gallery?.length || 0,
         availableTags: galleryObj?.tags,
@@ -163,6 +185,7 @@ export const GalleryProvider = ({ children }) => {
         selectedDecades,
         selectedTags,
         galleryServiceError,
+        galleryIsLoading,
         ...params
       }}
     >

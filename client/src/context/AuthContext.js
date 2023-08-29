@@ -1,12 +1,6 @@
 import React, { createContext, useEffect, useReducer, useState } from 'react'
 import jwtDecode from 'jwt-decode'
-import {
-  UPDATE_FAVORITE,
-  LOGOUT,
-  SEARCH_RESULTS,
-  UPDATE_USER,
-  LOGIN
-} from '../utils/constants'
+import { UPDATE_FAVORITE, LOGOUT, UPDATE_USER, LOGIN } from '../utils/constants'
 
 export const AuthContext = createContext()
 
@@ -39,8 +33,6 @@ export const authReducer = (state = initialState, action) => {
       }
     case LOGOUT:
       return { ...state, user: null }
-    case SEARCH_RESULTS:
-      return { ...state, searchResults: action.payload }
     default:
       return state
   }
@@ -71,84 +63,45 @@ export const AuthContextProvider = ({ children }) => {
     dispatch({ type: LOGOUT, payload: null })
   }
 
-  // const updateUserSettings = async (username, params) => {
-  //   const response = await fetch(`/api/user/update`, {
+  // const updateVideoAdmin = async (collection, key, value, _id) => {
+  //   // if (!isAdmin()) {
+  //   //   return
+  //   // }
+  //   const response = await fetch(`/api/videos/${collection}/${_id}/update`, {
   //     method: 'PUT',
   //     headers: { 'Content-Type': 'application/json' },
   //     body: JSON.stringify({
-  //       username,
-  //       ...params
+  //       key,
+  //       value,
+  //       userRole: state?.user.userRoles
   //     })
   //   })
   //   const json = await response.json()
+
   //   // if (!response.ok) {
   //   //   setError(json.error)
   //   // }
   //   if (response.ok) {
-  //     localStorage.setItem('user', JSON.stringify(json))
+  //     window.location.reload()
   //   }
   // }
 
-  const updateVideoAdmin = async (collection, key, value, _id) => {
-    // if (!isAdmin()) {
-    //   return
-    // }
-    const response = await fetch(`/api/videos/${collection}/${_id}/update`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        key,
-        value,
-        userRole: state?.user.userRoles
-      })
-    })
-    const json = await response.json()
+  // const deleteVideoAdmin = async (collection, _id) => {
+  //   fetch(`/api/videos/${collection}/${_id}`, { method: 'DELETE' })
+  //     .then(async (response) => {
+  //       const json = await response.json()
 
-    // if (!response.ok) {
-    //   setError(json.error)
-    // }
-    if (response.ok) {
-      window.location.reload()
-    }
-  }
-
-  const deleteVideoAdmin = async (collection, _id) => {
-    fetch(`/api/videos/${collection}/${_id}`, { method: 'DELETE' })
-      .then(async (response) => {
-        const json = await response.json()
-
-        // if (!response.ok) {
-        //   setError(json.error)
-        // }
-        if (response.ok) {
-          window.location.reload()
-          console.log('delete successful')
-        }
-      })
-      .catch((error) => {
-        console.error('There was an error deleting!', error)
-      })
-  }
-
-  // const updateFavorite = async (favorite) => {
-  //   const { user } = state
-  //   const { userRoles, username } = user
-  //   const response = await fetch(`/api/user/favorites/`, {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       username: username?.toLowerCase(),
-  //       userRoles,
-  //       favorite
+  //       // if (!response.ok) {
+  //       //   setError(json.error)
+  //       // }
+  //       if (response.ok) {
+  //         window.location.reload()
+  //         console.log('delete successful')
+  //       }
   //     })
-  //   })
-  //   const json = await response.json()
-  //   if (response.ok) {
-  //     console.log(json)
-  //     localStorage.setItem('user', JSON.stringify(json))
-
-  //     dispatch({ type: UPDATE_FAVORITE, payload: json })
-  //   }
+  //     .catch((error) => {
+  //       console.error('There was an error deleting!', error)
+  //     })
   // }
 
   const handleDisplayAdminSwitch = () => {
@@ -159,8 +112,8 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         dispatch,
-        updateVideoAdmin,
-        deleteVideoAdmin,
+        // updateVideoAdmin,
+        // deleteVideoAdmin,
         displayAdminControls,
         handleDisplayAdminSwitch,
         handleLogout,

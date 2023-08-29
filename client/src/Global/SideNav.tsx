@@ -193,14 +193,14 @@ const SideNav = ({
   return (
     <Drawer anchor="left" open={open}>
       <DrawerHeader>
-        <IconButton onClick={handleClose}>
+        <IconButton onClick={handleClose} data-cy="close-side-nav-btn">
           <ChevronLeftIcon />
         </IconButton>
       </DrawerHeader>
       <Divider />
       <List sx={{ minWidth: 272, paddingTop: 0 }}>
         {isAdmin && (
-          <ListItemWithDivider>
+          <ListItemWithDivider data-cy="display-admin-control-menu-item">
             <ListItemText>
               <Typography variant="body1" display="inline">
                 Display Admin Controls

@@ -20,7 +20,11 @@ import { useAuthContext, useGalleryContext } from '../hooks'
 import { type User, type MetaData } from '../Shared/types'
 import Image from 'react-image-webp'
 import { useAsyncFn } from '../hooks/useAsync'
-import { updateFavorites } from '../services/user'
+import {
+  updateFavorites,
+  updateVideoAdmin,
+  deleteVideoAdmin
+} from '../services/user'
 import { UPDATE_FAVORITE } from '../utils/constants'
 
 interface Video {
@@ -86,15 +90,10 @@ const KEYS = [
 
 const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
   const updateFavoritesFn = useAsyncFn(updateFavorites)
+  const updateVideoAdminFn = useAsyncFn(updateVideoAdmin)
+  const deleteVideoAdminFn = useAsyncFn(deleteVideoAdmin)
   const { selectedDecades } = useGalleryContext()
-  const {
-    user,
-    isAdmin,
-    displayAdminControls,
-    dispatch,
-    updateVideoAdmin,
-    deleteVideoAdmin
-  } = useAuthContext()
+  const { user, isAdmin, displayAdminControls, dispatch } = useAuthContext()
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [key, setKey] = useState('')
@@ -134,13 +133,19 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
     setValue(video[event.target.value])
   }
 
-  const adminSubmit = (movie: MetaData) => {
-    updateVideoAdmin(movie.collection, key, value, movie._id)
+  const adminSubmit = (video: MetaData) => {
+    updateVideoAdminFn.execute({
+      collection: video.collection,
+      key,
+      value,
+      _id: video._id,
+      user
+    })
     setAnchorEl(null)
   }
 
-  const adminDelete = (movie: MetaData) => {
-    deleteVideoAdmin(movie.collection, movie._id)
+  const adminDelete = (video: MetaData) => {
+    deleteVideoAdminFn.execute(video.collection, video._id)
   }
 
   const popoverOpen = Boolean(anchorEl)
@@ -245,7 +250,11 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
             </Grid>
             {isAdmin && displayAdminControls === true && (
               <Grid item xs>
-                <Button size="small" onClick={(e) => handleAdminControls(e)}>
+                <Button
+                  size="small"
+                  onClick={(e) => handleAdminControls(e)}
+                  data-cy="admin-card-controls-btn"
+                >
                   ADM
                 </Button>
                 <Popover
