@@ -21,6 +21,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import {
   AMATEUR_BB_URL,
   FAVORITES_URL,
+  GALLERY_PAGES,
   LOGIN_URL,
   MAINSTREAM_BB_URL,
   UPDATE_USER
@@ -141,9 +142,7 @@ const SideNav = ({
   const [isDecadeOpen, setIsDecadeOpen] = useState(false)
   const [isActressOpen, setIsActressOpen] = useState(false)
 
-  const onSearchablePage =
-    location.pathname === MAINSTREAM_BB_URL ||
-    location.pathname === AMATEUR_BB_URL
+  const onSearchablePage = GALLERY_PAGES.includes(location.pathname)
 
   const navigateToSignInPage = () => {
     navigate(LOGIN_URL, { state: null })

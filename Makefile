@@ -6,6 +6,7 @@ cypress-tests:
 SSH_STRING:=root@167.71.162.23
 
 BUNNY_AMATEUR_COLLECTION_ID=f78d6a02-0840-4dbf-a316-05481ca9196d
+BUNNY_MAINSTREAM_CB_COLLECTION_ID=0decd551-9596-4b91-9524-ecde7ec35648
 
 update-remote:
 	ssh ${SSH_STRING} -f 'cd kinkycollections && git pull origin main'
@@ -58,12 +59,16 @@ update-dev-views-all:
 create-mongo-import-mainstreambb:
 	cd scripts && node index.js && code mongoimport-mainstreambb.json
 
+create-mongo-import-mainstreamcb:
+	cd scripts &&  BUNNY_COLLECTION=${BUNNY_MAINSTREAM_CB_COLLECTION_ID} MONGO_COLLECTION=mainstreamcb node index.js && code mongoimport-mainstreamcb.json
+
 create-mongo-import-amateurbb:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb node index.js && code mongoimport-amateurbb.json
 
 create-mongo-import-all:
 	${MAKE} create-mongo-import-mainstreambb
 	${MAKE} create-mongo-import-amateurbb
+	${MAKE} create-mongo-import-mainstreamcb
 
 insert-dev-mainstreambb-documents:
 	cd scripts && node importToMongo.js
@@ -77,13 +82,22 @@ insert-dev-amateurbb-documents:
 insert-prod-amateurbb-documents:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb MONGO_DATABASE=serverdata_prod node importToMongo.js
 
+insert-dev-mainstreamcb-documents:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_CB_COLLECTION_ID} MONGO_COLLECTION=mainstreamcb node importToMongo.js
+
+insert-prod-mainstreamcb-documents:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_CB_COLLECTION_ID} MONGO_COLLECTION=mainstreamcb MONGO_DATABASE=serverdata_prod node importToMongo.js
+
+
 insert-all-dev-documents:
 	${MAKE} insert-dev-mainstreambb-documents
 	${MAKE} insert-dev-amateurbb-documents
+	${MAKE} insert-dev-mainstreamcb-documents
 
 insert-all-prod-documents:
 	${MAKE} insert-prod-mainstreambb-documents
 	${MAKE} insert-prod-amateurbb-documents
+	${MAKE} insert-prod-mainstreamcb-documents
 
 insert-dev-prod-mainstreambb-documents:
 	${MAKE} insert-dev-mainstreambb-documents
@@ -93,9 +107,14 @@ insert-dev-prod-amateurbb-documents:
 	${MAKE} insert-dev-amateurbb-documents
 	${MAKE} insert-prod-amateurbb-documents
 
+insert-dev-prod-mainstreamcb-documents:
+	${MAKE} insert-dev-mainstreamcb-documents
+	${MAKE} insert-prod-mainstreamcb-documents
+
 insert-all-documents:
 	${MAKE} insert-dev-prod-mainstreambb-documents
 	${MAKE} insert-dev-prod-amateurbb-documents
+	${MAKE} insert-dev-prod-mainstreamcb-documents
 
 delete-mainstreambb-files:
 	cd scripts && node deletefiles.js
@@ -103,6 +122,10 @@ delete-mainstreambb-files:
 delete-amateurbb-files:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_COLLECTION_ID} MONGO_COLLECTION=amateurbb node deletefiles.js
 
+delete-mainstreamcb-files:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_CB_COLLECTION_ID} MONGO_COLLECTION=mainstreamcb node deletefiles.js
+
 delete-all-files:
 	${MAKE} delete-mainstreambb-files
 	${MAKE} delete-amateurbb-files
+	${MAKE} delete-mainstreamcb-files

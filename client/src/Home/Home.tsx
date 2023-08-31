@@ -35,10 +35,10 @@ const Folders = [
   },
   {
     link: MAINSTREAM_CB_URL,
-    src: comingsoonIcon,
+    src: mainstreambbbIcon,
     alt: 'mainstream cuntbusting',
     label: 'Mainstream Cuntbusting',
-    disabled: true
+    disabled: false
   },
   {
     link: AMATEUR_CB_URL,

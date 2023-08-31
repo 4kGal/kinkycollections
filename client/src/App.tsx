@@ -14,7 +14,9 @@ import {
   AMATEUR_BB_COLLECTION,
   AMATEUR_BB_URL,
   MAINSTREAM_BB_COLLECTION,
-  MAINSTREAM_BB_URL
+  MAINSTREAM_BB_URL,
+  MAINSTREAM_CB_COLLECTION,
+  MAINSTREAM_CB_URL
 } from './utils/constants'
 const App = () => {
   return (
@@ -31,6 +33,10 @@ const App = () => {
             <Route
               path={AMATEUR_BB_URL}
               element={<Gallery collection={AMATEUR_BB_COLLECTION} />}
+            />
+            <Route
+              path={MAINSTREAM_CB_URL}
+              element={<Gallery collection={MAINSTREAM_CB_COLLECTION} />}
             />
             <Route
               path="/player/:collection/:id"

@@ -1,4 +1,4 @@
-import { MAINSTREAM_BB_COLLECTION, GALLERY_PAGES } from '../utils/constants'
+import { GALLERY_PAGES } from '../utils/constants'
 import { makeRequest } from './makeRequest'
 
 export function getVideo(collection, _id) {
@@ -6,11 +6,12 @@ export function getVideo(collection, _id) {
 }
 
 export const getGalleryInitialSettings = (collection) => {
-  if (collection !== MAINSTREAM_BB_COLLECTION) return Promise.resolve({})
+  if (!GALLERY_PAGES.includes(collection)) return Promise.resolve({})
   return makeRequest(`/api/videos/${collection}/settings`)
 }
 
 export const getGallery = (collection, queryStr) => {
+  console.log(GALLERY_PAGES, collection, !GALLERY_PAGES.includes(collection))
   if (!GALLERY_PAGES.includes(collection)) return Promise.resolve({})
   return makeRequest(`/api/search/filter/${collection}?${queryStr}`)
 }
