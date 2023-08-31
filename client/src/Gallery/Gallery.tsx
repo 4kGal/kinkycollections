@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Grid, LinearProgress } from '@mui/material'
 import { useGalleryContext } from '../hooks'
 import { type MetaData } from '../Shared/types'
-import Card from '../Card/Card'
+import Card from './Card'
 import PageNavigation from '../Shared/PageNavigation/PageNavigation'
 import FilterVideoButtons from '../Shared/FilterVideoButtons/FilterVideoButtons'
 

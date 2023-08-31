@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-// import MainstreamBB from './Mainstream/MainstreamBB'
 import Gallery from './Gallery/Gallery'
 import Player from './Player'
 import './App.css'
@@ -11,6 +10,12 @@ import Favorites from './Favorites/Favorites'
 import SearchResults from './SearchResults/SearchResults'
 import { PlayerProvider } from './context/PlayerContext'
 import { GalleryProvider } from './context/GalleryContext'
+import {
+  AMATEUR_BB_COLLECTION,
+  AMATEUR_BB_URL,
+  MAINSTREAM_BB_COLLECTION,
+  MAINSTREAM_BB_URL
+} from './utils/constants'
 const App = () => {
   return (
     <Router>
@@ -20,12 +25,12 @@ const App = () => {
             <Route path="/login" element={<AuthenticationPage />} />
             <Route path="/" element={<Home />} />
             <Route
-              path="/mainstreambb"
-              element={<Gallery collection="mainstreambb" />}
+              path={MAINSTREAM_BB_URL}
+              element={<Gallery collection={MAINSTREAM_BB_COLLECTION} />}
             />
             <Route
-              path="/amateurbb"
-              element={<Gallery collection="amateurbb" />}
+              path={AMATEUR_BB_URL}
+              element={<Gallery collection={AMATEUR_BB_COLLECTION} />}
             />
             <Route
               path="/player/:collection/:id"

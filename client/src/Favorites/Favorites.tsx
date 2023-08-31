@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useAuthContext } from '../hooks'
-import Card from '../Card/Card'
+import Card from '../Gallery/Card'
 import { type MetaData } from '../Shared/types'
 import { Grid } from '@mui/material'
 

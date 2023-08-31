@@ -18,7 +18,13 @@ import MenuIcon from '@mui/icons-material/Menu'
 import SideNav from './SideNav'
 import { styled } from '@mui/system'
 import SearchIcon from '@mui/icons-material/Search'
-import { AMATEUR_BB_URL, MAINSTREAM_BB_URL } from '../utils/constants'
+import {
+  AMATEUR_BB_URL,
+  GALLERY_PAGES,
+  LOGIN_URL,
+  MAINSTREAM_BB_URL,
+  SEARCH_RESULTS_URL
+} from '../utils/constants'
 import { debounce } from 'lodash'
 import { useAsyncFn } from '../hooks/useAsync'
 import { getSearchResults } from '../services/videos'
@@ -73,12 +79,10 @@ const Header = () => {
   const getSearchResultsFn = useAsyncFn(getSearchResults)
   const menuOpen = Boolean(anchorEl)
 
-  const onLoginPage = location.pathname === '/login'
-  const onSearchPage = location.pathname === '/searchResults'
+  const onLoginPage = location.pathname === LOGIN_URL
+  const onSearchPage = location.pathname === SEARCH_RESULTS_URL
 
-  const onSearchablePage =
-    location.pathname === MAINSTREAM_BB_URL ||
-    location.pathname === AMATEUR_BB_URL
+  const onSearchablePage = GALLERY_PAGES.includes(location.pathname)
 
   useEffect(() => {
     return () => {
@@ -126,7 +130,7 @@ const Header = () => {
         }
         // if not on search page, navigate to
         if (searchResults.length > 0) {
-          navigate('/searchResults', {
+          navigate(SEARCH_RESULTS_URL, {
             ...(onSearchPage && { replace: true }),
             state: {
               searchResults

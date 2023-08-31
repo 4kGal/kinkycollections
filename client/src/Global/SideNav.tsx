@@ -20,6 +20,8 @@ import { useAuthContext, useGalleryContext } from '../hooks'
 import { useNavigate, useLocation } from 'react-router-dom'
 import {
   AMATEUR_BB_URL,
+  FAVORITES_URL,
+  LOGIN_URL,
   MAINSTREAM_BB_URL,
   UPDATE_USER
 } from '../utils/constants'
@@ -144,12 +146,12 @@ const SideNav = ({
     location.pathname === AMATEUR_BB_URL
 
   const navigateToSignInPage = () => {
-    navigate('/login', { state: null })
+    navigate(LOGIN_URL, { state: null })
     handleClose()
   }
 
   const navigateToFavoritesPage = () => {
-    navigate('/favorites')
+    navigate(FAVORITES_URL)
     handleClose()
   }
 
@@ -166,7 +168,7 @@ const SideNav = ({
   }
 
   const updateEmail = () => {
-    navigate('/login', {
+    navigate(LOGIN_URL, {
       state: { updateEmail: true, from: location }
     })
     handleClose()

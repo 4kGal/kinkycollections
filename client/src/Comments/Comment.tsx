@@ -26,6 +26,7 @@ import {
 } from '../services/comments'
 import { useNavigate } from 'react-router-dom'
 import { type CommentsObj } from '../Shared/types'
+import { LOGIN_URL } from '../utils/constants'
 
 const VerticalLine = styled('button')({
   border: 'none',
@@ -168,7 +169,7 @@ const Comment = ({
               cursor: 'pointer'
             }}
             onClick={() =>
-              navigate('/login', {
+              navigate(LOGIN_URL, {
                 state: {
                   isLoginPage: false
                 }
@@ -183,7 +184,7 @@ const Comment = ({
               cursor: 'pointer'
             }}
             onClick={() =>
-              navigate('/login', {
+              navigate(LOGIN_URL, {
                 state: {
                   isLoginPage: true
                 }

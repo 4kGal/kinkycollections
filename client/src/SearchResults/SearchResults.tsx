@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from '../Card/Card'
+import Card from '../Gallery/Card'
 import { Grid } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { type MetaData } from '../Shared/types'

@@ -9,6 +9,7 @@ import Thumbler from "thumbler";
 import path from "path";
 import pkg from "lodash";
 const { isEmpty } = pkg;
+import fetch from "node-fetch";
 
 const __dirname = path.resolve();
 
@@ -416,12 +417,27 @@ router.delete("/:collection/:id", async (req, res) => {
     const collection = await db.collection(req.params.collection);
 
     const { value } = await collection.findOneAndDelete({
-      _id: new ObjectId(_id),
+      _id: new ObjectId(id),
     });
+
+    const url = `https://video.bunnycdn.com/library/147442/videos/${value?.videoId}`;
+    const options = {
+      method: "DELETE",
+      headers: { accept: "application/json" },
+    };
+
+    fetch(url, options)
+      .then((res) => res.json())
+      .then((json) => console.log(json))
+      .catch((err) =>
+        console.error("failed to delete from bunny:" + err, value)
+      );
 
     res.status(200).json(value);
   } catch (e) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({
+      error: error?.message ? error?.message : `Failed to deleted ${error}`,
+    });
   }
 });
 

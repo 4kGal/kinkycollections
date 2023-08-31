@@ -236,7 +236,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                   </Button>
                 ))}
               {typeof setCustomTags !== 'undefined' &&
-                actresses.length &&
+                actresses.length > 0 &&
                 actresses?.map((actress, i) => (
                   <Button
                     sx={{ fontSize: 10 }}
@@ -301,7 +301,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
                 </Popover>
               </Grid>
             )}
-            {favoriteError && (
+            {favoriteError.length > 0 && (
               <Typography color="error" data-cy={`${video._id}-error-message`}>
                 {favoriteError.toString()}
               </Typography>

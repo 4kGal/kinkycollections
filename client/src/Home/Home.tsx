@@ -4,7 +4,14 @@ import { Button, Grid } from '@mui/material'
 import mainstreambbbIcon from '../assets/images/mainstreambb_folder.png'
 import comingsoonIcon from '../assets/images/comingsoon_folder.png'
 import { styled } from '@mui/system'
-import { AMATEUR_BB_URL, MAINSTREAM_BB_URL } from '../utils/constants'
+import {
+  AMATEUR_BB_URL,
+  AMATEUR_CB_URL,
+  MAINSTREAM_BB_URL,
+  MAINSTREAM_CB_URL,
+  MAINSTREAM_MISC_URL,
+  MAINSTREAM_PE_URL
+} from '../utils/constants'
 
 const StyledLabel = styled('label')({
   fontFamily: 'Ysabeau SC',
@@ -27,28 +34,28 @@ const Folders = [
     disabled: false
   },
   {
-    link: '/mainstreamCB',
+    link: MAINSTREAM_CB_URL,
     src: comingsoonIcon,
     alt: 'mainstream cuntbusting',
     label: 'Mainstream Cuntbusting',
     disabled: true
   },
   {
-    link: '/amateurCB',
+    link: AMATEUR_CB_URL,
     src: comingsoonIcon,
     alt: 'cuntbusting in real life',
     label: 'Amateur Cuntbusting',
     disabled: true
   },
   {
-    link: '/mainstreamPE',
+    link: MAINSTREAM_PE_URL,
     src: comingsoonIcon,
     alt: 'mainstream premature ejaculation',
     label: 'Mainstream Premature Ejaculation',
     disabled: true
   },
   {
-    link: '/mainstreamMisc',
+    link: MAINSTREAM_MISC_URL,
     src: comingsoonIcon,
     alt: 'mainstream miscellaneous',
     label: 'Mainstream Miscellaneous [i.e. boners, sph, etc]',
