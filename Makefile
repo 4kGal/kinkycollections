@@ -73,6 +73,7 @@ create-mongo-import-all:
 	${MAKE} create-mongo-import-mainstreambb
 	${MAKE} create-mongo-import-amateurbb
 	${MAKE} create-mongo-import-mainstreamcb
+	${MAKE} create-mongo-import-mainstreampe
 
 insert-dev-mainstreambb-documents:
 	cd scripts && node importToMongo.js
@@ -92,16 +93,24 @@ insert-dev-mainstreamcb-documents:
 insert-prod-mainstreamcb-documents:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_CB_COLLECTION_ID} MONGO_COLLECTION=mainstreamcb MONGO_DATABASE=serverdata_prod node importToMongo.js
 
+insert-dev-mainstreampe-documents:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_PE_COLLECTION_ID} MONGO_COLLECTION=mainstreampe node importToMongo.js
+
+insert-prod-mainstreampe-documents:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_PE_COLLECTION_ID} MONGO_COLLECTION=mainstreampe MONGO_DATABASE=serverdata_prod node importToMongo.js
+
 
 insert-all-dev-documents:
 	${MAKE} insert-dev-mainstreambb-documents
 	${MAKE} insert-dev-amateurbb-documents
 	${MAKE} insert-dev-mainstreamcb-documents
+	${MAKE} insert-dev-mainstreampe-documents
 
 insert-all-prod-documents:
 	${MAKE} insert-prod-mainstreambb-documents
 	${MAKE} insert-prod-amateurbb-documents
 	${MAKE} insert-prod-mainstreamcb-documents
+	${MAKE} insert-prod-mainstreampe-documents
 
 insert-dev-prod-mainstreambb-documents:
 	${MAKE} insert-dev-mainstreambb-documents
@@ -115,10 +124,15 @@ insert-dev-prod-mainstreamcb-documents:
 	${MAKE} insert-dev-mainstreamcb-documents
 	${MAKE} insert-prod-mainstreamcb-documents
 
+insert-dev-prod-mainstreampe-documents:
+	${MAKE} insert-dev-mainstreampe-documents
+	${MAKE} insert-prod-mainstreampe-documents
+
 insert-all-documents:
 	${MAKE} insert-dev-prod-mainstreambb-documents
 	${MAKE} insert-dev-prod-amateurbb-documents
 	${MAKE} insert-dev-prod-mainstreamcb-documents
+	${MAKE} insert-dev-prod-mainstreampe-documents
 
 delete-mainstreambb-files:
 	cd scripts && node deletefiles.js
@@ -129,7 +143,11 @@ delete-amateurbb-files:
 delete-mainstreamcb-files:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_CB_COLLECTION_ID} MONGO_COLLECTION=mainstreamcb node deletefiles.js
 
+delete-mainstreampe-files:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_PE_COLLECTION_ID} MONGO_COLLECTION=mainstreampe node deletefiles.js
+
 delete-all-files:
 	${MAKE} delete-mainstreambb-files
 	${MAKE} delete-amateurbb-files
 	${MAKE} delete-mainstreamcb-files
+	${MAKE} delete-mainstreampe-files
