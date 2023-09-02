@@ -42,7 +42,7 @@ router.get("/:collection/settings", async (req, res) => {
     .map((prop) =>
       prop.actresses
         .flat()
-        .filter((actress) => {
+        .map((actress) => {
           return {
             actress,
             tags: prop.tags.filter(
@@ -81,6 +81,7 @@ router.get("/:collection/settings", async (req, res) => {
       combinedActressTags[obj.actress] = obj.tags;
     }
   });
+
   const availableActresses = Object.keys(combinedActressTags).map((year) => ({
     actress: year,
     tags: combinedActressTags[year],

@@ -49,10 +49,10 @@ const Folders = [
   },
   {
     link: MAINSTREAM_PE_URL,
-    src: comingsoonIcon,
+    src: mainstreambbbIcon,
     alt: 'mainstream premature ejaculation',
     label: 'Mainstream Premature Ejaculation',
-    disabled: true
+    disabled: false
   },
   {
     link: MAINSTREAM_MISC_URL,

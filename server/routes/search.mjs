@@ -133,8 +133,8 @@ router.get("/filter/:collection", async (req, res) => {
   if (
     typeOfBusts.length === 0 &&
     decadesParam.length === 0 &&
-    actresses.length === 0
-    // && multipleActresses === "false"
+    actresses.length === 0 &&
+    multipleActresses === "false"
   ) {
     movies = await collection
       .find(!underage ? { underage } : {})
@@ -180,7 +180,7 @@ router.get("/filter/:collection", async (req, res) => {
           }
         : { $or: actressesFilter };
 
-    // const multiple = { "actresses.1": { $exists: true } };
+    const multiple = { "actresses.1": { $exists: true } };
 
     // db.mainstreambb.find({
     //   $and: [
@@ -213,7 +213,7 @@ router.get("/filter/:collection", async (req, res) => {
         ...(decadesParam.length > 0 ? [{ $or: decades }] : []),
         ...(typeOfBusts.length > 0 ? [tagQuery] : []),
         ...(actresses.length > 0 ? [actressQuery] : []),
-        //     ...(multipleActresses ? [multiple] : []),
+        ...(multipleActresses ? [multiple] : []),
         ...(!underage ? [] : [{ underage }]),
       ],
     };
