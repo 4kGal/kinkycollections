@@ -110,6 +110,7 @@ router.get("/:collection/settings", async (req, res) => {
   // console.log(minYear)
   res.send(obj).status(200);
 });
+
 router.get("/:collection/:id", async function (req, res) {
   const collection = await db.collection(req.params.collection);
   const movieObject = await collection.findOne({

@@ -9,6 +9,9 @@ BUNNY_AMATEUR_BB_COLLECTION_ID=f78d6a02-0840-4dbf-a316-05481ca9196d
 BUNNY_MAINSTREAM_CB_COLLECTION_ID=0decd551-9596-4b91-9524-ecde7ec35648
 BUNNY_MAINSTREAM_PE_COLLECTION_ID=fb864cdf-e8c7-4acb-b2e7-5dee4e7955d0
 
+connect-to-mongodb:
+	mongosh "mongodb+srv://kinkycollections.irozhod.mongodb.net/" --apiVersion 1 --username 4kgal
+
 update-remote:
 	ssh ${SSH_STRING} -f 'cd kinkycollections && git pull origin main'
 

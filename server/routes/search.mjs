@@ -213,7 +213,7 @@ router.get("/filter/:collection", async (req, res) => {
         ...(decadesParam.length > 0 ? [{ $or: decades }] : []),
         ...(typeOfBusts.length > 0 ? [tagQuery] : []),
         ...(actresses.length > 0 ? [actressQuery] : []),
-        ...(multipleActresses ? [multiple] : []),
+        ...(multipleActresses === "true" ? [multiple] : []),
         ...(!underage ? [] : [{ underage }]),
       ],
     };
