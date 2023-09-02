@@ -25,16 +25,22 @@ interface Filter {
   selectedCustomTags?: Array<string | undefined>
   handleSelectedCustomTags: (tag: string | undefined) => void
   combineFilters: boolean
+  handleMultipleActresses: () => void
+  displayMultipleActresses: boolean
+  multipleActresses: boolean
 }
 
 const FilterVideoButtons = ({
   availableTags,
-  handleTagSelection,
   selectedTags,
-  setCombineFilters,
   combineFilters,
+  setCombineFilters,
   selectedCustomTags = [],
-  handleSelectedCustomTags
+  handleTagSelection,
+  handleSelectedCustomTags,
+  handleMultipleActresses,
+  multipleActresses,
+  displayMultipleActresses
 }: Filter) => {
   return (
     <Grid container alignItems="center" justifyContent="center" direction="row">
@@ -72,6 +78,15 @@ const FilterVideoButtons = ({
           onClick={() => handleSelectedCustomTags(tag)}
         />
       ))}
+      {displayMultipleActresses && (
+        <StyledChip
+          label="Multiple Actresses"
+          color="info"
+          variant="outlined"
+          onClick={handleMultipleActresses}
+          avatar={multipleActresses ? <Avatar>X</Avatar> : undefined}
+        />
+      )}
       {/* <StyledChip
         label="all"
         color="info"

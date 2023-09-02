@@ -18,9 +18,11 @@ const Gallery = ({ collection }: { collection: string }) => {
     selectedTags,
     combineFilters,
     numOfVidsPerPage,
+    multipleActresses,
     handleTagSelection,
     handleCombineFilters,
-    handleActressSelection
+    handleActressSelection,
+    handleMultipleActresses
   } = useGalleryContext()
 
   useEffect(() => {
@@ -67,6 +69,11 @@ const Gallery = ({ collection }: { collection: string }) => {
           combineFilters={combineFilters}
           selectedCustomTags={selectedActresses}
           handleSelectedCustomTags={handleActressSelection}
+          handleMultipleActresses={handleMultipleActresses}
+          multipleActresses={multipleActresses}
+          displayMultipleActresses={gallery?.some(
+            (video: MetaData) => (video?.actresses ?? []).length > 1
+          )}
         />
         {galleryIsLoading && (
           <Grid item xs={12}>

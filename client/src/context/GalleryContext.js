@@ -22,7 +22,8 @@ export const GalleryProvider = ({ children }) => {
     yearAsc: true,
     addedAsc: true,
     numOfVidsPerPage: 9,
-    combineFilters: false
+    combineFilters: false,
+    multipleActresses: false
   })
 
   const { value: settings } = useAsync(
@@ -43,6 +44,7 @@ export const GalleryProvider = ({ children }) => {
     ...(selectedActresses?.length > 0 && {
       actresses: selectedActresses
     }),
+    multipleActresses: params.multipleActresses.toString(),
     ...(selectedTags?.length > 0 && { tags: selectedTags }),
     hideUnderage: user?.hideUnderage?.toString() || 'true',
     eitherOr: params.combineFilters ? 'and' : 'or'
@@ -104,6 +106,13 @@ export const GalleryProvider = ({ children }) => {
     setParams({
       ...params,
       combineFilters: !params.combineFilters
+    })
+  }
+
+  const handleMultipleActresses = () => {
+    setParams({
+      ...params,
+      multipleActresses: !params.multipleActresses
     })
   }
 
@@ -178,6 +187,7 @@ export const GalleryProvider = ({ children }) => {
         handleActressSelection,
         handleDecadeSelection,
         handleCombineFilters,
+        handleMultipleActresses,
         gallery: galleryObj?.gallery,
         galleryLength: galleryObj?.gallery?.length || 0,
         availableTags: galleryObj?.tags,
