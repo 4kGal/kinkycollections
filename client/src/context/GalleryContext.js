@@ -20,12 +20,7 @@ export const GalleryProvider = ({ children }) => {
   const collection = location.pathname.replace('/', '')
 
   const { user } = useAuthContext()
-
-  const [hideUnderage, setHideUnderage] = useState(
-    !isEmpty(user) && Object.hasOwn(user, 'hideUnderage')
-      ? user?.hideUnderage
-      : true
-  )
+  const [hideUnderage, setHideUnderage] = useState(false)
 
   const [gallery, setGallery] = useState([])
   const [selectedActresses, setSelectedActresses] = useState([])
@@ -33,6 +28,12 @@ export const GalleryProvider = ({ children }) => {
   const [selectedDecades, setSelectedDecades] = useState([])
 
   const [params, setParams] = useState(initialParams)
+
+  useEffect(() => {
+    if (!isEmpty(user) && user?.hideUnderage !== hideUnderage) {
+      setHideUnderage(user?.hideUnderage)
+    }
+  }, [user?.hideUnderage])
 
   useEffect(() => {
     setParams(initialParams)

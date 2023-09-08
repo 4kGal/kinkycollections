@@ -51,8 +51,13 @@ router.get("/", async (req, res) => {
       ) {
         return video;
       }
-      if (customName?.toLowerCase().includes(searchTerm)) return video;
-      if (name?.toLowerCase().includes(searchTerm)) return video;
+      if (
+        typeof customName === "string" &&
+        customName?.toLowerCase().includes(searchTerm)
+      )
+        return video;
+      if (typeof name === "string" && name?.toLowerCase().includes(searchTerm))
+        return video;
       if (
         typeof title === "string" &&
         title?.toLowerCase().includes(searchTerm)
