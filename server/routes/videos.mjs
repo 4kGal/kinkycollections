@@ -43,6 +43,7 @@ router.get("/:collection/settings", async (req, res) => {
       prop.actresses
         .flat()
         .map((actress) => {
+          if (typeof actress !== "string") return "";
           return {
             actress,
             tags: prop.tags.filter(
@@ -57,8 +58,9 @@ router.get("/:collection/settings", async (req, res) => {
     )
     .flat()
     .sort((a, b) => {
-      let fa = a.actress?.toLowerCase(),
-        fb = b.actress?.toLowerCase();
+      if (typeof a?.actress !== "string") return -1;
+      let fa = a.actress.toLowerCase(),
+        fb = b.actress.toLowerCase();
 
       if (fa < fb) {
         return -1;

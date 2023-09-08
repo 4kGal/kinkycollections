@@ -54,11 +54,22 @@ update-dev-views-amateurbb:
 update-prod-views-amateurbb:
 	cd scripts && BUNNY_COLLECTION=${BUNNY_AMATEUR_BB_COLLECTION_ID} MONGO_COLLECTION=amateurbb MONGO_DATABASE=serverdata_prod node updateViews.js
 
+update-dev-views-mainstreampe:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_PE_COLLECTION_ID} MONGO_COLLECTION=mainstreampe node updateViews.js
+
+update-prod-views-mainstreampe:
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_PE_COLLECTION_ID} MONGO_COLLECTION=mainstreampe MONGO_DATABASE=serverdata_prod node updateViews.js
+
 update-dev-views-all:
 	${MAKE} update-dev-views-mainstreambb
 	${MAKE} update-dev-views-amateurbb
 	${MAKE} update-prod-views-mainstreambb
 	${MAKE} update-prod-views-amateurbb
+
+get-missing-and-duplicate-imports:
+	cd scripts && node missing.js
+	cd scripts && && BUNNY_COLLECTION=${BUNNY_AMATEUR_BB_COLLECTION_ID} MONGO_COLLECTION=amateurbb node missing.js
+	cd scripts && BUNNY_COLLECTION=${BUNNY_MAINSTREAM_PE_COLLECTION_ID} MONGO_COLLECTION=mainstreampe node missing.js
 
 create-mongo-import-mainstreambb:
 	cd scripts && node index.js && code mongoimport-mainstreambb.json

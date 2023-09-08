@@ -214,11 +214,13 @@ describe('Nav Bar', () => {
         win.localStorage.setItem('user', getUser({ hideUnderage: true }))
       }
     })
+    cy.dataCy(`card-${getMainstreambb.gallery[3]._id}`).should('not.exist')
     cy.dataCy('open-nav-drawer').click()
 
     cy.dataCy('display-underage-option').within(() => {
       cy.get('input').should('be.checked')
     })
+    cy.dataCy(`card-${getMainstreambb.gallery[3]._id}`)
   })
   it('loads underage selector if user has it false', () => {
     cy.visit('/mainstreambb', {
@@ -226,22 +228,44 @@ describe('Nav Bar', () => {
         win.localStorage.setItem('user', getUser({ hideUnderage: false }))
       }
     })
+    cy.dataCy(`card-${getMainstreambb.gallery[3]._id}`)
     cy.dataCy('open-nav-drawer').click()
 
     cy.dataCy('display-underage-option').within(() => {
       cy.get('input').should('not.be.checked')
     })
   })
-  it('underage selector is true if user is not logged in', () => {
+  it('underage selector is true if user is not logged in and non user can switch it', () => {
+    cy.intercept(
+      'GET',
+      '/api/search/filter/mainstreambb?&multipleActresses=false&hideUnderage=true*',
+      { gallery: [getMainstreambb.gallery[0], getMainstreambb.gallery[1]] }
+    )
+
+    cy.intercept(
+      'GET',
+      '/api/search/filter/mainstreambb?&multipleActresses=false&hideUnderage=false*',
+      {
+        gallery: [
+          getMainstreambb.gallery[0],
+          getMainstreambb.gallery[1],
+          getMainstreambb.gallery[3]
+        ]
+      }
+    )
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
       }
     })
+    cy.dataCy(`card-${getMainstreambb.gallery[3]._id}`).should('not.exist')
     cy.dataCy('open-nav-drawer').click()
 
     cy.dataCy('display-underage-option').within(() => {
       cy.get('input').should('be.checked')
+      cy.get('input').click()
+      cy.get('input').should('not.be.checked')
     })
+    cy.dataCy(`card-${getMainstreambb.gallery[3]._id}`)
   })
 })

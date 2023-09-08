@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useReducer, useState } from 'react'
 import jwtDecode from 'jwt-decode'
 import { UPDATE_FAVORITE, LOGOUT, UPDATE_USER, LOGIN } from '../utils/constants'
+import { isEmpty } from 'lodash'
 
 export const AuthContext = createContext()
 
@@ -19,13 +20,14 @@ export const authReducer = (state = initialState, action) => {
     case UPDATE_FAVORITE:
       action.payload &&
         localStorage.setItem('user', JSON.stringify(action.payload))
+
       return {
         ...state,
         user: {
           ...action.payload
         },
         isAdmin:
-          localStorage.getItem('user') &&
+          !isEmpty(localStorage.getItem('user')) &&
           localStorage.getItem('user') !== 'null'
             ? jwtDecode(action.payload?.userRoles)?.Role === 'Admin' &&
               action.payload?.userRoles === process.env.REACT_APP_ADMIN_TOKEN

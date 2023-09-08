@@ -1,5 +1,8 @@
 import getMainstreambb from '../fixtures/getMainstreambb.json'
+import getMainstreampe from '../fixtures/getMainstreampe.json'
+
 import initialMainstreamBBSettings from '../fixtures/initialMainstreamBBSettings.json'
+import initialMainstreamPESettings from '../fixtures/initialMainstreamPESettings.json'
 import { getUser, ADMIN_USER, NON_ADMIN_USER } from '../support/constants'
 
 describe('Gallery', () => {
@@ -23,6 +26,12 @@ describe('Gallery', () => {
       '/api/user/favorites/',
       getUser({ favorites: userWithNewFavorites.favorites })
     )
+    cy.intercept(
+      'GET',
+      '/api/videos/mainstreampe/settings',
+      initialMainstreamPESettings
+    )
+    cy.intercept('GET', '/api/search/filter/mainstreampe?*', getMainstreampe)
   })
   it('displays loading on loading', () => {
     cy.visit('/mainstreambb', {
@@ -105,5 +114,19 @@ describe('Gallery', () => {
     })
     cy.dataCy('close-side-nav-btn').click()
     cy.dataCy('admin-card-controls-btn').should('exist')
+  })
+  it.only('switches context', () => {
+    cy.visit('/mainstreambb', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', null)
+      }
+    })
+    cy.dataCy(`card-${getMainstreambb.gallery[0]._id}`)
+
+    cy.dataCy('header-home-link').click()
+
+    cy.dataCy(`folder-link-mainstreampe`).click()
+    cy.dataCy(`card-${getMainstreambb.gallery[0]._id}`).should('not.exist')
+    cy.dataCy(`card-${getMainstreampe.gallery[0]._id}`)
   })
 })

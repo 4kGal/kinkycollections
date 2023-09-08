@@ -11,7 +11,6 @@ export const getGalleryInitialSettings = (collection) => {
 }
 
 export const getGallery = (collection, queryStr) => {
-  console.log(GALLERY_PAGES, collection, !GALLERY_PAGES.includes(collection))
   if (!GALLERY_PAGES.includes(collection)) return Promise.resolve({})
   return makeRequest(`/api/search/filter/${collection}?${queryStr}`)
 }

@@ -13,6 +13,8 @@ import { GalleryProvider } from './context/GalleryContext'
 import {
   AMATEUR_BB_COLLECTION,
   AMATEUR_BB_URL,
+  AMATEUR_CB_COLLECTION,
+  AMATEUR_CB_URL,
   MAINSTREAM_BB_COLLECTION,
   MAINSTREAM_BB_URL,
   MAINSTREAM_CB_COLLECTION,
@@ -39,6 +41,10 @@ const App = () => {
             <Route
               path={MAINSTREAM_CB_URL}
               element={<Gallery collection={MAINSTREAM_CB_COLLECTION} />}
+            />
+            <Route
+              path={AMATEUR_CB_URL}
+              element={<Gallery collection={AMATEUR_CB_COLLECTION} />}
             />
             <Route
               path={MAINSTREAM_PE_URL}

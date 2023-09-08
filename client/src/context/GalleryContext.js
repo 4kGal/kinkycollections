@@ -3,28 +3,40 @@ import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
 import { useAuthContext } from '../hooks'
+import { isEmpty } from 'lodash'
 
 export const GalleryContext = createContext()
 
+const initialParams = {
+  sortBy: 'recent',
+  yearAsc: true,
+  addedAsc: true,
+  numOfVidsPerPage: 9,
+  combineFilters: false,
+  multipleActresses: false
+}
 export const GalleryProvider = ({ children }) => {
   const location = useLocation()
   const collection = location.pathname.replace('/', '')
 
   const { user } = useAuthContext()
 
+  const [hideUnderage, setHideUnderage] = useState(
+    !isEmpty(user) && Object.hasOwn(user, 'hideUnderage')
+      ? user?.hideUnderage
+      : true
+  )
+
   const [gallery, setGallery] = useState([])
   const [selectedActresses, setSelectedActresses] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
   const [selectedDecades, setSelectedDecades] = useState([])
 
-  const [params, setParams] = useState({
-    sortBy: 'recent',
-    yearAsc: true,
-    addedAsc: true,
-    numOfVidsPerPage: 9,
-    combineFilters: false,
-    multipleActresses: false
-  })
+  const [params, setParams] = useState(initialParams)
+
+  useEffect(() => {
+    setParams(initialParams)
+  }, [collection])
 
   const { value: settings } = useAsync(
     () => getGalleryInitialSettings(collection),
@@ -46,7 +58,7 @@ export const GalleryProvider = ({ children }) => {
     }),
     multipleActresses: params.multipleActresses.toString(),
     ...(selectedTags?.length > 0 && { tags: selectedTags }),
-    hideUnderage: user?.hideUnderage?.toString() || 'true',
+    hideUnderage: hideUnderage?.toString() || 'true',
     eitherOr: params.combineFilters ? 'and' : 'or'
   }
 
@@ -74,6 +86,7 @@ export const GalleryProvider = ({ children }) => {
     [
       collection,
       params,
+      hideUnderage,
       selectedActresses,
       selectedDecades,
       selectedTags,
@@ -155,7 +168,6 @@ export const GalleryProvider = ({ children }) => {
     }
   }
   const handleDecadeSelection = (decade) => {
-    console.log(decade, settings?.decades, selectedDecades)
     const exists = selectedDecades.includes(decade)
 
     if (decade === null) {
@@ -172,6 +184,10 @@ export const GalleryProvider = ({ children }) => {
       }
     }
   }
+  const handleDisplayUnderageSwitch = () => {
+    setHideUnderage((prevValue) => !prevValue)
+  }
+
   return (
     <GalleryContext.Provider
       value={{
@@ -188,6 +204,7 @@ export const GalleryProvider = ({ children }) => {
         handleDecadeSelection,
         handleCombineFilters,
         handleMultipleActresses,
+        handleDisplayUnderageSwitch,
         gallery: galleryObj?.gallery,
         galleryLength: galleryObj?.gallery?.length || 0,
         availableTags: galleryObj?.tags,
@@ -196,6 +213,7 @@ export const GalleryProvider = ({ children }) => {
         selectedTags,
         galleryServiceError,
         galleryIsLoading,
+        hideUnderage,
         ...params
       }}
     >

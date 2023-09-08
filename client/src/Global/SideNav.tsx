@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Divider,
   Drawer,
@@ -113,31 +113,24 @@ const SideNav = ({
     handleVidsPerPageChange,
     handleActressSelection,
     handleDecadeSelection,
+    handleDisplayUnderageSwitch,
+    hideUnderage,
     sortBy,
     yearAsc,
     addedAsc,
     selectedActresses,
     selectedDecades,
     numOfVidsPerPage,
+    handleDisplayAdminSwitch,
     galleryLength
   } = useGalleryContext()
 
   const navigate = useNavigate()
-  const {
-    user,
-    isAdmin,
-    handleLogout,
-    displayAdminControls,
-    handleDisplayAdminSwitch,
-    dispatch
-  } = useAuthContext()
+  const { user, isAdmin, handleLogout, displayAdminControls, dispatch } =
+    useAuthContext()
 
   const updateUserSettingsFn = useAsyncFn(updateUserSettings)
 
-  const hideUnderage =
-    !isEmpty(user) && Object.hasOwn(user, 'hideUnderage')
-      ? user?.hideUnderage
-      : true
   const [isSortOpen, setIsSortOpen] = useState(false)
   const [isDecadeOpen, setIsDecadeOpen] = useState(false)
   const [isActressOpen, setIsActressOpen] = useState(false)
@@ -154,9 +147,11 @@ const SideNav = ({
     handleClose()
   }
 
-  const updateHideUnderage = () => {
-    onUserSettingsUpdate({ hideUnderage: !hideUnderage })
-  }
+  useEffect(() => {
+    if (!isEmpty(user)) {
+      onUserSettingsUpdate({ hideUnderage })
+    }
+  }, [hideUnderage])
 
   const onUserSettingsUpdate = (param: UserSetting) => {
     return updateUserSettingsFn
@@ -244,7 +239,7 @@ const SideNav = ({
               <SwitchComponent
                 left="Yes"
                 right="18+ Only"
-                call={updateHideUnderage}
+                call={handleDisplayUnderageSwitch}
                 checked={hideUnderage}
               />
             </ListItemText>

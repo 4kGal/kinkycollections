@@ -180,7 +180,9 @@ const Header = () => {
               // ml: onLoginPage ? 'initial' : '17%'
             }}
           >
-            <Link to="/">Kinky Collection</Link>
+            <Link to="/" data-cy="header-home-link">
+              Kinky Collection
+            </Link>
           </Typography>
           {!onLoginPage && (
             <Search>
