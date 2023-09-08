@@ -47,7 +47,7 @@ router.get("/", async (req, res) => {
 
       if (
         isArray(actresses) &&
-        actresses?.find((actress) => actress.includes(searchTerm))
+        actresses?.find((actress) => actress.toLowerCase().includes(searchTerm))
       ) {
         return video;
       }

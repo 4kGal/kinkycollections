@@ -29,7 +29,7 @@ import { debounce } from 'lodash'
 import { useAsyncFn } from '../hooks/useAsync'
 import { getSearchResults } from '../services/videos'
 import { type MetaData } from '../Shared/types'
-import { useAuthContext } from '../hooks'
+import { useGalleryContext } from '../hooks'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -75,7 +75,7 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [previousPage, setPreviousPage] = useState('')
 
-  const { user } = useAuthContext()
+  const { hideUnderage } = useGalleryContext()
   const getSearchResultsFn = useAsyncFn(getSearchResults)
   const menuOpen = Boolean(anchorEl)
 
@@ -116,7 +116,7 @@ const Header = () => {
       .execute({
         searchTerm,
         collection,
-        hideUnderage: user?.hideUnderage?.toString() || 'true'
+        hideUnderage: hideUnderage?.toString() || 'true'
       })
       .then((searchResults: MetaData[]) => {
         if (!onSearchPage && previousPage !== location.pathname) {

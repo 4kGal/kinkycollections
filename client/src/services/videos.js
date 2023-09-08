@@ -15,8 +15,8 @@ export const getGallery = (collection, queryStr) => {
   return makeRequest(`/api/search/filter/${collection}?${queryStr}`)
 }
 
-export const getSearchResults = ({ collection, searchTerm }) => {
-  let queryString = `?searchTerm=${searchTerm}`
+export const getSearchResults = ({ collection, searchTerm, hideUnderage }) => {
+  let queryString = `?searchTerm=${searchTerm}&hideUnderage=${hideUnderage}`
   if (collection.length > 1) {
     queryString += `&collection=${collection}`
   }
