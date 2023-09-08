@@ -58,7 +58,8 @@ router.get("/:collection/settings", async (req, res) => {
     )
     .flat()
     .sort((a, b) => {
-      if (typeof a?.actress !== "string") return -1;
+      if (typeof a?.actress !== "string" || typeof b?.actress !== "string")
+        return -1;
       let fa = a.actress.toLowerCase(),
         fb = b.actress.toLowerCase();
 
