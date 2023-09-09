@@ -45,6 +45,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [isVisibilityOn, setIsVisibilityOn] = useState(false)
 
   const updateEmailPage = state?.updateEmail
@@ -75,6 +76,7 @@ const Login = () => {
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
+    setErrorMessage('')
     e.preventDefault()
 
     if (updateEmailPage) {
@@ -91,6 +93,7 @@ const Login = () => {
           navigate('/')
           dispatch({ type: LOGIN, payload: res })
         })
+        .catch((e: Error) => setErrorMessage(e?.message))
     }
   }
 
@@ -279,6 +282,13 @@ const Login = () => {
                 </Grid>
               </Grid> */}
           <Grid container mb={7} alignItems="center" justifyContent="center">
+            {errorMessage.length > 0 && (
+              <Grid item xs={12}>
+                <Typography color="error" mt={2} align="center">
+                  {errorMessage}
+                </Typography>
+              </Grid>
+            )}
             <Grid item xs={10} mt={4}>
               <Button
                 onClick={handleSubmit}

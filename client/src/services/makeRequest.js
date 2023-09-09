@@ -9,7 +9,13 @@ const api = axios.create({
 export async function makeRequest(url, options) {
   return api(url, options)
     .then((res) => res.data)
-    .catch((error) =>
-      Promise.reject(new Error(`${error?.message}: ${error?.code}`))
-    )
+    .catch((error) => {
+      if (error?.response?.data?.error) {
+        console.log(error?.response?.data?.error)
+
+        return Promise.reject(new Error(error?.response?.data?.error))
+      } else {
+        return Promise.reject(new Error(`${error?.message}: ${error?.code}`))
+      }
+    })
 }

@@ -19,11 +19,9 @@ import SwitchComponent from '../Shared/SwitchComponent/SwitchComponent'
 import { useAuthContext, useGalleryContext } from '../hooks'
 import { useNavigate, useLocation } from 'react-router-dom'
 import {
-  AMATEUR_BB_URL,
   FAVORITES_URL,
   GALLERY_PAGES,
   LOGIN_URL,
-  MAINSTREAM_BB_URL,
   UPDATE_USER
 } from '../utils/constants'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
