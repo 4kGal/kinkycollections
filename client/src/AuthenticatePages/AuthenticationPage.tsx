@@ -284,7 +284,12 @@ const Login = () => {
           <Grid container mb={7} alignItems="center" justifyContent="center">
             {errorMessage.length > 0 && (
               <Grid item xs={12}>
-                <Typography color="error" mt={2} align="center">
+                <Typography
+                  color="error"
+                  mt={2}
+                  align="center"
+                  data-cy="error-message"
+                >
                   {errorMessage}
                 </Typography>
               </Grid>

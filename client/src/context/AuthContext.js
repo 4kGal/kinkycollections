@@ -28,7 +28,8 @@ export const authReducer = (state = initialState, action) => {
         },
         isAdmin:
           !isEmpty(localStorage.getItem('user')) &&
-          localStorage.getItem('user') !== 'null'
+          localStorage.getItem('user') !== 'null' &&
+          action.payload?.userRoles?.length > 0
             ? jwtDecode(action.payload?.userRoles)?.Role === 'Admin' &&
               action.payload?.userRoles === process.env.REACT_APP_ADMIN_TOKEN
             : false

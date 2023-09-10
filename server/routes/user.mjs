@@ -70,14 +70,23 @@ router.post("/signup", async (req, res) => {
       email: email?.toLowerCase(),
       password: hash,
       username: username.toLowerCase(),
+      favorites: [],
+      comments: [],
+      likes: [],
+      hideUnderage: true,
     });
 
     const token = createToken(user._id);
+
     res.status(200).json({
-      username: user.username,
+      username,
       token,
-      email: user.email,
-      userRoles: user?.userRoles.Role,
+      favorites: [],
+      comments: [],
+      likes: [],
+      hideUnderage: true,
+      email: email?.toLowerCase(),
+      userRoles: "",
     });
   } catch (error) {
     console.error(error.message);

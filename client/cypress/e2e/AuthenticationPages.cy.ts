@@ -55,4 +55,32 @@ describe('Authentication Pages', () => {
     cy.dataCy('password-field').should('be.empty')
   })
   // it('skips')
+  it('shows error message when there is a 400 response', () => {
+    cy.intercept('POST', '/api/user/signup', { statusCode: 400 }).as(
+      'fourhundredError'
+    )
+    cy.get('u').click()
+    cy.dataCy('error-message').should('not.exist')
+    cy.dataCy('username-field').type('4kgal')
+    cy.dataCy('password-field').type('Tanner22!')
+
+    cy.dataCy('submit-button').click()
+    cy.wait('@fourhundredError')
+
+    cy.dataCy('error-message')
+  })
+  it('shows error message when there is a 400 response', () => {
+    cy.intercept('POST', '/api/user/signup', { statusCode: 500 }).as(
+      'getServerFailure'
+    )
+    cy.get('u').click()
+    cy.dataCy('error-message').should('not.exist')
+    cy.dataCy('username-field').type('4kgal')
+    cy.dataCy('password-field').type('Tanner22!')
+
+    cy.dataCy('submit-button').click()
+    cy.wait('@getServerFailure')
+
+    cy.dataCy('error-message')
+  })
 })
