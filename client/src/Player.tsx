@@ -10,6 +10,7 @@ import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
 import { useAuthContext, usePlayerContext } from './hooks'
 import { isEmpty } from 'lodash'
+import SwitchComponent from './Shared/SwitchComponent/SwitchComponent'
 
 const StyledDivContainer = styled('div')({
   position: 'relative',
@@ -31,7 +32,7 @@ const StyledIframe = styled('iframe')({
 })
 const Player = () => {
   const { user } = useAuthContext()
-  const { video, rootComments, sort, setSort, refreshLocalComments } =
+  const { video, rootComments, sort, handleSetSort, refreshLocalComments } =
     usePlayerContext()
   const { loading, error, execute: createCommentFn } = useAsyncFn(createComment)
 
@@ -98,17 +99,14 @@ const Player = () => {
                 isDisabled={isEmpty(user)}
               />
             </Grid>
-            <Grid item xs={2}>
-              <Typography variant="caption" color="white">
-                Newest
-              </Typography>
-              <Switch
+            <Grid item xs={3}>
+              <SwitchComponent
+                left="Newest"
+                right="Most Liked"
+                call={handleSetSort}
                 checked={sort}
-                onChange={({ target }) => setSort(target.checked)}
+                color="white"
               />
-              <Typography variant="caption" color="white">
-                Most Liked
-              </Typography>
             </Grid>
           </Grid>
           {rootComments !== null && rootComments?.length > 0 && (

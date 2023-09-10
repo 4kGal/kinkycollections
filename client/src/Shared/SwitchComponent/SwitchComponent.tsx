@@ -6,16 +6,27 @@ interface SComponent {
   right: string
   call: (checked: boolean) => void
   checked: boolean
+  color?: string
 }
-const SwitchComponent = ({ left, right, call, checked }: SComponent) => {
+const SwitchComponent = ({
+  left,
+  right,
+  call,
+  checked,
+  color = 'primary'
+}: SComponent) => {
   return (
     <span style={{ paddingLeft: 20 }}>
-      <Typography variant="caption">{left}</Typography>
+      <Typography variant="caption" color={color}>
+        {left}
+      </Typography>
       <Switch
         checked={checked}
         onChange={({ target }) => call(target.checked)}
       />
-      <Typography variant="caption">{right}</Typography>
+      <Typography variant="caption" color={color}>
+        {right}
+      </Typography>
     </span>
   )
 }

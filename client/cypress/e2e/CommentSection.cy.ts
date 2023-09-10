@@ -1,5 +1,75 @@
 import { getUser, ADMIN_USER } from '../support/constants'
 
+const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  dateStyle: 'medium',
+  timeStyle: 'short'
+})
+
+const comments = [
+  {
+    id: 'commentId_1',
+    message: 'OMG I love this so much!!',
+    parentId: null,
+    createdAt: '2023-07-15T22:20:17.336',
+    likes: [
+      'user1',
+      'user2',
+      'user3',
+      'user4',
+      'user5',
+      'user5',
+      'loggedInUser'
+    ],
+    user: {
+      id: 'userId_1',
+      username: 'JimBobUser'
+    }
+  },
+  {
+    id: 'commentId_2',
+    message: 'Wish she did this to me!',
+    parentId: 'commentId_1',
+    createdAt: '2023-08-17T12:10:17.336',
+    likes: ['user3', 'user4', 'user5'],
+    user: {
+      id: 'userId_2',
+      username: 'CorkyRomanoUser'
+    }
+  },
+  {
+    id: 'commentId_3',
+    message: 'Same! Cheers from Iraq',
+    parentId: 'commentId_2',
+    createdAt: '2023-08-18T11:10:17.336',
+    likes: ['user1', 'user3', 'user5', 'loggedInUser'],
+    user: {
+      id: 'userId_3',
+      username: 'SlappHappyUser'
+    }
+  },
+  {
+    id: 'commentId_4',
+    message: 'Frick yeah!',
+    parentId: 'commentId_2',
+    createdAt: '2023-08-19T11:10:17.336',
+    likes: [],
+    user: {
+      id: 'userId_1',
+      username: 'JimBobUser'
+    }
+  },
+  {
+    id: 'commentId_5',
+    message: 'Good googily moogily',
+    parentId: null,
+    createdAt: '2023-08-12T11:10:17.336',
+    likes: ['user5'],
+    user: {
+      id: 'loggedInUser',
+      username: 'loggedInUser'
+    }
+  }
+]
 describe('Comments', () => {
   beforeEach(() => {
     cy.intercept(
@@ -8,72 +78,26 @@ describe('Comments', () => {
       {
         name: "Zoe Saldana Stomps on a Man's Balls Numerous Times in Special Ops Lioness 1x4",
         videoId: 'this-is-the-video-id',
-        comments: [
-          {
-            id: 'commentId_1',
-            message: 'OMG I love this so much!!',
-            parentId: null,
-            createdAt: '2023-07-15T22:20:17.336',
-            likes: [
-              'user1',
-              'user2',
-              'user3',
-              'user4',
-              'user5',
-              'user5',
-              'loggedInUser'
-            ],
-            user: {
-              id: 'userId_1',
-              username: 'JimBobUser'
-            }
-          },
-          {
-            id: 'commentId_2',
-            message: 'Wish she did this to me!',
-            parentId: 'commentId_1',
-            createdAt: '2023-08-17T12:10:17.336',
-            likes: ['user3', 'user4', 'user5'],
-            user: {
-              id: 'userId_2',
-              username: 'CorkyRomanoUser'
-            }
-          },
-          {
-            id: 'commentId_3',
-            message: 'Same! Cheers from Iraq',
-            parentId: 'commentId_2',
-            createdAt: '2023-08-18T11:10:17.336',
-            likes: ['user1', 'user3', 'user5', 'loggedInUser'],
-            user: {
-              id: 'userId_3',
-              username: 'SlappHappyUser'
-            }
-          },
-          {
-            id: 'commentId_4',
-            message: 'Frick yeah!',
-            parentId: 'commentId_2',
-            createdAt: '2023-08-19T11:10:17.336',
-            likes: [],
-            user: {
-              id: 'userId_1',
-              username: 'JimBobUser'
-            }
-          },
-          {
-            id: 'commentId_5',
-            message: 'Good googily moogily',
-            parentId: null,
-            createdAt: '2023-08-12T11:10:17.336',
-            likes: ['user5'],
-            user: {
-              id: 'loggedInUser',
-              username: 'loggedInUser'
-            }
-          }
-        ]
+        comments
       }
+    )
+    cy.intercept(
+      'POST',
+      '/api/videos/mainstreambb/64e114c534a31da16451d59d/comment',
+      [
+        ...comments,
+        {
+          id: '64fdfb6b23af9b7bc401ceec',
+          parentId: null,
+          message: 'here is a new comment',
+          createdAt: new Date().toISOString(),
+          likes: [],
+          user: {
+            id: 'loggedInUser',
+            username: 'loggedInUser'
+          }
+        }
+      ]
     )
   })
   it('comments displayed when a user is logged in and has comments', () => {
@@ -142,4 +166,29 @@ describe('Comments', () => {
     cy.dataCy('new-comment-text-area').should('have.class', 'Mui-disabled')
     cy.dataCy('new-comment-submit-btn').should('have.class', 'Mui-disabled')
   })
+  it.only('user can add comments', () => {
+    cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser({ username: 'loggedInUser' }))
+      }
+    })
+    cy.dataCy('new-comment-submit-btn').should('be.disabled')
+    cy.dataCy('new-comment-text-area').type('here is a new comment')
+    cy.dataCy('new-comment-submit-btn').should('not.be.disabled')
+
+    cy.dataCy('new-comment-submit-btn').click()
+    cy.dataCy('root-comment-0').within(() => {
+      cy.contains('loggedInUser')
+      cy.contains(dateFormatter.format(new Date()))
+      cy.contains('here is a new comment')
+    })
+
+    cy.get('.MuiSwitch-root').within(() => {
+      cy.get('input').click({ force: true })
+    })
+
+    // There was a bug that sorting was hidding newly added comment
+    cy.contains('here is a new comment')
+  })
+  // it('handles errors')
 })
