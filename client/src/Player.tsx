@@ -4,7 +4,7 @@
 
 import { Divider, Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
-import React from 'react'
+import React, { useState } from 'react'
 import { CommentList, CommentForm } from './Comments'
 import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
@@ -45,7 +45,9 @@ const Player = () => {
       user: {
         username: user.username
       }
-    }).then(refreshLocalComments)
+    })
+      .then(refreshLocalComments)
+      .catch(console.error)
   }
 
   return (
@@ -109,9 +111,11 @@ const Player = () => {
               />
             </Grid>
           </Grid>
-          {rootComments !== null && rootComments?.length > 0 && (
-            <CommentList comments={rootComments} />
-          )}
+          <Grid pb={10}>
+            {rootComments !== null && rootComments?.length > 0 && (
+              <CommentList comments={rootComments} />
+            )}
+          </Grid>
         </Grid>
       </StyledDivContainer>
     </Grid>

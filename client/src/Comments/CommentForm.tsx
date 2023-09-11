@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 
 interface CommentFormProp {
   loading: boolean
-  error: string | undefined
+  error: Error | undefined
   onSubmit: (message: string) => Promise<string>
   autoFocus: boolean
   initialValue: string
@@ -72,7 +72,11 @@ const CommentForm = ({
           </Button>
         </Grid>
       </Grid>
-      <div>{error}</div>
+      {error?.message && error?.message?.length > 0 && (
+        <Typography mt={2} color="error" data-cy="error-message">
+          {error?.message}
+        </Typography>
+      )}
     </>
   )
 }

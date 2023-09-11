@@ -50,7 +50,7 @@ export const PlayerProvider = ({ children }) => {
   return (
     <PlayerContext.Provider
       value={{
-        video: { _id, collection, ...video }, // do i need to return all this?
+        video: { _id, collection, ...video },
         getReplies,
         rootComments: commentsByParentId.null,
         refreshLocalComments,

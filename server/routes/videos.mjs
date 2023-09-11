@@ -353,7 +353,7 @@ router.put("/:collection/:id/comment/likes/:commentId", async (req, res) => {
     .collection("users")
     .findOne({ username: username.toLowerCase() });
 
-  if (user.username !== userResp.username) {
+  if (user.username !== userResp?.username) {
     res
       .send({ error: "You do not have permission to like this comment" })
       .status(401);
