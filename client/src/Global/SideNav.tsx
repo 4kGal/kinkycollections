@@ -146,7 +146,7 @@ const SideNav = ({
   }
 
   useEffect(() => {
-    if (!isEmpty(user)) {
+    if (!isEmpty(user) && user?.hideUnderage !== hideUnderage) {
       onUserSettingsUpdate({ hideUnderage })
     }
   }, [hideUnderage])

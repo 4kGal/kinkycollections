@@ -20,7 +20,7 @@ export const GalleryProvider = ({ children }) => {
   const collection = location.pathname.replace('/', '')
 
   const { user } = useAuthContext()
-  const [hideUnderage, setHideUnderage] = useState(false)
+  const [hideUnderage, setHideUnderage] = useState(true)
 
   const [gallery, setGallery] = useState([])
   const [selectedActresses, setSelectedActresses] = useState([])

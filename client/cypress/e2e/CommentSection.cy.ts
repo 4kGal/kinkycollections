@@ -385,7 +385,17 @@ describe('Comments', () => {
       cy.intercept(
         'GET',
         '/api/videos/mainstreambb/64e114c534a31da16451d59d/data',
-        { statusCode: 500 }
+        {
+          name: "Zoe Saldana Stomps on a Man's Balls Numerous Times in Special Ops Lioness 1x4",
+          videoId: 'this-is-the-video-id'
+        }
+      )
+      cy.intercept(
+        'POST',
+        '/api/videos/mainstreambb/64e114c534a31da16451d59d/comment',
+        {
+          statusCode: 500
+        }
       )
       cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
         onBeforeLoad(win) {

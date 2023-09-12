@@ -13,6 +13,7 @@ describe('Nav Bar', () => {
       getMainstreambb.gallery[0],
       getMainstreambb.gallery[1]
     ])
+
     cy.intercept('GET', '/api/search/filter/mainstreambb?&*', getMainstreambb)
   })
   it('shows admin control switch if admin is logged in', () => {
@@ -25,12 +26,23 @@ describe('Nav Bar', () => {
     cy.contains('Display Admin Controls')
   })
   it('does not show admin control switch if user is not an admin', () => {
-    cy.visit('/mainstreambb', {
+    cy.intercept('PUT', '/api/user/update', getUser(NON_ADMIN_USER))
+
+    cy.visit('/', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser(NON_ADMIN_USER))
       }
     })
     cy.dataCy('open-nav-drawer').click()
+    cy.dataCy('signout-menu-item').click({ force: true })
+
+    cy.contains('Display Admin Controls').should('not.exist')
+
+    cy.visit('/mainstreambb')
+    cy.dataCy('open-nav-drawer').click()
+    cy.visit('/login')
+    cy.dataCy('open-nav-drawer').click()
+    cy.contains('Display Admin Controls').should('not.exist')
     cy.contains('Display Admin Controls').should('not.exist')
   })
   it('update email if no email present', () => {
@@ -255,6 +267,7 @@ describe('Nav Bar', () => {
     )
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
+        win.localStorage.removeItem('user')
         win.localStorage.setItem('user', null)
       }
     })

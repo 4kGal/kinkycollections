@@ -16,7 +16,7 @@ describe('Filter Buttons', () => {
 
     cy.intercept(
       'GET',
-      '/api/search/filter/mainstreambb?&hideUnderage=true*',
+      '/api/search/filter/mainstreambb?&multipleActresses=false&hideUnderage=true*',
       getMainstreambb
     )
 
@@ -368,7 +368,7 @@ describe('Filter Buttons', () => {
   it('filter filters correctly', () => {
     cy.get('[class$="MuiChip-root"]').should(
       'have.length',
-      getMainstreambb.tags.length
+      getMainstreambb.tags.length + 1 // plus because multiple actresses filter
     )
     cy.dataCy('tag-chip-squeeze-true').should('not.exist')
     cy.dataCy('tag-chip-kick-true').should('not.exist')
@@ -389,7 +389,7 @@ describe('Filter Buttons', () => {
     cy.dataCy('open-nav-drawer').click()
     cy.dataCy('filter-decade-menu-item').click()
     cy.dataCy('decade-1').click({ force: true })
-    cy.get('[class$="MuiChip-root"]').should('have.length', 9)
+    cy.get('[class$="MuiChip-root"]').should('have.length', 10)
 
     cy.dataCy('filter-actress-menu-item').click()
     cy.dataCy('actress-name-0').click({ force: true })

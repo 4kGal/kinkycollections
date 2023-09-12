@@ -47,7 +47,7 @@ const Player = () => {
       }
     })
       .then(refreshLocalComments)
-      .catch(console.error)
+      .catch(console.log)
   }
 
   return (

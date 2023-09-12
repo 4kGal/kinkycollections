@@ -35,7 +35,7 @@ export const authReducer = (state = initialState, action) => {
             : false
       }
     case LOGOUT:
-      return { ...state, user: null }
+      return { ...state, user: null, isAdmin: false }
     default:
       return state
   }

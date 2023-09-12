@@ -130,6 +130,7 @@ const Comment = ({
         setIsEditing(false)
         refreshLocalComments(comment)
       })
+      .catch(console.error)
   }
 
   const onCommentDelete = () => {
