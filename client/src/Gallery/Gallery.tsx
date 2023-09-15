@@ -29,6 +29,16 @@ const Gallery = ({ collection }: { collection: string }) => {
     setPage(0)
   }, [numOfVidsPerPage, gallery, collection])
 
+  useEffect(() => {
+    if (
+      multipleActresses &&
+      gallery?.filter((video: MetaData) => (video?.actresses ?? []).length > 1)
+        .length <= 1
+    ) {
+      handleMultipleActresses()
+    }
+  }, [gallery])
+
   const Cards = () => {
     const orderedGallery = gallery?.slice(
       page * parseInt(numOfVidsPerPage),

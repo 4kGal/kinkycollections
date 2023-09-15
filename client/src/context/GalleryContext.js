@@ -37,6 +37,9 @@ export const GalleryProvider = ({ children }) => {
 
   useEffect(() => {
     setParams(initialParams)
+    setSelectedActresses([])
+    setSelectedTags([])
+    setSelectedDecades([])
   }, [collection])
 
   const { value: settings } = useAsync(
