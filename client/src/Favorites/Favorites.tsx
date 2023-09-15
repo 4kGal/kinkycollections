@@ -24,7 +24,7 @@ const Favorites = () => {
 
   return (
     <Grid container alignItems="center" justifyContent="center">
-      {favorites?.map((video, i) => <Card key={i} video={video} />)}
+      {favorites?.map((video, i) => <Card key={i} video={video} index={i} />)}
     </Grid>
   )
 }

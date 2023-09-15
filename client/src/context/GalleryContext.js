@@ -99,6 +99,12 @@ export const GalleryProvider = ({ children }) => {
     ]
   )
 
+  useEffect(() => {
+    if (galleryObj?.gallery !== gallery) {
+      setGallery(galleryObj?.gallery)
+    }
+  }, [galleryObj?.gallery])
+
   const handleSetSortBy = (newSortBy) => {
     setParams({
       ...params,
@@ -135,6 +141,7 @@ export const GalleryProvider = ({ children }) => {
 
   const handleRandomize = () => {
     const dupGallery = [...gallery]
+    console.log(dupGallery)
     setGallery(dupGallery.sort(() => Math.random() - 0.5))
   }
 
@@ -209,7 +216,7 @@ export const GalleryProvider = ({ children }) => {
         handleCombineFilters,
         handleMultipleActresses,
         handleDisplayUnderageSwitch,
-        gallery: galleryObj?.gallery,
+        gallery,
         galleryLength: galleryObj?.gallery?.length || 0,
         availableTags: galleryObj?.tags,
         selectedActresses,

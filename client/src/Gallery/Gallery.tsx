@@ -49,6 +49,7 @@ const Gallery = ({ collection }: { collection: string }) => {
         key={index}
         collection={collection}
         video={video}
+        index={index}
         setSelectedTags={handleTagSelection}
         setCustomTags={handleActressSelection}
       />

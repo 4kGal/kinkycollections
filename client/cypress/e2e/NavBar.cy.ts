@@ -281,4 +281,20 @@ describe('Nav Bar', () => {
     })
     cy.dataCy(`card-${getMainstreambb.gallery[3]._id}`)
   })
+  it('randomizes videos', () => {
+    cy.visit('/mainstreambb', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', null)
+      }
+    })
+    cy.dataCy('card-index-0').within(() => {
+      cy.contains(getMainstreambb.gallery[0].name)
+    })
+    cy.dataCy('open-nav-drawer').click()
+
+    cy.dataCy('sort-button-randomize').click()
+    cy.dataCy('card-index-0').within(() => {
+      cy.contains(getMainstreambb.gallery[0].name).should('not.exist')
+    })
+  })
 })

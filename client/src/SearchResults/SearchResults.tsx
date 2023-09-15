@@ -12,7 +12,7 @@ const SearchResults = () => {
   return (
     <Grid container alignItems="center" justifyContent="center">
       {searchResults?.map((video: MetaData, index: number) => (
-        <Card key={index} video={video} />
+        <Card key={index} video={video} index={index} />
       ))}{' '}
     </Grid>
   )

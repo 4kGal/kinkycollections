@@ -32,6 +32,7 @@ interface Video {
   video: MetaData
   setCustomTags?: (tag: string) => void
   setSelectedTags?: (tag: string) => void
+  index: number
 }
 
 const StyledCardGrid = styled(Grid)({
@@ -88,7 +89,7 @@ const KEYS = [
   'customName'
 ]
 
-const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
+const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
   const updateFavoritesFn = useAsyncFn(updateFavorites)
   const updateVideoAdminFn = useAsyncFn(updateVideoAdmin)
   const deleteVideoAdminFn = useAsyncFn(deleteVideoAdmin)
@@ -180,7 +181,7 @@ const Card = ({ video, setSelectedTags, setCustomTags }: Video) => {
         }}
         invisible={!isNew}
       >
-        <StyledGrid container>
+        <StyledGrid container data-cy={`card-index-${index}`}>
           <Link
             to={`/player/${apiCollection}/${_id}`}
             style={{
