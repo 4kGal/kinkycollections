@@ -1,7 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Grid } from '@mui/material'
-import mainstreambbbIcon from '../assets/images/mainstreambb_folder.png'
+import mainstreambbIcon from '../assets/images/mainstreambb_folder.png'
+import mainstreambcbIcon from '../assets/images/mainstreamcb_folder.png'
+import amateurbbIcon from '../assets/images/amateurbb_folder.png'
+import amateurcbIcon from '../assets/images/amateurcb_folder.png'
+import mainstreampeIcon from '../assets/images/mainstreampe_folder.png'
+import mainstreammiscIcon from '../assets/images/mainstreammisc_folder.png'
 import comingsoonIcon from '../assets/images/comingsoon_folder.png'
 import { styled } from '@mui/system'
 import {
@@ -27,7 +32,7 @@ const StyledLabel = styled('label')({
 const Folders = [
   {
     link: MAINSTREAM_BB_URL,
-    src: mainstreambbbIcon,
+    src: mainstreambbIcon,
     alt: 'mainstream ballbusting',
     label: 'Mainstream Ballbusting',
     disabled: false,
@@ -35,7 +40,7 @@ const Folders = [
   },
   {
     link: AMATEUR_BB_URL,
-    src: mainstreambbbIcon,
+    src: amateurbbIcon,
     alt: 'nutshots in real life',
     label: 'Nutshots IRL',
     disabled: false,
@@ -43,7 +48,7 @@ const Folders = [
   },
   {
     link: MAINSTREAM_CB_URL,
-    src: mainstreambbbIcon,
+    src: mainstreambcbIcon,
     alt: 'mainstream cuntbusting',
     label: 'Mainstream Cuntbusting',
     disabled: false,
@@ -51,7 +56,7 @@ const Folders = [
   },
   {
     link: AMATEUR_CB_URL,
-    src: mainstreambbbIcon,
+    src: amateurcbIcon,
     alt: 'cuntbusting in real life',
     label: 'Amateur Cuntbusting',
     disabled: false,
@@ -59,7 +64,7 @@ const Folders = [
   },
   {
     link: MAINSTREAM_PE_URL,
-    src: mainstreambbbIcon,
+    src: mainstreampeIcon,
     alt: 'mainstream premature ejaculation',
     label: 'Mainstream Premature Ejaculation',
     disabled: false,
@@ -67,7 +72,7 @@ const Folders = [
   },
   {
     link: MAINSTREAM_MISC_URL,
-    src: mainstreambbbIcon,
+    src: mainstreammiscIcon,
     alt: 'mainstream miscellaneous',
     label: 'Mainstream Miscellaneous [i.e. boners, sph, etc]',
     disabled: false,
