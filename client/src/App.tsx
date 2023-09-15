@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Gallery from './Gallery/Gallery'
 import Player from './Player'
+import ChangeLogFutureUpdates from './ChangeLogFutureUpdates/ChangeLogFutureUpdates'
 import './App.css'
 import Layout from './Layout'
 import Home from './Home/Home'
@@ -15,6 +16,8 @@ import {
   AMATEUR_BB_URL,
   AMATEUR_CB_COLLECTION,
   AMATEUR_CB_URL,
+  CHANGE_LOG_FUTURE_UPDATES_URL,
+  FAVORITES_URL,
   MAINSTREAM_BB_COLLECTION,
   MAINSTREAM_BB_URL,
   MAINSTREAM_CB_COLLECTION,
@@ -22,7 +25,8 @@ import {
   MAINSTREAM_MISC_COLLECTION,
   MAINSTREAM_MISC_URL,
   MAINSTREAM_PE_COLLECTION,
-  MAINSTREAM_PE_URL
+  MAINSTREAM_PE_URL,
+  SEARCH_RESULTS_URL
 } from './utils/constants'
 const App = () => {
   return (
@@ -64,8 +68,12 @@ const App = () => {
                 </PlayerProvider>
               }
             />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/searchResults" element={<SearchResults />} />
+            <Route path={FAVORITES_URL} element={<Favorites />} />
+            <Route path={SEARCH_RESULTS_URL} element={<SearchResults />} />
+            <Route
+              path={CHANGE_LOG_FUTURE_UPDATES_URL}
+              element={<ChangeLogFutureUpdates />}
+            />
           </Routes>
         </Layout>
       </GalleryProvider>

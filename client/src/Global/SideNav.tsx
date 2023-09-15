@@ -22,7 +22,8 @@ import {
   FAVORITES_URL,
   GALLERY_PAGES,
   LOGIN_URL,
-  UPDATE_USER
+  UPDATE_USER,
+  CHANGE_LOG_FUTURE_UPDATES_URL
 } from '../utils/constants'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
 import { updateUserSettings } from '../services/user'
@@ -50,6 +51,15 @@ const StyledListItemButton = styled(ListItemButton)({
   '&.Mui-selected': {
     backgroundColor: 'rgba(25, 118, 210, 0.20)'
   }
+})
+
+const ChangeLogListItem = styled(ListItem)({
+  position: 'fixed',
+  bottom: 10,
+  height: '48px',
+  borderWidth: 'thin 0px',
+  borderStyle: 'solid',
+  borderColor: 'rgba(0, 0, 0, 0.12)'
 })
 
 function renderActressRow(props: ListChildComponentProps) {
@@ -178,6 +188,9 @@ const SideNav = ({
     handleClose()
   }
 
+  const visitChangeLogPage = () => {
+    navigate(CHANGE_LOG_FUTURE_UPDATES_URL)
+  }
   let startingYear = Math.floor(minDecade / 10) * 10
   const decades = [startingYear]
   do {
@@ -411,6 +424,15 @@ const SideNav = ({
             </ListItemButton>
           </ListItem>
         )}
+        <Divider />
+        <ChangeLogListItem>
+          <ListItemButton
+            onClick={visitChangeLogPage}
+            data-cy="signout-menu-item"
+          >
+            <ListItemText primary="ChangeLog & Future Updates" />
+          </ListItemButton>
+        </ChangeLogListItem>
       </List>
     </Drawer>
   )

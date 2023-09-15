@@ -36,6 +36,6 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const LOGOUT = 'LOGOUT'
 export const LOGIN = 'LOGIN'
 export const LOGIN_URL = '/login'
-
+export const CHANGE_LOG_FUTURE_UPDATES_URL = '/changelog'
 export const SEARCH_RESULTS_URL = '/searchResults'
 export const FAVORITES_URL = '/favorites'
