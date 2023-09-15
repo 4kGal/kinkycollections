@@ -46,6 +46,12 @@ const ListItemWithDivider = styled(ListItem)({
   borderColor: 'rgba(0, 0, 0, 0.12)'
 })
 
+const StyledListItemButton = styled(ListItemButton)({
+  '&.Mui-selected': {
+    backgroundColor: 'rgba(25, 118, 210, 0.20)'
+  }
+})
+
 function renderActressRow(props: ListChildComponentProps) {
   const { index, data, style } = props
   const { availableActresses, handleActressSelection, selectedActresses } = data
@@ -53,14 +59,14 @@ function renderActressRow(props: ListChildComponentProps) {
   const current = availableActresses[index]
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton
+      <StyledListItemButton
         onClick={() => handleActressSelection(current.actress)}
         selected={selectedActresses?.includes(current.actress)}
         data-cy={`actress-name-${index}`}
       >
         <ListItemText primary={current.actress} />
         <br />
-      </ListItemButton>
+      </StyledListItemButton>
     </ListItem>
   )
 }
@@ -73,7 +79,7 @@ function renderDecadeRow(props: ListChildComponentProps) {
 
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton
+      <StyledListItemButton
         onClick={() => handleDecadeSelection(keys[0])}
         selected={selectedDecades.includes(keys[0])}
         data-cy={`decade-${index}`}
@@ -86,7 +92,7 @@ function renderDecadeRow(props: ListChildComponentProps) {
             </Typography>
           </Typography>
         </ListItemText>
-      </ListItemButton>
+      </StyledListItemButton>
     </ListItem>
   )
 }
