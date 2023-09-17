@@ -10,6 +10,7 @@ import path from "path";
 import pkg from "lodash";
 const { isEmpty } = pkg;
 import fetch from "node-fetch";
+import jwt from "jsonwebtoken";
 
 const __dirname = path.resolve();
 
@@ -399,26 +400,43 @@ router.put("/:collection/:id/comment/likes/:commentId", async (req, res) => {
 
 router.put("/:collection/:id/update", async (req, res) => {
   const { id } = req.params;
-  const { key, value: newValue } = req.body;
+  const { key, value: newValue, userRoles } = req.body;
 
-  const collection = await db.collection(req.params.collection);
+  const usr = jwt.decode(userRoles);
 
-  let update = { $set: {} };
-  update.$set[key] = newValue;
-  const { value } = await collection.findOneAndUpdate(
-    {
-      _id: new ObjectId(id),
-    },
-    update,
-    { returnOriginal: false, returnDocument: "after" }
-  );
+  try {
+    if (usr.Role !== "Admin") {
+      throw Error("Only admins can edit");
+    }
+    const collection = await db.collection(req.params.collection);
 
-  res.status(200).json(value);
+    let update = { $set: {} };
+    update.$set[key] = newValue;
+    const { value } = await collection.findOneAndUpdate(
+      {
+        _id: new ObjectId(id),
+      },
+      update,
+      { returnOriginal: false, returnDocument: "after" }
+    );
+
+    res.status(200).json(value);
+  } catch (e) {
+    res.status(400).json({
+      error: error?.message ? error?.message : `Failed to update ${error}`,
+    });
+  }
 });
 
 router.delete("/:collection/:id", async (req, res) => {
   const { id } = req.params;
+  const { userRoles } = req.body;
+  const usr = jwt.decode(userRoles);
+
   try {
+    if (usr.Role !== "Admin") {
+      throw Error("Only admins can edit");
+    }
     const collection = await db.collection(req.params.collection);
 
     const { value } = await collection.findOneAndDelete({

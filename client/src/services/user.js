@@ -41,12 +41,15 @@ export function updateVideoAdmin({ collection, _id, key, value, user }) {
     data: {
       key,
       value,
-      userRole: user.userRoles
+      userRoles: user.userRoles
     }
   })
 }
-export function deleteVideoAdmin(collection, _id) {
+export function deleteVideoAdmin(collection, _id, user) {
   return makeRequest(`/api/videos/${collection}/${_id}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    data: {
+      userRoles: user.userRoles
+    }
   })
 }

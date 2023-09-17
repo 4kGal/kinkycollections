@@ -177,12 +177,8 @@ router.put("/update", async (req, res) => {
 });
 
 router.put("/favorites", async (req, res) => {
-  const { username, favorite, userRoles } = req.body;
-  // const usr = jwt.decode(userRoles);
+  const { username, favorite } = req.body;
   try {
-    // if (usr.Role !== "Admin") {
-    //   throw Error("Only admins can edit");
-    // }
     const { value } = await db.collection("users").findOneAndUpdate(
       {
         username: username.toLowerCase(),

@@ -26,6 +26,7 @@ import {
   deleteVideoAdmin
 } from '../services/user'
 import { UPDATE_FAVORITE } from '../utils/constants'
+import { isArray } from 'lodash'
 
 interface Video {
   collection?: string
@@ -113,11 +114,9 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
     customName = '',
     actresses = [],
     videoId,
-    views
+    views,
+    tags = []
   } = video
-  const tags = (video.tags ?? []).filter(
-    (tag: string) => tag !== 'mainstream' && tag !== 'ballbusting'
-  )
 
   const isFavorited = Boolean(
     user?.favorites?.find((id: string) => id === video._id)
@@ -135,10 +134,14 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
   }
 
   const adminSubmit = (video: MetaData) => {
+    let newValue = value
+    if (isArray(video[key])) {
+      newValue = (video[key] as string[]).concat(value as string)
+    }
     updateVideoAdminFn.execute({
       collection: video.collection,
       key,
-      value,
+      value: newValue,
       _id: video._id,
       user
     })
@@ -146,7 +149,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
   }
 
   const adminDelete = (video: MetaData) => {
-    deleteVideoAdminFn.execute(video.collection, video._id)
+    deleteVideoAdminFn.execute(video.collection, video._id, user)
   }
 
   const popoverOpen = Boolean(anchorEl)
