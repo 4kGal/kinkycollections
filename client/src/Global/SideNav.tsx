@@ -135,13 +135,18 @@ const SideNav = ({
     selectedActresses,
     selectedDecades,
     numOfVidsPerPage,
-    handleDisplayAdminSwitch,
     galleryLength
   } = useGalleryContext()
 
   const navigate = useNavigate()
-  const { user, isAdmin, handleLogout, displayAdminControls, dispatch } =
-    useAuthContext()
+  const {
+    user,
+    isAdmin,
+    handleLogout,
+    displayAdminControls,
+    handleDisplayAdminSwitch,
+    dispatch
+  } = useAuthContext()
 
   const updateUserSettingsFn = useAsyncFn(updateUserSettings)
 
@@ -222,7 +227,7 @@ const SideNav = ({
                 left="No"
                 right="Yes"
                 call={handleDisplayAdminSwitch}
-                checked={displayAdminControls ?? false}
+                checked={displayAdminControls}
               />
             </ListItemText>
           </ListItemWithDivider>
