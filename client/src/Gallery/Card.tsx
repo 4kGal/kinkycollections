@@ -26,7 +26,7 @@ import {
   deleteVideoAdmin
 } from '../services/user'
 import { UPDATE_FAVORITE } from '../utils/constants'
-import { isArray } from 'lodash'
+import { isArray, isBoolean } from 'lodash'
 
 interface Video {
   collection?: string
@@ -137,6 +137,8 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
     let newValue = value
     if (isArray(video[key])) {
       newValue = (video[key] as string[]).concat(value as string)
+    } else if (isBoolean(video[key])) {
+      newValue = Boolean(value)
     }
     updateVideoAdminFn.execute({
       collection: video.collection,
