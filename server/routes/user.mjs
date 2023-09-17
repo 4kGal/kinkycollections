@@ -74,6 +74,7 @@ router.post("/signup", async (req, res) => {
       comments: [],
       likes: [],
       hideUnderage: true,
+      userRoles: "",
     });
 
     const token = createToken(user._id);
@@ -177,12 +178,11 @@ router.put("/update", async (req, res) => {
 
 router.put("/favorites", async (req, res) => {
   const { username, favorite, userRoles } = req.body;
-
-  const usr = jwt.decode(userRoles);
+  // const usr = jwt.decode(userRoles);
   try {
-    if (usr.Role !== "Admin") {
-      throw Error("Only admins can edit");
-    }
+    // if (usr.Role !== "Admin") {
+    //   throw Error("Only admins can edit");
+    // }
     const { value } = await db.collection("users").findOneAndUpdate(
       {
         username: username.toLowerCase(),
