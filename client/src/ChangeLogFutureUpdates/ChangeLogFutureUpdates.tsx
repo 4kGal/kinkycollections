@@ -19,7 +19,7 @@ const IMPROVED = 'IMPROVED'
 
 const changes = [
   {
-    title: '2023-09-15',
+    title: '2023-09-18',
     state: NEW,
     primary: 'Website Went Live',
     secondary: [
