@@ -7,8 +7,8 @@ import { getUser, ADMIN_USER, NON_ADMIN_USER } from '../support/constants'
 
 describe('Gallery', () => {
   const gallery = getMainstreambb.gallery
-
   const userWithNewFavorites = ADMIN_USER.favorites.push(gallery[3]._id)
+
   beforeEach(() => {
     cy.intercept(
       'GET',

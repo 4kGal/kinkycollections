@@ -1,4 +1,5 @@
 import { getUser, ADMIN_USER } from '../support/constants'
+import getMainstreambb from '../fixtures/getMainstreambb.json'
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
   dateStyle: 'medium',
@@ -70,7 +71,10 @@ const comments = [
     }
   }
 ]
-describe('Comments', () => {
+describe('Player', () => {
+  const gallery = getMainstreambb.gallery
+  const userWithNewFavorites = ADMIN_USER.favorites.push(gallery[3]._id)
+
   beforeEach(() => {
     cy.intercept(
       'GET',
@@ -106,6 +110,37 @@ describe('Comments', () => {
         if (comment.id !== 'commentId_5') return comment
       })
     )
+  })
+  it('displays favorite and updates', () => {
+    cy.intercept(
+      'PUT',
+      '/api/user/favorites/',
+      getUser({ favorites: userWithNewFavorites.favorites })
+    )
+    cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', getUser(userWithNewFavorites))
+      }
+    })
+    cy.contains('Unfavorite')
+    cy.dataCy('64e114c534a31da16451d59d-favorited').click()
+    cy.contains('Unfavorite').should('not.exist')
+    cy.contains('Favorite')
+    cy.dataCy('64e114c534a31da16451d59d-not-favorited').should('exist')
+  })
+  it('does not favorite if favorite is not saved', () => {
+    cy.intercept('PUT', '/api/user/favorites/', getUser({ favorites: [] }))
+    cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem(
+          'user',
+          getUser({ favorites: [userWithNewFavorites.favorites] })
+        )
+      }
+    })
+    cy.contains('Unfavorite').should('not.exist')
+    cy.contains('Favorite')
+    cy.dataCy('64e114c534a31da16451d59d-not-favorited').click()
   })
   it('comments displayed when a user is logged in and has comments', () => {
     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
@@ -344,7 +379,7 @@ describe('Comments', () => {
     })
     cy.contains(comments[comments.length - 1].message).should('not.exist')
   })
-  it('can favorite', () => {
+  it('can favorite comment', () => {
     cy.visit('/player/mainstreambb/64e114c534a31da16451d59d', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', getUser({ username: 'loggedInUser' }))

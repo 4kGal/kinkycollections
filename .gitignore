@@ -15,3 +15,4 @@ server/assets/.DS_Store
 scripts
 cypress/cypress.config.ts
 Makefile
+Makefile
