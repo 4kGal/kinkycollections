@@ -168,7 +168,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
   const handleFavorite = () => {
     setFavoriteError('')
     return updateFavoritesFn
-      .execute(user?.username, user?.userRoles, video._id)
+      .execute(user?.username, video._id)
       .then((res: User) => {
         dispatch({ type: UPDATE_FAVORITE, payload: res })
       })

@@ -66,29 +66,6 @@ export const AuthContextProvider = ({ children }) => {
     dispatch({ type: LOGOUT, payload: null })
   }
 
-  // const updateVideoAdmin = async (collection, key, value, _id) => {
-  //   // if (!isAdmin()) {
-  //   //   return
-  //   // }
-  //   const response = await fetch(`/api/videos/${collection}/${_id}/update`, {
-  //     method: 'PUT',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       key,
-  //       value,
-  //       userRole: state?.user.userRoles
-  //     })
-  //   })
-  //   const json = await response.json()
-
-  //   // if (!response.ok) {
-  //   //   setError(json.error)
-  //   // }
-  //   if (response.ok) {
-  //     window.location.reload()
-  //   }
-  // }
-
   // const deleteVideoAdmin = async (collection, _id) => {
   //   fetch(`/api/videos/${collection}/${_id}`, { method: 'DELETE' })
   //     .then(async (response) => {

@@ -27,11 +27,11 @@ export function updateUserEmail({ username, email }) {
   })
 }
 
-export function updateFavorites(username, userRoles, favorite) {
+export function updateFavorites(username, favorite) {
   if (isEmpty(username)) return
   return makeRequest(`/api/user/favorites/`, {
     method: 'PUT',
-    data: { username: username?.toLowerCase(), userRoles, favorite }
+    data: { username: username?.toLowerCase(), favorite }
   })
 }
 

@@ -2,7 +2,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { Divider, Grid, Switch, Typography } from '@mui/material'
+import { Divider, Grid, Typography, IconButton } from '@mui/material'
 import { styled } from '@mui/system'
 import React, { useState } from 'react'
 import { CommentList, CommentForm } from './Comments'
@@ -11,6 +11,10 @@ import { createComment } from './services/comments'
 import { useAuthContext, usePlayerContext } from './hooks'
 import { isEmpty } from 'lodash'
 import SwitchComponent from './Shared/SwitchComponent/SwitchComponent'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { updateFavorites } from './services/user'
+import { UPDATE_FAVORITE } from './utils/constants'
 
 const StyledDivContainer = styled('div')({
   position: 'relative',
@@ -31,10 +35,17 @@ const StyledIframe = styled('iframe')({
   width: '90%'
 })
 const Player = () => {
-  const { user } = useAuthContext()
+  const { user, dispatch } = useAuthContext()
   const { video, rootComments, sort, handleSetSort, refreshLocalComments } =
     usePlayerContext()
   const { loading, error, execute: createCommentFn } = useAsyncFn(createComment)
+  const updateFavoritesFn = useAsyncFn(updateFavorites)
+
+  const isFavorited = Boolean(
+    user?.favorites?.find((id: string) => id === video._id)
+  )
+
+  const [favoriteError, setFavoriteError] = useState('')
 
   const onCommentCreate = (message) => {
     return createCommentFn({
@@ -48,6 +59,16 @@ const Player = () => {
     })
       .then(refreshLocalComments)
       .catch(console.log)
+  }
+
+  const handleFavorite = () => {
+    setFavoriteError('')
+    return updateFavoritesFn
+      .execute(user?.username, video._id)
+      .then((res: User) => {
+        dispatch({ type: UPDATE_FAVORITE, payload: res })
+      })
+      .catch(setFavoriteError)
   }
 
   return (
@@ -78,6 +99,29 @@ const Player = () => {
           <Typography mt={'-60%'} variant="h5" align="center" color="white">
             {video?.customName?.length > 0 ? video.customName : video.name}
           </Typography>
+          <Grid item xs={12} sx={{ display: 'flex', paddingLeft: '45%' }}>
+            <IconButton onClick={handleFavorite} disabled={user === null}>
+              {isFavorited ? (
+                <FavoriteIcon
+                  sx={{ color: 'white' }}
+                  data-cy={`${video._id}-favorited`}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  sx={{ color: 'white' }}
+                  data-cy={`${video._id}-not-favorited`}
+                />
+              )}
+            </IconButton>
+            <Typography variant="h5" color="white" mt="5px">
+              {isFavorited ? 'Unfavorite' : 'Favorite'}
+            </Typography>
+            {favoriteError.length > 0 && (
+              <Typography color="error" data-cy={`${video._id}-error-message`}>
+                {favoriteError.toString()}
+              </Typography>
+            )}
+          </Grid>
           <Divider
             light
             flexItem
