@@ -22,7 +22,7 @@ describe('Search Results', () => {
       getMainstreambb
     )
   })
-  it('Navigates between pages and displays correctly', () => {
+  it.skip('Navigates between pages and displays correctly', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)

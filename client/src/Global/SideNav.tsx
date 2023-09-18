@@ -431,10 +431,7 @@ const SideNav = ({
         )}
         <Divider />
         <ChangeLogListItem>
-          <ListItemButton
-            onClick={visitChangeLogPage}
-            data-cy="signout-menu-item"
-          >
+          <ListItemButton onClick={visitChangeLogPage}>
             <ListItemText primary="ChangeLog & Future Updates" />
           </ListItemButton>
         </ChangeLogListItem>
