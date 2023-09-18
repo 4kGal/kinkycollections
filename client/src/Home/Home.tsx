@@ -74,7 +74,7 @@ const Folders = [
     link: MAINSTREAM_MISC_URL,
     src: mainstreammiscIcon,
     alt: 'mainstream miscellaneous',
-    label: 'Mainstream Miscellaneous [i.e. boners, sph, etc]',
+    label: 'Mainstream Miscellaneous [i.e. boners, sph, cfnm, penises, etc]',
     disabled: false,
     cy: MAINSTREAM_MISC_COLLECTION
   }
