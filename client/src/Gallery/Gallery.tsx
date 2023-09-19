@@ -5,8 +5,12 @@ import { type MetaData } from '../Shared/types'
 import Card from './Card'
 import PageNavigation from '../Shared/PageNavigation/PageNavigation'
 import FilterVideoButtons from '../Shared/FilterVideoButtons/FilterVideoButtons'
+import { useLocation } from 'react-router-dom'
+import { IS_MAINSTREAM } from '../utils/constants'
 
 const Gallery = ({ collection }: { collection: string }) => {
+  const location = useLocation()
+
   const [page, setPage] = useState(0)
   const {
     gallery,
@@ -24,6 +28,8 @@ const Gallery = ({ collection }: { collection: string }) => {
     handleActressSelection,
     handleMultipleActresses
   } = useGalleryContext()
+
+  const onMainstreamPage = IS_MAINSTREAM.includes(location.pathname)
 
   useEffect(() => {
     setPage(0)
@@ -82,9 +88,12 @@ const Gallery = ({ collection }: { collection: string }) => {
           handleSelectedCustomTags={handleActressSelection}
           handleMultipleActresses={handleMultipleActresses}
           multipleActresses={multipleActresses}
-          displayMultipleActresses={gallery?.some(
-            (video: MetaData) => (video?.actresses ?? []).length > 1
-          )}
+          displayMultipleActresses={
+            onMainstreamPage &&
+            gallery?.some(
+              (video: MetaData) => (video?.actresses ?? []).length > 1
+            )
+          }
         />
         {galleryIsLoading && (
           <Grid item xs={12}>
