@@ -23,7 +23,8 @@ import {
   GALLERY_PAGES,
   LOGIN_URL,
   UPDATE_USER,
-  CHANGE_LOG_FUTURE_UPDATES_URL
+  CHANGE_LOG_FUTURE_UPDATES_URL,
+  IS_MAINSTREAM
 } from '../utils/constants'
 import { FixedSizeList, type ListChildComponentProps } from 'react-window'
 import { updateUserSettings } from '../services/user'
@@ -155,6 +156,7 @@ const SideNav = ({
   const [isActressOpen, setIsActressOpen] = useState(false)
 
   const onSearchablePage = GALLERY_PAGES.includes(location.pathname)
+  const onMainstreamPage = IS_MAINSTREAM.includes(location.pathname)
 
   const navigateToSignInPage = () => {
     navigate(LOGIN_URL, { state: null })
@@ -287,11 +289,20 @@ const SideNav = ({
               <List sx={{ marginLeft: '5px' }} component="div">
                 <ListItem disablePadding>
                   <ListItemButton
+                    onClick={() => handleSetSortBy('views')}
+                    selected={sortBy === 'views'}
+                    data-cy="sort-button-views"
+                  >
+                    <ListItemText primary="Most Viewed" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton
                     onClick={() => handleSetSortBy('likes')}
                     selected={sortBy === 'likes'}
                     data-cy="sort-button-likes"
                   >
-                    <ListItemText primary="Most Liked" />
+                    <ListItemText primary="Most Favorited" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
@@ -311,39 +322,43 @@ const SideNav = ({
                     )}
                   </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={() => handleSetSortBy('year')}
-                    selected={sortBy === 'year'}
-                    data-cy="sort-button-year"
-                  >
-                    <ListItemText primary="Year Released" />
-                    {sortBy === 'year' && (
-                      <SwitchComponent
-                        left="Desc"
-                        right="Asc"
-                        call={handleYearAscending}
-                        checked={yearAsc}
-                      />
-                    )}
-                  </ListItemButton>
-                </ListItem>
+                {onMainstreamPage && (
+                  <ListItem disablePadding>
+                    <ListItemButton
+                      onClick={() => handleSetSortBy('year')}
+                      selected={sortBy === 'year'}
+                      data-cy="sort-button-year"
+                    >
+                      <ListItemText primary="Year Released" />
+                      {sortBy === 'year' && (
+                        <SwitchComponent
+                          left="Desc"
+                          right="Asc"
+                          call={handleYearAscending}
+                          checked={yearAsc}
+                        />
+                      )}
+                    </ListItemButton>
+                  </ListItem>
+                )}
               </List>
             </Collapse>
             <Divider />
           </>
         )}
-        {onSearchablePage && availableActresses?.length > 0 && (
-          <FilterWithClearComponent
-            display={isActressOpen || selectedActresses?.length > 0}
-            text="Filter By Actress"
-            handleClick={() => setIsActressOpen(!isActressOpen)}
-            displayClear={selectedActresses?.length > 0}
-            handleClear={() => handleActressSelection(null)}
-            isOpen={isActressOpen}
-            dataCy="filter-actress-menu-item"
-          />
-        )}
+        {onMainstreamPage &&
+          onSearchablePage &&
+          availableActresses?.length > 0 && (
+            <FilterWithClearComponent
+              display={isActressOpen || selectedActresses?.length > 0}
+              text="Filter By Actress"
+              handleClick={() => setIsActressOpen(!isActressOpen)}
+              displayClear={selectedActresses?.length > 0}
+              handleClear={() => handleActressSelection(null)}
+              isOpen={isActressOpen}
+              dataCy="filter-actress-menu-item"
+            />
+          )}
         <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
           <FixedSizeList
             height={500}
@@ -362,17 +377,19 @@ const SideNav = ({
           </FixedSizeList>
           <Divider />
         </Collapse>
-        {onSearchablePage && availableDecades?.length > 0 && (
-          <FilterWithClearComponent
-            display={isDecadeOpen || selectedDecades?.length > 0}
-            text="Filter By Decade"
-            handleClick={() => setIsDecadeOpen(!isDecadeOpen)}
-            displayClear={selectedDecades.length > 0}
-            handleClear={() => handleDecadeSelection(null)}
-            isOpen={isDecadeOpen}
-            dataCy="filter-decade-menu-item"
-          />
-        )}
+        {onMainstreamPage &&
+          onSearchablePage &&
+          availableDecades?.length > 0 && (
+            <FilterWithClearComponent
+              display={isDecadeOpen || selectedDecades?.length > 0}
+              text="Filter By Decade"
+              handleClick={() => setIsDecadeOpen(!isDecadeOpen)}
+              displayClear={selectedDecades.length > 0}
+              handleClear={() => handleDecadeSelection(null)}
+              isOpen={isDecadeOpen}
+              dataCy="filter-decade-menu-item"
+            />
+          )}
         <Collapse in={isDecadeOpen} timeout="auto" unmountOnExit>
           <FixedSizeList
             height={300}

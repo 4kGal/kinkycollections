@@ -134,6 +134,7 @@ router.get("/filter/:collection", async (req, res) => {
   } else if (sort === "views") {
     sortParam = { views: -1 };
   }
+
   // No Filtering, Return all movies
   if (
     typeOfBusts.length === 0 &&
@@ -143,10 +144,8 @@ router.get("/filter/:collection", async (req, res) => {
   ) {
     movies = await collection
       .find(!underage ? { underage } : {})
-      //.find({})
       .sort(sortParam)
       .toArray();
-
     tags = movies.map(({ tags }) => tags);
   } else {
     const decadesArray = split(decadesParam, ",");
@@ -311,7 +310,13 @@ router.get("/filter/:collection", async (req, res) => {
   //   return x < y ? -1 : x < y ? 1 : 0
   // })
 
-  if (sort === "likes") {
+  if (sort === "views") {
+    moviesWithCreationAndLikes.sort(function (a, b) {
+      const x = b.views;
+      const y = a.views;
+      return x < y ? -1 : x < y ? 1 : 0;
+    });
+  } else if (sort === "likes") {
     moviesWithCreationAndLikes.sort(function (a, b) {
       const x = b.likes;
       const y = a.likes;

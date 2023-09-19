@@ -6,18 +6,43 @@ import {
   ListItem,
   ListItemText,
   Typography,
-  Divider
+  Divider,
+  Tooltip
 } from '@mui/material'
 import FiberNewIcon from '@mui/icons-material/FiberNew'
 import HealingIcon from '@mui/icons-material/Healing'
 import UpdateIcon from '@mui/icons-material/Update'
 import PendingIcon from '@mui/icons-material/Pending'
 
-const NEW = 'NEW'
-const FIX = 'FIX'
-const IMPROVED = 'IMPROVED'
+const NEW = 'New'
+const FIX = 'Fixed'
+const IMPROVED = 'Improved'
+const COMING = 'Coming Soon'
 
 const changes = [
+  {
+    title: 'In Progress',
+    state: COMING,
+    primary: 'Download',
+    secondary: [
+      "Currently downloading the videos is not possible. I'm looking into enabling this feature"
+    ]
+  },
+  {
+    title: '2023-09-19',
+    state: IMPROVED,
+    primary:
+      "Renamed Most Liked to Most Favorites and improved it's funcationality",
+    secondary: [
+      "Previously sorting by most favorites wasn't working correctly. It is now fixed"
+    ]
+  },
+  {
+    title: '2023-09-19',
+    state: NEW,
+    primary: 'Added the Most Viewed sort',
+    secondary: ['Added in a new sort option for sorting by most liked videos']
+  },
   {
     title: '2023-09-18',
     state: NEW,
@@ -47,13 +72,17 @@ const ChangeLogFutureUpdates = () => {
               </ListItem>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar style={{ height: '100%', marginTop: 12 }}>
-                  {state === NEW ? (
-                    <FiberNewIcon color="success" fontSize="large" />
-                  ) : state === FIX ? (
-                    <HealingIcon color="info" fontSize="large" />
-                  ) : (
-                    <UpdateIcon color="primary" fontSize="large" />
-                  )}
+                  <Tooltip title={state} placement="top">
+                    {state === NEW ? (
+                      <FiberNewIcon color="success" fontSize="large" />
+                    ) : state === FIX ? (
+                      <HealingIcon color="info" fontSize="large" />
+                    ) : state === COMING ? (
+                      <PendingIcon color="warning" fontSize="large" />
+                    ) : (
+                      <UpdateIcon color="primary" fontSize="large" />
+                    )}
+                  </Tooltip>
                 </ListItemAvatar>
                 <ListItemText
                   primary={
