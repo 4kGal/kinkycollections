@@ -115,6 +115,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
     actresses = [],
     videoId,
     views,
+    customViews = 0,
     tags = []
   } = video
 
@@ -211,7 +212,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
                 />
               )}
               <Typography variant="caption" fontSize=".65rem">
-                {views} Overall Plays
+                {customViews > views ? customViews : views} Overall Plays
               </Typography>
             </Grid>
           </Link>

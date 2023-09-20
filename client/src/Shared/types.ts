@@ -39,6 +39,7 @@ export interface MetaData extends MetaDataKeys {
   underage: boolean
   videoId: string
   views: number
+  customViews?: number
   // comments?: CommentsObj[] | undefined
 }
 

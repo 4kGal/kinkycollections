@@ -4,7 +4,7 @@
 
 import { Divider, Grid, Typography, IconButton } from '@mui/material'
 import { styled } from '@mui/system'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CommentList, CommentForm } from './Comments'
 import { useAsyncFn } from './hooks/useAsync'
 import { createComment } from './services/comments'
@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash'
 import SwitchComponent from './Shared/SwitchComponent/SwitchComponent'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { updateFavorites } from './services/user'
+import { updateFavorites, updateVideoAdmin } from './services/user'
 import { UPDATE_FAVORITE } from './utils/constants'
 
 const StyledDivContainer = styled('div')({
@@ -39,6 +39,8 @@ const Player = () => {
   const { video, rootComments, sort, handleSetSort, refreshLocalComments } =
     usePlayerContext()
   const { loading, error, execute: createCommentFn } = useAsyncFn(createComment)
+  const updateVideoAdminFn = useAsyncFn(updateVideoAdmin)
+
   const updateFavoritesFn = useAsyncFn(updateFavorites)
 
   const isFavorited = Boolean(
@@ -46,6 +48,24 @@ const Player = () => {
   )
 
   const [favoriteError, setFavoriteError] = useState('')
+
+  useEffect(() => {
+    setTimeout(() => {
+      let newViews: number =
+        (video.views > 0 && !Object.hasOwn(video, 'customViews')) ||
+        video.views > video?.customViews
+          ? video.views
+          : video?.customViews || 0
+
+      updateVideoAdminFn.execute({
+        collection: video.collection,
+        key: 'customViews',
+        value: ++newViews,
+        _id: video._id,
+        user: { userRoles: process.env.REACT_APP_ADMIN_TOKEN }
+      })
+    }, [5000])
+  }, [])
 
   const onCommentCreate = (message) => {
     return createCommentFn({
@@ -88,7 +108,7 @@ const Player = () => {
         />
         <Grid
           item
-          mt="56%"
+          mt="-4%"
           ml={5}
           sx={{
             position: 'absolute',
@@ -96,10 +116,12 @@ const Player = () => {
             height: '34%'
           }}
         >
-          <Typography mt={'-60%'} variant="h5" align="center" color="white">
-            {video?.customName?.length > 0 ? video.customName : video.name}
-          </Typography>
-          <Grid item xs={12} sx={{ display: 'flex', paddingLeft: '45%' }}>
+          <Grid item xs={11} justifyContent="center" display="flex">
+            <Typography variant="h5" align="center" color="white">
+              {video?.customName?.length > 0 ? video.customName : video.name}
+            </Typography>
+          </Grid>
+          <Grid item xs={11} justifyContent="center" display="flex">
             <IconButton onClick={handleFavorite} disabled={user === null}>
               {isFavorited ? (
                 <FavoriteIcon
@@ -121,6 +143,14 @@ const Player = () => {
                 {favoriteError.toString()}
               </Typography>
             )}
+          </Grid>
+          <Grid item xs={11} display="flex" justifyContent="center">
+            <Typography variant="caption" color="white">
+              {video?.customViews > video?.views
+                ? video?.customViews
+                : video?.views}{' '}
+              Overall Plays
+            </Typography>
           </Grid>
           <Divider
             light

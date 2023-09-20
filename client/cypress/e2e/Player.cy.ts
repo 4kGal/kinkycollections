@@ -82,6 +82,7 @@ describe('Player', () => {
       {
         name: "Zoe Saldana Stomps on a Man's Balls Numerous Times in Special Ops Lioness 1x4",
         videoId: 'this-is-the-video-id',
+        views: 3,
         comments
       }
     )
@@ -464,6 +465,50 @@ describe('Player', () => {
       cy.dataCy('root-comment-0').within(() => {
         cy.dataCy('delete-icon-0').click()
       })
+    })
+  })
+  describe('Views', () => {
+    beforeEach(() => {
+      cy.intercept(
+        'PUT',
+        '/api/videos/mainstreambb/64e114c534a31da16451d59d/update',
+        {
+          _id: '64e114c534a31da16451d59d',
+          customViews: 4
+        }
+      )
+    })
+    it('updates views if there are no custom views', () => {
+      cy.visit('/player/mainstreambb/64e114c534a31da16451d59d')
+      cy.contains('3 Overall Plays')
+    })
+    it('updates views if views is greater than custom views', () => {
+      cy.intercept(
+        'GET',
+        '/api/videos/mainstreambb/64e114c534a31da16451d59d/data',
+        {
+          name: "Zoe Saldana Stomps on a Man's Balls Numerous Times in Special Ops Lioness 1x4",
+          videoId: 'this-is-the-video-id',
+          views: 5,
+          customViews: 3
+        }
+      )
+      cy.visit('/player/mainstreambb/64e114c534a31da16451d59d')
+      cy.contains('5 Overall Plays')
+    })
+    it('updates views if views is less than custom views', () => {
+      cy.intercept(
+        'GET',
+        '/api/videos/mainstreambb/64e114c534a31da16451d59d/data',
+        {
+          name: "Zoe Saldana Stomps on a Man's Balls Numerous Times in Special Ops Lioness 1x4",
+          videoId: 'this-is-the-video-id',
+          views: 5,
+          customViews: 10
+        }
+      )
+      cy.visit('/player/mainstreambb/64e114c534a31da16451d59d')
+      cy.contains('10 Overall Plays')
     })
   })
 })
