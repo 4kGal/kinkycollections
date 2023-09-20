@@ -157,9 +157,9 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
 
   const popoverOpen = Boolean(anchorEl)
 
-  const tenDaysAgo = new Date()
-  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10)
-  const isNew = new Date(addedDate) >= tenDaysAgo
+  const twoDaysAgo = new Date()
+  twoDaysAgo.setDate(twoDaysAgo.getDate() - 2)
+  const isNew = new Date(addedDate) >= twoDaysAgo
 
   const displayName =
     customName.length > 0 ? customName : name?.replace('.mp4', '')
