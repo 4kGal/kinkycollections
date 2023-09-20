@@ -312,8 +312,8 @@ router.get("/filter/:collection", async (req, res) => {
 
   if (sort === "views") {
     moviesWithCreationAndLikes.sort(function (a, b) {
-      const x = b.views;
-      const y = a.views;
+      const x = Object.hasOwn(b, "customViews") ? b?.customViews : b.views;
+      const y = Object.hasOwn(a, "customViews") ? a?.customViews : a.views;
       return x < y ? -1 : x < y ? 1 : 0;
     });
   } else if (sort === "likes") {
