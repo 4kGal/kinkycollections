@@ -141,7 +141,6 @@ export const GalleryProvider = ({ children }) => {
 
   const handleRandomize = () => {
     const dupGallery = [...gallery]
-    console.log(dupGallery)
     setGallery(dupGallery.sort(() => Math.random() - 0.5))
   }
 

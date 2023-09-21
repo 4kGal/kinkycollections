@@ -11,7 +11,8 @@ import {
   Toolbar,
   Typography,
   FormControlLabel,
-  Radio
+  Radio,
+  LinearProgress
 } from '@mui/material'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -19,17 +20,16 @@ import SideNav from './SideNav'
 import { styled } from '@mui/system'
 import SearchIcon from '@mui/icons-material/Search'
 import {
-  AMATEUR_BB_URL,
   GALLERY_PAGES,
   LOGIN_URL,
-  MAINSTREAM_BB_URL,
   SEARCH_RESULTS_URL
 } from '../utils/constants'
-import { debounce } from 'lodash'
+import { debounce, isEmpty } from 'lodash'
 import { useAsyncFn } from '../hooks/useAsync'
 import { getSearchResults } from '../services/videos'
 import { type MetaData } from '../Shared/types'
 import { useGalleryContext } from '../hooks'
+import { usePrevious } from '../hooks/usePrevious'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -68,8 +68,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 const Header = () => {
   const location = useLocation()
+  const prevLocationState = usePrevious(location?.state)
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchWithin, setSearchWithin] = useState('category')
   const [searchTerm, setSearchTerm] = useState('')
@@ -102,7 +104,18 @@ const Header = () => {
     }
   }, [searchTerm])
 
+  useEffect(() => {
+    // Force clearing when user navigates away from page
+    if (!location.state && !isEmpty(prevLocationState)) {
+      // @ts-expect-error manually clear the input
+      document.getElementById('search-input').value = ''
+      setSearchTerm('')
+      debouncedResults.cancel()
+    }
+  }, [location.state])
+
   const handleSearch = () => {
+    setIsSearching(true)
     let collection = ''
     if (searchWithin === 'category') {
       const currentPage = location.pathname.replace('/', '').toLowerCase()
@@ -122,21 +135,15 @@ const Header = () => {
         if (!onSearchPage && previousPage !== location.pathname) {
           setPreviousPage(location.pathname)
         }
-        if (
-          onSearchPage &&
-          (searchResults?.length === 0 || searchTerm.length === 0)
-        ) {
-          navigate(previousPage)
-        }
-        // if not on search page, navigate to
-        if (searchResults.length > 0) {
-          navigate(SEARCH_RESULTS_URL, {
-            ...(onSearchPage && { replace: true }),
-            state: {
-              searchResults
-            }
-          })
-        }
+        navigate(SEARCH_RESULTS_URL, {
+          ...(onSearchPage && { replace: true }),
+          state: {
+            searchResults
+          }
+        })
+      })
+      .finally(() => {
+        setIsSearching(false)
       })
   }
 
@@ -176,7 +183,8 @@ const Header = () => {
             sx={{
               flexGrow: 1,
               width: '100%',
-              display: { xs: 'none', sm: 'block' }
+              display: { xs: 'none', sm: 'block' },
+              marginLeft: '250px'
               // ml: onLoginPage ? 'initial' : '17%'
             }}
           >
@@ -195,6 +203,7 @@ const Header = () => {
                   data-cy="search-bar"
                   inputProps={{ 'aria-label': 'search' }}
                   onClick={handleSearchMenuClick}
+                  id="search-input"
                   // value={searchTerm}
                   onChange={debouncedResults}
                 />
@@ -244,6 +253,7 @@ const Header = () => {
           )}
         </Toolbar>
       </AppBar>
+      {isSearching && <LinearProgress />}
       <SideNav open={open} handleClose={() => setOpen(false)} />
     </Box>
   )
