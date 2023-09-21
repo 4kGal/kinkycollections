@@ -29,6 +29,12 @@ const changes = [
     ]
   },
   {
+    title: '2023-09-21',
+    state: IMPROVED,
+    primary: 'Search',
+    secondary: ['Improved functionality of searching']
+  },
+  {
     title: '2023-09-20',
     state: IMPROVED,
     primary: 'Improved Views',
