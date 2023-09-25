@@ -10,7 +10,8 @@ import {
   ListItemButton,
   Collapse,
   MenuItem,
-  Select
+  Select,
+  Tooltip
 } from '@mui/material'
 import { styled } from '@mui/system'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -31,7 +32,7 @@ import { updateUserSettings } from '../services/user'
 import { useAsyncFn } from '../hooks/useAsync'
 import { type User } from '../Shared/types'
 import FilterWithClearComponent from '../Shared/FilterWithClearButton/FilterWithClearButton'
-import { isEmpty } from 'lodash'
+import { uniq, isEmpty } from 'lodash'
 
 interface UserSetting {
   hideUnderage: boolean
@@ -65,19 +66,30 @@ const ChangeLogListItem = styled(ListItem)({
 
 function renderActressRow(props: ListChildComponentProps) {
   const { index, data, style } = props
-  const { availableActresses, handleActressSelection, selectedActresses } = data
+  const {
+    availableActresses,
+    handleActressSelection,
+    selectedActresses,
+    actressSort
+  } = data
 
   const current = availableActresses[index]
+  let text: string = current.actress.toString()
+
+  if (actressSort) {
+    text += ` (${current.count})`
+  }
   return (
     <ListItem style={style} key={index} component="div" disablePadding>
-      <StyledListItemButton
-        onClick={() => handleActressSelection(current.actress)}
-        selected={selectedActresses?.includes(current.actress)}
-        data-cy={`actress-name-${index}`}
-      >
-        <ListItemText primary={current.actress} />
-        <br />
-      </StyledListItemButton>
+      <Tooltip title={actressSort ? uniq(current.tags).join(', ') : ''}>
+        <StyledListItemButton
+          onClick={() => handleActressSelection(current.actress)}
+          selected={selectedActresses?.includes(current.actress)}
+          data-cy={`actress-name-${index}`}
+        >
+          <ListItemText primary={text} />
+        </StyledListItemButton>
+      </Tooltip>
     </ListItem>
   )
 }
@@ -129,6 +141,8 @@ const SideNav = ({
     handleActressSelection,
     handleDecadeSelection,
     handleDisplayUnderageSwitch,
+    handleActressSortSelection,
+    actressSort,
     hideUnderage,
     sortBy,
     yearAsc,
@@ -360,13 +374,27 @@ const SideNav = ({
             />
           )}
         <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
+          <ListItem disablePadding disableGutters style={{ paddingLeft: 15 }}>
+            <ListItemText>
+              <Typography variant="body1" display="inline">
+                Sorting Actresses By:
+              </Typography>
+              <SwitchComponent
+                left="A-Z"
+                right="#"
+                call={handleActressSortSelection}
+                checked={actressSort}
+              />
+            </ListItemText>
+          </ListItem>
           <FixedSizeList
             height={500}
             width="100%"
             itemData={{
               availableActresses,
               handleActressSelection,
-              selectedActresses
+              selectedActresses,
+              actressSort
             }}
             itemSize={55}
             itemCount={availableActresses?.length}

@@ -77,6 +77,12 @@ router.get("/:collection/settings", async (req, res) => {
 
   const combinedActressTags = {};
 
+  const actressOccurences = allActresses
+    .map((a) => a.actress)
+    .reduce(function (acc, curr) {
+      return acc[curr] ? ++acc[curr] : (acc[curr] = 1), acc;
+    }, {});
+
   allActresses.forEach((obj) => {
     if (combinedActressTags[obj.actress]) {
       combinedActressTags[obj.actress] = [
@@ -88,9 +94,10 @@ router.get("/:collection/settings", async (req, res) => {
     }
   });
 
-  const availableActresses = Object.keys(combinedActressTags).map((year) => ({
-    actress: year,
-    tags: combinedActressTags[year],
+  const availableActresses = Object.keys(combinedActressTags).map((key) => ({
+    actress: key,
+    tags: combinedActressTags[key],
+    count: actressOccurences[key],
   }));
 
   const allYears = data.map((tag) => tag.years).flat();
@@ -113,7 +120,6 @@ router.get("/:collection/settings", async (req, res) => {
     decades: availableDecades,
     listOfActresses: availableActresses,
   };
-  // console.log(minYear)
   res.send(obj).status(200);
 });
 

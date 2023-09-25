@@ -3,7 +3,7 @@ import { useAsync } from '../hooks/useAsync'
 import { getGallery, getGalleryInitialSettings } from '../services/videos'
 import { useLocation } from 'react-router-dom'
 import { useAuthContext } from '../hooks'
-import { isEmpty } from 'lodash'
+import { isEmpty, orderBy } from 'lodash'
 
 export const GalleryContext = createContext()
 
@@ -20,7 +20,9 @@ export const GalleryProvider = ({ children }) => {
   const collection = location.pathname.replace('/', '')
 
   const { user } = useAuthContext()
+  const [availableActresses, setAvailableActresses] = useState([])
   const [hideUnderage, setHideUnderage] = useState(true)
+  const [actressSort, setActressSort] = useState(false)
 
   const [gallery, setGallery] = useState([])
   const [selectedActresses, setSelectedActresses] = useState([])
@@ -48,11 +50,29 @@ export const GalleryProvider = ({ children }) => {
     [collection, hideUnderage]
   )
 
+  if (
+    availableActresses?.length === 0 &&
+    settings?.listOfActresses.length > 0
+  ) {
+    setAvailableActresses(settings?.listOfActresses)
+  }
+
   useEffect(() => {
     if (selectedActresses?.length > 0 && !params.combineFilters) {
       setParams({ ...params, combineFilters: true })
     }
   }, [selectedActresses])
+
+  useEffect(() => {
+    const dupListOfActresses = [...(settings?.listOfActresses || [])]
+    if (actressSort) {
+      setAvailableActresses(
+        orderBy(dupListOfActresses, ['count', 'actress'], ['desc'])
+      )
+    } else {
+      setAvailableActresses(dupListOfActresses)
+    }
+  }, [actressSort])
 
   const searchParamObj = {
     ...(selectedDecades?.length > 0 && {
@@ -199,10 +219,14 @@ export const GalleryProvider = ({ children }) => {
     setHideUnderage((prevValue) => !prevValue)
   }
 
+  const handleActressSortSelection = () => {
+    setActressSort((prevValue) => !prevValue)
+  }
+
   return (
     <GalleryContext.Provider
       value={{
-        availableActresses: settings?.listOfActresses || [],
+        availableActresses,
         availableDecades: settings?.decades || [],
         minDecade: settings?.lowestYear,
         handleSetSortBy,
@@ -216,6 +240,7 @@ export const GalleryProvider = ({ children }) => {
         handleCombineFilters,
         handleMultipleActresses,
         handleDisplayUnderageSwitch,
+        handleActressSortSelection,
         gallery,
         galleryLength: galleryObj?.gallery?.length || 0,
         availableTags: galleryObj?.tags,
@@ -225,6 +250,7 @@ export const GalleryProvider = ({ children }) => {
         galleryServiceError,
         galleryIsLoading,
         hideUnderage,
+        actressSort,
         ...params
       }}
     >
