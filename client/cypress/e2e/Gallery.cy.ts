@@ -12,7 +12,7 @@ describe('Gallery', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      '/api/videos/mainstreambb/settings',
+      '/api/videos/mainstreambb/settings*',
       initialMainstreamBBSettings
     )
     cy.intercept('GET', '/api/user/favorites/4kgal', [])
@@ -79,7 +79,7 @@ describe('Gallery', () => {
     }
     cy.dataCy(`${gallery[3]._id}-not-favorited`).click()
   })
-  it('displays favorite error', () => {
+  it.only('displays favorite error', () => {
     cy.intercept('PUT', '/api/user/favorites/', { statusCode: 500 }).as(
       'getServerFailure'
     )
@@ -115,7 +115,7 @@ describe('Gallery', () => {
     cy.dataCy('close-side-nav-btn').click()
     cy.dataCy('admin-card-controls-btn').should('exist')
   })
-  it.only('switches context', () => {
+  it('switches context', () => {
     cy.visit('/mainstreambb', {
       onBeforeLoad(win) {
         win.localStorage.setItem('user', null)
@@ -128,5 +128,57 @@ describe('Gallery', () => {
     cy.dataCy(`folder-link-mainstreampe`).click()
     cy.dataCy(`card-${getMainstreambb.gallery[0]._id}`).should('not.exist')
     cy.dataCy(`card-${getMainstreampe.gallery[0]._id}`)
+  })
+  describe('new icon', () => {
+    const yesterday = new Date().setDate(new Date().getDate() - 1)
+    const threeDaysAgo = new Date().setDate(new Date().getDate() - 3)
+    beforeEach(() => {
+      cy.intercept('GET', '/api/search/filter/mainstreambb?*', {
+        gallery: [
+          {
+            ...getMainstreambb.gallery[0],
+            addedDate: new Date()
+          },
+          {
+            ...getMainstreambb.gallery[1],
+            addedDate: threeDaysAgo
+          }
+        ],
+        tags: getMainstreambb.tags
+      })
+    })
+    it('shows new icon if video is added after last log in date', () => {
+      cy.visit('/mainstreambb', {
+        onBeforeLoad(win) {
+          win.localStorage.setItem('user', getUser({ lastLoggedIn: yesterday }))
+        }
+      })
+      cy.dataCy('new-badge-0').should('exist')
+      cy.dataCy('old-badge-0').should('not.exist')
+      cy.dataCy('new-badge-1').should('not.exist')
+      cy.dataCy('old-badge-1').should('exist')
+    })
+    it('does not show new icon if user is not logged in', () => {
+      cy.visit('/mainstreambb', {
+        onBeforeLoad(win) {
+          win.localStorage.setItem('user', null)
+        }
+      })
+      cy.dataCy('new-badge-0').should('not.exist')
+      cy.dataCy('old-badge-0').should('exist')
+      cy.dataCy('new-badge-1').should('not.exist')
+      cy.dataCy('old-badge-1').should('exist')
+    })
+    it('show new icon for today if user does not have last logged in', () => {
+      cy.visit('/mainstreambb', {
+        onBeforeLoad(win) {
+          win.localStorage.setItem('user', getUser({ lastLoggedIn: undefined }))
+        }
+      })
+      cy.dataCy('new-badge-0').should('exist')
+      cy.dataCy('old-badge-0').should('not.exist')
+      cy.dataCy('new-badge-1').should('not.exist')
+      cy.dataCy('old-badge-1').should('exist')
+    })
   })
 })

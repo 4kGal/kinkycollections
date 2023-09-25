@@ -37,8 +37,23 @@ router.post("/login", async (req, res) => {
 
     const token = createToken(user._id);
 
+    const { value } = await db.collection("users").findOneAndUpdate(
+      {
+        username: user.username.toLowerCase(),
+      },
+      [
+        {
+          $set: {
+            lastLoggedIn: new Date(),
+          },
+        },
+      ],
+      { returnOriginal: true, returnDocument: "before" }
+    );
+
     res.status(200).json({
       ...user,
+      lastLoggedIn: value?.lastLoggedIn || new Date(),
       token,
     });
   } catch (error) {

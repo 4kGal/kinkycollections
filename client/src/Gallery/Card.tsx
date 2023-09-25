@@ -26,7 +26,7 @@ import {
   deleteVideoAdmin
 } from '../services/user'
 import { UPDATE_FAVORITE } from '../utils/constants'
-import { isArray, isBoolean } from 'lodash'
+import { isArray, isBoolean, isEmpty } from 'lodash'
 
 interface Video {
   collection?: string
@@ -157,9 +157,16 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
 
   const popoverOpen = Boolean(anchorEl)
 
-  const twoDaysAgo = new Date()
-  twoDaysAgo.setDate(twoDaysAgo.getDate() - 2)
-  const isNew = new Date(addedDate) >= twoDaysAgo
+  const { lastLoggedIn } = user
+
+  const addedDateObj = new Date(addedDate)
+  const yesterday = new Date()
+
+  const isNew =
+    addedDateObj >= new Date(lastLoggedIn) ||
+    (!isEmpty(user) &&
+      !Object.hasOwn(user, 'lastLoggedIn') &&
+      addedDateObj >= new Date(yesterday.setDate(yesterday.getDate() - 1)))
 
   const displayName =
     customName.length > 0 ? customName : name?.replace('.mp4', '')
@@ -185,6 +192,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
           vertical: 'top',
           horizontal: 'left'
         }}
+        data-cy={`${isNew ? 'new' : 'old'}-badge-${index}`}
         invisible={!isNew}
       >
         <StyledGrid container data-cy={`card-index-${index}`}>

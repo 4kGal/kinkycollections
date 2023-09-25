@@ -5,7 +5,7 @@ describe('Search Results', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      '/api/videos/mainstreambb/settings',
+      '/api/videos/mainstreambb/settings*',
       initialMainstreamBBSettings
     )
     cy.intercept('GET', '/api/search/filter/mainstreambb?*', getMainstreambb)

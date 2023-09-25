@@ -1,15 +1,15 @@
 import getMainstreambb from '../fixtures/getMainstreambb.json'
 import initialMainstreamBBSettings from '../fixtures/initialMainstreamBBSettings.json'
-import getMainstreambbSqueeze from '../fixtures/filter/squeeze-filter.json'
-import getMainstreambbSqueezeAnd from '../fixtures/filter/squeeze-and-filter.json'
-import getMainstreambbVerbalSqueeze from '../fixtures/filter/squeeze-verbal-filter.json'
-import getMainstreambbVerbalAndSqueeze from '../fixtures/filter/squeeze-and-verbal-filter.json'
+// import getMainstreambbSqueeze from '../fixtures/filter/squeeze-filter.json'
+// import getMainstreambbSqueezeAnd from '../fixtures/filter/squeeze-and-filter.json'
+// import getMainstreambbVerbalSqueeze from '../fixtures/filter/squeeze-verbal-filter.json'
+// import getMainstreambbVerbalAndSqueeze from '../fixtures/filter/squeeze-and-verbal-filter.json'
 
 describe('Filter Buttons', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      '/api/videos/mainstreambb/settings',
+      '/api/videos/mainstreambb/settings*',
       initialMainstreamBBSettings
     )
     cy.intercept('GET', '/api/search/filter/mainstreambb?&eitherOr=*', [])
