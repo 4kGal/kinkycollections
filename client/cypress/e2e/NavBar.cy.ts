@@ -2,11 +2,16 @@ import getMainstreambb from '../fixtures/getMainstreambb.json'
 import initialMainstreamBBSettings from '../fixtures/initialMainstreamBBSettings.json'
 import { getUser, NON_ADMIN_USER } from '../support/constants'
 
+const sortedSettings = Cypress._.orderBy(
+  initialMainstreamBBSettings.listOfActresses,
+  ['count', 'actress'],
+  ['desc']
+)
 describe('Nav Bar', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      '/api/videos/mainstreambb/settings',
+      '/api/videos/mainstreambb/settings*',
       initialMainstreamBBSettings
     )
     cy.intercept('GET', '/api/user/favorites/4kgal', [
@@ -296,5 +301,28 @@ describe('Nav Bar', () => {
     cy.dataCy('card-index-0').within(() => {
       cy.contains(getMainstreambb.gallery[0].name).should('not.exist')
     })
+  })
+  it('sorts actress dropdown', () => {
+    cy.visit('/mainstreambb', {
+      onBeforeLoad(win) {
+        win.localStorage.setItem('user', null)
+      }
+    })
+    cy.dataCy('open-nav-drawer').click()
+    cy.dataCy('filter-actress-menu-item').click()
+    cy.dataCy('sorting-actress-option').within(() => {
+      cy.get('input').should('not.be.checked')
+      cy.get('input').click()
+      cy.get('input').should('be.checked')
+    })
+    cy.dataCy('actress-name-0').contains(
+      `${sortedSettings[0].actress} (${sortedSettings[0].count})`
+    )
+    cy.dataCy('actress-name-1').contains(
+      `${sortedSettings[1].actress} (${sortedSettings[1].count})`
+    )
+    cy.dataCy('actress-name-2').contains(
+      `${sortedSettings[2].actress} (${sortedSettings[2].count})`
+    )
   })
 })

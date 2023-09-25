@@ -377,7 +377,7 @@ const SideNav = ({
           )}
         <Collapse in={isActressOpen} timeout="auto" unmountOnExit>
           <ListItem disablePadding disableGutters style={{ paddingLeft: 15 }}>
-            <ListItemText>
+            <ListItemText data-cy="sorting-actress-option">
               <Typography variant="body1" display="inline">
                 Sorting Actresses By:
               </Typography>

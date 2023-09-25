@@ -2,1539 +2,5217 @@
   "lowestYear": 1934,
   "decades": [
     {
+      "1940": 1
+    },
+    {
       "1950": 1
     },
     {
-      "1970": 14
+      "1960": 3
     },
     {
-      "1980": 24
+      "1970": 37
     },
     {
-      "1990": 51
+      "1980": 83
     },
     {
-      "2000": 85
+      "1990": 165
     },
     {
-      "2010": 141
+      "2000": 216
     },
     {
-      "2020": 44
+      "2010": 390
+    },
+    {
+      "2020": 139
     }
   ],
   "listOfActresses": [
     {
       "actress": "Aahana Kumra",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Abigail Cruttenden",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Addison Timlin",
+      "tags": ["kick", "relative", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Adelaide Kane",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Adele Bernier",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Adelia Rasya",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Adrienne Parsons",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Adrienne Pickering",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Agam Darshi",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Aimee-Ffion Edwards",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Ainsley Seiger",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Aisha Tyler",
+      "tags": ["kick", "relative"],
+      "count": 1
     },
     {
       "actress": "Alba Flores",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Alba Planas",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Aleksandra Wozniak",
-      "tags": ["kick", "kick", "knee", "kick"]
+      "tags": ["kick", "kick", "knee", "kick"],
+      "count": 4
     },
     {
       "actress": "Alex Kingston",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Alexa Chung",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Alexandra Paul",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Alexandra Tydings",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Alexis Bledel",
-      "tags": ["stomp", "kick"]
+      "tags": ["kick", "stomp"],
+      "count": 1
     },
     {
       "actress": "Alexis Christian",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Ali Landry",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Ali Larter",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Alia Shawkat",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Alice Lucy",
-      "tags": ["kick", "hit", "object"]
+      "tags": ["hit", "object", "kick"],
+      "count": 1
     },
     {
       "actress": "Alice Orr-Ewing",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Alice Wetterlund",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Alicia Coppola",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Alicia Ziegler",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Alinne Moraes",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Alisha Boe",
-      "tags": ["knee", "knee"]
+      "tags": ["knee", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Alison Wandzura",
+      "tags": ["knee", "relative"],
+      "count": 1
     },
     {
       "actress": "Allison Dunbar",
-      "tags": ["hit", "kick"]
+      "tags": ["hit", "kick"],
+      "count": 1
     },
     {
       "actress": "Allison Janney",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Allison Scagliotti",
+      "tags": ["object", "stomp"],
+      "count": 1
     },
     {
       "actress": "Allyson Sereboff",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Aly Michalka",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Alyshia Ochse",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Alyson Stoner",
-      "tags": ["verbal", "kick"]
+      "tags": ["verbal", "kick"],
+      "count": 1
     },
     {
       "actress": "Amanda Bynes",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Amanda Cox",
+      "tags": ["verbal", "hit", "knee", "kick"],
+      "count": 1
     },
     {
       "actress": "Amanda Holden",
-      "tags": ["squeeze", "squeeze"]
+      "tags": ["squeeze", "squeeze"],
+      "count": 2
     },
     {
       "actress": "Amanda Peet",
-      "tags": ["hit"]
+      "tags": ["hit", "hit"],
+      "count": 2
     },
     {
       "actress": "Amber Heard",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Amber Nash",
+      "tags": ["kick", "relative"],
+      "count": 1
     },
     {
       "actress": "America Ferrera",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "America Olivo",
-      "tags": ["taser", "squeeze"]
+      "tags": ["squeeze", "taser"],
+      "count": 1
     },
     {
       "actress": "America Young",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Ami Dolenz",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Amy Adams",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Amy Aquino",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Amy Groening",
-      "tags": ["press"]
+      "tags": ["press"],
+      "count": 1
+    },
+    {
+      "actress": "Amy Jo Johnson",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Amy Johnson",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Amy Smart",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Amy Steel",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Ana de Armas",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Ana Joven",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Analía Ivars",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Anastasia Akatova",
-      "tags": ["tas", "punch", "kick", "knee"]
+      "tags": ["kick", "knee", "hit"],
+      "count": 1
     },
     {
       "actress": "Anastasia Baranova",
-      "tags": ["verbal", "hit", "verbal", "hit"]
+      "tags": ["verbal", "hit", "verbal", "hit"],
+      "count": 2
+    },
+    {
+      "actress": "Andie MacDowell",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Angela Bassett",
-      "tags": ["knee", "hit"]
+      "tags": ["hit", "knee"],
+      "count": 1
     },
     {
       "actress": "Angela Mao",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Angela Penny",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Angela Sun",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Angelina Jolie",
-      "tags": ["kick", "knee", "verbal"]
+      "tags": ["verbal", "knee", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Angeline Appel",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Angie Dickinson",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Anna Faris",
-      "tags": ["squeeze", "verbal", "object", "kick", "verbal"]
+      "tags": ["verbal", "squeeze", "object", "kick", "verbal"],
+      "count": 4
     },
     {
       "actress": "Anna Kendrick",
-      "tags": ["squeeze", "hit", "kick"]
+      "tags": ["kick", "hit", "squeeze"],
+      "count": 2
     },
     {
       "actress": "Anna Maria",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Anna Maria Mühe",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Anna Paquin",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Anna Sroka-Hryn",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Anna-Louise Plowman",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "AnnaLynne McCord",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Annamaria Demar",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "AnnaSophia Robb",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Anne Hathaway",
-      "tags": ["knee", "object"]
+      "tags": ["object", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Anouk Ferjac",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Anya Chalotra",
-      "tags": ["kick", "squeeze"]
+      "tags": ["kick", "squeeze", "nsfw"],
+      "count": 2
+    },
+    {
+      "actress": "Anya Taylor-Joy",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Ariana Madix",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Arina Postnikova",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Ashley Anderson",
-      "tags": ["verbal", "object"]
-    },
-    {
-      "actress": "Ashley Green",
-      "tags": ["hit"]
+      "tags": ["object", "verbal"],
+      "count": 1
     },
     {
       "actress": "Ashley Greene",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Ashley Olsen",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Ashley Roberts",
-      "tags": ["verbal", "kick"]
+      "tags": ["verbal", "kick"],
+      "count": 1
     },
     {
       "actress": "Ashley Scott",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Ashley Tisdale",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Ashlynn Yennie",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Astrid Hernández",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Atsumi Tanezaki",
-      "tags": ["anime", "kick"]
+      "tags": ["anime", "kick"],
+      "count": 1
     },
     {
       "actress": "Aubrey Plaza",
-      "tags": ["press", "squeeze"]
+      "tags": ["press"],
+      "count": 1
     },
     {
       "actress": "Audrey Fleurot",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Audrey Tautou",
+      "tags": ["bite"],
+      "count": 1
     },
     {
       "actress": "Audrie Neenan",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
-      "actress": "Ava Lee",
-      "tags": ["stomp"]
+      "actress": "Aurélie Meriel",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Ava Lee Scott",
+      "tags": ["stomp"],
+      "count": 1
     },
     {
       "actress": "Ayaka Morita",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Ayako Kawasumi",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Bai Ling",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
-      "actress": "Bai Xin",
-      "tags": ["kick"]
+      "actress": "Bai Xin Yi",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Barbara Law",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Barbara Scoppa",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Barbra Streisand",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Belén Rueda",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Belinda Mayne",
+      "tags": ["kick", "nsfw"],
+      "count": 1
     },
     {
       "actress": "Bella Poarch",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Bella Thorne",
-      "tags": ["verbal", "stomp"]
+      "tags": ["stomp", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Bernadette Lafont",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Beth Miller",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Betsy Russell",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Bianca Cruzeiro",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Billi Bruno",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Billie Piper",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Blaine Saunders",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Blake Lively",
-      "tags": ["squeeze", "hit", "knee"]
+      "tags": ["hit", "squeeze", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Bo Derek",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Branka Pujic",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Bridget Fonda",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Bridgette Wilson",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Briga Heelan",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Brigitte Bardot",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Briony Williams",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Britt Robertson",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Brittany Snow",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Brittney Karbowski",
+      "tags": ["anime", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Brooke D'Orsay",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Caitlin Wachs",
+      "tags": ["object", "stomp"],
+      "count": 1
     },
     {
       "actress": "Calista Flockhart",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Callie Thorne",
+      "tags": ["kick", "relative", "nsfw"],
+      "count": 1
     },
     {
       "actress": "Cameron Diaz",
-      "tags": ["object"]
+      "tags": ["verbal", "knee", "object"],
+      "count": 3
+    },
+    {
+      "actress": "Camila Cabello",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Camille Blott",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Candice King",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Cara Delevingne",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Caraly Sanchez",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Carina Zampini",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Carlton Elizabeth",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Carly Chaikin",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Carmela Zumbado",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Carmen Electra",
-      "tags": ["kick", "hit", "relative"]
+      "tags": ["relative", "hit", "kick"],
+      "count": 2
     },
     {
       "actress": "Carol Bagdasarian",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Carol Kane",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Caroline Elyssia",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Carolyn Dunn",
-      "tags": ["hit", "object"]
+      "tags": ["hit", "object"],
+      "count": 1
     },
     {
       "actress": "Carolyn Lawrence",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Carolyn Pickles",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Carrie Ng",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Casey Durkin",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Caterina Murino",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Caterina Vertova",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Catherine Zeta-Jones",
-      "tags": ["knee", "kick", "hit", "squeeze", "knee", "nsfw"]
+      "tags": ["kick", "knee", "nsfw", "knee", "squeeze", "hit"],
+      "count": 3
     },
     {
       "actress": "Cathie Shirriff",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Catwoman Kicks",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Catya Sasson",
-      "tags": ["knee", "kick"]
+      "tags": ["kick", "knee"],
+      "count": 1
     },
     {
       "actress": "Celeste O'Connor",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Céline Bonnier",
-      "tags": ["knee"]
+      "tags": ["knee", "snfw"],
+      "count": 1
     },
     {
       "actress": "Chae Soo-bin",
-      "tags": ["kick", "kick"]
+      "tags": ["kick", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Chantal Quesnel",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Charisma Carpenter",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Charlie Ray",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Charlize Theron",
       "tags": [
-        "kick",
-        "gunshot",
-        "object",
-        "hit",
         "verbal",
         "castration",
+        "kick",
+        "gunshot",
+        "hit",
+        "object",
         "kick"
-      ]
+      ],
+      "count": 3
     },
     {
       "actress": "Charlotte Beaumont",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Charlotte Le",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Charlotte Newhouse",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Charlotte Roche",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Cheeny Plante",
+      "tags": ["verbal", "nsfw"],
+      "count": 1
     },
     {
       "actress": "Cherami Leigh",
-      "tags": ["kick"]
+      "tags": ["anime", "kick"],
+      "count": 1
     },
     {
       "actress": "Cheri Caffaro",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Cheryl Hines",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Cheryl Ladd",
+      "tags": ["knee", "relative"],
+      "count": 1
     },
     {
       "actress": "China Kantner",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Chingmy Yau",
+      "tags": ["squeeze", "knee", "verbal", "squeeze", "hit"],
+      "count": 2
     },
     {
       "actress": "Chloe Fineman",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
     },
     {
-      "actress": "Chloë Grace",
-      "tags": ["hit", "kick", "knee"]
+      "actress": "Chloë Grace Moretz",
+      "tags": ["knee", "hit"],
+      "count": 1
     },
     {
       "actress": "Choi Kang-hee",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Chrissy Teigen",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Christen Orr",
-      "tags": ["stomp"]
+      "tags": ["stomp"],
+      "count": 1
     },
     {
       "actress": "Christina Applegate",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Christina Ochoa",
-      "tags": ["knee", "object", "hit"]
+      "tags": ["knee", "hit", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Christina Ricci",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Christine Donlon",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Christine Woods",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Chyler Leigh",
-      "tags": ["stomp"]
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Ciara Bravo",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Cindy McGee",
-      "tags": ["kick", "verbal"]
+      "tags": ["verbal", "kick"],
+      "count": 1
     },
     {
       "actress": "Cindy Milo",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Cindy Silver",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Claire Forlani",
-      "tags": ["squeeze", "relative"]
+      "tags": ["squeeze", "relative"],
+      "count": 1
     },
     {
       "actress": "Claire Skinner",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Clara Paget",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Claudia Black",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Clotilde Courau",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Cobie Smulders",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Connie Strickland",
-      "tags": ["verbal", "object"]
+      "tags": ["verbal", "object"],
+      "count": 1
     },
     {
       "actress": "Constance Zimmer",
-      "tags": ["squeeze", "verbal"]
+      "tags": ["squeeze", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Cosima Henman",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Cote de Pablo",
-      "tags": ["press"]
+      "tags": ["press"],
+      "count": 1
     },
     {
       "actress": "Courteney Cox",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Courtney Bertolone",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Courtney Henggeler",
-      "tags": ["hit", "relative"]
+      "tags": ["relative", "hit"],
+      "count": 1
     },
     {
       "actress": "Courtney Thorne-Smith",
-      "tags": ["kick", "squeeze", "knee"]
+      "tags": ["knee", "kick", "squeeze", "verbal"],
+      "count": 3
     },
     {
       "actress": "Cristina Valenzuela",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Crystal Shaw",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Crystal Sun(?)",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Cynthia Rothrock",
-      "tags": ["kick", "knee", "knee", "kick", "kick", "knee"]
+      "tags": ["knee", "kick", "kick", "knee", "knee", "kick", "kick"],
+      "count": 6
     },
     {
       "actress": "Cynthia Rothrocks",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Dafne Keen",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Dakota Johnson",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Dana Christina",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Danay Garcia",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Dani Kind",
+      "tags": ["verbal", "kick", "relative"],
+      "count": 1
     },
     {
       "actress": "Daniela Bobadilla",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Daniela Ruah",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Daniella Alonso",
-      "tags": ["kick", "object"]
+      "tags": ["object", "kick"],
+      "count": 1
     },
     {
       "actress": "Danielle Panabaker",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Darlene Vogel",
-      "tags": ["kick", "squeeze"]
+      "tags": ["kick", "squeeze"],
+      "count": 2
     },
     {
       "actress": "Deanna Dezmari",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Debbie Zipp",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Debby Ryan",
-      "tags": ["verbal", "kick"]
+      "tags": ["verbal", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Debi Mazar",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Deborah Ann",
-      "tags": ["verbal", "knee"]
+      "tags": ["knee", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Deborah Dutch",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Debra Messing",
-      "tags": ["taser", "object"]
+      "tags": ["object", "taser"],
+      "count": 1
     },
     {
       "actress": "Demi Lovato",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Demi Moore",
+      "tags": ["kick", "stomp"],
+      "count": 1
     },
     {
       "actress": "Denise Loveday",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Denise Richards",
-      "tags": ["object", "kick"]
+      "tags": ["object", "kick", "squeeze"],
+      "count": 3
+    },
+    {
+      "actress": "Denise Van Outen",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Déborah François",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Déborah Révy",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Diane Klimaszewski",
+      "tags": ["knee", "hit", "relative"],
+      "count": 1
     },
     {
       "actress": "Dianna Agron",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Doja Cat",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Dominique McElligott",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Dominique Provost-Chalkley",
+      "tags": ["verbal", "stomp", "gunshot", "hit", "kick"],
+      "count": 3
+    },
+    {
+      "actress": "Donatella Damiani",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Donna Young",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Doris Golpashin",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Dyan Cannon",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Dyanne Thorne",
-      "tags": ["castration"]
+      "tags": ["castration"],
+      "count": 1
     },
     {
       "actress": "Eden Sher",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Eden Trevino",
+      "tags": ["verbal", "hit", "knee", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Elaine Klimaszewski",
+      "tags": ["knee", "hit", "relative"],
+      "count": 1
     },
     {
       "actress": "Elena Podkaminskaya",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Elena Tashaeva",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Elina Madison",
+      "tags": ["verbal", "kick", "stomp"],
+      "count": 1
     },
     {
       "actress": "Elisa Gabrielli",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Elisabeth Röhm",
+      "tags": ["squeeze", "verbal"],
+      "count": 1
     },
     {
       "actress": "Elisha Cuthbert",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Eliya Or",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Eliza Dushku",
-      "tags": ["knee", "stomp", "hit"]
+      "tags": ["kick", "knee", "hit", "stomp"],
+      "count": 2
     },
     {
       "actress": "Elizabeth Berkley",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Elizabeth Gracen",
-      "tags": ["kick", "kick"]
+      "tags": ["kick", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Elizabeth Ho",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Elizabeth Hurley",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Elizabeth McGovern",
-      "tags": ["squeeze", "verbal"]
+      "tags": ["verbal", "squeeze"],
+      "count": 1
     },
     {
       "actress": "Elizabeth Morehead",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Elizabeth Olsen",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Elizabeth Perkins",
-      "tags": ["kick", "squeeze"]
+      "tags": ["squeeze", "kick"],
+      "count": 1
     },
     {
       "actress": "Elizabeth Shue",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Elle Dawe",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Ellen Barkin",
-      "tags": ["object", "kick", "squeeze"]
+      "tags": ["object", "kick", "squeeze"],
+      "count": 1
     },
     {
       "actress": "Elvira Bolgova",
-      "tags": ["squeeze", "knee"]
+      "tags": ["knee", "squeeze"],
+      "count": 1
     },
     {
       "actress": "Elvira Ibragimova",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Emanuelle Araújo",
-      "tags": ["squeeze", "verbal"]
+      "tags": ["squeeze", "verbal"],
+      "count": 1
     },
     {
       "actress": "Emilia Clarke",
-      "tags": ["knee", "press"]
+      "tags": ["knee", "press"],
+      "count": 2
     },
     {
       "actress": "Emilie De Ravin",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Emily Browning",
-      "tags": ["kick"]
+      "tags": ["squeeze", "kick", "kick"],
+      "count": 3
     },
     {
       "actress": "Emily Deschanel",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Emily Neves",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Emily Osment",
-      "tags": ["knee", "relative", "squeeze"]
+      "tags": ["squeeze", "relative", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Emily Rudd",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Emily Tosta",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Emma Hunter",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Emma Pierson",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Emma Roberts",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Emma Stone",
-      "tags": ["kick", "knee"]
+      "tags": ["kick", "knee"],
+      "count": 2
     },
     {
       "actress": "Emma Watson",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Eri Kitamura",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Erica Ash",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Erica Durance",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Erika Eleniak",
-      "tags": ["verbal", "stomp"]
+      "tags": ["stomp", "verbal"],
+      "count": 2
     },
     {
       "actress": "Erika Harlacher",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Erika Heynatz",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Erin Karpluk",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Erinn Wesetbrook",
-      "tags": ["taser"]
+      "tags": ["taser"],
+      "count": 1
+    },
+    {
+      "actress": "Esperanza América",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Esther Sutherland",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Euridice Axen",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Eva Isanta",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Eva Mendes",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Eve Plumb",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Evgeniya Brik",
+      "tags": ["bite"],
+      "count": 1
+    },
+    {
+      "actress": "Evin Ahmad",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Élodie Fontan",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Fabianne Therese",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Faye Dunaway",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Felicia Day",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Felicity Kendal",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Fiona Mogridge",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Flare Arlgrande",
+      "tags": ["anime", "kick", "stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Florence Henderson",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Florence Pough",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Frances MacDormand",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Frances McDormand",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Francoise Yip",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Fumika Baba",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Gabriella Hall",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Gabrielle Anwar",
-      "tags": ["knee", "object"]
+      "tags": ["knee", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Gabrielle Miller",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Gabrielle Union",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Gage Tarrant",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Gail Thackray",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Gal Gadot",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Gara Takashima",
+      "tags": ["knee", "anime"],
+      "count": 1
+    },
+    {
+      "actress": "Geena Davis",
+      "tags": ["kick", "object"],
+      "count": 1
     },
     {
       "actress": "Gemma Chan",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Gena Lee Nolin",
+      "tags": ["kick", "squeeze", "hit"],
+      "count": 1
     },
     {
       "actress": "Genevieve Buechner",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Genevieve O’Reilly",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Georgia Craig",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Gigi Edgley",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Gillian Jacobs",
+      "tags": ["object", "object"],
+      "count": 2
+    },
+    {
+      "actress": "Gina Bellman",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Gina Gershon",
-      "tags": ["squeeze", "nsfw"]
+      "tags": ["squeeze", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Gina Hiraizumi",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Ginger Lynn",
+      "tags": ["nsfw", "knee", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Giulia Bruchwitz",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Gladise Jiminez",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Gloria Guida",
-      "tags": ["stomp"]
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Gorete Milagres",
+      "tags": ["press"],
+      "count": 1
+    },
+    {
+      "actress": "Grace Lynn",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Grace Park",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Hailee Steinfeld",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Hallie Grace Bradley",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Halston Sage",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Han So-hee",
+      "tags": ["kick", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Hanna Tevita",
+      "tags": ["bite"],
+      "count": 1
+    },
+    {
+      "actress": "Hannah Arterton",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Hannah Fierman",
-      "tags": ["nsfw", "castration"]
+      "tags": ["castration", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Hannah Harper",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Hannah John-Kamen",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Hannah Kasulka",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Hannah Murray",
+      "tags": ["nsfw", "squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Harley Quinn Smith",
+      "tags": ["kick", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Haruka Tomatsu,",
+      "tags": ["kick", "stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Hattie Smith",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Hatty Jones",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Hayden Panettiere",
+      "tags": ["kick", "squeeze", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Hayley Atwell",
+      "tags": ["hit", "kick"],
+      "count": 1
     },
     {
       "actress": "Hayley Squires",
-      "tags": ["verbal", "threat"]
+      "tags": ["verbal", "threat"],
+      "count": 1
+    },
+    {
+      "actress": "Heather Graham",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Heather Peace",
+      "tags": ["squeeze", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Heather Wahlquist",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Helen Mirren",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Helen Slater",
+      "tags": ["knee", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Hermione Corfield",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Hermione Norris",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Hilary Shepard",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Hillary Tuck",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Hiromi Igarashi",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Holland Taylor",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Holly Elissa",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Holly Hunter",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Imani Lewis",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Imogen Poots",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Inanna Sarkis",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Irina Maleeva",
+      "tags": ["kick", "squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Irmak Ipek",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Isabella Russo",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Iuliana Ierugan",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Iva Babic",
+      "tags": ["squeeze", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "J.J. North",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Jade Tailor",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jadyn Wong",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jaime Pressly",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jamie Bernadette",
+      "tags": ["object", "gunshot", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Jamie Chung",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Jamie Lee Curtis",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Jane Levy",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Janeane Garofalo",
+      "tags": ["kick", "verbal"],
+      "count": 1
     },
     {
       "actress": "Janet McTeer",
-      "tags": ["castration"]
+      "tags": ["castration"],
+      "count": 1
+    },
+    {
+      "actress": "Jang Gyu-ri",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Janina Uhse",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "January Jones",
-      "tags": ["object", "gunshot", "nsfw"]
+      "tags": ["object", "gunshot", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Jayne Hamil",
+      "tags": ["knee", "nsfw", "knee", "verbal"],
+      "count": 2
     },
     {
       "actress": "Jazmyn Simon",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Jeannie Roshar",
+      "tags": ["hit", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jemma Dallender",
+      "tags": ["squeeze", "taser"],
+      "count": 1
     },
     {
       "actress": "Jenn Proske",
-      "tags": ["relative", "kick"]
+      "tags": ["relative", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jenn Van Persaud",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Jenna Burgess",
+      "tags": ["hit", "relative"],
+      "count": 1
+    },
+    {
+      "actress": "Jenna Fischer",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Jennette McCurdy",
+      "tags": ["relative", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Jennifer Aniston",
+      "tags": ["hit", "knee"],
+      "count": 2
     },
     {
       "actress": "Jennifer Burns",
-      "tags": ["kick", "knee"]
+      "tags": ["knee", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jennifer Carpenter",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jennifer Garner",
+      "tags": ["kick", "squeeze", "verbal"],
+      "count": 3
+    },
+    {
+      "actress": "Jennifer Grey",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Jennifer Hale",
-      "tags": ["kick", "kick"]
+      "tags": ["kick", "kick"],
+      "count": 2
     },
     {
       "actress": "Jennifer Lawrence",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Jennifer Lee Pryor",
-      "tags": ["verbal", "object"]
+      "tags": ["verbal", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Jennifer Lopez",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Jennifer Morrison",
+      "tags": ["object", "stomp"],
+      "count": 1
     },
     {
       "actress": "Jennifer Roa",
-      "tags": ["squeeze", "verbal"]
+      "tags": ["squeeze", "verbal"],
+      "count": 1
     },
     {
       "actress": "Jenny Runacre",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Alba",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Biel",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Chobot",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Henwick",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Lowe",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica McNamee",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Jessica Morris",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Parker Kennedy",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Simpson",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Jessica St. Clair",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Jessica Steen",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Jessie Fife",
+      "tags": ["kick", "squeeze", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Jewel Staite",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Jo Ann Harris",
-      "tags": ["verbal", "object"]
+      "tags": ["verbal", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Jo Ara",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Joan Collins",
+      "tags": ["knee", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Joan Crawford",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Joan Severance",
+      "tags": ["verbal", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Joanna Angel",
+      "tags": ["verbal", "hit", "knee", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Joanna Kulig",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Joanna Lumley",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Joanna Sienkiewicz",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Joanne Samuel",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Jodelle Ferland",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Jodi Balfour",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Jodie Foster",
-      "tags": ["relative", "knee"]
+      "tags": ["knee", "relative"],
+      "count": 1
     },
     {
       "actress": "Jodie Whittaker",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Joey King",
+      "tags": ["object", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Jolene Blalock",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Jordan Claire Robbins",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Jordan Phipps",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Jordana Brewster",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Jordana Lajoie",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Judith Godrèche",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Julia Garner",
-      "tags": ["hit", "kick"]
+      "tags": ["kick", "hit"],
+      "count": 2
+    },
+    {
+      "actress": "Julia Goulding",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Julia Jones",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Julia Roberts",
+      "tags": ["knee", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Julia Rose",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Julia Stiles",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Julianna Margulies",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Julie Benz",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Julie K. Smith",
+      "tags": ["press", "object"],
+      "count": 2
+    },
+    {
+      "actress": "Julie Michaels",
+      "tags": ["nsfw", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Julie Strain",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Julie T. Wallace",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Juliette Lewis",
+      "tags": ["verbal", "kick"],
+      "count": 2
     },
     {
       "actress": "June Christopher",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "June Diane Raphael",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Jurnee Smollett",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Jwaundace Candece",
-      "tags": ["kick", "grab"]
+      "tags": ["kick", "squeeze"],
+      "count": 1
     },
     {
       "actress": "Kaley Cuoco",
-      "tags": ["verbal", "verbal"]
+      "tags": ["verbal", "verbal"],
+      "count": 2
     },
     {
       "actress": "Kana Hanazawa",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kanna Hashimoto",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Kara Wai",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Karan Ashley",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Karen Austin",
+      "tags": ["stomp", "press"],
+      "count": 1
     },
     {
       "actress": "Karen Gillan",
-      "tags": ["object", "relative", "stomp", "taser", "kick"]
+      "tags": ["relative", "taser", "object", "stomp", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Karen M. Waldron",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Karen May-Chandler",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Karen Russell",
+      "tags": ["knee", "nsfw", "knee", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Karen Sheperd",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Kari Corbett",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Kari Whurer",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kari Wuhrer",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Karina Smulders",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Karissa Strain",
+      "tags": ["bite"],
+      "count": 1
     },
     {
       "actress": "Kasie Head",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Katarina",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Kate Beckinsale",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Kate Mulgrew",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Kate Nelligan",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Kate Upton",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Kate Walsh",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Katerine Kingsley",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Katharine McPhee",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Katharine O'Donnelly",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Katherine Barrell",
+      "tags": ["verbal", "stomp", "gunshot"],
+      "count": 1
+    },
+    {
+      "actress": "Katherine Heigl",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Katherine Jenkins",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Katherine LaNasa",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Katherine Langford",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Katheryn Winnick",
+      "tags": ["knee", "hit", "squeeze", "kick", "castration", "knee", "kick"],
+      "count": 3
+    },
+    {
+      "actress": "Kathleen Beller",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kathleen Kinmont",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Kathryn Bernardo",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Kathryn Hahn",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Kathryn Kirkpatrick",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Kathryn Loder",
+      "tags": ["castration"],
+      "count": 1
     },
     {
       "actress": "Kathryn Newton",
-      "tags": ["kick"]
+      "tags": ["kick", "castration", "object", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Kathy Baker",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Kathy Long",
+      "tags": ["kick", "hit", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Katia Winter",
+      "tags": ["squeeze", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Katie Burgess",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Katie Holmes",
+      "tags": ["kick", "squeeze", "knee", "knee"],
+      "count": 3
+    },
+    {
+      "actress": "Katie Strain",
+      "tags": ["bite"],
+      "count": 1
+    },
+    {
+      "actress": "Katie Willert",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kaya Scodelario",
+      "tags": ["kick", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Kayleigh Ruller",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kayoko Shiraishi",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Keeley Hawes",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Kelly Brook",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kelly Frazier",
+      "tags": ["hit", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kelly Hu",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kelly Reilly",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kelly Stables",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kelly Thiebaud",
+      "tags": ["knee", "relative"],
+      "count": 1
+    },
+    {
+      "actress": "Kendall Jenner",
+      "tags": ["relative", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Keren Mor",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Keri Hilson",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Kerry Bishe",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kerry Knuppe",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Khloé Kardashian",
-      "tags": ["verbal", "hit", "knee"]
+      "tags": ["knee", "verbal", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Kim Basinger",
+      "tags": ["knee", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Kim Cattrall",
+      "tags": ["squeeze", "kick"],
+      "count": 2
     },
     {
       "actress": "Kim Kardashian",
-      "tags": ["verbal", "hit", "knee"]
+      "tags": ["knee", "verbal", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Kim Kopf",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Kim So-hyun",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Kim Sun-A",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kimberly Williams-Paisley",
+      "tags": ["kick", "object", "verbal"],
+      "count": 3
+    },
+    {
+      "actress": "Kiri-Leigh Schmit",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Kirsten Dunst",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kirstie Alley",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kitten Natividad",
+      "tags": ["kick", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Kiyomi Fukazawa",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Kourtney Kardashian",
-      "tags": ["verbal", "hit", "knee"]
+      "tags": ["knee", "verbal", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Kris Burtt",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Krista Kosonen",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Krista Tesreau",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kristal Tin",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Kristen Bell",
-      "tags": ["kick", "verbal", "verbal"]
+      "tags": ["kick", "verbal", "verbal"],
+      "count": 3
+    },
+    {
+      "actress": "Kristen Johnston",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Kristen Vaganos",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kristin Cavallari",
+      "tags": ["hit", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kristin Kreuk",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kristina Klebe",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Kristsen Kreuk",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Kristy Ducati",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Kristy McNichol",
+      "tags": ["verbal", "knee", "squeeze", "knee", "verbal", "kick"],
+      "count": 4
+    },
+    {
+      "actress": "Krystal Vee",
+      "tags": ["stomp"],
+      "count": 1
     },
     {
       "actress": "Krysten Ritter",
-      "tags": ["hit", "knee", "kick"]
+      "tags": ["knee", "kick", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Kseniya Surkova",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kuhoo Verma",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Kyle Richards",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Kylie Jenner",
+      "tags": ["relative", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Kyra Sedgwick",
+      "tags": ["knee", "knee", "verbal"],
+      "count": 3
     },
     {
       "actress": "Lada Edmund Jr",
-      "tags": ["verbal", "object"]
+      "tags": ["verbal", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Lake Bell",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Lana Clarkson",
+      "tags": ["knee", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Lara Flynn Boyle",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Lara Pulver Elbows",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Larissa Wilson",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Laura Albert",
+      "tags": ["knee", "kick", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Laura Bell Bundy",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Laura Curran",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Laura Fraser",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Laura Haddock",
+      "tags": ["knee", "knee", "kick"],
+      "count": 2
     },
     {
       "actress": "Laura Pyper",
-      "tags": ["knee"]
+      "tags": ["squeeze", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Lauren German",
+      "tags": ["knee", "object"],
+      "count": 2
     },
     {
       "actress": "Laurence Leboeuf",
-      "tags": ["kick"]
+      "tags": ["kick", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Laurene Landon",
+      "tags": ["squeeze", "hit", "kick", "squeeze"],
+      "count": 2
+    },
+    {
+      "actress": "Laurie Zimmer",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Laysla de Oliveira",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Lea Martini",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Lea Michele",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Leah Remini",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Lee Benton",
+      "tags": ["knee", "kick", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Lee Han-Byul",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Lee Jung-hyun",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Leigh Hamilton",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Leighton Meester",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Lena Headey",
+      "tags": ["bite"],
+      "count": 1
+    },
+    {
+      "actress": "Lesley Ann Warren",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Lesley-Anne Down",
-      "tags": ["threat", "verbal"]
+      "tags": ["threat", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Leslie Ann Warren",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Leslie Ash",
+      "tags": ["object", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Leslie Mann",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Leslie-Ann Brandt",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Lezlie Deane",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Lili Reinhart",
-      "tags": ["kick", "press"]
+      "tags": ["kick", "press"],
+      "count": 1
+    },
+    {
+      "actress": "Lili Taylor",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Lilli Carati",
-      "tags": ["stomp"]
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Lily-Rose Depp",
+      "tags": ["kick", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Lim Eun-kyung",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Lina Romay",
+      "tags": ["bite", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Linda Blair",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Linda Cardellini",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Lindsay Hartley",
-      "tags": ["knee", "relative"]
+      "tags": ["knee", "relative"],
+      "count": 1
+    },
+    {
+      "actress": "Lindsay Price",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Lindsey Sporrer",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Lisa Moore",
-      "tags": ["verbal", "object"]
+      "tags": ["verbal", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Lisa Rinna",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Lisa Robin Kelly",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Lisa Zambrano",
+      "tags": ["knee", "kick", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Liv Tyler",
+      "tags": ["kick", "kick"],
+      "count": 2
     },
     {
       "actress": "Lizze Broadway",
-      "tags": ["verbal"]
+      "tags": ["squeeze", "verbal"],
+      "count": 2
     },
     {
       "actress": "Lizzy Caplan",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Lola Créton",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Lola Glaudini",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Lola Tung",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Loletta Lee",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Lorelei King",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Lori Jo Hendrix",
+      "tags": ["castration"],
+      "count": 1
+    },
+    {
+      "actress": "Lori Lynn Dickerson",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Lori Petty",
+      "tags": ["hit", "squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Lori Sutton",
+      "tags": ["knee", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Lucie Guest",
+      "tags": ["gunshot"],
+      "count": 1
+    },
+    {
+      "actress": "Lucy Hale",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Lucy Lawless",
+      "tags": ["kick", "object"],
+      "count": 1
     },
     {
       "actress": "Lucy Liu",
-      "tags": ["verbal", "kick"]
+      "tags": ["object", "kick", "kick", "verbal"],
+      "count": 4
+    },
+    {
+      "actress": "Luigina Rocchi",
+      "tags": ["nsfw", "castration"],
+      "count": 1
+    },
+    {
+      "actress": "Lyanna Tumaneng",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Lynda Day George",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Lyndie Greenwood",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Lynsey De Paul",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Madeleine Coghlan",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Madeline Kahn",
+      "tags": ["hit", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Madison Dylan",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Madoka Sugawara",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Madonna",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Mae Whitman",
+      "tags": ["kick", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Magdalena Boczarska",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Magdalena Kolesnik",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Mageina Tovah",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Maggie Ma",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Maggie Q",
+      "tags": ["squeeze", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Maggie Siff",
+      "tags": ["squeeze", "hit"],
+      "count": 2
+    },
+    {
+      "actress": "Maite Perroni",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Maite Schwartz",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Majandra Delfino",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Makenzie Moss",
+      "tags": ["relative", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Makinna Ridgway",
+      "tags": ["gunshot"],
+      "count": 1
+    },
+    {
+      "actress": "Malin Akerman",
+      "tags": ["kick", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Mandy Moore",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Margaryta Soldatova",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Margi Clarke",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Margot Robbie",
+      "tags": ["object", "hit", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Maria Bonnevie",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Maria Bopp",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Maria Conchita",
+      "tags": ["squeeze", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Maria Ford",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Maria Lavrova",
+      "tags": ["squeeze", "nsfw", "hit"],
+      "count": 2
+    },
+    {
+      "actress": "Maria Mashkova",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Maria Olsen",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Maria Sharapova",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Marian Saastad Ottesen",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Marilu Tolo",
+      "tags": ["nsfw", "knee"],
+      "count": 1
     },
     {
       "actress": "Marilyn Sokol",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Marin Hinkle",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Marina Foïs",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Marisa Coughlan",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Marisa Tomei",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Marisa Van",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Mariya Kozhevnikova",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Marjean Holden",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Marlee Van",
+      "tags": ["squeeze", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Marley Shelton",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Marta Dusseldorp",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Martha Plimpton",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Mary Elizabeth Winstead",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Mary Ellen",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Mary Larsen",
+      "tags": ["kick", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Mary McCormack",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Mary-Kate Olsen",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Mary-Louise Parker",
+      "tags": ["verbal", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Matilda De Angelis",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Maureen Lipman",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Maureen McCormick",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Maya Rudolph",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Mayra Hermosillo",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Meaghan Rath",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Meg Donnelly",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Megan Fox",
+      "tags": ["knee", "hit", "knee", "knee", "squeeze"],
+      "count": 4
+    },
+    {
+      "actress": "Megan fox",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Megan Maczko",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Megan Soo",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Megan Stevenson",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Megan Ward",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Meghann Fahy",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Meighan Desmond",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Melani Olivares",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Melanie Griffith",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Melanie Lynskey",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Melanie Scrofano",
+      "tags": ["verbal", "stomp", "gunshot", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Melanie Winiger",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Melissa Bolona",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Melissa Fumero",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Melissa Joan Hart",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Melissa McCarthy",
-      "tags": ["kick", "kick"]
+      "tags": ["kick", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Melissa Moore",
+      "tags": ["knee", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Melissa Sagemiller",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Meng'er Zhang",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Mercedes Ruehl",
-      "tags": ["gunshot"]
+      "tags": ["gunshot"],
+      "count": 1
+    },
+    {
+      "actress": "Mercy Malick",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Mi Yang",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Mia Samos",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Mia Sara",
-      "tags": ["object", "nsfw"]
+      "tags": ["nsfw", "object", "squeeze"],
+      "count": 2
     },
     {
       "actress": "Michelle Forbes",
-      "tags": ["object", "nsfw"]
+      "tags": ["nsfw", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Michelle Gomez",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Michelle Lee",
+      "tags": ["castration", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Michelle Lintel",
+      "tags": ["knee", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Michelle Mylett",
+      "tags": ["kick", "hit"],
+      "count": 2
     },
     {
       "actress": "Michelle Pfeiffer",
-      "tags": ["object", "knee"]
+      "tags": ["knee", "object"],
+      "count": 2
+    },
+    {
+      "actress": "Michie Tomizawa",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Miki Nanri",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Mila Kunis",
-      "tags": ["verbal"]
+      "tags": ["kick", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Milla Jovovich",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Millie Bobby",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Milly Alcock",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Minase Yashiro",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Mindi Jackson",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Mindi Miller",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Minka Kelly",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Minnie Driver",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Miranda Cosgrove,",
+      "tags": ["relative", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Miriam Owiti",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Miss Charlotte",
+      "tags": ["hit", "kick"],
+      "count": 1
     },
     {
       "actress": "Missy",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Misti Singh",
+      "tags": ["kick", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Misty Mundae",
+      "tags": ["squeeze", "nsfw", "squeeze", "nsfw"],
+      "count": 2
+    },
+    {
+      "actress": "Mitzi Kapture",
+      "tags": ["knee", "object", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Mizuho Yuuki",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Molly Price",
+      "tags": ["squeeze", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Molly Shannon",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Molly Sims",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Monica Bellucci",
-      "tags": ["knee", "nsfw"]
+      "tags": ["knee", "nsfw", "squeeze"],
+      "count": 2
+    },
+    {
+      "actress": "Monique Gabrielle",
+      "tags": ["kick", "knee"],
+      "count": 2
+    },
+    {
+      "actress": "Moon Bloodgood",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Morena Baccarin",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Morwenna Banks",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Mozhan Marnò",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Mónica Naranjo",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Ms. Piggy",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Nadia Parkes",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Nan Yu",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Nancy Alison",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Nargis Fakhri",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Nastasya Samburskaya",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Natalie Gumede",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Natalie Liconti",
-      "tags": ["castration"]
+      "tags": ["castration"],
+      "count": 1
+    },
+    {
+      "actress": "Natalie Mendoza",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Natalie Portman",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Natalya Negoda",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Natasha Henstridge",
+      "tags": ["taser", "kick", "hit"],
+      "count": 2
     },
     {
       "actress": "Natasha Wilson",
-      "tags": ["gunshot"]
+      "tags": ["gunshot"],
+      "count": 1
+    },
+    {
+      "actress": "Natassia Malthe",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Nicky Whelan",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Nicole Kidman",
+      "tags": ["nsfw", "object"],
+      "count": 1
     },
     {
       "actress": "Nicole Muñoz",
-      "tags": ["knee"]
+      "tags": ["knee", "knee"],
+      "count": 2
     },
     {
       "actress": "Nika Futterman",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Niki Chow",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Nikki Cox",
-      "tags": ["kick"]
+      "tags": ["kick", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Nikki Rodriguez",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Nina Dobrev",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Nina Loshchinina",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Nina Siemaszko",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Nirosha",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Noomi Rapace",
+      "tags": ["knee", "taser", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Noopur Patwardhan",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Noureen DeWulf",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Nozomi Mikajiri",
-      "tags": ["stomp"]
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Nuku Nuku",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Odette Annable",
+      "tags": ["gunshot", "press"],
+      "count": 1
+    },
+    {
+      "actress": "Ofelia Karolina Cybula",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Olga Boladz",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Olga Kurylenko",
-      "tags": ["knee", "squeeze"]
+      "tags": ["kick", "hit", "knee", "squeeze"],
+      "count": 2
     },
     {
       "actress": "Olivia Colman",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Olivia DeJonge",
+      "tags": ["kick", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Olivia Munn",
+      "tags": ["knee", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Olivia Taylor Dudley",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Olivia Thirlby",
+      "tags": ["bite"],
+      "count": 1
+    },
+    {
+      "actress": "Olivia Williams",
+      "tags": ["squeeze", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Oona O'Brien",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Ophelia Lovibond",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Ophélie Winter",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "P.J. Soles",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Paget Brewster",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Paige Le Ney",
+      "tags": ["verbal", "hit", "knee", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Paige/Saraya Bevis",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Paloma Kwiatkowski",
-      "tags": ["knee", "relative"]
+      "tags": ["knee", "relative"],
+      "count": 1
     },
     {
       "actress": "Pam Ferris",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Pam Grier",
-      "tags": ["kick"]
+      "tags": ["castration", "gunshot", "kick"],
+      "count": 3
     },
     {
       "actress": "Pamela Adlon",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Pamela Alster",
+      "tags": ["kick", "knee", "kick", "object"],
+      "count": 2
+    },
+    {
+      "actress": "Pamela Anderson",
+      "tags": ["squeeze", "hit", "press"],
+      "count": 2
+    },
+    {
+      "actress": "Pamela Susan",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Paola Cortellesi",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Park Bo-Young",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Patricia Estrin",
-      "tags": ["verbal", "object"]
+      "tags": ["verbal", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Patricia Heaton",
+      "tags": ["hit", "squeeze"],
+      "count": 2
+    },
+    {
+      "actress": "Patsy Kensit",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Paula Garcés",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Paula Irvine",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Paula Trickey",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Paulina Rubio",
+      "tags": ["squeeze", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Pauline Chan",
+      "tags": ["nsfw", "squeeze", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Penelope Cruz",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Perrey Reeves",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Peta Wilson",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Phantira Pipityakorn",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Phintusuda Tunphairao",
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Ploy Sornarin",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Poppy Smith",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Portia de Rossi",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Priscilla Barnes",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "ps (2014).mp4",
-      "tags": ["kick", "grab"]
+      "tags": ["kick", "squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Putri Marino",
+      "tags": ["kick", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Rabia Soytürk",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Rachael Harris",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Rachael Taylor",
-      "tags": ["hit", "knee", "kick"]
+      "tags": ["knee", "kick", "hit"],
+      "count": 1
     },
     {
       "actress": "Rachel Bloom",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Rachel Brosnahan",
+      "tags": ["verbal", "verbal"],
+      "count": 2
     },
     {
       "actress": "Rachel Hayward",
-      "tags": ["hit", "object"]
+      "tags": ["hit", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Rachel Keller",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Rachel Luttrell",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Rachel Maddow",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Rachel McAdams",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Rachel Robertson",
+      "tags": ["squeeze", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Rachel Weisz",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Rachel Wilson",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Rachelle Lefevre",
+      "tags": ["kick", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Rae Dawn",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Raegan Revord",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Raquael Torres",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Raquel Welch",
+      "tags": ["knee", "kick", "kick"],
+      "count": 3
+    },
+    {
+      "actress": "Raylin Joy",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Rebecca De Mornay",
+      "tags": ["verbal", "kick", "kick"],
+      "count": 2
     },
     {
       "actress": "Rebecca Ferguson",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Rebecca Neuenswander",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Rebel Wilson",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Reese Witherspoon",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Reiko Ike",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Reiko Kato",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Rena Lesnar",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Rena Murakami",
+      "tags": ["nsfw", "squeeze", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Renee Russo",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Renée O'Connor",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Renée Soutendijk",
+      "tags": ["bite"],
+      "count": 1
+    },
+    {
+      "actress": "Rhona Mitra",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Rhonda Dent",
+      "tags": ["hit", "relative"],
+      "count": 1
+    },
+    {
+      "actress": "Ria De",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Riley Dandy",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Riley Keough",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Rina Takeda",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Roberta Valderrama",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Robin McLeavy",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Rochelle Swanson",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Rona Ambrose",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Ronda Rousey",
+      "tags": ["hit", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Rosario Dawson",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Rose McIver",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Rosemarie DeWitt",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Ryeowon Jung",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sabrina Lloyd",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Sadie Munroe",
+      "tags": ["verbal", "kick", "relative"],
+      "count": 1
     },
     {
       "actress": "Sadie Sink",
-      "tags": ["relative", "object"]
+      "tags": ["relative", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Saige Thompson",
+      "tags": ["kick", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Sakura Nogawa",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Sam Aotaki",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Samantha Dark",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Samantha Smith",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Samara Weaving",
-      "tags": ["gunshot", "hit", "object"]
+      "tags": ["gunshot", "object", "hit", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Sanam Jung",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Sapphire Elia",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Sara Ammons",
+      "tags": ["castration", "object", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah Bartell",
+      "tags": ["verbal", "nsfw"],
+      "count": 1
     },
     {
       "actress": "Sarah Bolger",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah Brown",
+      "tags": ["kick", "press", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah Butler",
+      "tags": ["object", "taser"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah Chalke",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah Cleveland",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah French",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah Joy Stevenson",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Sarah Michelle Gellar",
-      "tags": ["kick"]
+      "tags": ["kick", "kick"],
+      "count": 2
     },
     {
       "actress": "Sarah Shahi",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah Silverman",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Sarah-Jane Potts",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Saraya-Jade Bevis (Paige)",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Sasha Luss",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Sayaka Senbongi",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Scarlett Johansson",
+      "tags": ["hit", "taser", "knee"],
+      "count": 3
+    },
+    {
+      "actress": "Sean Young",
+      "tags": ["kick", "squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Selena Gomez",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Severija Janusauskaite",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Shania Twain",
-      "tags": ["threat", "verbal"]
+      "tags": ["threat", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Shannon Tweed",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Shari Shattuck",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Sharon Stone",
-      "tags": ["gunshot"]
+      "tags": ["gunshot", "hit", "stomp", "kick"],
+      "count": 2
     },
     {
       "actress": "Shawn Von Schreiber",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Shelby Shea",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Shelby Taylor",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Sheridan Smith",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Sherri Stoner",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sherrie Rose",
+      "tags": ["squeeze", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Shiho Kawaragi",
+      "tags": ["knee", "anime"],
+      "count": 1
     },
     {
       "actress": "Shiri Appleby",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Simone McAullay",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Skyler Samuels",
+      "tags": ["taser"],
+      "count": 1
+    },
+    {
+      "actress": "Sofia Boutella",
+      "tags": ["witness"],
+      "count": 1
+    },
+    {
+      "actress": "Sofía Vergara",
+      "tags": ["relative", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Sofya Kashtanova",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Sondra Locke",
-      "tags": ["kick", "gunshot"]
+      "tags": ["kick", "kick", "gunshot"],
+      "count": 2
+    },
+    {
+      "actress": "Sophia Brown",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Sophia Bush",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Sophia Crawford",
+      "tags": ["nsfw", "squeeze", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sophia Lillis",
+      "tags": ["relative", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sophie Okonedo",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Sophie Vavasseur",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Spencer Locke",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "squeeze",
+      "tags": ["Aubrey Plaza"],
+      "count": 1
+    },
+    {
+      "actress": "Stacy Keenan",
+      "tags": ["knee", "relative"],
+      "count": 1
+    },
+    {
+      "actress": "Stana Katic",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Stefania Owen",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Stella Maeve",
+      "tags": ["kick", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Stephanie Abrams",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Stephanie Beatriz",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Stephanie Danielson",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Stephanie Hodge",
-      "tags": ["threat", "verbal", "stomp"]
+      "tags": ["threat", "verbal", "stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Stormy Daniels",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "StripperellaPamela Anderson",
+      "tags": ["knee", "squeeze", "hit"],
+      "count": 1
+    },
+    {
+      "actress": "Su Won-Ji",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Sumire Uesaka",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Summer Bishil",
+      "tags": ["kick", "squeeze", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Summer Glau",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Sun Dandan",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sun-Bin Lee",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Supaksorn Chaimongkol",
+      "tags": ["squeeze", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Susan Byun",
+      "tags": ["knee", "kick", "object"],
+      "count": 1
     },
     {
       "actress": "Susan Sarandon",
-      "tags": ["hit"]
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Susan Tyrrell",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Susana Traverso",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Susannah York",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Susie Hatton",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Sutton Foster",
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Suzanne Sweazy",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Suzi Simpson",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Syan Blake",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "T.J. McGibbon",
+      "tags": ["witness"],
+      "count": 1
+    },
+    {
+      "actress": "Talisa Soto",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Tallie Cochrane",
-      "tags": ["knee"]
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Tamara Bleszynski",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Tania Raymonde",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Tanishaa Mukerji",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Tara Strong",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Tate Chapman",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Tawny Newsome",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Taylor Atelian",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Taylour Paige",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Terasa Livingstone",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Terasu Mono",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Teri Hatcher",
+      "tags": ["knee", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Terri Treas",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "The Americans.mov",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "The Eagle",
+      "tags": ["kick", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Thea Slikboer",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Theo Cohan",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Theresa Joy",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Theresa Lynn",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Tia Carrere",
-      "tags": ["kick", "knee"]
+      "tags": ["kick", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Tiffany Helm",
+      "tags": ["object", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Tiffany Smith",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Tina Bursill",
+      "tags": ["nsfw", "squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Tina Cote",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Tina Ivlev",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Tina O'Brien",
+      "tags": ["knee"],
+      "count": 1
     },
     {
       "actress": "Toni Collette",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Toni Hudson",
+      "tags": ["verbal"],
+      "count": 1
     },
     {
       "actress": "Tonya Kay",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Traci Lords",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Tracy Scoggins",
+      "tags": ["knee", "hit"],
+      "count": 2
     },
     {
       "actress": "Tracy Silver",
-      "tags": ["kick", "verbal"]
+      "tags": ["verbal", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Tricia Helfer",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Tricia Leigh",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Trina Nishimura",
-      "tags": ["squeeze"]
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Trish Stratus",
+      "tags": ["stomp"],
+      "count": 1
+    },
+    {
+      "actress": "Tsubasa Honda",
+      "tags": ["stomp", "hit", "hit"],
+      "count": 3
+    },
+    {
+      "actress": "Uhm Jung-hwa",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Uma Thurman",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "umie Kusachi",
+      "tags": ["anime", "kick"],
+      "count": 1
+    },
+    {
+      "actress": "Una You",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "unknown",
-      "tags": ["knee", "verbal"]
+      "tags": ["verbal", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Unknown Actress",
+      "tags": [
+        "object",
+        "kick",
+        "nsfw",
+        "squeeze",
+        "kick",
+        "squeeze",
+        "hit",
+        "relative",
+        "squeeze",
+        "object",
+        "object",
+        "knee",
+        "kick",
+        "kick",
+        "kick"
+      ],
+      "count": 13
+    },
+    {
+      "actress": "Unknown Actresses",
+      "tags": ["hit", "kick", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Valentina Andrade",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Vanesa Romero",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Vanessa Angel",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Vanessa Ferlito",
+      "tags": ["object", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Vanessa Hudgens",
+      "tags": ["kick", "kick"],
+      "count": 2
+    },
+    {
+      "actress": "Vanessa Williams",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Veki Velilla",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Victoria Beckham",
+      "tags": ["kick", "verbal"],
+      "count": 2
+    },
+    {
+      "actress": "Victoria Justice",
+      "tags": ["hit", "object"],
+      "count": 2
+    },
+    {
+      "actress": "Victoria Moroles",
+      "tags": ["object"],
+      "count": 1
     },
     {
       "actress": "Victoria Pratt,",
-      "tags": ["knee", "relative"]
+      "tags": ["relative", "knee"],
+      "count": 1
+    },
+    {
+      "actress": "Victoria Principal",
+      "tags": ["knee", "relative"],
+      "count": 1
+    },
+    {
+      "actress": "Vinessa Shaw",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Virginia Gardner",
-      "tags": ["object"]
+      "tags": ["object"],
+      "count": 1
+    },
+    {
+      "actress": "Viviana Serna",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Wanniga Udomsinwatana",
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Wei Yao",
+      "tags": ["squeeze", "castration", "gunshot"],
+      "count": 2
+    },
+    {
+      "actress": "Wendy Kremer",
+      "tags": ["bite", "nsfw"],
+      "count": 1
+    },
+    {
+      "actress": "Wiktoria Trzebniak",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Winona Ryder",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Ximena Duque",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Yasmin Raeis",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Yasmine Bleeth",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Ye Gao",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Yetide Badaki",
+      "tags": ["verbal", "squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Yuexi Wang",
+      "tags": ["squeeze"],
+      "count": 1
     },
     {
       "actress": "Yui Ogura",
-      "tags": ["kick"]
+      "tags": ["kick"],
+      "count": 1
+    },
+    {
+      "actress": "Yukari Ôshima",
+      "tags": ["kick", "object"],
+      "count": 1
+    },
+    {
+      "actress": "Yuliya Snigir",
+      "tags": ["squeeze"],
+      "count": 1
+    },
+    {
+      "actress": "Yvette Nipar",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Zara Taylor",
-      "tags": ["kick"]
+      "tags": ["kick", "kick", "nsfw"],
+      "count": 2
+    },
+    {
+      "actress": "Zeenat Aman",
+      "tags": ["kick"],
+      "count": 1
     },
     {
       "actress": "Zoe Ciel",
-      "tags": ["verbal"]
+      "tags": ["verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Zoe Grant",
+      "tags": ["hit"],
+      "count": 1
     },
     {
       "actress": "Zoe Saldana",
-      "tags": ["stomp", "nsfw"]
+      "tags": ["knee", "stomp"],
+      "count": 2
+    },
+    {
+      "actress": "Zoey Deutch",
+      "tags": ["knee", "kick", "verbal"],
+      "count": 1
+    },
+    {
+      "actress": "Zosia Mamet",
+      "tags": ["knee"],
+      "count": 1
+    },
+    {
+      "actress": "Zoya Berber",
+      "tags": ["hit"],
+      "count": 1
+    },
+    {
+      "actress": "Zöe Lucker",
+      "tags": ["squeeze"],
+      "count": 1
     }
   ]
 }
