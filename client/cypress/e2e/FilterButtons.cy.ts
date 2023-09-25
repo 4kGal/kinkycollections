@@ -388,7 +388,7 @@ describe('Filter Buttons', () => {
 
     cy.dataCy('open-nav-drawer').click()
     cy.dataCy('filter-decade-menu-item').click()
-    cy.dataCy('decade-1').click({ force: true })
+    cy.dataCy('decade-3').click({ force: true })
     cy.get('[class$="MuiChip-root"]').should('have.length', 10)
 
     cy.dataCy('filter-actress-menu-item').click()
