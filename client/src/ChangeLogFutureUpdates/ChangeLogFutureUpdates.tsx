@@ -41,7 +41,8 @@ const changes = [
     state: IMPROVED,
     primary: 'Filtering',
     secondary: [
-      'Improved filtering on actress and tags while incorporating underage filter'
+      'Improved filtering on actress and tags while incorporating underage filter',
+      'Styling updates'
     ]
   },
   {
