@@ -5,9 +5,11 @@ export function getVideo(collection, _id) {
   return makeRequest(`/api/videos/${collection}/${_id}/data`)
 }
 
-export const getGalleryInitialSettings = (collection) => {
+export const getGalleryInitialSettings = (collection, hideUnderage) => {
   if (!GALLERY_PAGES.includes(collection)) return Promise.resolve({})
-  return makeRequest(`/api/videos/${collection}/settings`)
+  return makeRequest(
+    `/api/videos/${collection}/settings?underage=${hideUnderage}`
+  )
 }
 
 export const getGallery = (collection, queryStr) => {

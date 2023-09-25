@@ -43,8 +43,9 @@ export const GalleryProvider = ({ children }) => {
   }, [collection])
 
   const { value: settings } = useAsync(
-    () => getGalleryInitialSettings(collection),
-    [collection]
+    () =>
+      getGalleryInitialSettings(collection, hideUnderage?.toString() || 'true'),
+    [collection, hideUnderage]
   )
 
   useEffect(() => {

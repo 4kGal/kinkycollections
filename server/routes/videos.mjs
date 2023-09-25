@@ -18,6 +18,7 @@ const router = express.Router();
 
 router.get("/:collection/settings", async (req, res) => {
   const collection = await db.collection(req.params.collection);
+  const underage = req.query.underage === "false" ? true : false;
 
   const minYear = await collection
     .aggregate([{ $group: { _id: {}, lowestYear: { $min: "$year" } } }])
@@ -28,6 +29,7 @@ router.get("/:collection/settings", async (req, res) => {
       { $unwind: "$actresses" },
       { $unwind: "$tags" },
       { $unwind: "$year" },
+      ...(!underage ? [{ $match: { underage } }] : []),
       {
         $group: {
           _id: "$_id",
