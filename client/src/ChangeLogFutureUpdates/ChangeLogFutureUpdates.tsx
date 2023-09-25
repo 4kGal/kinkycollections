@@ -30,6 +30,14 @@ const changes = [
   },
   {
     title: '2023-09-24',
+    state: NEW,
+    primary: 'Actress Video Count',
+    secondary: [
+      'Added the ability to sort the actress filter by how many videos they have'
+    ]
+  },
+  {
+    title: '2023-09-24',
     state: IMPROVED,
     primary: 'Filtering',
     secondary: [
