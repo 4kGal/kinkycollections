@@ -295,7 +295,9 @@ const SideNav = ({
             <ListItem disablePadding>
               <ListItemButton onClick={() => setIsSortOpen((prev) => !prev)}>
                 <ListItemText primary="Sort" />
-                {isSortOpen ? <ExpandLess /> : <ExpandMore />}
+                <IconButton size="small">
+                  {isSortOpen ? <ExpandLess /> : <ExpandMore />}
+                </IconButton>
               </ListItemButton>
             </ListItem>
             <Collapse in={isSortOpen} timeout="auto" unmountOnExit>
