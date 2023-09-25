@@ -183,8 +183,6 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
       .catch((e: Error) => setFavoriteError(e?.message))
   }
 
-  console.log(favoriteError)
-
   return (
     <StyledCardGrid item xs={2} data-cy={`card-${_id}`}>
       <Badge

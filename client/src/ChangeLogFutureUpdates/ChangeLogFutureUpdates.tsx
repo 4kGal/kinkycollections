@@ -19,7 +19,7 @@ const FIX = 'Fixed'
 const IMPROVED = 'Improved'
 const COMING = 'Coming Soon'
 
-const changes = [
+export const CHANGES = [
   {
     title: 'In Progress',
     state: COMING,
@@ -29,7 +29,16 @@ const changes = [
     ]
   },
   {
-    title: '2023-09-24',
+    title: '09/25/2023',
+    state: IMPROVED,
+    primary: 'NEW Icon Badge',
+    secondary: [
+      'The NEW icon now only appears when a video has been added since the user has last logged in',
+      'Added the NEW icon to the changes log to indicate when something new or improve has been release'
+    ]
+  },
+  {
+    title: '09/24/2023',
     state: NEW,
     primary: 'Actress Video Count',
     secondary: [
@@ -37,7 +46,7 @@ const changes = [
     ]
   },
   {
-    title: '2023-09-24',
+    title: '09/24/2023',
     state: IMPROVED,
     primary: 'Filtering',
     secondary: [
@@ -46,19 +55,19 @@ const changes = [
     ]
   },
   {
-    title: '2023-09-21',
+    title: '09/21/2023',
     state: IMPROVED,
     primary: 'Search',
     secondary: ['Improved functionality of searching']
   },
   {
-    title: '2023-09-20',
+    title: '09/20/2023',
     state: IMPROVED,
     primary: 'Improved Views',
     secondary: ['Improved functionality of how it caclulates video views']
   },
   {
-    title: '2023-09-19',
+    title: '09/19/2023',
     state: IMPROVED,
     primary:
       "Renamed Most Liked to Most Favorites and improved it's funcationality",
@@ -67,13 +76,13 @@ const changes = [
     ]
   },
   {
-    title: '2023-09-19',
+    title: '09/19/2023',
     state: NEW,
     primary: 'Added the Most Viewed sort',
     secondary: ['Added in a new sort option for sorting by most liked videos']
   },
   {
-    title: '2023-09-18',
+    title: '09/18/2023',
     state: NEW,
     primary: 'Website Went Live',
     secondary: [
@@ -92,7 +101,7 @@ const ChangeLogFutureUpdates = () => {
               Changelog
             </Typography>
           </ListItem>
-          {changes.map(({ title, state, primary, secondary }) => (
+          {CHANGES.map(({ title, state, primary, secondary }) => (
             <>
               <ListItem alignItems="flex-start">
                 <Typography color="white" variant="h5">

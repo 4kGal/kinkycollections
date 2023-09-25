@@ -11,7 +11,8 @@ import {
   Collapse,
   MenuItem,
   Select,
-  Tooltip
+  Tooltip,
+  Badge
 } from '@mui/material'
 import { styled } from '@mui/system'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -33,7 +34,7 @@ import { useAsyncFn } from '../hooks/useAsync'
 import { type User } from '../Shared/types'
 import FilterWithClearComponent from '../Shared/FilterWithClearButton/FilterWithClearButton'
 import { uniq, isEmpty } from 'lodash'
-
+import { CHANGES } from '../ChangeLogFutureUpdates/ChangeLogFutureUpdates'
 interface UserSetting {
   hideUnderage: boolean
 }
@@ -164,6 +165,10 @@ const SideNav = ({
   } = useAuthContext()
 
   const updateUserSettingsFn = useAsyncFn(updateUserSettings)
+
+  const newChanges = CHANGES.some(
+    (log) => new Date(log.title) >= new Date(user?.lastLoggedIn)
+  )
 
   const [isSortOpen, setIsSortOpen] = useState(false)
   const [isDecadeOpen, setIsDecadeOpen] = useState(false)
@@ -478,9 +483,19 @@ const SideNav = ({
         )}
         <Divider />
         <ChangeLogListItem>
-          <ListItemButton onClick={visitChangeLogPage}>
-            <ListItemText primary="ChangeLog & Future Updates" />
-          </ListItemButton>
+          <Badge
+            badgeContent={'New'}
+            color="primary"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right'
+            }}
+            invisible={!newChanges}
+          >
+            <ListItemButton onClick={visitChangeLogPage}>
+              <ListItemText primary="ChangeLog & Future Updates" />
+            </ListItemButton>
+          </Badge>
         </ChangeLogListItem>
       </List>
     </Drawer>
