@@ -180,8 +180,10 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
       .then((res: User) => {
         dispatch({ type: UPDATE_FAVORITE, payload: res })
       })
-      .catch(setFavoriteError)
+      .catch((e: Error) => setFavoriteError(e?.message))
   }
+
+  console.log(favoriteError)
 
   return (
     <StyledCardGrid item xs={2} data-cy={`card-${_id}`}>

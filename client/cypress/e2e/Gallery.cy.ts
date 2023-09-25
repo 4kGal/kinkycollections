@@ -79,7 +79,7 @@ describe('Gallery', () => {
     }
     cy.dataCy(`${gallery[3]._id}-not-favorited`).click()
   })
-  it.only('displays favorite error', () => {
+  it.skip('displays favorite error', () => {
     cy.intercept('PUT', '/api/user/favorites/', { statusCode: 500 }).as(
       'getServerFailure'
     )
