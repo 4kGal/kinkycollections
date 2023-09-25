@@ -52,7 +52,7 @@ export const GalleryProvider = ({ children }) => {
 
   if (
     availableActresses?.length === 0 &&
-    settings?.listOfActresses.length > 0
+    settings?.listOfActresses?.length > 0
   ) {
     setAvailableActresses(settings?.listOfActresses)
   }
