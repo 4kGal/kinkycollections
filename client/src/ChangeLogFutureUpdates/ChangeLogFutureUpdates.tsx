@@ -29,6 +29,14 @@ const changes = [
     ]
   },
   {
+    title: '2023-09-24',
+    state: IMPROVED,
+    primary: 'Filtering',
+    secondary: [
+      'Improved filtering on actress and tags while incorporating underage filter'
+    ]
+  },
+  {
     title: '2023-09-21',
     state: IMPROVED,
     primary: 'Search',
