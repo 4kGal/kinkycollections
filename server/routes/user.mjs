@@ -90,6 +90,7 @@ router.post("/signup", async (req, res) => {
       likes: [],
       hideUnderage: true,
       userRoles: "",
+      lastLoggedIn: new Date(),
     });
 
     const token = createToken(user._id);
