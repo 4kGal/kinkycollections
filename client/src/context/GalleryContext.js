@@ -42,6 +42,7 @@ export const GalleryProvider = ({ children }) => {
     setSelectedActresses([])
     setSelectedTags([])
     setSelectedDecades([])
+    setActressSort(false)
   }, [collection])
 
   const { value: settings } = useAsync(
@@ -50,12 +51,9 @@ export const GalleryProvider = ({ children }) => {
     [collection, hideUnderage]
   )
 
-  if (
-    availableActresses?.length === 0 &&
-    settings?.listOfActresses?.length > 0
-  ) {
+  useEffect(() => {
     setAvailableActresses(settings?.listOfActresses)
-  }
+  }, [settings?.listOfActresses])
 
   useEffect(() => {
     if (selectedActresses?.length > 0 && !params.combineFilters) {
