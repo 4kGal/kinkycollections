@@ -12,7 +12,8 @@ import {
   Typography,
   FormControlLabel,
   Radio,
-  LinearProgress
+  LinearProgress,
+  Grid
 } from '@mui/material'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -30,17 +31,15 @@ import { getSearchResults } from '../services/videos'
 import { type MetaData } from '../Shared/types'
 import { useGalleryContext } from '../hooks'
 import { usePrevious } from '../hooks/usePrevious'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: 'gray',
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto'
-  }
+  // marginLeft: 0,
+  // width: '27%',
+  minWidth: '140px'
 }))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -57,16 +56,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: 0,
+    marginLeft: '-75px',
     // vertical padding + font size from searchIcon
-    paddingLeft: 45,
     // transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '25ch'
+    [theme.breakpoints.down('sm')]: {
+      width: '25ch',
+      marginLeft: '0px',
+      paddingLeft: 45
     }
   }
 }))
 const Header = () => {
+  const largeWidthScreen = useMediaQuery('(min-width:600px)')
   const location = useLocation()
   const prevLocationState = usePrevious(location?.state)
   const navigate = useNavigate()
@@ -76,6 +79,7 @@ const Header = () => {
   const [searchWithin, setSearchWithin] = useState('category')
   const [searchTerm, setSearchTerm] = useState('')
   const [previousPage, setPreviousPage] = useState('')
+  const [focus, setFocus] = useState(false)
 
   const { hideUnderage } = useGalleryContext()
   const getSearchResultsFn = useAsyncFn(getSearchResults)
@@ -167,90 +171,101 @@ const Header = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => setOpen(true)}
-            edge="start"
-            data-cy="open-nav-drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              width: '100%',
-              display: { xs: 'none', sm: 'block' },
-              marginLeft: '250px'
-              // ml: onLoginPage ? 'initial' : '17%'
-            }}
-          >
-            <Link to="/" data-cy="header-home-link">
-              Kinky Collection
-            </Link>
-          </Typography>
-          {!onLoginPage && (
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <Tooltip title="Enter 4 or more characters">
-                <StyledInputBase
-                  placeholder="Search… "
-                  data-cy="search-bar"
-                  inputProps={{ 'aria-label': 'search' }}
-                  onClick={handleSearchMenuClick}
-                  id="search-input"
-                  // value={searchTerm}
-                  onChange={debouncedResults}
-                />
-              </Tooltip>
-              {onSearchablePage && (
-                <Menu
-                  id="demo-positioned-menu"
-                  aria-labelledby="demo-positioned-button"
-                  anchorEl={anchorEl}
-                  open={menuOpen}
-                  onClose={handleSearchMenuClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left'
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left'
-                  }}
-                  disableAutoFocus
-                >
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    value={searchWithin}
-                    name="radio-buttons-group"
-                    onChange={handleSearchWithin}
-                    defaultValue="category"
-                  >
-                    <MenuItem>
-                      <FormControlLabel
-                        value="category"
-                        control={<Radio data-cy="category" />}
-                        label="Search This Category"
-                      />
-                    </MenuItem>
-                    <MenuItem>
-                      <FormControlLabel
-                        value="site"
-                        control={<Radio data-cy="site" />}
-                        label="Search Whole Site"
-                      />
-                    </MenuItem>
-                  </RadioGroup>
-                </Menu>
+          <Grid container justifyContent="space-between" flexWrap="nowrap">
+            <Grid item xs={3} display="flex">
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={() => setOpen(true)}
+                edge="start"
+                data-cy="open-nav-drawer"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Grid>
+            <Grid item xs={6} ml={-5}>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  width: '100%',
+                  textOverflow: 'unset'
+                  // display: { sm: 'block' },
+                  // marginLeft: '50px'
+                  // ml: onLoginPage ? 'initial' : '17%'
+                }}
+              >
+                <Link to="/" data-cy="header-home-link">
+                  Kinky Collection
+                </Link>
+              </Typography>
+            </Grid>
+            <Grid item xs={!largeWidthScreen ? 5 : 3}>
+              {!onLoginPage && (
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <Tooltip title="Enter 4 or more characters">
+                    <StyledInputBase
+                      placeholder="Search… "
+                      data-cy="search-bar"
+                      inputProps={{ 'aria-label': 'search' }}
+                      onClick={handleSearchMenuClick}
+                      id="search-input"
+                      // value={searchTerm}
+                      onChange={debouncedResults}
+                      onFocus={() => setFocus(true)}
+                      onBlur={() => setFocus(false)}
+                    />
+                  </Tooltip>
+                  {onSearchablePage && (
+                    <Menu
+                      id="demo-positioned-menu"
+                      aria-labelledby="demo-positioned-button"
+                      anchorEl={anchorEl}
+                      open={menuOpen}
+                      onClose={handleSearchMenuClose}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left'
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left'
+                      }}
+                      disableAutoFocus
+                    >
+                      <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        value={searchWithin}
+                        name="radio-buttons-group"
+                        onChange={handleSearchWithin}
+                        defaultValue="category"
+                      >
+                        <MenuItem>
+                          <FormControlLabel
+                            value="category"
+                            control={<Radio data-cy="category" />}
+                            label="Search This Category"
+                          />
+                        </MenuItem>
+                        <MenuItem>
+                          <FormControlLabel
+                            value="site"
+                            control={<Radio data-cy="site" />}
+                            label="Search Whole Site"
+                          />
+                        </MenuItem>
+                      </RadioGroup>
+                    </Menu>
+                  )}
+                </Search>
               )}
-            </Search>
-          )}
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       {isSearching && <LinearProgress />}

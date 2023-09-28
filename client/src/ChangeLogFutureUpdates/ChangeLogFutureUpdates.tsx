@@ -29,6 +29,14 @@ export const CHANGES = [
     ]
   },
   {
+    title: '09/27/2023',
+    state: FIX,
+    primary: 'Home Link Visible on Mobile',
+    secondary: [
+      'Previously on mobile, you had to manually swipe back to the home dashboard. Now the link is visible in the header'
+    ]
+  },
+  {
     title: '09/25/2023',
     state: IMPROVED,
     primary: 'NEW Icon Badge',
