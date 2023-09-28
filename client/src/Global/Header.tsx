@@ -219,7 +219,7 @@ const Header = () => {
                       // value={searchTerm}
                       onChange={debouncedResults}
                       style={{
-                        marginLeft: largeWidthScreen ? '-100px' : 'inherit'
+                        marginLeft: largeWidthScreen ? '-50px' : 'inherit'
                       }}
                     />
                   </Tooltip>
