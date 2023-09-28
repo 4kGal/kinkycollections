@@ -79,7 +79,6 @@ const Header = () => {
   const [searchWithin, setSearchWithin] = useState('category')
   const [searchTerm, setSearchTerm] = useState('')
   const [previousPage, setPreviousPage] = useState('')
-  const [focus, setFocus] = useState(false)
 
   const { hideUnderage } = useGalleryContext()
   const getSearchResultsFn = useAsyncFn(getSearchResults)
@@ -217,8 +216,6 @@ const Header = () => {
                       id="search-input"
                       // value={searchTerm}
                       onChange={debouncedResults}
-                      onFocus={() => setFocus(true)}
-                      onBlur={() => setFocus(false)}
                     />
                   </Tooltip>
                   {onSearchablePage && (
