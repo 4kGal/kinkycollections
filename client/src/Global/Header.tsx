@@ -57,11 +57,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: 0,
-    marginLeft: '-75px',
+    marginLeft: -80,
     // vertical padding + font size from searchIcon
     // transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.up('sm')]: {
       width: '25ch',
       marginLeft: '0px',
       paddingLeft: 45
@@ -69,7 +69,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }))
 const Header = () => {
-  const largeWidthScreen = useMediaQuery('(min-width:600px)')
+  const mediumWidthScreen = useMediaQuery('(min-width:600px)')
+  const largeWidthScreen = useMediaQuery('(min-width:1270px)')
+
   const location = useLocation()
   const prevLocationState = usePrevious(location?.state)
   const navigate = useNavigate()
@@ -201,7 +203,7 @@ const Header = () => {
                 </Link>
               </Typography>
             </Grid>
-            <Grid item xs={!largeWidthScreen ? 5 : 3}>
+            <Grid item xs={!mediumWidthScreen ? 5 : 3}>
               {!onLoginPage && (
                 <Search>
                   <SearchIconWrapper>
@@ -209,13 +211,16 @@ const Header = () => {
                   </SearchIconWrapper>
                   <Tooltip title="Enter 4 or more characters">
                     <StyledInputBase
-                      placeholder="Search… "
+                      placeholder={mediumWidthScreen ? 'Search… ' : ''}
                       data-cy="search-bar"
                       inputProps={{ 'aria-label': 'search' }}
                       onClick={handleSearchMenuClick}
                       id="search-input"
                       // value={searchTerm}
                       onChange={debouncedResults}
+                      style={{
+                        marginLeft: largeWidthScreen ? '-100px' : 'inherit'
+                      }}
                     />
                   </Tooltip>
                   {onSearchablePage && (
