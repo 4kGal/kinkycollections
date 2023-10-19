@@ -57,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: 0,
-    marginLeft: -80,
+    marginLeft: 41,
     // vertical padding + font size from searchIcon
     // transition: theme.transitions.create('width'),
     width: '100%',
@@ -184,7 +184,7 @@ const Header = () => {
                 <MenuIcon />
               </IconButton>
             </Grid>
-            <Grid item xs={6} ml={-5}>
+            <Grid item xs={6} ml={-5} pt={0.625}>
               <Typography
                 variant="h6"
                 noWrap
@@ -218,9 +218,6 @@ const Header = () => {
                       id="search-input"
                       // value={searchTerm}
                       onChange={debouncedResults}
-                      style={{
-                        marginLeft: largeWidthScreen ? '-50px' : 'inherit'
-                      }}
                     />
                   </Tooltip>
                   {onSearchablePage && (

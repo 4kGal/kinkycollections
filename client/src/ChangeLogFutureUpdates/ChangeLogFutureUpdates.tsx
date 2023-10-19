@@ -29,6 +29,14 @@ export const CHANGES = [
     ]
   },
   {
+    title: '10/19/2023',
+    state: FIX,
+    primary: 'Search Bar and header styling on Mobile',
+    secondary: [
+      'Easier to access and use the search bar on mobile and minor styling updates'
+    ]
+  },
+  {
     title: '09/27/2023',
     state: FIX,
     primary: 'Home Link Visible on Mobile',
