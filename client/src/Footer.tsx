@@ -9,17 +9,17 @@ const Footer = () => {
       <BottomNavigation>
         <Grid
           container
-          direction="column"
           justifyContent="center"
-          alignItems="center"
+          alignContent="center"
+          textAlign="center"
         >
-          <Grid item>
-            <Typography>
+          <Grid item xs={12}>
+            <Typography variant="caption">
               &copy; 2023, Kinky Collection. All rights reserved.
             </Typography>
           </Grid>
-          <Grid item>
-            <Typography>
+          <Grid item xs={12}>
+            <Typography variant="caption">
               Contact me for bugs/feedback/suggestions/etc: 4kgal98@gmail.com
             </Typography>
           </Grid>
