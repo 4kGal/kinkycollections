@@ -28,7 +28,7 @@ router.get("/:collection/settings", async (req, res) => {
     .aggregate([
       { $unwind: "$actresses" },
       { $unwind: "$tags" },
-      { $unwind: "$year" },
+      { $unwind: { path: "$year", preserveNullAndEmptyArrays: true } },
       ...(!underage ? [{ $match: { underage } }] : []),
       {
         $group: {
@@ -102,15 +102,16 @@ router.get("/:collection/settings", async (req, res) => {
 
   const allYears = data.map((tag) => tag.years).flat();
 
-  const yearOccurances = allYears.reduce(function (acc, curr) {
-    return (
-      acc[Math.floor(curr / 10) * 10]
-        ? ++acc[Math.floor(curr / 10) * 10]
-        : (acc[Math.floor(curr / 10) * 10] = 1),
-      acc
-    );
-  }, {});
-
+  const yearOccurances = allYears
+    .filter((year) => year)
+    .reduce(function (acc, curr) {
+      return (
+        acc[Math.floor(curr / 10) * 10]
+          ? ++acc[Math.floor(curr / 10) * 10]
+          : (acc[Math.floor(curr / 10) * 10] = 1),
+        acc
+      );
+    }, {});
   const availableDecades = Object.keys(yearOccurances).map((year) => {
     return { [year]: yearOccurances[year] };
   });
@@ -125,6 +126,7 @@ router.get("/:collection/settings", async (req, res) => {
 
 router.get("/:collection/:id", async function (req, res) {
   const collection = await db.collection(req.params.collection);
+
   const movieObject = await collection.findOne({
     _id: new ObjectId(req.params.id),
   });

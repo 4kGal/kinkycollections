@@ -7,7 +7,8 @@ import amateurbbIcon from '../assets/images/amateurbb_folder.png'
 import amateurcbIcon from '../assets/images/amateurcb_folder.png'
 import mainstreampeIcon from '../assets/images/mainstreampe_folder.png'
 import mainstreammiscIcon from '../assets/images/mainstreammisc_folder.png'
-import comingsoonIcon from '../assets/images/comingsoon_folder.png'
+import pornballsIcon from '../assets/images/pornballs_folder.png'
+// import comingsoonIcon from '../assets/images/comingsoon_folder.png'
 import { styled } from '@mui/system'
 import {
   AMATEUR_BB_COLLECTION,
@@ -21,7 +22,9 @@ import {
   MAINSTREAM_MISC_COLLECTION,
   MAINSTREAM_MISC_URL,
   MAINSTREAM_PE_COLLECTION,
-  MAINSTREAM_PE_URL
+  MAINSTREAM_PE_URL,
+  PORN_BALLS_COLLECTION,
+  PORN_BALLS_URL
 } from '../utils/constants'
 
 const StyledLabel = styled('label')({
@@ -77,6 +80,15 @@ const Folders = [
     label: 'Mainstream Miscellaneous [i.e. boners, sph, cfnm, penises, etc]',
     disabled: false,
     cy: MAINSTREAM_MISC_COLLECTION
+  },
+  {
+    link: PORN_BALLS_URL,
+    src: pornballsIcon,
+    alt: 'porn balls',
+    label:
+      'Porn balls [i.e. accidental busts, busts in non-bb porn scenes, concern about hurting, etc]',
+    disabled: false,
+    cy: PORN_BALLS_COLLECTION
   }
 ]
 const Home = () => {
@@ -85,11 +97,16 @@ const Home = () => {
   return (
     <Grid container justifyContent="space-around">
       {Folders.map((folder) => (
-        <Grid item xs={1} sx={{ minWidth: 250 }} key={folder.label}>
+        <Grid
+          item
+          xs={1}
+          sx={{ minWidth: 250, cursor: 'pointer' }}
+          key={folder.label}
+        >
           <Button
             variant="text"
             size="small"
-            style={{ flexDirection: 'column' }}
+            style={{ flexDirection: 'column', cursor: 'pointer' }}
             disabled={folder.disabled}
             onClick={() => navigate(folder.link)}
           >
