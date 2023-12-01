@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Grid } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import mainstreambbIcon from '../assets/images/mainstreambb_folder.png'
 import mainstreambcbIcon from '../assets/images/mainstreamcb_folder.png'
 import amateurbbIcon from '../assets/images/amateurbb_folder.png'
@@ -96,6 +96,16 @@ const Home = () => {
 
   return (
     <Grid container justifyContent="space-around">
+      <Grid item xs={12} sx={{ backgroundColor: 'lightyellow' }}>
+        <Typography align="center" color="black" variant="h6">
+          My reddit account (4kgal) has been banned. Please message 4k_gal
+          instead, or my email 4kgal98@gmail.com to contact me
+        </Typography>
+        <Typography align="center" color="black">
+          I am currently unable to post or message there. I will continue
+          uploading here while figuring out what to do
+        </Typography>
+      </Grid>
       {Folders.map((folder) => (
         <Grid
           item

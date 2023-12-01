@@ -29,6 +29,19 @@ export const CHANGES = [
     ]
   },
   {
+    title: '12/1/2023',
+    state: FIX,
+    primary: 'Added message about reddit ban'
+  },
+  {
+    title: '10/29/2023',
+    state: NEW,
+    primary: 'Added Porn Balls',
+    secondary: [
+      'Added a new category for porn videos that figure accidental ballbusts, ballbusting in non-ballbusting porn, actresses being concerned about hurting balls, etc'
+    ]
+  },
+  {
     title: '10/19/2023',
     state: FIX,
     primary: 'Search Bar and header styling on Mobile',
@@ -144,7 +157,7 @@ const ChangeLogFutureUpdates = () => {
                       {primary}
                     </Typography>
                   }
-                  secondary={secondary.map((el, i) => (
+                  secondary={secondary?.map((el, i) => (
                     <Typography key={i} color="white" variant="subtitle2">
                       {el}
                     </Typography>
