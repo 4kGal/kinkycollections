@@ -34,6 +34,15 @@ export const CHANGES = [
     primary: 'Added message about reddit ban'
   },
   {
+    title: '12/1/2023',
+    state: FIX,
+    primary: 'Fix alignment of folders on mobile',
+    secondary: [
+      "I've fixed the horizontal alignment of folders when viewing on mobile.",
+      "It's now a straight line"
+    ]
+  },
+  {
     title: '10/29/2023',
     state: NEW,
     primary: 'Added Porn Balls',

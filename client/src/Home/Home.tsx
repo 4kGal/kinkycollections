@@ -110,7 +110,7 @@ const Home = () => {
         <Grid
           item
           xs={1}
-          sx={{ minWidth: 250, cursor: 'pointer' }}
+          sx={{ minWidth: 225, cursor: 'pointer' }}
           key={folder.label}
         >
           <Button
