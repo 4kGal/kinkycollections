@@ -29,6 +29,22 @@ export const CHANGES = [
     ]
   },
   {
+    title: 'In Progress',
+    state: COMING,
+    primary: 'Video Quality on mobile',
+    secondary: [
+      "Currently you can not change the video quality of videos on mobile. The server I'm using doesn't allow this. I'm looking into an alternative"
+    ]
+  },
+  {
+    title: 'In Progress',
+    state: COMING,
+    primary: 'New category of youtube nutshot reactions',
+    secondary: [
+      "I'm working on a new category that features girls on youtube reacting to nutshots"
+    ]
+  },
+  {
     title: '12/1/2023',
     state: FIX,
     primary: 'Added message about reddit ban'
