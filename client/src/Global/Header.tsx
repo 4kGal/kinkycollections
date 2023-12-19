@@ -70,7 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 const Header = () => {
   const mediumWidthScreen = useMediaQuery('(min-width:600px)')
-  const largeWidthScreen = useMediaQuery('(min-width:1270px)')
+  // const largeWidthScreen = useMediaQuery('(min-width:1270px)')
 
   const location = useLocation()
   const prevLocationState = usePrevious(location?.state)
