@@ -66,7 +66,7 @@ const StyledGrid = styled(Grid)({
   height: '370px'
 })
 const StyledCardContent = styled(Grid)({
-  padding: '0.8em',
+  padding: '0.6em',
   fontFamily: 'Georgia',
   height: 'auto',
   maxHeight: 126,
@@ -225,7 +225,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
             </Grid>
           </Link>
           <StyledCardContent key={video?._id}>
-            <Typography>
+            <Typography fontSize={displayName.length > 175 ? 11 : '1rem'}>
               {displayName}
               {selectedDecades?.length > 0 && !nameContainsYear && ` (${year})`}
             </Typography>
@@ -241,7 +241,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
               {typeof setSelectedTags !== 'undefined' &&
                 tags?.map((tag, i) => (
                   <Button
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: displayName.length > 175 ? 8 : 10 }}
                     size="small"
                     variant="text"
                     key={i}
@@ -254,7 +254,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
                 actresses.length > 0 &&
                 actresses?.map((actress, i) => (
                   <Button
-                    sx={{ fontSize: 10 }}
+                    sx={{ fontSize: displayName.length > 175 ? 8 : 10 }}
                     size="small"
                     variant="text"
                     key={i}
