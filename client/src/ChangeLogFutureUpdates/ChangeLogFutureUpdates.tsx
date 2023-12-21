@@ -45,6 +45,14 @@ export const CHANGES = [
     ]
   },
   {
+    title: '12/20/2023',
+    state: FIX,
+    primary: 'Description text overflowing',
+    secondary: [
+      "I've fixed the description text under each video so it no longer overflows outside of the white box"
+    ]
+  },
+  {
     title: '12/1/2023',
     state: FIX,
     primary: 'Added message about reddit ban'
