@@ -99,7 +99,8 @@ const Home = () => {
       <Grid item xs={12} sx={{ backgroundColor: 'lightyellow' }}>
         <Typography align="center" color="black" variant="body1">
           My reddit account (4kgal) has been banned. Please message 4k_gal
-          instead, or my email 4kgal98@gmail.com to contact me
+          instead, my email 4kgal98@gmail.com, or Telegram @FourK_Gal to contact
+          me
         </Typography>
         <Typography align="center" color="black" variant="caption">
           I am currently unable to post or message on the subreddit. I will

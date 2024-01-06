@@ -173,7 +173,6 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
 
   const nameContainsYear = displayName?.search(/[1-2][0-9][0-9][0-9]/) > -1
 
-  console.log(displayName, nameContainsYear)
   const handleFavorite = () => {
     setFavoriteError('')
     return updateFavoritesFn
