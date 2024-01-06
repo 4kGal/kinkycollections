@@ -173,6 +173,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
 
   const nameContainsYear = displayName?.search(/[1-2][0-9][0-9][0-9]/) > -1
 
+  console.log(displayName, nameContainsYear)
   const handleFavorite = () => {
     setFavoriteError('')
     return updateFavoritesFn
@@ -227,7 +228,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
           <StyledCardContent key={video?._id}>
             <Typography fontSize={displayName.length > 175 ? 11 : '1rem'}>
               {displayName}
-              {selectedDecades?.length > 0 && !nameContainsYear && ` (${year})`}
+              {!nameContainsYear && ` (${year})`}
             </Typography>
           </StyledCardContent>
           <Grid
