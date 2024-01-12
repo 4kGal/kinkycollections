@@ -15,6 +15,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { updateFavorites, updateVideoAdmin } from './services/user'
 import { UPDATE_FAVORITE } from './utils/constants'
+import { titleCase } from 'title-case'
 
 const StyledDivContainer = styled('div')({
   position: 'relative',
@@ -91,6 +92,9 @@ const Player = () => {
       .catch(setFavoriteError)
   }
 
+  const displayName =
+    video?.customName?.length > 0 ? video.customName : video.name
+
   return (
     <Grid
       container
@@ -118,7 +122,7 @@ const Player = () => {
         >
           <Grid item xs={11} justifyContent="center" display="flex">
             <Typography variant="h5" align="center" color="white">
-              {video?.customName?.length > 0 ? video.customName : video.name}
+              {titleCase(displayName)}
             </Typography>
           </Grid>
           <Grid item xs={11} justifyContent="center" display="flex">

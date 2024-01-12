@@ -27,6 +27,7 @@ import {
 } from '../services/user'
 import { UPDATE_FAVORITE } from '../utils/constants'
 import { isArray, isBoolean, isEmpty } from 'lodash'
+import { titleCase } from 'title-case'
 
 interface Video {
   collection?: string
@@ -226,7 +227,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
           </Link>
           <StyledCardContent key={video?._id}>
             <Typography fontSize={displayName.length > 175 ? 11 : '1rem'}>
-              {displayName}
+              {titleCase(displayName)}
               {!nameContainsYear && ` (${year})`}
             </Typography>
           </StyledCardContent>
