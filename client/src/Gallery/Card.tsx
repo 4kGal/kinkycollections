@@ -172,7 +172,7 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
   const displayName =
     customName.length > 0 ? customName : name?.replace('.mp4', '')
 
-  const nameContainsYear = displayName?.search(/[1-2][0-9][0-9][0-9]/) > -1
+  const nameContainsYear = displayName?.search(/([1-2][0-9][0-9][0-9])/) > -1
 
   const handleFavorite = () => {
     setFavoriteError('')
@@ -228,7 +228,8 @@ const Card = ({ video, index, setSelectedTags, setCustomTags }: Video) => {
           <StyledCardContent key={video?._id}>
             <Typography fontSize={displayName.length > 175 ? 11 : '1rem'}>
               {titleCase(displayName)}
-              {!nameContainsYear && ` (${year})`}
+              {!nameContainsYear}{' '}
+              {!nameContainsYear && year !== null && ` (${year})`}
             </Typography>
           </StyledCardContent>
           <Grid
