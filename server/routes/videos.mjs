@@ -17,6 +17,10 @@ const __dirname = path.resolve();
 const router = express.Router();
 
 router.get("/:collection/settings", async (req, res) => {
+  const ipAddress = req?.socket?.remoteAddress;
+
+  console.log("IP ADDRESS: ", ipAddress);
+
   const collection = await db.collection(req.params.collection);
   const underage = req.query.underage === "false" ? true : false;
 
