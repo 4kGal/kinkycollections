@@ -8,6 +8,7 @@ import amateurcbIcon from '../assets/images/amateurcb_folder.png'
 import mainstreampeIcon from '../assets/images/mainstreampe_folder.png'
 import mainstreammiscIcon from '../assets/images/mainstreammisc_folder.png'
 import pornballsIcon from '../assets/images/pornballs_folder.png'
+import reactionsIcon from '../assets/images/reactions_folder.png'
 // import comingsoonIcon from '../assets/images/comingsoon_folder.png'
 import { styled } from '@mui/system'
 import {
@@ -24,7 +25,9 @@ import {
   MAINSTREAM_PE_COLLECTION,
   MAINSTREAM_PE_URL,
   PORN_BALLS_COLLECTION,
-  PORN_BALLS_URL
+  PORN_BALLS_URL,
+  REACTIONS_COLLECTION,
+  REACTIONS_URL
 } from '../utils/constants'
 
 const StyledLabel = styled('label')({
@@ -89,6 +92,14 @@ const Folders = [
       'Porn balls [i.e. accidental busts, busts in non-bb porn scenes, concern about hurting, etc]',
     disabled: false,
     cy: PORN_BALLS_COLLECTION
+  },
+  {
+    link: REACTIONS_URL,
+    src: reactionsIcon,
+    alt: 'reactions',
+    label: "Girl's Reactions",
+    disabled: false,
+    cy: REACTIONS_COLLECTION
   }
 ]
 const Home = () => {

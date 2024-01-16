@@ -28,6 +28,8 @@ import {
   MAINSTREAM_PE_URL,
   PORN_BALLS_COLLECTION,
   PORN_BALLS_URL,
+  REACTIONS_COLLECTION,
+  REACTIONS_URL,
   SEARCH_RESULTS_URL
 } from './utils/constants'
 const App = () => {
@@ -65,6 +67,10 @@ const App = () => {
             <Route
               path={PORN_BALLS_URL}
               element={<Gallery collection={PORN_BALLS_COLLECTION} />}
+            />
+            <Route
+              path={REACTIONS_URL}
+              element={<Gallery collection={REACTIONS_COLLECTION} />}
             />
             <Route
               path="/player/:collection/:id"
