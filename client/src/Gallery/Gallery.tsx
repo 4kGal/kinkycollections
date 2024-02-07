@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, LinearProgress } from '@mui/material'
+import { Grid, LinearProgress, Link } from '@mui/material'
 import { useGalleryContext } from '../hooks'
 import { type MetaData } from '../Shared/types'
 import Card from './Card'
 import PageNavigation from '../Shared/PageNavigation/PageNavigation'
 import FilterVideoButtons from '../Shared/FilterVideoButtons/FilterVideoButtons'
 import { useLocation } from 'react-router-dom'
-import { IS_MAINSTREAM } from '../utils/constants'
+import { IS_MAINSTREAM, MAINSTREAM_CB_URL } from '../utils/constants'
 
 const Gallery = ({ collection }: { collection: string }) => {
   const location = useLocation()
@@ -30,6 +30,7 @@ const Gallery = ({ collection }: { collection: string }) => {
   } = useGalleryContext()
 
   const onMainstreamPage = IS_MAINSTREAM.includes(location.pathname)
+  const onMainstreamCB = location.pathname === MAINSTREAM_CB_URL
 
   useEffect(() => {
     setPage(0)
@@ -78,6 +79,16 @@ const Gallery = ({ collection }: { collection: string }) => {
          </Grid>
        ) : ( */}
       <>
+        {onMainstreamCB && (
+          <Link
+            href="https://low-blow.net/"
+            target="_blank"
+            sx={{ paddingBottom: 1 }}
+            variant="h5"
+          >
+            Visit Low-Blow.net for even more
+          </Link>
+        )}
         <FilterVideoButtons
           availableTags={availableTags}
           handleTagSelection={handleTagSelection}

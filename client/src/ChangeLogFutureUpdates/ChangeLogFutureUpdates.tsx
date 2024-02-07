@@ -45,6 +45,12 @@ export const CHANGES = [
     ]
   },
   {
+    title: '02/07/2024',
+    state: NEW,
+    primary: 'Link for low-blow.net',
+    secondary: ['Added a link on mainstreamcb to navigate to low-blow.net']
+  },
+  {
     title: '12/20/2023',
     state: FIX,
     primary: 'Description text overflowing',
