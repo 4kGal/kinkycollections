@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography, Link } from '@mui/material'
 import mainstreambbIcon from '../assets/images/mainstreambb_folder.png'
 import mainstreambcbIcon from '../assets/images/mainstreamcb_folder.png'
 import amateurbbIcon from '../assets/images/amateurbb_folder.png'
@@ -109,17 +109,26 @@ const Home = () => {
     <Grid container justifyContent="space-around">
       <Grid item xs={12} sx={{ backgroundColor: 'lightyellow' }}>
         <Typography align="center" color="black" variant="body1">
-          My reddit account (4kgal) has been banned. Please message 4k_gal
-          instead, my email 4kgal98@gmail.com, or Telegram @FourK_Gal to contact
-          me
+          I created a new subreddit{' '}
+          <Link
+            href="https://mainstreambb_2.reddit.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            mainstreambb_2
+          </Link>{' '}
+          where I will be posting.
         </Typography>
-        <Typography align="center" color="black" variant="caption">
-          I am currently unable to post or message on the subreddit. I will
-          continue uploading here while figuring out what to do
-        </Typography>
-        <Typography align="center" color="black" variant="caption">
-          Please do not hesitate to message me. I do really enjoy hearing for
-          you all
+        <Typography
+          align="center"
+          color="black"
+          variant="caption"
+          paragraph
+          marginBottom={1}
+        >
+          Please message 4k_gal on reddit, my email 4kgal98@gmail.com, or
+          Telegram @FourK_Gal to contact me. Please do not hesitate to message
+          me. I do really enjoy hearing for you all
         </Typography>
       </Grid>
       {Folders.map((folder) => (

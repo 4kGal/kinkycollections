@@ -37,11 +37,17 @@ export const CHANGES = [
     ]
   },
   {
-    title: 'In Progress',
-    state: COMING,
+    title: '06/23/2024',
+    state: NEW,
+    primary: 'Updated home message',
+    secondary: ['Updated the home message to mention new subreddit']
+  },
+  {
+    title: '04/01/2024',
+    state: NEW,
     primary: 'New category of youtube nutshot reactions',
     secondary: [
-      "I'm working on a new category that features girls on youtube reacting to nutshots"
+      'Created a new category that features girls on youtube reacting to nutshots'
     ]
   },
   {
