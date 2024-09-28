@@ -1,51 +1,49 @@
-//const User = require("../models/userModel")
-import jwt from "jsonwebtoken"
-
-//const jwt = require("jsonwebtoken")
-//const Movie = require("../models/movieModel")
+import jwt from "jsonwebtoken";
 
 const createToken = (_id) =>
-  jwt.sign({ _id }, process.env.REACT_APP_SECRET, { expiresIn: "3d" })
+  jwt.sign({ _id }, process.env.REACT_APP_SECRET, { expiresIn: "3d" });
 
 const loginUser = async (req, res) => {
-  const { email, username, password } = req.body
+  const { email, username, password } = req.body;
 
   try {
-    const user = await User.login(username, email, password)
+    const user = await User.login(username, email, password);
 
-    const token = createToken(user._id)
-    res.status(200).json({ username, email, token, favorites: user?.favorites })
+    const token = createToken(user._id);
+    res
+      .status(200)
+      .json({ username, email, token, favorites: user?.favorites });
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 const signupUser = async (req, res) => {
-  const { email, username, password } = req.body
+  const { email, username, password } = req.body;
   try {
-    const user = await User.signup(email, password, username)
+    const user = await User.signup(email, password, username);
 
-    const token = createToken(user._id)
-    res.status(200).json({ username, token, email })
+    const token = createToken(user._id);
+    res.status(200).json({ username, token, email });
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 const updateUserEmail = async (req, res) => {
-  const { username, email } = req.body
+  const { username, email } = req.body;
   try {
-    const user = await User.updateEmail(username, email)
-    const token = createToken(user._id)
+    const user = await User.updateEmail(username, email);
+    const token = createToken(user._id);
 
-    res.status(200).json({ username, email, token })
+    res.status(200).json({ username, email, token });
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 const getFavorites = async (req, res) => {
-  const username = req.params.username
+  const username = req.params.username;
   try {
     const { favorites } = await User.findOne({
       username: username.toLowerCase(),
@@ -53,19 +51,19 @@ const getFavorites = async (req, res) => {
       .select({ favorites: 1, _id: 0 })
       .sort({
         createdAd: -1,
-      })
+      });
     const response = await Movie.find({
       _id: { $in: favorites },
-    })
+    });
 
-    res.status(200).json(response)
+    res.status(200).json(response);
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(400).json({ error: error.message });
   }
-}
+};
 
 const updateFavorites = async (req, res) => {
-  const { username, favorite } = req.body
+  const { username, favorite } = req.body;
 
   const response = await User.findOneAndUpdate(
     {
@@ -96,7 +94,7 @@ const updateFavorites = async (req, res) => {
       },
     ],
     { returnOriginal: false, returnDocument: true }
-  )
+  );
   // const exists = await User.find({
   //   username: username.toLowerCase(),
   //   favorites: { $in: favorite },
@@ -119,8 +117,8 @@ const updateFavorites = async (req, res) => {
   //   param
   // ).sort({ createdAd: -1 })
 
-  res.status(200).json(response)
-}
+  res.status(200).json(response);
+};
 
 export default {
   loginUser,
@@ -128,4 +126,4 @@ export default {
   updateUserEmail,
   getFavorites,
   updateFavorites,
-}
+};
